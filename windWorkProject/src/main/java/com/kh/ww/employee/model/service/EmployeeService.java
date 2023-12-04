@@ -8,4 +8,7 @@ public interface EmployeeService {
 	
 	//회원가입서비스(insert)
 	int insertEmployee(Employee e);
+	
+	//로그인서비스(login)
+	Employee loginEmployee(Employee e);
 }
