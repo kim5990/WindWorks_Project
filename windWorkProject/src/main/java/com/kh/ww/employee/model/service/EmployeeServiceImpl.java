@@ -24,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public int insertEmployee(Employee e) {
-		return employeeDao.insertEmployee(sqlSession, m);
+		return employeeDao.insertEmployee(sqlSession, e);
 	}
 
 }
