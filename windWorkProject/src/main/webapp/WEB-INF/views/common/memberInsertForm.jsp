@@ -17,7 +17,7 @@
   <script src="resources/common/js/memberInsert.js"></script>
 </head>
 <body>
-	<form action="" class="row g-3 needs-validation" id="signupForm">
+	<form action="insert.em" class="row g-3 needs-validation" id="signupForm">
     <div class="memberInsertForm">
       <div class="memberInsertForm-inputs">
         <div class="memberInsertForm-input-title">
@@ -36,15 +36,15 @@
             <div class="memberInsertForm-input-content1-container1">
               <div class="memberInsertForm-input-content1-container1-name">
                 <label for="nameInput" class="form-label insert-font">이름</label>
-                <input class=" form-control form-control-sm" id="nameInput" type="text" placeholder="이름을 입력해주세요">
+                <input class=" form-control form-control-sm" id="nameInput" type="text" placeholder="이름을 입력해주세요" name="empName">
               </div>
               <div class="memberInsertForm-input-content1-container1-name">
                 <label for="genderInput" class="form-label insert-font">성별</label>
                 <div class="memberInsert-genderInput">
-                  <input type="radio" class="btn-check " name="gender" value="male" id="success-outlined"
+                  <input type="radio" class="btn-check " name="empGender" value="male" id="success-outlined"
                     autocomplete="off" checked>
                   <label class="btn btn-outline-secondary btn-sm" for="success-outlined">남자</label>
-                  <input type="radio" class="btn-check" name="gender" value="female" id="danger-outlined"
+                  <input type="radio" class="btn-check" name="empGender" value="female" id="danger-outlined"
                     autocomplete="off">
                   <label class="btn btn-outline-secondary btn-sm" for="danger-outlined">여자</label>
                 </div>
@@ -54,9 +54,9 @@
             <div class="memberInsertForm-input-content1-container2">
               <label for="emailInput" class="form-label insert-font">이메일</label>
               <div class="input-group input-group-sm mb-3">
-                <input type="text" class="form-control" id="emailInput" name="" placeholder="이메일 주소">
+                <input type="text" class="form-control" id="emailInput" name="empEmial1" placeholder="이메일 주소">
                 <span class="input-group-text" id="inputGroup-sizing-sm">@</span>
-                <input class="form-control form-control-sm" id="emailDomain" name="" list="datalistOptions" type="text"
+                <input class="form-control form-control-sm" id="emailDomain" name="empEmial2" list="datalistOptions" type="text"
                   placeholder="직접입력 or 선택">
                 <datalist id="datalistOptions">
                   <option value="naver.com">
@@ -72,7 +72,7 @@
           <div class="memberInsertForm-input-content1-container">
             <div class="memberInsertForm-input-content1-container3">
               <label for="inputPassword" class="form-label insert-font">비밀번호</label>
-              <input class="form-control form-control-sm" name="" id="inputPassword" type="password"
+              <input class="form-control form-control-sm" name="empPwd" id="inputPassword" type="password"
                 placeholder="비밀번호 입력(문자, 숫자, 특수문자 포함 8 ~ 20자)">
               <div class="invalid-feedback insert-invalid-fontsize1" id="password-invalid">
               </div>
@@ -82,7 +82,7 @@
             </div>
             <div class="memberInsertForm-input-content1-container2">
               <label for="inputPasswordCheck" class="form-label insert-font">비밀번호 확인</label>
-              <input class="form-control form-control-sm" name="" id="inputPasswordCheck" type="password"
+              <input class="form-control form-control-sm" name="empPwd2" id="inputPasswordCheck" type="password"
                 placeholder="비밀번호 재입력">
               <div class="invalid-feedback insert-invalid-fontsize2">
                 비밀번호가 일치하지 않습니다.
@@ -96,7 +96,7 @@
         <div class="memberInsertForm-input-content2">
           <div class="memberInsertForm-input-content1-container2">
             <label for="phoneInput" class="form-label insert-font">전화번호</label>
-            <input class="form-control form-control-sm" name="" id="phoneInput" type="text"
+            <input class="form-control form-control-sm" name="empPhone" id="phoneInput" type="text"
               placeholder="휴대폰 번호 입력(문자,특수문자 입력불가)">
             <div class="invalid-feedback insert-invalid-fontsize2">
               9 ~ 11자리 입력해주세요.
@@ -107,7 +107,7 @@
           </div>
           <div class="memberInsertForm-input-content1-container2">
             <label for="dateInput" class="form-label insert-font">생년월일</label>
-            <input class="form-control form-control-sm" name="" id="dateInput" type="date"
+            <input class="form-control form-control-sm" name="empAge" id="dateInput" type="date"
               placeholder=".form-control-sm" aria-label=".form-control-sm example">
           </div>
         </div>
