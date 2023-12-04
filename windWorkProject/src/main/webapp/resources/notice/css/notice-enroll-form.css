@@ -1,0 +1,107 @@
+/* 공지사항 작성 전체영역 */
+.notice-enroll-area{
+	display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+/* 공지사항 작성 텍스트 */
+.notice-enroll-form-area-top{
+	display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.notice-enroll-top{
+    margin-top: 60px;
+    margin-left: 200px;
+    float: left;
+    display: flex;
+    align-items: flex-end;
+}
+
+.notice-back-btn{
+	border: none;
+	background: white;
+}
+
+.notice-enroll-icon{
+	margin-top: 20px;
+}
+
+.notice-back-icon{
+	font-size: 30px;
+}
+
+.notice-enroll-text{
+	font-size: 22px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-bottom: 4px;
+}
+
+/* 공지사항 작성 폼 */
+.notice-enroll-form-area{
+	margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.notice-enroll-table{
+	display: flex;
+    justify-content: center;
+}
+
+.notice-enroll-table tr{
+	height: 80px;
+}
+
+.notice-enroll-table tr label{
+	margin-right: 100px;
+}
+
+.notice-enroll-table input, textarea{
+	width: 850px;
+}
+
+.notice-enroll-file-icon{
+	font-size: 20px;
+}
+
+.notice-enroll-file{
+	text-align: center;
+	width: 850px;
+    padding: 50px;
+    margin-bottom: 25px;
+    border: 1px dashed #dddddd;
+    color: #999999;
+}
+
+/* 공지사항 등록,취소 버튼 */
+.notice-enroll-btn{
+	display: flex;
+    justify-content: center;
+    padding-left: 90px;
+    margin-top: 15px;
+}
+
+.notice-enroll-btn-submit{
+	height: 40px;
+	width: 65px;
+	border: 1px solid rgb(85, 175, 130);
+	background-color: rgb(85, 175, 130);
+	color: white;
+	border-radius: 7px;
+	margin: 0 15px;
+}
+
+.notice-enroll-btn-reset{
+	height: 40px;
+	width: 65px;
+	border: 1px solid rgb(85, 175, 130);
+	background-color: white;
+	color: rgb(85, 175, 130);
+	border-radius: 7px;
+	margin: 0 15px;
+}
