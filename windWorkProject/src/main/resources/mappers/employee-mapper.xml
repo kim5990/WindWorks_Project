@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="employeeMapper">
+	<select id="insertMember">
+		INSERT INTO EMPLOYEE(
+			EMP_NO,
+			EMP_NAME,
+			EMP_EMAIL,
+			EMP_PWD,
+			EMP_PHONE,
+			EMP_AGE,
+			EMP_GENDER,
+			EMP_ADDRESS,
+		)
+		VALUES (
+			SEQ_ENO,
+			#{empName},
+			#{empEmail},
+			#{empPwd},
+			#{empPhone},
+			#{empAge},
+			#{empGender},
+			#{empAddress}
+		)
+	</select>
