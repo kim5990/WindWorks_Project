@@ -14,7 +14,7 @@ import com.kh.ww.employee.model.vo.Employee;
 @Controller
 public class EmployeeController {
 	@Autowired
-	private EmployeeService EmployeeService;
+	private EmployeeService employeeService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -25,7 +25,7 @@ public class EmployeeController {
 		
 		e.setEmpPwd(encPwd);
 		
-		int result = EmployeeService.insertEmployee(e);
+		int result = employeeService.insertEmployee(e);
 		
 		if (result > 0) {
 			session.setAttribute("alertMsg", "성공적으로 회원가입이 완료되었습니다.");
