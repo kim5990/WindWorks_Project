@@ -37,10 +37,13 @@ for(i=0;i<linkCollapse.length;i++) {
 
 function toggleDisplay() {
     let rightUserinfo = document.querySelector('#rightUserinfo');
+    let rightUserinfo2 = document.querySelector('#rightUserinfo2');
 
     if (window.getComputedStyle(rightUserinfo).display === 'none') {
         rightUserinfo.style.display = 'flex';
+        rightUserinfo2.style.display = 'flex';
     } else {
         rightUserinfo.style.display = 'none';
+        rightUserinfo2.style.display = 'none';
     }
 }

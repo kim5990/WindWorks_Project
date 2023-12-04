@@ -1,0 +1,139 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login {
+    display: flex;
+    width: 600px;
+    height: 484px;
+    border: 1px solid rgba(85, 175, 130, 0.5);
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-logo-image {
+    width: 110px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-logo-image {
+    animation: rotate_image 5s linear infinite;
+    transform-origin: 50% 50%;
+}
+
+@keyframes rotate_image {
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+.login-logo-text {
+    display: flex;
+    width: 200px;
+    height: 43px;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.login-logo-text-wind {
+    font-weight: 700;
+    color: rgb(85, 175, 130);
+}
+
+.login-logo-text-work {
+    font-weight: 500;
+    color: rgb(85, 175, 130);
+}
+
+.login-inputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 600px;
+    height: 110px;
+    margin-top: 20px;
+}
+
+.login-input {
+    display: flex;
+    width: 350px;
+    height: 90px;
+}
+
+.login-input-size {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 45px;
+    border-radius: 6px;
+    border: 1px solid rgb(85, 175, 130);
+    cursor: pointer;
+}
+
+.login-input-size:hover {
+    opacity: 0.8;
+}
+
+.login-input-border {
+    width: 300px;
+    height: 40px;
+    border: none;
+    outline: none;
+}
+
+.login-input-border::placeholder {
+    font-size: 10px;
+    color: gray;
+    opacity: 0.8;
+}
+
+.login-success-btn {
+    width: 350px;
+    height: 45px;
+    background-color: rgb(85, 175, 130);
+    font-weight: 600;
+    border: none;
+}
+
+.login-tail {
+    width: 330px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.login-insertMember-btn {
+    cursor: pointer;
+}
+
+.check-input {
+    accent-color: rgb(85, 175, 130);
+}
+
+.check-input:checked {
+    background-color: rgb(85, 175, 130);
+    /* 바꾸고 싶은 배경색을 여기에 지정합니다. */
+    border-color: rgb(85, 175, 130);
+    /* 선택 상태에서의 테두리 색상도 함께 지정할 수 있습니다. */
+}

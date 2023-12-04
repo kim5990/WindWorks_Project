@@ -1,26 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+<meta charset="UTF-8">
+<title>header</title>
+   <!-- 부트스트랩 -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <!-- CSS -->
     <link rel="stylesheet" href="resources/common/css/styles.css">
     <link rel="stylesheet" href="resources/common/css/header.css">
     <link rel="stylesheet" href="resources/common/css/mypage-menu.css">
-    <title>SideBar sub menus</title>
 </head>
-
 <body id="body-pd">
-    <div class="l-navbar" id="navbar">
+   <div class="l-navbar" id="navbar">
         <nav class="nav">
             <div class="main-logo">
                 <div class="main-logo-image">
-                    <img src="./resources/common/logo/1(흰).png" alt="" class="main-logo-image-img" width="100" height="100">
+                    <img src="./resources/common/logo/1 (흰).png" alt="" class="main-logo-image-img" width="100" height="100">
                     <div class="main-logo-text">
                         <div style="font-weight: 600;">WIND</div>
                         <div>WORKS</div>
@@ -54,7 +52,7 @@
                         <span class="nav_name">채팅</span>
                     </a>
 
-                    <a href="#" class="nav__link">
+                    <a href="views/community/communityList.jsp" class="nav__link">
                         <ion-icon name="chatbox-ellipses-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">커뮤니티</span>
                     </a>
@@ -73,6 +71,10 @@
                 <a href="#" class="nav__link">
                     <ion-icon name="book-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">강의관리</span>
+                </a>
+                <a href="#" class="nav__link">
+                    <ion-icon name="person-add-outline" class="nav__icon"></ion-icon>
+                    <span class="nav_name">인사관리</span>
                 </a>
             </div>
             <div class="nav__brand">
@@ -108,6 +110,8 @@
                         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
                 </svg>
                 <div class="notifications-person">
+                </div>
+                <div class="right-section-userinfo2" id="rightUserinfo2">
                 </div>
                 <div class="right-section-userinfo" id="rightUserinfo" onclick="stopEvent(event)">
                     <div>
@@ -155,7 +159,7 @@
             </div>
         </div>
     </div>
-    
+
     <script>
         function stopEvent(ev) {
             console.log("??")
@@ -170,5 +174,4 @@
     <!-- JS -->
     <script src="resources/common/js/main.js"></script>
 </body>
-
 </html>
