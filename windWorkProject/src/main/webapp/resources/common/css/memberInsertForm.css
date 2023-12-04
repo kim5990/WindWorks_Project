@@ -1,0 +1,192 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.memberInsertForm {
+    display: flex;
+    width: 970px;
+    height: 700px;
+    border: 1px solid rgba(85, 175, 130, 0.5);
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.memberInsertForm-inputs {
+    display: flex;
+    width: 900px;
+    height: 600px;
+    flex-direction: column;
+}
+
+.memberInsertForm-input-title {
+    display: flex;
+    width: 900px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+}
+
+.memberInsertForm-titleSize {
+    display: flex;
+    width: 855px;
+    height: 80px;
+    justify-content: space-between;
+}
+
+.memberInsertForm-input-title-logo {
+    display: flex;
+    width: 400px;
+    height: 80px;
+    align-items: center;
+    color: rgb(85, 175, 130);
+}
+
+.memberInsertForm-title {
+    display: flex;
+    width: 400px;
+    height: 80px;
+    align-items: center;
+    justify-content: end;
+    color: rgb(85, 175, 130);
+}
+
+.memberInsert-title-Logo {
+    animation: insert_image 4s linear infinite;
+    transform-origin: 50% 50%;
+    cursor: pointer;
+}
+
+@keyframes insert_image {
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+.memberInsertForm-input-content1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 900px;
+    height: 260px;
+}
+
+.memberInsertForm-input-content2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 900px;
+    height: 150px;
+}
+
+.memberInsertForm-input-content1-container {
+    display: flex;
+    width: 450px;
+    height: 260px;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.memberInsertForm-input-content1-container1 {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    height: 150px;
+}
+
+.memberInsertForm-input-content1-container2 {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 100px;
+    position: relative;
+}
+
+.memberInsertForm-input-content1-container3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+    height: 150px;
+    position: relative;
+}
+
+.insert-font {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.memberInsertForm-input-content1-container1-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 180px;
+}
+
+.memberInsert-genderInput {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100px;
+    height: 31px;
+}
+
+.check-input {
+    margin-left: 5px;
+    accent-color: rgb(85, 175, 130);
+}
+
+.check-input:checked {
+    background-color: rgb(85, 175, 130);
+    /* 바꾸고 싶은 배경색을 여기에 지정합니다. */
+    border-color: rgb(85, 175, 130);
+    /* 선택 상태에서의 테두리 색상도 함께 지정할 수 있습니다. */
+}
+
+.memberInsert-genderInput-select {
+    display: flex;
+    justify-content: space-between;
+}
+
+.memberInsert-btns {
+    display: flex;
+    width: 100%;
+    height: 120px;
+    justify-content: end;
+    align-items: center;
+
+}
+
+.memberInsert-btn {
+    display: flex;
+    width: 25%;
+    height: 120px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.insert-btn-size {
+    width: 90px;
+}
+
+.insert-invalid-fontsize1 {
+    font-size: 15px;
+    position: absolute;
+    top: 105px;
+}
+
+.insert-invalid-fontsize2 {
+    font-size: 15px;
+    position: absolute;
+    top: 60px;
+}
