@@ -9,9 +9,9 @@
   	</settings>
 
   	<typeAliases>
-  	
+  		<typeAlias type="com.kh.ww.employee.model.vo.Employee" alias="Employee"/>
   	</typeAliases>
   	<mappers>
-
+		<mapper resource="/mappers/employee-mapper.xml"/>
   	</mappers>
  </configuration>
