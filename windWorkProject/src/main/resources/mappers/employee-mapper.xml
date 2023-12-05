@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
 <mapper namespace="employeeMapper">
+
+	<resultMap type = "Employee" id="employeeResult">
+		<result column="EMP_NO" property="empNo"/>
+		<result column="EMP_NAME" property="empName"/>
+		<result column="EMP_EMAIL" property="empEmail"/>
+		<result column="EMP_PWD" property="empPwd"/>
+		<result column="EMP_PHONE" property="empPhone"/>
+		<result column="EMP_AGE" property="empAge"/>
+		<result column="EMP_GENDER" property="empGender"/>
+		<result column="EMP_ADDRESS" property="empAddress"/>
+		<result column="EMP_ENROLL_DATE" property="empEnrollDate"/>
+		<result column="EMP_CHANGE_DATE" property="empChangeDate"/>
+		<result column="EMP_STATUS" property="empStatus"/>
+		<result column="EMP_ONLINE_STATUS" property="empOnlineStatus"/>
+		<result column="PROFILE_FILE_PATH" property="profileFilePath"/>
+		<result column="JOB_CODE" property="jobCode"/>
+		<result column="DEPT_CODE" property="deptCode"/>
+	</resultMap>
+
 	<insert id="insertEmployee">
 		INSERT INTO EMPLOYEE(
 			EMP_NO,
@@ -9,18 +28,36 @@
 			EMP_PWD,
 			EMP_PHONE,
 			EMP_AGE,
-			EMP_GENDER,
-			EMP_ADDRESS,
+			EMP_GENDER
 		)
 		VALUES (
-			SEQ_ENO,
+			SEQ_ENO.NEXTVAL,
 			#{empName},
 			#{empEmail},
 			#{empPwd},
 			#{empPhone},
 			#{empAge},
-			#{empGender},
-			#{empAddress}
+			#{empGender}
 		)
 	</insert>
+	<select id="loginEmployee" resultMap = "employeeResult">
+	SELECT EMP_NO,
+        EMP_NAME,
+        EMP_EMAIL,
+        EMP_PWD,
+        EMP_PHONE,
+        EMP_AGE,
+        EMP_GENDER,
+        EMP_ADDRESS,
+        EMP_ENROLL_DATE,
+        EMP_CHANGE_DATE,
+        EMP_STATUS,
+        EMP_ONLINE_STATUS,
+        PROFILE_FILE_PATH,
+        JOB_CODE,
+        DEPT_CODE
+	FROM EMPLOYEE
+	WHERE EMP_EMAIL = #{empEmail}
+        AND EMP_STATUS = 'Y'
+	</select>
 </mapper>

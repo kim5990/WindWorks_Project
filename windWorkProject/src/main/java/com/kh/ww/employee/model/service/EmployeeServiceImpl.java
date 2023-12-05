@@ -21,14 +21,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return 0;
 	}
 
-
+	//회원가입
 	@Override
 	public int insertEmployee(Employee e) {
 		return employeeDao.insertEmployee(sqlSession, e);
 
 	}
 
-
+	//로그인
 	@Override
 	public Employee loginEmployee(Employee e) {
 		// TODO Auto-generated method stub

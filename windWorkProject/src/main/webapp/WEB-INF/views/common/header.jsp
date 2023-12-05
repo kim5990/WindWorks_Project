@@ -53,7 +53,7 @@
                         <span class="nav_name">채팅</span>
                     </a>
 
-                    <a href="views/community/communityList.jsp" class="nav__link">
+                    <a href="#" class="nav__link">
                         <ion-icon name="chatbox-ellipses-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">커뮤니티</span>
                     </a>
@@ -62,7 +62,6 @@
                         <ion-icon name="time-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">예약</span>
                     </a>
-
                 </div>
                 <a href="#" class="nav__link">
                     <ion-icon name="notifications-outline" class="nav__icon"></ion-icon>
@@ -140,20 +139,20 @@
                     </div>
                     <div class="right-section-userinfo-door">
                         <div class="right-section-userinfo-door-box">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor"
+                        	<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor"
                                 class="bi bi-pencil-fill right-section-userinfo-door-pointer" style="color: gray;"
                                 viewBox="0 0 16 16">
                                 <path
                                     d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+
+                            <svg onclick= "logout()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                 class="bi bi-box-arrow-right right-section-userinfo-door-pointer" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
                                 <path fill-rule="evenodd"
                                     d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
                             </svg>
-
                         </div>
                     </div>
                 </div>
@@ -161,18 +160,10 @@
         </div>
     </div>
 
-    <script>
-        function stopEvent(ev) {
-            console.log("??")
-            ev.preventDefault()
-            ev.stopImmediatePropagation()
-            ev.stopPropagation()
-        }
-    </script>
-
     <!-- IONICONS -->
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
     <!-- JS -->
     <script src="resources/common/js/main.js"></script>
+    <script src="resources/common/js/header.js"></script>
 </body>
 </html>

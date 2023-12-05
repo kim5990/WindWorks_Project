@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +14,10 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   <!--login 스타일-->
   <link rel="stylesheet" href="./resources/common/css/login.css">
+  <link rel="stylesheet" href="./resources/common/css/error.css">
 </head>
 <body>
-  <form action="login.me">
+  <form action="login.em">
     <div class='login'>
       <div class='login-logo-image'>
         <img src="./resources/common/logo/mainLogo.png" alt="" width="100" height="100">
@@ -47,9 +49,14 @@
         </div>
         <div class="login-insertMember-btn text-body-secondary">아이디 찾기</div>
         <div class="login-insertMember-btn text-body-secondary">비밀번호 찾기</div>
-        <div onclick = "location.href = 'enrollForm.me'" class="login-insertMember-btn text-body-secondary">회원가입</div>
+        <div onclick = "insertForm()" class="login-insertMember-btn text-body-secondary">회원가입</div>
       </div>
     </div>
   </form>
+  <script>
+  	function insertForm(){
+  		location.href= "enrollForm.em";
+  	}
+  </script>
 </body>
 </html>
