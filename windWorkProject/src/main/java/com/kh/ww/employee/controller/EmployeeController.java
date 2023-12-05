@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.ww.employee.model.service.EmployeeService;
@@ -70,5 +71,11 @@ public class EmployeeController {
 		return mv;
 	}
 	
-	
+	//인사관리페이지
+	@RequestMapping("/approval.em")
+	public ModelAndView employeeList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
+			ModelAndView mv) {
+		PageInfo pi = Pagenation.getPageInfo(employeeService.selectListCount(), currentPage, 16, 3);
+		
+	}
 }
