@@ -1,18 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>login</title>
 <!--부트스트랩-->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   <!--login 스타일-->
   <link rel="stylesheet" href="./resources/common/css/login.css">
+  <link rel="stylesheet" href="./resources/common/css/error.css">
 </head>
 <body>
-  <form action="">
+  <form action="login.em">
     <div class='login'>
       <div class='login-logo-image'>
         <img src="./resources/common/logo/mainLogo.png" alt="" width="100" height="100">
@@ -24,12 +29,12 @@
       <div class="login-inputs">
         <div class="login-input">
           <div class="login-input-size">
-            <input type="text" class="login-input-border" name="id" value="" placeholder="계정">
+            <input type="text" class="login-input-border" name="empEmail" placeholder="계정">
           </div>
         </div>
         <div class="login-input">
           <div class="login-input-size">
-            <input type="password" class="login-input-border" name="password" value="" placeholder="비밀번호">
+            <input type="password" class="login-input-border" name="empPwd" placeholder="비밀번호">
           </div>
         </div>
       </div>
@@ -44,9 +49,14 @@
         </div>
         <div class="login-insertMember-btn text-body-secondary">아이디 찾기</div>
         <div class="login-insertMember-btn text-body-secondary">비밀번호 찾기</div>
-        <div class="login-insertMember-btn text-body-secondary">회원가입</div>
+        <div onclick = "insertForm()" class="login-insertMember-btn text-body-secondary">회원가입</div>
       </div>
     </div>
   </form>
+  <script>
+  	function insertForm(){
+  		location.href= "enrollForm.em";
+  	}
+  </script>
 </body>
 </html>
