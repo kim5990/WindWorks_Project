@@ -41,10 +41,10 @@
               <div class="memberInsertForm-input-content1-container1-name">
                 <label for="genderInput" class="form-label insert-font">성별</label>
                 <div class="memberInsert-genderInput">
-                  <input type="radio" class="btn-check " name="empGender" value="male" id="success-outlined"
+                  <input type="radio" class="btn-check " name="empGender" value="남자" id="success-outlined"
                     autocomplete="off" checked>
                   <label class="btn btn-outline-secondary btn-sm" for="success-outlined">남자</label>
-                  <input type="radio" class="btn-check" name="empGender" value="female" id="danger-outlined"
+                  <input type="radio" class="btn-check" name="empGender" value="여자" id="danger-outlined"
                     autocomplete="off">
                   <label class="btn btn-outline-secondary btn-sm" for="danger-outlined">여자</label>
                 </div>
@@ -54,9 +54,9 @@
             <div class="memberInsertForm-input-content1-container2">
               <label for="emailInput" class="form-label insert-font">이메일</label>
               <div class="input-group input-group-sm mb-3">
-                <input type="text" class="form-control" id="emailInput" name="empEmial1" placeholder="이메일 주소">
+                <input type="text" class="form-control" id="emailInput" name="empEmail1" placeholder="이메일 주소">
                 <span class="input-group-text" id="inputGroup-sizing-sm">@</span>
-                <input class="form-control form-control-sm" id="emailDomain" name="empEmial2" list="datalistOptions" type="text"
+                <input class="form-control form-control-sm" id="emailDomain" name="empEmail2" list="datalistOptions" type="text"
                   placeholder="직접입력 or 선택">
                 <datalist id="datalistOptions">
                   <option value="naver.com">
@@ -114,11 +114,14 @@
         <div class="memberInsert-btns">
           <div class="memberInsert-btn">
             <button type="submit" class="btn btn-outline-success insert-btn-size">가입</button>
-            <button type="button" class="btn btn-outline-danger insert-btn-size">돌아가기</button>
+            <button type="button"  onclick="history.back()" class="btn btn-outline-danger insert-btn-size">돌아가기</button>
           </div>
         </div>
       </div>
     </div>
   </form>
+  <script>
+    
+  </script>
 </body>
 </html>
