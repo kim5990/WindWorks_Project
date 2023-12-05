@@ -72,7 +72,7 @@
                     <ion-icon name="book-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">강의관리</span>
                 </a>
-                <a href="#" class="nav__link">
+                <a href="approval.em" class="nav__link">
                     <ion-icon name="person-add-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">인사관리</span>
                 </a>
