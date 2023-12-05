@@ -1,3 +1,6 @@
+a {
+    text-decoration: none;
+}
 .studyManagementMenus-left-section {
     width: 300px;
     height: calc(100vh - 60px);

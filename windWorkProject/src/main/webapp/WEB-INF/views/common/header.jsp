@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="resources/common/css/styles.css">
     <link rel="stylesheet" href="resources/common/css/header.css">
     <link rel="stylesheet" href="resources/common/css/mypage-menu.css">
+
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body id="body-pd">
    <div class="l-navbar" id="navbar">
@@ -68,7 +74,7 @@
                     <span class="nav_name">공지사항</span>
                 </a>
 
-                <a href="#" class="nav__link">
+                <a href="list.st" id ="nav-studyM-bar" class="nav__link">
                     <ion-icon name="book-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">강의관리</span>
                 </a>

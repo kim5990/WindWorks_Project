@@ -13,7 +13,7 @@
   <!--css-->  
  <link rel="stylesheet" href="resources/studyManagement/css/lessonPlan.css">
 </head>
-<body>
+<body onload="lessonOnload()">
 	<jsp:include page="../common/header.jsp" />
 	<div class="menu">
     <jsp:include page="./studyManagement.jsp" />
@@ -150,5 +150,12 @@
         </div>
       </div>
     </div>
+
+    <script>
+     const lessonOnload = function(){
+        document.querySelector("#nav-studyM-bar").classList.add('nav__link')
+     }
+
+    </script>
 </body>
 </html>
