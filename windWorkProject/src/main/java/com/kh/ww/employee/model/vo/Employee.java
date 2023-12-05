@@ -1,7 +1,5 @@
 package com.kh.ww.employee.model.vo;
 
-
-
 import java.sql.Date;
 
 import lombok.AllArgsConstructor;

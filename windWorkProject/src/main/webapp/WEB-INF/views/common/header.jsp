@@ -53,7 +53,7 @@
                         <span class="nav_name">채팅</span>
                     </a>
 
-                    <a href="#" class="nav__link">
+                    <a href="list.com" class="nav__link">
                         <ion-icon name="chatbox-ellipses-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">커뮤니티</span>
                     </a>
