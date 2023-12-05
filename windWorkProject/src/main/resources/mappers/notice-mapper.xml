@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="noticeMapper">
+	<resultMap type="Notice" id="noticeResult">
+		<result column="NOTICE_NO" property="noticeNo" />
+		<result column="NOTICE_TITLE" property="noticeTitle" />
+		<result column="NOTICE_CONTENT" property="noticeContent" />
+		<result column="NOTICE_COUNT" property="noticeCount" />
+		<result column="NOTICE_CREATE_DATE" property="noticeCreateDate" />
+		<result column="NOTICE_STATUS" property="noticeStatus" />
+		<result column="EMP_NO" property="empNo" />
+		<result column="EMP_NAME" property="empName" />
+		<result column="NOTICE_ORIGIN_NAME" property="noticeOriginName" />
+		<result column="NOTICE_CHANGE_NAME" property="noticeChangeName" />
+	</resultMap>
+	
+	<!-- 공지사항 총 갯수 조회하는 쿼리문 -->
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+			FROM NOTICE
+			WHERE NOTICE_STATUS = 'Y'
+	</select>
+	
+	<!-- 공지사항 조회 쿼리문 -->
+	<select id="selectList" resultMap="noticeResult">
+		SELECT NOTICE.NOTICE_NO,
+		       NOTICE_TITLE,
+		       EMP_NAME,
+		       NOTICE_COUNT,
+		       TO_CHAR(NOTICE_CREATE_DATE, 'YYYY-MM-DD') AS "NOTICE_CREATE_DATE",
+		       NOTICE_ORIGIN_NAME
+		    FROM NOTICE
+		    JOIN EMPLOYEE USING (EMP_NO)
+		    LEFT JOIN NOTICE_ATTACHMENT ON (NOTICE.NOTICE_NO = NOTICE_ATTACHMENT.NOTICE_NO)
+		    WHERE NOTICE_STATUS = 'Y'
+		    ORDER BY NOTICE.NOTICE_NO DESC
+	</select>
+	
+	
+</mapper>

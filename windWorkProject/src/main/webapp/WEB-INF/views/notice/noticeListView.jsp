@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,177 +43,27 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>10</td>
-							<td>
-								<div class="notice-title">
-								사내 체육대회 전체 안내
-									<div class="notice-attachment-icon">
-										<ion-icon class="attachment-icon" name="document-attach-outline"></ion-icon>
+						<c:forEach var="n" items="${list}">
+							<tr onclick="location.href='detail.no?nno=${n.noticeNo}'">
+								<td>${n.noticeNo}</td>
+								<td>
+									<div class="notice-title">
+									${n.noticeTitle}
+										<c:if test="${not empty n.noticeOriginName}">
+											<div class="notice-attachment-icon">
+												<ion-icon class="attachment-icon" name="document-attach-outline"></ion-icon>
+											</div>
+										</c:if>
+										<div class="notice-reply-count">
+											<span id="rcount"><!-- 댓글갯수 --></span>
+										</div>
 									</div>
-									<div class="notice-reply-count">
-										<span id="rcount">[9]</span>
-									</div>
-								</div>
-							</td>
-
-							<td>김과장</td>
-							<td>285</td>
-							<td>2023-11-23</td>
-						</tr>
-						<tr>
-							<td>09</td>
-							<td>
-								<div class="notice-title">
-								사내 체육대회 전체 안내
-									<div class="notice-attachment-icon">
-										
-									</div>
-									<div>
-										<span id="rcount">[8]</span>
-									</div>
-								</div>
-							</td>
-							<td>박과장</td>
-							<td>285</td>
-							<td>2023-11-20</td>
-						</tr>
-						<tr>
-							<td>08</td>
-							<td>
-								<div class="notice-title">
-								사내 체육대회 전체 안내
-									<div class="notice-attachment-icon">
-										
-									</div>
-									<div>
-										<span id="rcount">[2]</span>
-									</div>
-								</div>
-							</td>
-							<td>권과장</td>
-							<td>444</td>
-							<td>2023-11-02</td>
-						</tr>
-						<tr>
-							<td>07</td>
-							<td>
-								<div class="notice-title">
-								사내 체육대회 전체 안내
-									<div class="notice-attachment-icon">
-										<ion-icon class="attachment-icon" name="document-attach-outline"></ion-icon>
-									</div>
-									<div>
-										<span id="rcount">[9]</span>
-									</div>
-								</div>
-							</td>
-							<td>최사원</td>
-							<td>124</td>
-							<td>2023-11-02</td>
-						</tr>
-						<tr>
-							<td>06</td>
-							<td>
-								<div class="notice-title">
-								사내 체육대회 전체 안내
-									<div class="notice-attachment-icon">
-										
-									</div>
-									<div>
-										<span id="rcount"></span>
-									</div>
-								</div>
-							</td>
-							<td>김대리</td>
-							<td>285</td>
-							<td>2023-08-17</td>
-						</tr>
-						<tr>
-							<td>05</td>
-							<td>
-								<div class="notice-title">
-								사내 체육대회 전체 안내
-									<div class="notice-attachment-icon">
-										
-									</div>
-									<div>
-										<span id="rcount">[5]</span>
-									</div>
-								</div>
-							</td>
-							<td>김대리</td>
-							<td>285</td>
-							<td>2023-08-17</td>
-						</tr>
-						<tr>
-							<td>04</td>
-							<td>
-								<div class="notice-title">
-								사내 체육대회 전체 안내
-									<div class="notice-attachment-icon">
-										
-									</div>
-									<div>
-										<span id="rcount"></span>
-									</div>
-								</div>
-							</td>
-							<td>김대리</td>
-							<td>285</td>
-							<td>2023-08-17</td>
-						</tr>
-						<tr>
-							<td>03</td>
-							<td>
-								<div class="notice-title">
-								사내 체육대회 전체 안내
-									<div class="notice-attachment-icon">
-										
-									</div>
-									<div>
-										<span id="rcount"></span>
-									</div>
-								</div>
-							</td>
-							<td>김대리</td>
-							<td>285</td>
-							<td>2023-08-17</td>
-						</tr>
-						<tr>
-							<td>02</td>
-							<td>
-								<div class="notice-title">
-								사내 체육대회 전체 안내
-									<div class="notice-attachment-icon">
-										
-									</div>
-									<div>
-										<span id="rcount"></span>
-									</div>
-								</div>
-							</td>
-							<td>김대리</td>
-							<td>285</td>
-							<td>2023-08-17</td>
-						</tr>
-						<tr>
-							<td>01</td>
-							<td>
-								<div class="notice-title">
-								사내 체육대회 전체 안내
-									<div class="notice-attachment-icon">
-										
-									</div>
-									<div>
-										<span id="rcount"></span>
-									</div>
-								</div>
-							</td>
-							<td>김대리</td>
-							<td>285</td>
-							<td>2023-08-17</td>
-						</tr>
+								</td>
+								<td>${n.empName}</td>
+								<td>${n.noticeCount}</td>
+								<td>${n.noticeCreateDate}</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
@@ -220,11 +71,29 @@
 			<!-- 페이지네이션 -->
 			<div class="notice-pagenation">
 				<ul class="pagination">
-					<li class="page-item disabled"><a class="page-link" href="#"><</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">></a></li>
+					
+					<c:choose>
+						<c:when test="${pi.currentPage eq 1}">
+							<li class="page-item disabled"><a class="page-link">&lt;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link" href="list.no?cpage=${pi.currentPage - 1}">&lt;</a></li>
+						</c:otherwise>
+					</c:choose>
+					
+					<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+						<li class="page-item"><a class="page-link" href="list.no?cpage=${p}">${p}</a></li>
+					</c:forEach>
+					
+					<c:choose>
+						<c:when test="${pi.currentPage eq pi.maxPage}">
+							<li class="page-item disabled"><a class="page-link">&gt;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link" href="list.no?cpage=${pi.currentPage + 1}">&gt;</a></li>
+						</c:otherwise>
+					</c:choose>
+					
 				</ul>
 			</div>
 		</div>
