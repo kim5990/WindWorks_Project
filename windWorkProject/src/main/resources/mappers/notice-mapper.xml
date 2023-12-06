@@ -15,13 +15,14 @@
 		<result column="EMP_NAME" property="empName" />
 		<result column="NOTICE_ORIGIN_NAME" property="noticeOriginName" />
 		<result column="NOTICE_CHANGE_NAME" property="noticeChangeName" />
+		<result column="DEPT_CODE" property="deptCode" />
 	</resultMap>
 	
 	<!-- 공지사항 총 갯수 조회하는 쿼리문 -->
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
-			FROM NOTICE
-			WHERE NOTICE_STATUS = 'Y'
+		  FROM NOTICE
+		 WHERE NOTICE_STATUS = 'Y'
 	</select>
 	
 	<!-- 공지사항 조회 쿼리문 -->
@@ -31,13 +32,80 @@
 		       EMP_NAME,
 		       NOTICE_COUNT,
 		       TO_CHAR(NOTICE_CREATE_DATE, 'YYYY-MM-DD') AS "NOTICE_CREATE_DATE",
-		       NOTICE_ORIGIN_NAME
-		    FROM NOTICE
-		    JOIN EMPLOYEE USING (EMP_NO)
-		    LEFT JOIN NOTICE_ATTACHMENT ON (NOTICE.NOTICE_NO = NOTICE_ATTACHMENT.NOTICE_NO)
-		    WHERE NOTICE_STATUS = 'Y'
-		    ORDER BY NOTICE.NOTICE_NO DESC
+		       NOTICE_ATTACHMENT.NOTICE_ORIGIN_NAME
+		  FROM NOTICE
+		  JOIN EMPLOYEE USING (EMP_NO)
+     LEFT JOIN NOTICE_ATTACHMENT ON (NOTICE.NOTICE_NO = NOTICE_ATTACHMENT.NOTICE_NO)
+		 WHERE NOTICE_STATUS = 'Y'
+      ORDER BY NOTICE.NOTICE_NO DESC
 	</select>
+	
+	<!-- 공지사항 조회수 증가 쿼리문 -->
+	<update id="increaseCount">
+		UPDATE NOTICE
+		   SET NOTICE_COUNT = NOTICE_COUNT + 1
+	     WHERE NOTICE_NO = #{NOTICE_NO}
+		   AND NOTICE_STATUS = 'Y'
+	</update>
+	
+	<!-- 공지사항 상세 조회 쿼리문 -->
+	<select id="selectNotice" resultMap="noticeResult">
+		SELECT NOTICE.NOTICE_NO,
+			   EMP_NAME,
+			   NOTICE_TITLE,
+			   NOTICE_CONTENT,
+			   TO_CHAR(NOTICE_CREATE_DATE, 'YYYY-MM-DD') AS "NOTICE_CREATE_DATE",
+			   NOTICE_ATTACHMENT.NOTICE_ORIGIN_NAME,
+			   NOTICE_ATTACHMENT.NOTICE_CHANGE_NAME
+		  FROM NOTICE
+		  JOIN EMPLOYEE USING (EMP_NO)
+	 LEFT JOIN NOTICE_ATTACHMENT ON (NOTICE.NOTICE_NO = NOTICE_ATTACHMENT.NOTICE_NO)
+		 WHERE NOTICE_STATUS = 'Y'
+		   AND NOTICE.NOTICE_NO = #{NOTICE_NO}
+	</select>
+	
+	<!-- 공지사항 작성 result1 쿼리문 -->
+	<insert id="insertNotice">
+		INSERT INTO
+			NOTICE (
+					NOTICE_NO,
+					EMP_NO,
+					NOTICE_TITLE,
+					NOTICE_CONTENT,
+					NOTICE_ORIGIN_NAME,
+					NOTICE_CHANGE_NAME
+				)
+		VALUES (
+				SEQ_NNO.NEXTVAL,
+				#{empNo},
+				#{noticeTitle},
+				#{noticeContent},
+				#{noticeOriginName},
+				#{noticeChangeName}
+		)
+	</insert>
+	
+	<!-- 공지사항 작성 result2 쿼리문 -->
+	<insert id="insertNoticeAttachment">
+		INSERT INTO
+			NOTICE_ATTACHMENT (
+					NOTICE_FILE_NO,
+					NOTICE_ORIGIN_NAME,
+					NOTICE_CHANGE_NAME,
+					NOTICE_FILE_PATH,
+					NOTICE_NO
+			)
+			VALUES (
+					SEQ_NANO.NEXTVAL,
+					#{noticeOriginName},
+					#{noticeChangeName},
+					#{noticeFilePath},
+					#{noticeNo}
+			)
+	
+	
+	</insert>
+	
 	
 	
 </mapper>

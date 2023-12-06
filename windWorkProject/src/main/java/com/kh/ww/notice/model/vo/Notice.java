@@ -24,4 +24,5 @@ public class Notice {
 	private String empName;
 	private String noticeOriginName;
 	private String noticeChangeName;
+	private String deptCode;
 }

@@ -25,9 +25,18 @@
 			
 			<!-- 작성하기 버튼 -->
 			<div class="notice-write-top">
-				<div class="notice-write">
-					<button class="notice-write-btn" type="button">작성하기</button>
-				</div>
+			
+				<c:choose>
+					<c:when test="${loginUser.deptCode ne 'D5'}">
+						<div class="notice-write">
+							<button class="notice-write-btn" type="button" onclick="location.href='enrollForm.no'">작성하기</button>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div style="height: 54px;"></div>
+					</c:otherwise>
+				</c:choose>
+				
 			</div>
 				
 			<!-- 공지사항 리스트 -->

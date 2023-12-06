@@ -58,6 +58,6 @@
         DEPT_CODE
 	FROM EMPLOYEE
 	WHERE EMP_EMAIL = #{empEmail}
-        AND EMP_STATUS = 'Y'
+        AND EMP_STATUS = 1
 	</select>
 </mapper>

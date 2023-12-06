@@ -1,4 +1,4 @@
-/* °øÁö»çÇ× ÀÛ¼º ÀüÃ¼¿µ¿ª */
+/* ê³µì§€ì‚¬í•­ ì‘ì„± ì „ì²´ì˜ì—­ */
 .notice-enroll-area{
 	display: flex;
     width: 100%;
@@ -6,7 +6,7 @@
     margin: 0 auto;
 }
 
-/* °øÁö»çÇ× ÀÛ¼º ÅØ½ºÆ® */
+/* ê³µì§€ì‚¬í•­ ì‘ì„± í…ìŠ¤íŠ¸ */
 .notice-enroll-form-area-top{
 	display: flex;
     width: 100%;
@@ -41,7 +41,7 @@
     margin-bottom: 4px;
 }
 
-/* °øÁö»çÇ× ÀÛ¼º Æû */
+/* ê³µì§€ì‚¬í•­ ì‘ì„± í¼ */
 .notice-enroll-form-area{
 	margin-top: 40px;
     display: flex;
@@ -78,7 +78,7 @@
     color: #999999;
 }
 
-/* °øÁö»çÇ× µî·Ï,Ãë¼Ò ¹öÆ° */
+/* ê³µì§€ì‚¬í•­ ë“±ë¡,ì·¨ì†Œ ë²„íŠ¼ */
 .notice-enroll-btn{
 	display: flex;
     justify-content: center;

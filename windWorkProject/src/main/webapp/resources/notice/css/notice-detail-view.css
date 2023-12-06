@@ -55,9 +55,11 @@
 /* 공지사항 내용 */
 .notice-middle{
 	display: flex;
-	padding-top: 30px;
-	border-bottom: 1px solid #e0e0e0;
-	padding-bottom: 10px;\
+    padding-top: 30px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .notice-middle-right{
