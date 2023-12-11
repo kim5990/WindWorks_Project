@@ -10,8 +10,14 @@
 
   	<typeAliases>
   		<typeAlias type="com.kh.ww.employee.model.vo.Employee" alias="Employee"/>
+  		<typeAlias type="com.kh.ww.community.model.vo.Community" alias="Community"/>
+  		<typeAlias type="com.kh.ww.community.model.vo.CommunityBoard" alias="CommunityBoard"/>
+  		<typeAlias type="com.kh.ww.community.model.vo.CommunityReply" alias="CommunityReply"/>
+  		<typeAlias type="com.kh.ww.community.model.vo.CommunityAttachment" alias="CommunityAttachment"/>
+  		
   	</typeAliases>
   	<mappers>
 		<mapper resource="/mappers/employee-mapper.xml"/>
+		<mapper resource="/mappers/community-mapper.xml"/>
   	</mappers>
  </configuration>

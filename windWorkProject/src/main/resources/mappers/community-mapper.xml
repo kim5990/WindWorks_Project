@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="communityMapper">
+	 <resultMap type="Community" id="communityResult">
+ 		<result column="COMMUNITY_NO" property="communityNo" />
+ 		<result column="COMMUNITY_NAME" property="communityName" />
+ 		<result column="COMMUNITY_POINT" property="communityPoint" />
+ 		<result column="COMMUNITY_STATUS" property="communityStatus" />
+ 		<result column="EMP_NO" property="empNo" />
+	</resultMap>
+	
+	<resultMap type="CommunityBoard" id="communityBoardResult">
+ 		<result column="COMMUNITY_BOARD_NO" property="communityBoardNo" />
+ 		<result column="COMMUNITY_NO" property="communityNo" />
+ 		<result column="EMP_NO" property="empNo" />
+ 		<result column="COMMUNITY_BOARD_TITLE" property="communityBoardTitle" />
+ 		<result column="COMMUNITY_BOARD_CONTENT" property="communityBoardContent" />
+ 		<result column="COMMUNITY_BOARD_COUNT" property="communityBoardCount" />
+ 		<result column="COMMUNITY_BOARD_CREATE_DATE" property="communityBoardCreateDate" />
+ 		<result column="COMMUNITY_BOARD_STATUS" property="communityBoardStatus" />
+ 		<result column="COMMUNITY_BOARD_REPLY_COUNT" property="communityBoardReplyCount" />
+ 		<result column="COMMUNITY_BOARD_LIKE_COUNT" property="communityBoardLikeCount" />
+ 		
+ 		<result column="EMP_NAME" property="empName" />
+ 		<result column="PROFILE_FILE_PATH" property="profileFilePath" />
+ 		<result column="JOB_NAME" property="jobName" />
+ 		
+	</resultMap>
+	
+	<resultMap type="CommunityReply" id="communityReplyResult">
+		<result column="COMMUNITY_REPLY_NO" property="communityReplyNo" />
+		<result column="COMMUNITY_BOARD_NO" property="communityBoardNo" />
+		<result column="EMP_NO" property="empNo" />
+		<result column="COMMUNITY_REPLY_COMMENT" property="communityReplyComment" />
+		<result column="COMMUNITY_REPLY_CREATE_DATE" property="communityReplyCreateDate" />
+		<result column="COMMUNITY_REPLY_STATUS" property="communityReplyStatus" />
+		<result column="PARENT_REPLY_NO" property="parentReplyNo" />
+		
+		<result column="EMP_NAME" property="empName" />
+		<result column="JOB_NAME" property="jobName" />
+	</resultMap>
+	
+	<resultMap type="CommunityAttachment" id="communityAttachmentResult">
+		<result column="COMMUNITY_FILE_NO" property="communityFileNo"/>
+		<result column="COMMUNITY_BOARD_NO" property="communityBoardNo"/>
+		<result column="COMMUNITY_ORIGIN_NAME" property="communityOriginName"/>
+		<result column="COMMUNITY_CHANGE_NAME" property="communityChangeName"/>
+		<result column="COMMUNITY_FILE_PATH" property="communityFilePath"/>
+		<result column="COMMUNITY_UPLOAD_DATE" property="communityUploadDate"/>
+		<result column="COMMUNITY_FILE_LEVEL" property="communityFileLevel"/>
+	</resultMap>
+	
+	
+	<resultMap type="Employee" id="employeeResult">
+		<result column="EMP_NO" property="empNo"/>
+		<result column="EMP_NAME" property="empName"/>
+		<result column="JOB_NAME" property="jobName"/>
+		<result column="COMMUNITY_NAME" property="communityName"/>
+		<result column="COMMUNITY_NO" property="communityNo"/>
+	</resultMap>
+ 	
+ 	
+ 	<!-- 내 커뮤니티 리스트 조회 -->
+ 	<select id="communityList" resultMap="communityResult">
+		SELECT COMMUNITY_NO, COMMUNITY_NAME, COMMUNITY_STATUS, EMP_NO
+		FROM COMMUNITY
+		JOIN COMMUNITY_GROUP USING (COMMUNITY_NO)
+		WHERE COMMUNITY_STATUS = 'Y'
+		    AND EMP_NO = #{empNo}
+		ORDER BY COMMUNITY_NAME
+ 	</select>
+ 	
+ 	<!-- 멤버 리스트 조회 -->
+ 	<select id="memberList" resultMap="employeeResult">
+	 	SELECT COMMUNITY_NAME, COMMUNITY_NO, EMP_NO, EMP_NAME, JOB_NAME
+		FROM COMMUNITY_GROUP
+		JOIN EMPLOYEE USING (EMP_NO)
+		JOIN JOB USING (JOB_CODE)
+		JOIN COMMUNITY USING (COMMUNITY_NO)
+		WHERE COMMUNITY_NO = #{comNo}
+		ORDER BY JOB_CODE, EMP_NAME
+ 	</select>
+
+ 	<!-- 보드 카운트 조회 -->
+ 	<select id="boardListCount" resultType="_int">
+ 		SELECT COUNT(*) AS COUNT
+		FROM (SELECT *
+                FROM COMMUNITY_BOARD
+                WHERE COMMUNITY_BOARD_STATUS = 'Y')
+		GROUP BY COMMUNITY_NO
+		HAVING COMMUNITY_NO = #{comNo}
+ 	</select>
+ 	
+ 	<!-- 보드 리스트 조회 -->
+ 	<select id="boardList" resultMap="communityBoardResult">
+		SELECT COMMUNITY_BOARD_NO
+		    , COMMUNITY_BOARD_TITLE
+		    , COMMUNITY_BOARD_CONTENT
+		    , TO_CHAR(COMMUNITY_BOARD_CREATE_DATE, 'YY-MM-DD') AS "COMMUNITY_BOARD_CREATE_DATE"
+		    , EMP_NAME
+		    , PROFILE_FILE_PATH
+		    , JOB_NAME
+		    , COMMUNITY_BOARD_REPLY_COUNT
+		    , COMMUNITY_BOARD_LIKE_COUNT
+		FROM COMMUNITY_BOARD
+			JOIN EMPLOYEE USING (EMP_NO)
+			JOIN JOB USING (JOB_CODE)
+		WHERE COMMUNITY_NO = #{comNo}
+			AND COMMUNITY_BOARD_STATUS = 'Y'
+		ORDER BY COMMUNITY_BOARD_NO DESC
+ 	</select>
+ 	
+ 	<!-- 보드 조회 -->
+ 	<select id="selectBoard" resultMap="communityBoardResult">
+ 		SELECT COMMUNITY_BOARD_NO
+		    , COMMUNITY_BOARD_TITLE
+		    , COMMUNITY_BOARD_CONTENT
+		    , TO_CHAR(COMMUNITY_BOARD_CREATE_DATE, 'YYYY-MM-DD(DY) HH24:MI') AS "COMMUNITY_BOARD_CREATE_DATE"
+		    , EMP_NO
+		    , EMP_NAME
+		    , PROFILE_FILE_PATH
+		    , JOB_NAME
+		    , COMMUNITY_BOARD_REPLY_COUNT
+		    , COMMUNITY_BOARD_LIKE_COUNT
+		FROM COMMUNITY_BOARD
+		    JOIN EMPLOYEE USING (EMP_NO)
+		    JOIN JOB USING (JOB_CODE)
+		WHERE COMMUNITY_BOARD_NO = #{bno}
+			AND COMMUNITY_BOARD_STATUS = 'Y'
+ 	</select>
+
+	<!-- 파일 리스트 조회 -->
+ 	<select id="boardFile" resultMap="communityAttachmentResult">
+		SELECT COMMUNITY_FILE_NO
+		    , COMMUNITY_ORIGIN_NAME
+		    , COMMUNITY_CHANGE_NAME
+		    ,COMMUNITY_FILE_PATH
+		    , COMMUNITY_UPLOAD_DATE
+		    , COMMUNITY_FILE_LEVEL
+		FROM COMMUNITY_ATTACHMENT
+		WHERE COMMUNITY_BOARD_NO = #{bno}
+		ORDER BY COMMUNITY_FILE_LEVEL
+ 	</select>
+	
+
+	<!-- 리플 리스트 조회 -->
+ 	<select id="replyList" resultMap="communityReplyResult">
+		SELECT COMMUNITY_REPLY_NO
+		    , EMP_NO
+		    , EMP_NAME
+		    , JOB_NAME
+		    , COMMUNITY_REPLY_COMMENT
+		    , TO_CHAR(COMMUNITY_REPLY_CREATE_DATE, 'YY-MM-DD HH24:MI') AS "COMMUNITY_REPLY_CREATE_DATE"
+		    , COMMUNITY_REPLY_STATUS
+		    , PARENT_REPLY_NO
+		FROM COMMUNITY_REPLY
+		    JOIN EMPLOYEE USING (EMP_NO)
+		    JOIN JOB USING (JOB_CODE)
+		WHERE COMMUNITY_BOARD_NO = #{bno}
+			AND PARENT_REPLY_NO IS NULL
+		ORDER BY COMMUNITY_REPLY_CREATE_DATE
+ 	</select>
+ 	
+ 	<!-- 리리플 리스트 조회 -->
+ 	<select id="reReplyList" resultMap="communityReplyResult">
+		SELECT COMMUNITY_REPLY_NO
+		    , EMP_NO
+		    , EMP_NAME
+		    , JOB_NAME
+		    , COMMUNITY_REPLY_COMMENT
+		    , TO_CHAR(COMMUNITY_REPLY_CREATE_DATE, 'YY-MM-DD HH24:MI') AS "COMMUNITY_REPLY_CREATE_DATE"
+		    , COMMUNITY_REPLY_STATUS
+		    , PARENT_REPLY_NO
+		FROM COMMUNITY_REPLY
+		    JOIN EMPLOYEE USING (EMP_NO)
+		    JOIN JOB USING (JOB_CODE)
+		WHERE COMMUNITY_BOARD_NO = #{bno}
+			AND PARENT_REPLY_NO IS NOT NULL
+		ORDER BY COMMUNITY_REPLY_CREATE_DATE DESC
+ 	</select>
+ 	
+ 	<!-- 전체 커뮤 리스트 조회 -->
+ 	<select id="communityListAll" resultMap="communityResult">
+ 		SELECT COMMUNITY_NO, COMMUNITY_NAME, COMMUNITY_POINT, COMMUNITY_STATUS
+		FROM COMMUNITY
+		WHERE COMMUNITY_STATUS = 'Y'
+		ORDER BY COMMUNITY_NAME
+ 	</select>
+ 	
+ 	<!-- 커뮤 가입 -->
+ 	<insert id="communityIn">
+ 		INSERT INTO COMMUNITY_GROUP(
+	 				COMMUNITY_GROUP_NO,
+					COMMUNITY_NO,
+					EMP_NO
+ 					)
+ 			VALUES(
+ 				SEQ_CGNO.NEXTVAL,
+ 				#{communityNo},
+ 				#{empNo}
+ 				)
+ 	</insert>
+ 	
+ 	<!-- 커뮤 탈퇴 -->
+ 	<delete id="communityOut">
+	 	DELETE FROM COMMUNITY_GROUP
+		WHERE COMMUNITY_NO = #{communityNo}
+		    AND EMP_NO = #{empNo}
+ 	</delete>
+ 	
+ 	
+ 	
+</mapper>

@@ -24,9 +24,14 @@ public class Employee {
 	private String empAddress;
 	private Date empEnrollDate;
 	private Date empChangeDate;
-	private String empStatus;
+	private int empStatus;
 	private String empOnlineStatus;
 	private	String profileFilePath;
 	private String jobCode;
 	private String deptCode;
+	
+	private String jobName;
+	private String communityName;
+	private String communityNo;
+	
 }
