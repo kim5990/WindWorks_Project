@@ -104,11 +104,11 @@
 .notice-reply-top{
     height: 30px;
     width: 100%;
-    padding-left: 20px;
+    padding-left: 10px;
     border-bottom: 1px solid #9e9e9e;
 }
 
-/*   */
+/* 댓글 영역 */
 .notice-reply-content{
 	/* border-bottom: 1px solid #9e9e9e; */
     padding-bottom: 5px;
@@ -145,7 +145,7 @@
 	font-size: 13px;
 	color: #9e9e9e;
 	display: flex;
-    padding: 3px 0 0 10px;
+    padding: 3px 0 0 11px;
     align-items: center;
 }
 
@@ -161,13 +161,12 @@
 	background: white;
 }
 
-/* 댓글 영역 */
+/* 댓글 작성 영역 */
 .notice-reply-bottom{
 	margin-top: 10px;
 }
 
 .notice-reply-write-area{
-	height: 135px;
 	border: 1px solid #9e9e9e;
 	border-radius: 5px;
 }
@@ -200,7 +199,17 @@
     background-color: rgb(85, 175, 130);
     color: white;
     border-radius: 7px;
-    margin: 0 10px 25px 0;
+    margin: 0 10px 10px 0;
+}
+
+#addReplyCancel{
+	height: 35px;
+    width: 65px;
+    border: #f1f1f1;
+    background-color: #f1f1f1;
+    color: rgb(85, 175, 130);
+    border-radius: 7px;
+    margin: 0 10px 10px 0;
 }
 
 /* 대댓글 영역 */
@@ -228,4 +237,10 @@
 	display: flex;
     padding: 3px 0 0 10px;
     align-items: center;
+}
+
+.notice-reply-parent-bottom{
+	margin: 10px 0 0 50px;
+    padding-bottom: 5px;
+    display:none;
 }

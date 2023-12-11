@@ -1,5 +1,8 @@
 package com.kh.ww.notice.controller;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,15 +10,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.kh.ww.common.model.vo.PageInfo;
 import com.kh.ww.common.template.Pagenation;
 import com.kh.ww.common.template.SaveFile;
+import com.kh.ww.employee.model.vo.Employee;
 import com.kh.ww.notice.model.service.NoticeService;
 import com.kh.ww.notice.model.vo.Notice;
 import com.kh.ww.notice.model.vo.NoticeAttachment;
+import com.kh.ww.notice.model.vo.NoticeReply;
 
 @Controller
 public class NoticeController {
@@ -72,9 +80,9 @@ public class NoticeController {
 		} 
 		
 		int result1 = noticeService.insertNotice(n);
-		int result2 = noticeService.insertNoticeAttachment(na);
+//		int result2 = noticeService.insertNoticeAttachment(na);
 		
-		if (result1 + result2 > 0) {
+		if (result1 > 0) {
 			session.setAttribute("alertMsg", "공지사항이 작성되었습니다.");
 			return "redirect:list.no";
 		} else {
@@ -84,7 +92,123 @@ public class NoticeController {
 		
 	}
 	
+	// 공지사항 수정 이동
+	@RequestMapping("updateForm.no")
+	public String updateForm(int nno, Model model) {
+		// 현재 내가 수정하기를 클릭한 게시글에 대한 정보를 가지고 이동
+		model.addAttribute("n", noticeService.selectNotice(nno));
+		return "notice/noticeUpdateForm";
+	}
+	
+	// 공지사항 수정
+	@RequestMapping("update.no")
+	public String updateNotice(Notice n, MultipartFile reupfile, HttpSession session, Model model) {
+		// 새로운 첨부파일 존재유무 확인
+		if (!reupfile.getOriginalFilename().equals("")) {
+			// 새로운 첨부파일 서버 업로드
+			String changeName = SaveFile.getSaveFileInfo(reupfile, session, "resources/uploadFiles/notice/");
+			// 새로운 첨부파일이 있다면 => 기존 첨부파일 삭제
+			if (n.getNoticeOriginName() != null) {
+				new File(session.getServletContext().getRealPath(n.getNoticeChangeName())).delete();
+			}
+			// n객체에 새로운 첨부파일 정보(원본명, 저장경로) 저장
+			n.setNoticeOriginName(reupfile.getOriginalFilename());
+			n.setNoticeChangeName("resources/uploadFiles/notice/" + changeName);
+		}
+		// n객체 update
+		int result = noticeService.updataNotice(n);
+		// 성공유무 확인 후 페이지 리턴
+		if (result > 0) {
+			session.setAttribute("alertMsg", "공지사항 수정이 완료되었습니다.");
+			return "redirect:detail.no?nno=" + n.getNoticeNo();
+		} else {
+			model.addAttribute("errorMsg", "공지사항 수정 실패");
+			return "common/noticeListView";
+		}
+	}
+	
+	// 공지사항 삭제
+	@RequestMapping("delete.no")
+	public String deleteNotice(int nno, String filePath, HttpSession session, Model model) {
+		
+		int result = noticeService.deleteNotice(nno);
+		
+		if (result > 0) {
+			if (!filePath.equals("")) {
+				new File(session.getServletContext().getRealPath(filePath)).delete();
+			}
+			session.setAttribute("alertMsg", "게시글이 삭제되었습니다.");
+			return "redirect:list.no";
+		} else {
+			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			return "common/noticeListView";
+		}
+		
+	}
+	
+	// 공지사항 댓글 리스트 조회
+	@ResponseBody
+	@RequestMapping(value = "rlist.no", produces = "application/json; charset=UTF-8")
+	public String ajaxSelectReplyList(int nno, HttpSession session) {
+	    ArrayList<NoticeReply> list = noticeService.selectReply(nno);
 
+	    Employee loginUser = (Employee)session.getAttribute("loginUser");
+
+	    if (loginUser != null) {
+	        Gson gson = new Gson();
+	        JsonObject jsonObject = new JsonObject();
+	        jsonObject.addProperty("loginUser", loginUser.getEmpNo());
+	        jsonObject.add("list", gson.toJsonTree(list));
+
+	        return gson.toJson(jsonObject);
+	    } else {
+	        return "{}";
+	    }
+	}
+
+	// 공지사항 댓글 작성
+	@ResponseBody
+	@RequestMapping(value="rinsert.no")
+	public String ajaxInsertReply(NoticeReply nr) {
+		int result = noticeService.insertReply(nr);
+		
+		if (result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+	
+	// 공지사항 댓글 수정
+	@ResponseBody
+	@RequestMapping(value="rupdate.no")
+	public String ajaxUpdateReply(NoticeReply nr) {
+		int result = noticeService.updateReply(nr);
+
+		if (result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+	
+	// 공지사항 댓글 삭제
+	@ResponseBody
+	@RequestMapping(value="rdelete.no")
+	public String ajaxDeleteReply(NoticeReply nr) {
+		int result = noticeService.deleteReply(nr);
+
+		if (result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+	// 공지사항 대댓글 작성
+	
+	// 공지사항 대댓글 수정
+	
+	// 공지사항 대댓글 삭제
 	
 	
 	

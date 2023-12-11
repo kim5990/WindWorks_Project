@@ -10,14 +10,21 @@
 
 <!-- bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- SweetAlert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 <jsp:include page="../common/header.jsp" />
+	<c:if test="${!empty alertMsg}">
+		<script>
+			swal("", "${alertMsg}", "success");
+			/* alertify.alert('알림', "${alertMsg}"); */
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
 	
 	<div class="menu">
 		<div class="notice-area">

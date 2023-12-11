@@ -11,6 +11,7 @@
   	<typeAliases>
   		<typeAlias type="com.kh.ww.employee.model.vo.Employee" alias="Employee"/>
   		<typeAlias type="com.kh.ww.notice.model.vo.Notice" alias="Notice"/>
+  		<typeAlias type="com.kh.ww.notice.model.vo.NoticeReply" alias="NoticeReply"/>
   	</typeAliases>
   	
   	<mappers>

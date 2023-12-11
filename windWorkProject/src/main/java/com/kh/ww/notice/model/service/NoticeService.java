@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.ww.common.model.vo.PageInfo;
 import com.kh.ww.notice.model.vo.Notice;
 import com.kh.ww.notice.model.vo.NoticeAttachment;
+import com.kh.ww.notice.model.vo.NoticeReply;
 
 public interface NoticeService {
 	
@@ -26,18 +27,24 @@ public interface NoticeService {
 	// 공지사항 작성 result2
 	int insertNoticeAttachment(NoticeAttachment na);
 	
-	
 	// 공지사항 수정
-	
+	int updataNotice(Notice n);
+
 	// 공지사항 삭제
-	
+	int deleteNotice(int noticeNo);
+
 	// 공지사항 댓글 리스트 조회
-	
+	ArrayList<NoticeReply> selectReply(int nno);
+
 	// 공지사항 댓글 작성
-	
+	int insertReply(NoticeReply nr);
+
 	// 공지사항 댓글 수정
+	int updateReply(NoticeReply nr);
 	
 	// 공지사항 댓글 삭제
+	int deleteReply(NoticeReply nr);
+
 	
 	// 공지사항 대댓글 작성
 	
