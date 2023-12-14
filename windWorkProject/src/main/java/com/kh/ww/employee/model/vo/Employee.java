@@ -33,5 +33,6 @@ public class Employee {
 	private String jobName;
 	private String communityName;
 	private String communityNo;
+	private String communityPoint;
 	
 }

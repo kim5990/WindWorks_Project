@@ -80,6 +80,26 @@ public class CommunityServiceImpl implements CommunityService{
 		return communityDao.communityOut(sqlSession, c);
 	}
 
+	@Override
+	public int communityCreate(Community c) {
+		return communityDao.communityCreate(sqlSession, c);
+	}
+
+	@Override
+	public int communityGroupCreate(Community c) {
+		return communityDao.communityGroupCreate(sqlSession, c);
+	}
+
+	@Override
+	public int communityUpdate(Community c) {
+		return communityDao.communityUpdate(sqlSession, c);
+	}
+
+	@Override
+	public int communityDelete(Community c) {
+		return communityDao.communityDelete(sqlSession, c);
+	}
+
 
 
 

@@ -422,7 +422,7 @@
 		display: flex;
 		align-items: center;
 		font-weight: bold;
-		width: 150px;
+		width: 180px;
 	}
 	.community-join-point{
 		display: flex;
@@ -433,10 +433,8 @@
 		font-size: 14px;
 		color: rgb(93, 93, 93);;
 	}
-	.community-join-list-container:hover{
-		background-color: rgba(169, 168, 168, 0.177);
-	}
-	.join-btn {
+
+	.join-btn{
 		width: 70px;
 		height: 25px;
 		font-size: 12px;
@@ -455,24 +453,26 @@
 		background-color: white;
 	}
 	.community-join-table{
-		width: 90%;
+		width: 100%;
 	}
 	.community-join-table-tr{
 		width: 100%;
 		display: flex;
     	justify-content: space-between;
-
+		padding: 7px 10%;
+	}
+	.community-join-table-tr:hover{
+		background-color: rgba(197, 197, 197, 0.177);
 	}
 	.community-join-table-td1{
 		display: flex;
     	justify-content: space-between;
-
 	}
 	
 
 	/* 커뮤 만들기 관련 */
 	.comInsert{
-		width: 90%;
+		width: 80%;
 		display: flex;
 		justify-content: end;
 	}
@@ -485,14 +485,98 @@
 		cursor: pointer;
 		background-color: rgb(50, 50, 50);
 	}
-	/*모달*/
-	#create-btn{
+	/* 모달 */
+	#create-btn, #update-btn{
 		width: 58px;
 		height: 38px;
 		border: 1px solid rgb(85, 175, 130);
 		border-radius: 7px;
 		color: white;
 		background-color:rgb(85, 175, 130);
+	}
+	#delete-btn{
+		width: 58px;
+		height: 38px;
+		border: 1px solid red;
+		border-radius: 7px;
+		color: white;
+		background-color:red;
+	}
+	#modal-footer{
+		display: flex;
+		justify-content: space-between;
+	}
+
+
+
+	/* 글쓰기 폼 관련 */
+	.communityList-area2-all{
+		width: 100%;
+		height: 100%;
+		padding: 50px 100px 50px 60px;
+	}
+	.communityEnrollForm-title{
+		font-weight: bold;
+		font-size: 24px;
+		margin-bottom: 20px;
+	}
+	.communityEnrollForm-table{
+		width: 100%;
+		border-collapse: separate;
+      	border-spacing: 10px;
+		padding-top: 10px;
+	}
+	.td1{
+		width: 75px;
+		font-weight: bold;
+	}
+	.td-name{
+		background-color: #eeeeee;
+	}
+	.td2{
+		width: calc(100%)
+	}
+	.communityEnrollForm-table textarea{
+		height: 400px;
+		resize: none;
+		padding: 20px;
+	}
+	.table-title{
+		height: 35px;
+		padding-left: 10px;
+	}
+	.table-file{
+		height:80px;
+		border: 1px dotted;
+	}
+	.form-button-all{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 20px 0;
+	}
+	.form-button1{
+		height: 40px;
+		width: 65px;
+		border: 1px solid rgb(85, 175, 130);
+		background-color: rgb(85, 175, 130);
+		color: white;
+		border-radius: 7px;
+		margin: 0 15px;
+	}
+	.form-button2{
+		height: 40px;
+		width: 65px;
+		border: 1px solid rgb(85, 175, 130);
+		background-color: white;
+		color: rgb(85, 175, 130);
+		border-radius: 7px;
+		margin: 0 15px;
+	}
+	.test-up{
+		display : flex;
+		align-items: flex-start;
+		padding-top: 6px;
 	}
 
 
@@ -509,16 +593,7 @@
 	
 		<!-- area1 : 커뮤 리스트 -->
 		<div class="communityList-area1">
-			<div class="communityList-area1-button-div"><button class="communityList-area1-button">글쓰기</button></div>
-			<div class="communityList-area1-title">
-				<div><h5>내 커뮤니티</h5></div>
-				<button class="plus-btn" onclick="comListAll()"><div>&#43;</div></button>
-			</div>
-			<ul class="communityList-area1-li">
-				<c:forEach var="i" begin="0" end="${comList.size()-1}">
-			    	<li id="startList${i}" name="${comList[i].communityNo}" onclick="selectCommunityOne(this)">${comList[i].communityName}</li>
-				</c:forEach>
-			</ul>
+
 		</div>
 		
 		<div class="test1">
@@ -528,42 +603,6 @@
 		<div class="communityList-area2">
 			<div class="communityList-container-box">
 			</div>
-
-
-
-
-
-
-
-			<div class="community-join-area">
-				<div class="community-join-title">커뮤니티 관리</div><br>
-				<div class="comInsert">
-					<div data-bs-toggle="modal"data-bs-target="#myModal" >커뮤니티 만들기</div>
-				</div>
-				<br>
-				<table class="community-join-table">
-					<tr class="community-join-table-tr">
-						<td class="community-join-table-td1">
-							<div class="community-join-name">커뮤 제목</div>
-							<div class="community-join-point">커뮤 소개</div>
-						</td>
-						<td><button class="join-btn1" onclick="comOut(' + list.communityNo + ',' + loginUserEmpNo + ')">탈퇴버튼</button></td>
-					</tr>
-				</table>
-			</div>
-
-
-
-
-
-
-			<button class="join-btn2" onclick="comIn(' + list.communityNo + ',' + loginUserEmpNo + ')">가입하기</button>
-
-
-
-
-
-
 		</div>
 
 		<!-- area3 : 멤버 영역 -->
@@ -578,16 +617,84 @@
 
 
 
-	<!-- ------------------------------------------------ 모달 --------------------------------------------------------- -->
+	<!-- -------------------------------------- 모달 (커뮤 등록) ----------------------------------------------- -->
 
 	<!-- The Modal -->
-	<div class="modal" id="myModal">
+	<div class="modal" id="com-create">
 		<div class="modal-dialog">
 			<div class="modal-content">
 
 				<!-- Modal Header -->
 				<div class="modal-header">
 					<h4 class="modal-title">커뮤니티 만들기</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" onclick="closeBtn()"></button>
+				</div>
+
+				<!-- Modal body -->
+                    <div class="modal-body">
+                        <h6>이름</h6>
+                        <div class="input-group mb-3 input-group-lg">  
+							<textarea id="modal-Name" name="comName" class="form-control" style="height: 50px;"></textarea>
+                        </div>
+                        <div>
+                            <h6>소개</h6>
+                            <textarea id="modal-point" name="comCont" class="form-control" style="height: 100px;"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+						<button type="submit" id="create-btn" data-bs-dismiss="modal" onclick="createCom()">등록</button>
+                    </div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		// 모달 닫기 버튼 (내용 지우기)
+		function closeBtn(){
+			document.querySelector('#modal-Name').value = "";
+			document.querySelector('#modal-point').value = "";
+		}
+		// 커뮤 등록
+		function createCom(){
+			let loginUserNo = '${loginUser.empNo}';
+			$.ajax({
+                url : "create.com",
+                data : {
+                    empNo : loginUserNo,
+                    comName : $('#modal-Name').val(),
+                    comPoint : $("#modal-point").val()
+                },
+                success: function(res){
+					if(res == "success"){
+						alert("등록 완료")
+						$('#modal-Name').val("");
+                		$("#modal-point").val("");
+						myCommunityList();
+						comListAll();
+					} else {
+						console.log("create 실패")
+					}
+                },
+                error : function(){
+                    console.log("실패");
+                }
+            })
+		}
+	</script>
+
+
+<!-- -------------------------------------- 모달 (커뮤 수정) ----------------------------------------------- -->
+
+	<!-- The Modal -->
+	<div class="modal" id="com-update">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">커뮤니티 수정</h4>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 
@@ -595,22 +702,88 @@
                     <div class="modal-body">
                         <h6>이름</h6>
                         <div class="input-group mb-3 input-group-lg">  
-							<textarea name="comName" class="form-control" style="height: 50px;"></textarea>
+							<textarea id="modal-name" name="comName" class="form-control" style="height: 50px;"></textarea>
                         </div>
                         <div>
                             <h6>소개</h6>
-                            <textarea name="comCont" class="form-control" style="height: 100px;"></textarea>
+                            <textarea id="modal-point-" name="comCont" class="form-control" style="height: 100px;"></textarea>
                         </div>
                     </div>
 
                     <!-- Modal footer -->
-                    <div class="modal-footer">
-						<button type="submit" id="create-btn" data-bs-dismiss="modal" onclick="createCom">등록</button>
+                    <div id="modal-footer" class="modal-footer">
+						<button type="submit" id="delete-btn" data-bs-dismiss="modal" onclick="daleteCom()">삭제</button>
+						<button type="submit" id="update-btn" data-bs-dismiss="modal" onclick="updateCom()">수정</button>
                     </div>
-
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		// 모달에 내용 채우기
+	   	function comUpdateModal(){
+			document.querySelector('#modal-name').value = document.querySelector('#select-com-name').textContent;
+			document.querySelector('#modal-point-').value = document.querySelector('#select-com-point').value;
+		}	
+
+		// 커뮤 수정
+		function updateCom(){
+			$.ajax({
+				url: "update.com",
+				data: {
+					comName: document.querySelector('#modal-name').value,
+					comPoint: document.querySelector('#modal-point-').value,
+					comNo: document.querySelector('#select-com-no-').value,
+				},
+				success: function (res) {
+					if(res == "success"){
+							alert("수정 완료")
+							myCommunityList();
+							selectCommunityMemberList(document.querySelector('#select-com-no-').value)
+						} else {
+							console.log("수정 실패")
+						}
+				},
+				error: function () {
+					console.log("실패");
+				}
+			});
+		}
+
+		// 커뮤 삭제
+		function daleteCom(){
+			if(window.confirm("※주의※ 삭제 후 복구할 수 없습니다.")){
+				$.ajax({
+					url: "delete.com",
+					data: {
+						comNo: document.querySelector('#select-com-no-').value,
+					},
+					success: function (res) {
+						if(res == "success"){
+								alert("삭제 완료")
+								myCommunityList(function (startList) {
+									selectCommunityOne(startList);
+								});
+							} else {
+								console.log("수정 실패")
+							}
+					},
+					error: function () {
+						console.log("실패");
+					}
+				});
+			}
+		}
+
+	
+
+
+	</script>
+
+
+	
+
+
 
 
 
@@ -619,22 +792,56 @@
 	
 	<script>
 
-	// 첫 로드시 실행될 함수
-	onload = function(){
-		let startList = document.getElementById('startList0');
-		selectCommunityOne(startList)
+	const currentCommunity = {
+		
 	}
 
+	// 첫 로드시 실행될 함수
+	onload = function () {
+		myCommunityList(function (startList) {
+			selectCommunityOne(startList);
+		});
+	};
+
+	// 내 커뮤니티 리스트
+	function myCommunityList(callback) {
+		$.ajax({
+			url: "myComList.com",
+			data: {},
+			success: function (res) {
+				let str = "";
+				str += '<div class="communityList-area1-button-div"><button class="communityList-area1-button" onclick="comBoardCreateForm()">글쓰기</button></div>' +
+					'<div class="communityList-area1-title">' +
+					'<div><h5>내 커뮤니티</h5></div>' +
+					'<button class="plus-btn" onclick="comListAll()"><div>&#43;</div></button>' +
+					'</div>' +
+					'<ul class="communityList-area1-li">';
+				for (let i = 0; i < res.length; i++) {
+					str += '<li id="startList' + i + '" name="' + res[i].communityNo + '" onclick="selectCommunityOne(this)">' + res[i].communityName + '</li>';
+				}
+				str += '</ul>';
+				document.querySelector(".communityList-area1").innerHTML = str;
+
+				let startList = document.getElementById('startList0');
+				callback(startList);
+			},
+			error: function () {
+				console.log("실패");
+			}
+		});
+	}
+
+
+
 	// 리스트 선택시 실행될 함수
-	function selectCommunityOne(clickedElement){
+	function selectCommunityOne(clickedElement) {
 		let selectComNo = clickedElement.getAttribute('name');
-		
-		selectCommunityColorChange(clickedElement)   // 색바꾸기
-		selectCommunityMemberList(selectComNo)  // 멤버 리스트 조회
+
+		selectCommunityColorChange(clickedElement); // 색바꾸기
+		selectCommunityMemberList(selectComNo); // 멤버 리스트 조회
 		// 게시글 조회
 		$(".communityList-container-box").empty();
 		selectCommunityBoardList(selectComNo, 1);
-
 	}
 
 	// 리스트 색 바꾸기
@@ -650,31 +857,35 @@
 
 	// 멤버 리스트 조회
 	function selectCommunityMemberList(selectComNo){
+		let loginUserNo = '${loginUser.empNo}';
 		$.ajax({
 			url: "memberList.com",
 			data:{
 				comNo : selectComNo,
 			},
 			success: function(res){
+				// 전역변수에 값 저장
+				currentCommunity.comNo = res[0].communityNo;  
+				currentCommunity.comName = res[0].communityName;
+
 				let str = "";
 				str +=  '<div class="communityList-area3-title">' +
-							'<h5>'+ res[0].communityName +'</h5>' +
-							'<div>톱</div>' +
+							'<h5 id="select-com-name">'+ res[0].communityName +'</h5>' +
+							'<div data-bs-toggle="modal" data-bs-target="#com-update" onclick="comUpdateModal()">톱</div>' +
 						'</div>' +
 						'<div class="communityList-area3-member">' +
 							'<div><h5>멤버</h5></div>' +
 						'</div>' +
 						'<ul class="communityList-area3-li">'
-
-
 				for (let list of res){
 					str += '<li>' + list.empName + " " + list.jobName + '</li>'
 				}
-
 				str += '</ul>' +
 						'<div class="communityList-area3-title-btn2-box">' +
-							'<button class="communityList-area3-title-btn2"><div>탈퇴하기</div></button>' +
-							'</div>'
+							'<button class="communityList-area3-title-btn2" onclick="comOut(' + res[0].communityNo + ',' + loginUserNo + '); location.reload(true);"><div>탈퇴하기</div></button>' +
+							'</div>' +
+							'<input type="hidden" id="select-com-point" value="' + res[0].communityPoint + '"/>'+
+							'<input type="hidden" id="select-com-no-" value="' + res[0].communityNo + '"/>'
 
 				document.querySelector(".communityList-area3").innerHTML = str;
 			},
@@ -740,9 +951,6 @@
 		})
 	}
 
-
-
-
 	// 게시글 디테일 (보드 + 댓글) 조회
 	function boardDetailView(bno){
 		selectBoard(bno);
@@ -804,13 +1012,10 @@
 									'<textarea cols="100" placeholder="댓글을 입력해주세요"></textarea>' +
 								'</div>' +
 								'<div class="notice-reply-write-btn">' +
-									'<button onclick="">등록</button>' +
+									'<button onclick="insertReply()">등록</button>' +
 								'</div>' +
 							'</div>' +
 						'</div>'
-						
-
-
 				document.querySelector(".communityList-container-box").innerHTML = str;
 
 				let str2 ="";
@@ -818,16 +1023,13 @@
 					str2 += '<div><a href="'+ list.communityChangeName +'" download="'+ list.communityOriginName +'">'+ list.communityOriginName +'</a></div>'
 				}
 				document.querySelector(".detail-file").innerHTML = str2;
-
 				// 댓글 리스트 조회
 				selectReplyList(bno)
-	
 			},
         	error : function(){
             	console.log("실패")
         	}
 		})
-
 	}
 
 	// 댓글, 대댓글 리스트 조회
@@ -855,14 +1057,13 @@
 										'<div>삭제</div>' +
 								'</div>'
 					} else{
-						str += '<div class="reply-update-area"></div>'
+						str += '<div class="reply-update-area">답글</div>'
 					}
 
 						str += '<div class="replyDate">'+ list.communityReplyCreateDate +'</div>' +
 								'</td>' +
 							'</tr>'		
 				}
-				const check = document.querySelector(".reply-table")
 				document.querySelector(".reply-table").innerHTML = str;
 
 				// 대댓글 조회
@@ -883,20 +1084,33 @@
 							str2 += '<div class="replyDate">'+ list.communityReplyCreateDate +'</div>' +
 									'</td>' +
 								'</tr>'	
-
 					// 부모 EL찾아서 밑에 넣어주기
 					let selectEl = document.querySelector('#rNo' + list.parentReplyNo);
 					selectEl.insertAdjacentHTML('afterend', str2);
 				}
-
-
 			},
 			error : function(){
 				console.log("실패")
 			}
 		})
-
 	}
+
+	// 댓글 작성
+	function insertReply(){
+		$.ajax({
+			url: "replyIn.com",
+			data: {
+				
+			},
+			success: function (res) {
+				
+			},
+			error: function () {
+				console.log("실패");
+			}
+		});
+	}
+
 
 	// 전체 커뮤 리스트
 	function comListAll(){
@@ -909,19 +1123,21 @@
 			success: function(res){
 				let allList = res.allList;
 				let myList = res.myList;
-
 				let str = "";
-				
-
-				str += '<div class="community-join-area">' +
-							'<div class="community-join-title">커뮤니티 관리</div><br>' +
-							'<div class="comInsert"><div data-bs-toggle="modal"data-bs-target="#myModal" >커뮤니티 만들기</div></div><br>' +
-							'<div class="community-join-list">'
+				str +=  '<div class="community-join-area">' +
+							'<div class="community-join-title">커뮤니티 목록</div><br>' +
+							'<div class="comInsert">' +
+							'<div data-bs-toggle="modal" data-bs-target="#com-create">커뮤니티 만들기</div>' +
+						'</div>' +
+						'<br>' +
+						'<table class="community-join-table">'
 				for (let list of allList){
-					str +=  '<div class="community-join-list-container">' +
-								'<tr><div class="community-join-list-container2"><div class="community-join-name">'+ list.communityName +'</div>' +
-								'<div class="community-join-point">'+ list.communityPoint +'</div></div></tr>'
-						
+					str += '<tr class="community-join-table-tr">' +
+								'<td class="community-join-table-td1">' +
+									'<div class="community-join-name">'+ list.communityName +'</div>' +
+									'<div class="community-join-point">'+ list.communityPoint +'</div>' +
+								'</td>' +
+								'<td class="join-btn-area">'
 						let checkCount = 0;
 						for (let list2 of myList){
 							if (list.communityNo == list2.communityNo){
@@ -929,14 +1145,14 @@
 							}
 						}
 						if (checkCount > 0){
-							str += '<button class="join-btn1" onclick="comOut(' + list.communityNo + ',' + loginUserEmpNo + ')">탈퇴하기</button>'
+							str += '<button class="join-btn1 join-btn" onclick="comOut(' + list.communityNo + ',' + loginUserEmpNo + '); comListAll();">탈퇴하기</button>'
 						} else{
-							str += '<button class="join-btn2" onclick="comIn(' + list.communityNo + ',' + loginUserEmpNo + ')">가입하기</button>'
+							str += '<button class="join-btn2 join-btn" onclick="comIn(' + list.communityNo + ',' + loginUserEmpNo + ')">가입하기</button>'
 						}
 
-						str += '</div>'	
+						str += '</td></tr>'	
 				}
-				str += 	'</div></div>';
+				str +=	'</table></div>';
 				document.querySelector(".communityList-container-box").innerHTML = str;
 				// area3 비워주기
 				document.querySelector(".communityList-area3").innerHTML = "";
@@ -960,14 +1176,14 @@
 				success: function(res){
 					if(res == "success"){
 						alert("가입 완료")
-						location.reload();
+							myCommunityList();
+							comListAll();
 					} else {
 						console.log("insert실패")
 					}
 				},
 				error : function(){
 					console.log("실패")
-
 				}
 			})
 		}
@@ -985,7 +1201,7 @@
 				success: function(res){
 					if(res == "success"){
 						alert("탈퇴 완료")
-						location.reload();
+						myCommunityList();
 					} else {
 						console.log("delete 실패")
 					}
@@ -995,6 +1211,48 @@
 				}
 			})
 		}
+	}
+
+
+	// 글쓰기 폼
+	function comBoardCreateForm(){
+
+		console.log(currentCommunity.comNo)
+		console.log(currentCommunity.comName)
+		let str = "";
+		str +='<div class="communityList-area2-all">' +
+				'<div class="communityEnrollForm-title">글쓰기</div>' +
+				'<form action="">' +
+					'<table class="communityEnrollForm-table">' +
+						'<tr>' +
+							'<td class="td1">분류</td>' +
+							'<td>' +
+								'<input class="td-name" type="text" value="' + currentCommunity.comName + '" readonly>' +
+							'</td>' +
+						'</tr>' +
+						'<tr>' +
+							'<td class="td1">제목</td>' +
+							'<td><input type="text" class="td2 table-title"></td>' +
+						'</tr>' +
+						'<tr>' +
+							'<td class="td1 test-up">파일첨부</td>' +
+							'<td><input type="text" class="td2 table-file"></td>' +
+						'</tr>' +
+						'<tr>' +
+							'<td class="td1 test-up">내용</td>' +
+							'<td><textarea class="td2" name="" id="" cols="30" rows="10"></textarea></td>' +
+						'</tr>' +
+
+					'</table>' +
+					'<div class="form-button-all">' +
+						'<button class="form-button1" type="submit">등록</button>' +
+						'<button class="form-button2">취소</button>' +
+					'</div>' +
+				'</form>' +
+			'</div>' 
+			document.querySelector(".communityList-container-box").innerHTML = str;
+
+
 	}
 
 	</script>

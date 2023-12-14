@@ -63,6 +63,23 @@ public class CommunityDao {
 		return sqlSession.delete("communityMapper.communityOut", c);
 	}
 	
+	public int communityCreate(SqlSessionTemplate sqlSession, Community c) {
+		return sqlSession.insert("communityMapper.communityCreate", c);
+	}
+	
+	public int communityGroupCreate(SqlSessionTemplate sqlSession, Community c) {
+		return sqlSession.insert("communityMapper.communityGroupCreate", c);
+	}
+	
+	public int communityUpdate(SqlSessionTemplate sqlSession, Community c) {
+		return sqlSession.update("communityMapper.communityUpdate", c);
+	}
+	
+	public int communityDelete(SqlSessionTemplate sqlSession, Community c) {
+		return sqlSession.update("communityMapper.communityDelete", c);
+	}
+	
+	
 
 
 }

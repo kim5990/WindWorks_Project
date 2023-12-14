@@ -31,12 +31,17 @@ public class CommunityController {
 	// 커뮤니티 첫 화면 불러오기
 	@RequestMapping("list.com")
 	public ModelAndView communityList(ModelAndView mv, HttpSession session) {
-		Employee e = (Employee)session.getAttribute("loginUser");
-		
-		mv.addObject("comList", communityService.communityList(e));
 		mv.setViewName("community/communityList");
-		
 		return mv;	
+	}
+	
+	// 내 커뮤니티 조회
+	@ResponseBody
+	@RequestMapping(value="myComList.com", produces="application/json; charset=UTF-8")
+	public String myCommunityList(HttpSession session) {
+		Employee e = (Employee)session.getAttribute("loginUser");
+		ArrayList<Community> comList = communityService.communityList(e);
+		return new Gson().toJson(comList);
 	}
 	
 	// 멤버 조회
@@ -44,7 +49,6 @@ public class CommunityController {
 	@RequestMapping(value="memberList.com", produces="application/json; charset=UTF-8")
 	public String memberList(int comNo) {
 		ArrayList<Employee> memberList = communityService.memberList(comNo);
-
 		return new Gson().toJson(memberList);	
 	}
 	
@@ -53,16 +57,14 @@ public class CommunityController {
 	@ResponseBody
 	@RequestMapping(value="boardList.com", produces="application/json; charset=UTF-8")
 	public JSONObject boardList(int comNo, int cpage) {
-		
 		// 페이지정보
 		PageInfo pi = Pagenation.getPageInfo(communityService.boardListCount(comNo), cpage, 10, 3);
+		
 		// 보드리스트 조회
 		ArrayList<CommunityBoard> boardList = communityService.boardList(pi, comNo);
-		
 		JSONObject jobj = new JSONObject();
 		jobj.put("boardList", boardList);
 		jobj.put("pi", pi);
-		
 		return jobj;
 	}
 
@@ -117,12 +119,7 @@ public class CommunityController {
 		Community c = new Community();
 		c.setCommunityNo(comNo);
 		c.setEmpNo(empNo);
-		int result = communityService.communityIn(c);
-		if(result > 0) {
-			return "success";
-		} else {
-			return "fail";
-		}
+		return  communityService.communityIn(c) > 0 ? "success" : "fail";
 	}
 	
 	// 커뮤 탈퇴
@@ -132,16 +129,59 @@ public class CommunityController {
 		Community c = new Community();
 		c.setCommunityNo(comNo);
 		c.setEmpNo(empNo);
-		int result = communityService.communityOut(c);
-		if(result > 0) {
+		return communityService.communityOut(c) > 0 ? "success" : "fail";
+	}
+	
+	// 커뮤 등록 (커뮤 + 커뮤그룹)
+	@ResponseBody
+	@RequestMapping(value="create.com")
+	public String communityCreate(int empNo, String comName, String comPoint) {
+		Community c = new Community();
+		c.setEmpNo(empNo);
+		c.setCommunityName(comName);
+		c.setCommunityPoint(comPoint);	
+		
+		// 커뮤 등록
+		int result = communityService.communityCreate(c);
+		int result2 = 0;
+		if (result > 0) {
+			// 커뮤그룹 등록
+			result2 = communityService.communityGroupCreate(c);
+		} 
+		if (result * result2 > 0) {
 			return "success";
 		} else {
 			return "fail";
 		}
 	}
 	
+	// 커뮤 수정
+	@ResponseBody
+	@RequestMapping(value="update.com")
+	public String communityUpdate(String comName, String comPoint, int comNo) {
+		Community c = new Community();
+		c.setCommunityNo(comNo);
+		c.setCommunityName(comName);
+		c.setCommunityPoint(comPoint);
+		return communityService.communityUpdate(c) > 0 ? "success" : "fail";
+	}
+	
+	// 커뮤 삭제
+		@ResponseBody
+		@RequestMapping(value="delete.com")
+		public String communityDelete(int comNo) {
+			Community c = new Community();
+			c.setCommunityNo(comNo);
+			return communityService.communityDelete(c) > 0 ? "success" : "fail";
+		}
 	
 
 	
 	
 }
+
+	
+
+	
+	
+

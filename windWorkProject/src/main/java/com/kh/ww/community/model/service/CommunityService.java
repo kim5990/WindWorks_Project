@@ -36,5 +36,13 @@ public interface CommunityService {
 	int communityIn(Community c);
 	// 커뮤 탈퇴
 	int communityOut(Community c);
+	// 커뮤 등록
+	int communityCreate(Community c);
+	// 커뮤그룹 등록
+	int communityGroupCreate(Community c);
+	// 커뮤 수정
+	int communityUpdate(Community c);
+	// 커뮤 삭제
+	int communityDelete(Community c);
 
 }

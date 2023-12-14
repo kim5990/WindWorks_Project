@@ -60,6 +60,8 @@
 		<result column="JOB_NAME" property="jobName"/>
 		<result column="COMMUNITY_NAME" property="communityName"/>
 		<result column="COMMUNITY_NO" property="communityNo"/>
+		<result column="COMMUNITY_POINT" property="communityPoint" />
+		
 	</resultMap>
  	
  	
@@ -75,7 +77,7 @@
  	
  	<!-- 멤버 리스트 조회 -->
  	<select id="memberList" resultMap="employeeResult">
-	 	SELECT COMMUNITY_NAME, COMMUNITY_NO, EMP_NO, EMP_NAME, JOB_NAME
+	 	SELECT COMMUNITY_NAME, COMMUNITY_POINT, COMMUNITY_NO, EMP_NO, EMP_NAME, JOB_NAME
 		FROM COMMUNITY_GROUP
 		JOIN EMPLOYEE USING (EMP_NO)
 		JOIN JOB USING (JOB_CODE)
@@ -210,6 +212,49 @@
 		WHERE COMMUNITY_NO = #{communityNo}
 		    AND EMP_NO = #{empNo}
  	</delete>
+ 	
+ 	<!-- 커뮤 등록 -->
+ 	 <insert id="communityCreate">
+ 		INSERT INTO COMMUNITY(
+	 				COMMUNITY_NO,
+					COMMUNITY_NAME,
+					COMMUNITY_POINT
+ 					)
+ 			VALUES(
+ 				SEQ_CONO.NEXTVAL,
+ 				#{communityName},
+ 				#{communityPoint}
+ 				)
+ 	</insert>
+ 	
+ 	<!-- 커뮤그룹 등록 -->
+ 	<insert id="communityGroupCreate">
+ 		INSERT INTO COMMUNITY_GROUP(
+	 				COMMUNITY_GROUP_NO,
+					COMMUNITY_NO,
+					EMP_NO
+ 					)
+ 			VALUES(
+ 				SEQ_CGNO.NEXTVAL,
+ 				SEQ_CONO.CURRVAL,
+ 				#{empNo}
+ 				)
+ 	</insert>
+ 	
+ 	<!-- 커뮤 수정 -->
+ 	<update id="communityUpdate">
+ 		UPDATE COMMUNITY
+ 			SET COMMUNITY_NAME = #{communityName},
+ 				COMMUNITY_POINT = #{communityPoint}
+ 		WHERE COMMUNITY_NO = #{communityNo}
+ 	</update>
+ 	
+ 	<!-- 커뮤 삭제 -->
+ 	<update id="communityDelete">
+ 		UPDATE COMMUNITY
+ 			SET COMMUNITY_STATUS = 'N'
+ 		WHERE COMMUNITY_NO = #{communityNo}
+ 	</update>
  	
  	
  	
