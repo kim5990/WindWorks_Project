@@ -50,8 +50,10 @@
 				
 				<div class="notice-middle">
 					<div class="notice-content">
-						${n.noticeContent}
+						<pre>${n.noticeContent}</pre>
 					</div>
+					
+		
 					<div class="notice-middle-right">
 					
 						<c:if test="${loginUser.empNo eq n.empNo}">
@@ -106,21 +108,10 @@
 					
 					<div id="notice-reply" class="notice-reply-middle">
 						
-						<!-- 대댓글영역 
-						<div id="parent-reply" class="notice-reply-parent-content-area">
-							<div class="notice-reply-parent-writer">
-								
-							</div>
-							<div class="notice-reply-parent-content">
-								
-							</div>
-							<div class="notice-reply-parent-date">
-								
-								<div class="notice-reply-parent">
-									<button type=""></button>
-								</div>
-							</div> 
-						</div>-->
+						<!-- 대댓글영역 -->
+						<!-- <div id="parent-reply" class="notice-reply-parent-content-area">
+
+						</div> -->
 						
 						
 					</div> 
@@ -130,7 +121,7 @@
 						<div class="notice-reply-write-area">
 							<div class="notice-reply-write-writer">${loginUser.empName}</div>
 							<div class="notice-reply-write-content">
-								<textarea id="contentReply" cols="100" placeholder="댓글을 입력해주세요" style="overflow-x:hidden; overflow-y:auto;"></textarea>
+								<textarea id="contentReply" rows="1" cols="100" placeholder="댓글을 입력해주세요"></textarea>
 							</div>
 							<div class="notice-reply-write-btn">
 								<button onclick="addReply();">등록</button>
@@ -145,7 +136,7 @@
 						selectReplyList();
 					})
 					
-					/* 댓글 그려주기 */
+					/* ----- 댓글 그려주기 -----*/
 					function selectReplyList(){
 						$.ajax({
 							url: "rlist.no",
@@ -154,119 +145,133 @@
 							},
 							success: function(result){
 								console.log(result);
-								console.log(result.list);
-
-								console.log(result.list.length);
-								console.log(result.loginUser);
+								
+								let list = result.list;
 								
 								let str1="";
 								let str2="";
-								let str3 = "";
+								let str3="";
+								let str4="";
+								
+								// 댓글 반복문 돌기
+								for (let i = 0; i < list.length; i++){
 
-								for (let i = 0; i < result.list.length; i++){
-								if (result.loginUser === result.list[i].empNo) {
-									str2 = '<button class="notice-reply-update-btn" onclick="noticeReplyUpdate('+ i +')">' + '수정' + '</button>'
-											+ '<div>' + '|' + '</div>'
-											+ '<button class="notice-reply-delete-btn" onclick="noticeReplyDelete(' + result.list[i].noticeReplyNo + ')">' + '삭제' + '</button>'
+									// 로그인유저만 수정,삭제 보이기
+									if (result.loginUser === list[i].empNo) {
+										str2 = '<button class="notice-reply-update-btn" onclick="noticeReplyUpdate('+ i +')">' + '수정' + '</button>'
+											 + '<div>' + '|' + '</div>'
+											 + '<button class="notice-reply-delete-btn" onclick="noticeReplyDelete(' + list[i].noticeReplyNo + ')">' + '삭제' + '</button>'
+										}
+									
+									// 대댓글 반목문 돌기
+									for (let j = 0; j < list[i].childReply.length; j++) {
+										
+										
+										// 답글 수정시 textarea display 불러오기
+										+ '<div id="appendChildReplyUpdate'+ i +'" class="notice-reply-write-area">'
+										+ '<div class="notice-reply-write-writer">' + list[i].childReply[j].empName + '</div>'
+										+ '<div class="notice-reply-write-content">'
+										+ 	'<textarea id="content' + i + '" class="replyContentUpdate" cols="100">' + list[i].childReply[j].noticeReplyContent + '</textarea>'
+										+ '</div>'
+										+ '<div class="notice-reply-write-btn">'
+										+ '<button onclick="appendChildReplyUpdate(' + list[i].childReply[j].noticeReplyNo + ',' + "'" + 'content' + i + "'" + ')">' + '수정' + '</button>'
+										+ '<button id="addReplyCancel" onclick="addReplyCancel()">' + '취소' + '</button>'
+										+ '</div>'
+										+ '</div>'
+										
+										// 로그인유저만 수정,삭제 보이기
+										let childIndex = j; // 대댓글의 인덱스를 변수에 저장
+										if (result.loginUser === list[i].childReply[j].empNo) {
+											str4 = '<button class="notice-reply-update-btn" onclick="noticeChildReplyUpdate(' + i + ',' + childIndex + ')">' + '수정' + '</button>'
+												 + '<div>' + '|' + '</div>'
+												 + '<button class="notice-reply-delete-btn" onclick="noticeChildReplyDelete(' + list[i].childReply[j].noticeReplyNo + ')">' + '삭제' + '</button>'
+											}
+											
+										if (list[i].childReply.length !== 0) {
+											str3 += '<div class="notice-reply-parent-writer">' + list[i].childReply[j].empName 
+												 + '<div id="notice-reply-middle-right'+ i +'" class="notice-reply-middle-right">' + str4 +'</div>'
+												 + '</div>'
+									             + '<div class="notice-reply-parent-content">' + '<pre>' + list[i].childReply[j].noticeReplyContent + '</pre>' + '</div>'
+									             + '<div class="notice-reply-parent-date">' + list[i].childReply[j].noticeReplyCreateDate
+									             + '</div>'
+										}
+										
+											
 									}
-
-									str1 += '<div id="notice-reply-content'+ result.list[i].noticeReplyNo +'" class="notice-reply-content">'
-											/* += '<div id="parent-reply'+ result.list[i].noticeReplyNo +'" class="notice-reply-parent-content-area">' */
-												+ '<div class="notice-reply-writer">' + result.list[i].empName
+									
+									// 댓글 그리기
+									str1 += '<div id="notice-reply-content'+ i +'" class="notice-reply-content">'
+												+ '<div class="notice-reply-writer">' + list[i].empName
 												+ '<div id="notice-reply-middle-right'+ i +'" class="notice-reply-middle-right">' + str2 +'</div>'
 												+ '</div>'
-												+ '<div class="notice-reply">' + result.list[i].noticeReplyContent + '</div>'
-												+ '<div class="notice-reply-date">' + result.list[i].noticeReplyCreateDate 
+												+ '<div class="notice-reply">' + '<pre>' + list[i].noticeReplyContent + '</pre>' + '</div>'
+												+ '<div class="notice-reply-date">' + list[i].noticeReplyCreateDate 
 												+ 	'<div class="notice-reply-parent">' + '<button onclick="appendReply('+ i +')">' + '답글쓰기' + '</button>' + '</div>'
 												+ '</div>'
-	
+												
+												+ '<div id="notice-child-reply-content'+ i +'" class="notice-reply-parent-content-area">'
+													+ str3
+												+ '</div>'
 											+ '</div>'
-											
+
+											// 댓글 수정시 textarea display 불러오기
 											+ '<div id="appendReplyUpdate'+ i +'" class="notice-reply-write-area" style="display: none;">'
-											+ '<div class="notice-reply-write-writer">' + result.list[i].empName + '</div>'
+											+ '<div class="notice-reply-write-writer">' + list[i].empName + '</div>'
 											+ '<div class="notice-reply-write-content">'
-											+ 	'<textarea id="content' + i + '" rows="1" cols="100">' + result.list[i].noticeReplyContent + '</textarea>'
+											+ 	'<textarea id="content' + i + '" class="replyContentUpdate" cols="100">' + list[i].noticeReplyContent + '</textarea>'
 											+ '</div>'
 											+ '<div class="notice-reply-write-btn">'
-											+ '<button onclick="addReplyUpdate(' + result.list[i].noticeReplyNo + ',' + "'" + 'content' + i + "'" + ')">' + '수정' + '</button>'
+											+ '<button onclick="addReplyUpdate(' + list[i].noticeReplyNo + ',' + "'" + 'content' + i + "'" + ')">' + '수정' + '</button>'
 											+ '<button id="addReplyCancel" onclick="addReplyCancel()">' + '취소' + '</button>'
 											+ '</div>'
 											+ '</div>'
 											
 											
+											// 답글 쓰기 클릭시 댓글 아래 textarea 불러오기
 											+ '<div class="notice-reply-parent-bottom" style="display: none;" id="appendReply'+ i +'">'
 											+ '<div class="notice-reply-write-area">'
 											+ '<div class="notice-reply-write-writer">' + '${loginUser.empName}' + '</div>'
 											+ '<div class="notice-reply-write-content">'
-											+ 	'<textarea id="content" rows="1" cols="100" placeholder="댓글을 입력해주세요">' + '</textarea>'
+											+ 	'<textarea id="contentChildReply" rows="1" cols="100">' + '</textarea>'
 											+ '</div>'
 											+ '<div class="notice-reply-write-btn">'
-											+ '<button onclick="addReply();">' + '등록' + '</button>'
+											+ '<button onclick="addChildReply(' + list[i].noticeReplyNo + ',' + list[i].childReply.parentReplyNo + ')">' + '등록' + '</button>'
 											+ '</div>'
 											+ '</div>'
 											+ '</div>'
 											
-									// 대댓글 조회			
-									if (result.list[i].parentReplyNo !== null) {
-								        // 부모 댓글에 해당하는 경우 str3에 부모 댓글 형태를 추가
-								        str3 += '<div id="parent-reply' + result.list[i].parentReplyNo + '" class="notice-reply-parent-content-area">'
-								             + '<div class="notice-reply-parent-writer">' + result.list[i].empName + '</div>'
-								             + '<div class="notice-reply-parent-content">' + result.list[i].noticeReplyContent + '</div>'
-								             + '<div class="notice-reply-parent-date">' + result.list[i].noticeReplyCreateDate
-								             + '<div class="notice-reply-parent">' + str2 + '</div>'
-								             + '</div>'
-								             + '</div>';
-								    }
 											
+											// 대댓글 비워주기
+											str3 = "";
+											str4 = "";
 									
 								}
 								// 부모 댓글 추가한 후, 해당 부모 댓글의 요소를 변경하려면
-								document.querySelector("#notice-reply").innerHTML += str1;
-								document.querySelector("#rcount").innerHTML = result.list.length;
+								document.querySelector("#notice-reply").innerHTML = str1;
+								document.querySelector("#rcount").innerHTML = list.length;
 
-								// 추가한 부모 댓글을 본문에 삽입
-								document.querySelector("#parent-reply").innerHTML = str3;
 								
-								/* if (result.list[i].parentReplyNo !== null) {
-								    // 대댓글을 부모 댓글로 변경
-								    // document.querySelector("#parent-reply" + result.list[i].parentReplyNo).innerHTML = str3;
-								    str3 = str1.replace('notice-reply-content', 'parent-reply');
-								} */
+								const DEFAULT_HEIGHT = 5; // textarea 기본 height
+
+								// 여러 개의 textarea에 대해 높이를 자동으로 조절하는 코드
+								document.querySelectorAll('textarea').forEach(($textarea) => {
+								    $textarea.addEventListener('input', (event) => {
+								        const $target = event.target;
+								        $target.style.height = 0;
+								        $target.style.height = DEFAULT_HEIGHT + $target.scrollHeight + 'px';
+								    })
+								})
 								
-								// 대댓글 조회
-								/* let str4 = "";
-								let str3 = "";
-								for (let i = 0; i < result.list.length; i++){
-								if (result.loginUser === result.list[i].empNo) {
-									str4 = '<button class="notice-reply-update-btn" onclick="noticeReplyUpdate('+ i +')">' + '수정' + '</button>'
-											+ '<div>' + '|' + '</div>'
-											+ '<button class="notice-reply-delete-btn" onclick="noticeReplyDelete(' + result.list[i].noticeReplyNo + ')">' + '삭제' + '</button>'
-									}
-									
-									str3 += '<div id="parent-reply' + result.list[i].parentReplyNo + '" class="notice-reply-parent-content-area">'
-										 + '<div class="notice-reply-parent-writer">' + result.list[i].empName + '</div>'
-										 + '<div class="notice-reply-parent-content">' + result.list[i].noticeReplyContent + '</div>'
-										 + '<div class="notice-reply-parent-date">' + result.list[i].noticeReplyCreateDate
-										 + '<div class="notice-reply-parent">' + str4 + '</div>'
-										 + '</div>'
-										 + '</div>'	
-								}
-								// 부모 EL찾아서 밑에 넣어주기
-								if (result.list[i].parentReplyNo != 0) {
-								    // 대댓글을 부모 댓글로 변경
-								    str3 = str3.replace('notice-reply-content', 'parent-reply');
-								} */
-								
-								
-				               /* let selectEl = document.querySelector('#parent-reply' + result.list[i].parentReplyNo);
-				               selectEl.insertAdjacentHTML('afterend', str3); */
-				               
-				               
-				               
-								
-				               
-				               
-								
+								// replyContentUpdate 클래스를 가진 textarea에 대해 높이를 자동으로 조절하는 코드
+								document.querySelectorAll('.replyContentUpdate').forEach(($textarea) => {
+								    $textarea.style.height = 'auto';
+								    $textarea.addEventListener('input', (event) => {
+								        const $target = event.target;
+								        $target.style.height = 'auto';
+								        $target.style.height = $target.scrollHeight + 'px';
+								    })
+								})
+
 							},
 							error: function(){
 								console.log("rlist.no ajax통신 실패");
@@ -274,91 +279,8 @@
 						})
 					}
 					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-				   // 댓글, 대댓글 리스트 조회
-/* 				   function selectReplyList(bno){
-				      let loginUserEmpNo = '${loginUser.empNo}';
-				      $.ajax({
-				         url: "replyList.com",
-				         data:{
-				            bno: bno
-				         },
-				         success: function(res){
-				            let reList = res.reList;
-				            let reReList = res.reReList;
 
-				            let str = "";
-				            for (let list of reList){
-				               str += '<tr class="reply-table-tr" id="rNo' + list.communityReplyNo + '">' +
-				                        '<td class="reply-name">'+ list.empName +'</td>' +
-				                        '<td class="reply-content">' + list.communityReplyComment + '</td>' +
-				                        '<td class="reply-update-date-area">'
-				               if(list.empNo == loginUserEmpNo){
-				                  str += '<div class="reply-update-area">' +
-				                              '<div>수정</div>' +
-				                              '<div>|</div>' +
-				                              '<div>삭제</div>' +
-				                        '</div>'
-				               } else{
-				                  str += '<div class="reply-update-area"></div>'
-				               }
-
-				                  str += '<div class="replyDate">'+ list.communityReplyCreateDate +'</div>' +
-				                        '</td>' +
-				                     '</tr>'      
-				            }
-				            const check = document.querySelector(".reply-table")
-				            document.querySelector(".reply-table").innerHTML = str;
-
-				            // 대댓글 조회
-				            for (let list of reReList){
-				               let str2 = '<tr class="reReply-table-tr" id="rNo' + list.communityReplyNo + '">' +
-				                        '<td class="reply-name">'+ list.empName +'</td>' +
-				                        '<td class="reply-content">' + list.communityReplyComment + '</td>' +
-				                        '<td class="reply-update-date-area">'
-				                  if(list.empNo == loginUserEmpNo){
-				                     str2 += '<div class="reply-update-area">' +
-				                                 '<div>수정</div>' +
-				                                 '<div>|</div>' +
-				                                 '<div>삭제</div>' +
-				                           '</div>'
-				                  } else{
-				                     str2 += '<div class="reply-update-area"></div>'
-				                  }
-				                     str2 += '<div class="replyDate">'+ list.communityReplyCreateDate +'</div>' +
-				                           '</td>' +
-				                        '</tr>'   
-
-				               // 부모 EL찾아서 밑에 넣어주기
-				               let selectEl = document.querySelector('#rNo' + list.parentReplyNo);
-				               selectEl.insertAdjacentHTML('afterend', str2);
-				            }
-
-
-				         },
-				         error : function(){
-				            console.log("실패")
-				         }
-				      })
-
-				   } */
-					
-
-				   
-				   
-				   
-					
-					/* 답글 쓰기 버튼 */
+					/* -----답글 쓰기 버튼 ----- */
 					let currentlyShownReply = null;
 
 					function appendReply(num) {
@@ -381,22 +303,103 @@
 					    }
 					}
 					
-					/* 수정 버튼 클릭 */
-					function noticeReplyUpdate(num){
-						let replyUpdateBtn = document.querySelector('#appendReplyUpdate' + num);
-						let noticeReplyContent = document.getElementById('notice-reply-content' + num);
+					/* ----- 댓글 수정 버튼 클릭 ----- */
+					// 클릭한 댓글의 ID를 추적할 변수를 전역 범위에서 선언합니다.
+					let currentReplyId = null;
+					
+					// 수정 버튼 클릭
+					function noticeReplyUpdate(num) {
+					    let replyUpdateBtn = document.querySelector('#appendReplyUpdate' + num);
+					    let noticeReplyContent = document.getElementById('notice-reply-content' + num);
 					    
-					    if (replyUpdateBtn.style.display === 'none') {
-					    	replyUpdateBtn.style.display = 'block';
-					    	noticeReplyContent.style.display = 'none';
+					    // 현재 보여지는 수정창이 없거나, 다른 댓글을 클릭했을 경우
+					    if (currentReplyId !== num || !replyUpdateBtn.style.display || replyUpdateBtn.style.display === 'none') {
+					        // 현재 보여지고 있는 수정창을 숨깁니다.
+					        hideCurrentReplyUpdate();
+					        // 클릭한 댓글의 수정창을 보여줍니다.
+					        replyUpdateBtn.style.display = 'block';
+					        // 현재 클릭한 댓글의 ID를 추적합니다.
+					        currentReplyId = num;
 					    } else {
-					    	replyUpdateBtn.style.display = 'none';
-					    	noticeReplyContent.style.display = 'block';
+					        // 현재 클릭한 댓글의 수정창을 숨깁니다.
+					        hideCurrentReplyUpdate();
+					        // ID 추적 변수를 초기화합니다.
+					        currentReplyId = null;
 					    }
-		
+
+					    // 댓글 내용의 화면 표시 여부를 변경합니다.
+					    if (noticeReplyContent) {
+					        if (noticeReplyContent.style.display === 'none') {
+					            noticeReplyContent.style.display = 'block';
+					        } else {
+					            noticeReplyContent.style.display = 'none';
+					        }
+					    }
+					}
+
+					// 현재 보여지는 수정창을 숨기는 함수
+					function hideCurrentReplyUpdate() {
+					    if (currentReplyId !== null) {
+					        let currentReplyUpdateBtn = document.querySelector('#appendReplyUpdate' + currentReplyId);
+					        if (currentReplyUpdateBtn) {
+					            currentReplyUpdateBtn.style.display = 'none';
+					        }
+
+					        let currentNoticeReplyContent = document.getElementById('notice-reply-content' + currentReplyId);
+					        if (currentNoticeReplyContent) {
+					            currentNoticeReplyContent.style.display = 'block';
+					        }
+					    }
 					}
 					
-					/* 취소 버튼 클릭시  */
+					/* ----- 답글 수정 버튼 클릭 ----- */
+					// 수정 버튼 클릭
+					function noticeChildReplyUpdate(num) {
+					    let replyUpdateBtn = document.querySelector('#appendChildReplyUpdate' + num);
+					    let noticeReplyContent = document.getElementById('notice-child-reply-content' + num);
+					    
+					    // 현재 보여지는 수정창이 없거나, 다른 댓글을 클릭했을 경우
+					    if (currentReplyId !== num || !replyUpdateBtn.style.display || replyUpdateBtn.style.display === 'none') {
+					        // 현재 보여지고 있는 수정창을 숨깁니다.
+					        hideCurrentReplyUpdate();
+					        // 클릭한 댓글의 수정창을 보여줍니다.
+					        replyUpdateBtn.style.display = 'block';
+					        // 현재 클릭한 댓글의 ID를 추적합니다.
+					        currentReplyId = num;
+					    } else {
+					        // 현재 클릭한 댓글의 수정창을 숨깁니다.
+					        hideCurrentReplyUpdate();
+					        // ID 추적 변수를 초기화합니다.
+					        currentReplyId = null;
+					    }
+
+					    // 댓글 내용의 화면 표시 여부를 변경합니다.
+					    if (noticeReplyContent) {
+					        if (noticeReplyContent.style.display === 'none') {
+					            noticeReplyContent.style.display = 'block';
+					        } else {
+					            noticeReplyContent.style.display = 'none';
+					        }
+					    }
+					}
+
+					// 현재 보여지는 수정창을 숨기는 함수
+					function hideCurrentReplyUpdate() {
+					    if (currentReplyId !== null) {
+					        let currentReplyUpdateBtn = document.querySelector('#appendChildReplyUpdate' + currentReplyId);
+					        if (currentReplyUpdateBtn) {
+					            currentReplyUpdateBtn.style.display = 'none';
+					        }
+
+					        let currentNoticeReplyContent = document.getElementById('notice-child-reply-content' + currentReplyId);
+					        if (currentNoticeReplyContent) {
+					            currentNoticeReplyContent.style.display = 'block';
+					        }
+					    }
+					}
+
+
+					/* ----- 취소 버튼 클릭시 ----- */
 					function addReplyCancel() {
 					    let appendReplyUpdate = document.querySelectorAll('[id^=appendReplyUpdate]');
 					    appendReplyUpdate.forEach(element => {
@@ -406,10 +409,10 @@
 					        if (noticeReplyContent) {
 					            noticeReplyContent.style.display = 'block';
 					        }
-					    });
+					    })
 					}
 					
-					/* 댓글 수정 기능 */
+					/* ----- 댓글 수정 기능 ----- */
 					function addReplyUpdate(noticeReplyNo, content){
 					    $.ajax({
 					        url: "rupdate.no",
@@ -426,7 +429,7 @@
 					    })    
 					}
 					
-					/* 댓글 삭제 기능 */
+					/* ----- 댓글 삭제 기능 ----- */
 					function noticeReplyDelete(noticeReplyNo){
 						$.ajax({
 							url: "rdelete.no",
@@ -443,7 +446,7 @@
 						})
 					}
 
-					/* 댓글 쓰기 기능 */
+					/* ----- 댓글 쓰기 기능 ----- */
 					function addReply(){
 						$.ajax({
 							url: "rinsert.no",
@@ -465,7 +468,43 @@
 							}
 						})
 					}
+					
+					/* ----- 답글 쓰기 기능 ----- */
+					function addChildReply(noticeReplyNo, parentReplyNo){
+						$.ajax({
+							url: "crinsert.no",
+							data: {
+								noticeNo: '${n.noticeNo}',
+								noticeReplyNo: noticeReplyNo,
+					            parentReplyNo: parentReplyNo,
+								empNo: '${loginUser.empNo}',
+								noticeReplyContent: $("#contentChildReply").val()
+							},
+							success: function(res){
+								console.log(res);
+								
+								if (res === "success"){
+									selectReplyList();
+									$("#contentChildReply").val("");
+								}
+							},
+							error: function(){
+								console.log("crinsert.no ajax통신 실패");
+							}
+						})
+					}
 				
+					/* ----- textare 높이 자동 조절 ----- */
+					const DEFAULT_HEIGHT = 5; // textarea 기본 height
+					const $textarea = document.querySelector('#contentReply');
+	
+					$textarea.oninput = (event) => {
+					  const $target = event.target;
+	
+					  $target.style.height = 0;
+					  $target.style.height = DEFAULT_HEIGHT + $target.scrollHeight + 'px';
+					}
+					
 				
 				</script>
 				

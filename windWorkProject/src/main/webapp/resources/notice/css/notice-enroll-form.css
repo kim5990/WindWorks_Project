@@ -65,6 +65,14 @@
 	width: 850px;
 }
 
+.notice-enroll-table input:focus{
+	outline: none;
+}
+
+.notice-enroll-table textarea:focus{
+	outline: none;
+}
+
 .notice-enroll-file-icon{
 	font-size: 20px;
 }
@@ -77,6 +85,24 @@
     border: 1px dashed #dddddd;
     color: #999999;
 }
+
+input[type=file]::file-selector-button {
+	width: 95px;
+	height: 32px;
+	border: 1px solid #999999;
+	background: white;
+	color: #999999;
+	border-radius: 10px;
+	cursor: pointer;
+	margin-right: 10px;
+}
+
+input[type=file]::file-selector-button:hover{
+	background: rgb(85, 175, 130);
+	border: 1px solid rgb(85, 175, 130);
+    color: white;
+}
+
 
 /* 공지사항 등록,취소 버튼 */
 .notice-enroll-btn{
@@ -100,7 +126,7 @@
 	height: 40px;
 	width: 65px;
 	border: 1px solid rgb(85, 175, 130);
-	background-color: white;
+	background: white;
 	color: rgb(85, 175, 130);
 	border-radius: 7px;
 	margin: 0 15px;

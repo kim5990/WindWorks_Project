@@ -18,6 +18,8 @@
 		<result column="NOTICE_FILE_PATH" property="noticeFilePath" />
 		<result column="NOTICE_FILE_LEVEL" property="noticeFileLevel" />
 		<result column="DEPT_CODE" property="deptCode" />
+		<result column="NOTICE_REPLY_NO" property="noticeReplyNo" />
+		<result column="PARENT_REPLY_NO" property="parentReplyNo" />
 	</resultMap>
 	
 	<!-- 공지사항 총 갯수 조회하는 쿼리문 -->
@@ -132,7 +134,7 @@
 	           EMPLOYEE.EMP_NO empNo,
 	           EMPLOYEE.EMP_NAME empName,
 	           NOTICE.NOTICE_NO,
-	           PARENT_REPLY_NO parentReplyNo,
+	           PARENT_REPLY_NO parentReplyNo
   		  FROM NOTICE_REPLY
      LEFT JOIN NOTICE ON (NOTICE.NOTICE_NO = NOTICE_REPLY.NOTICE_NO)
      LEFT JOIN EMPLOYEE ON (NOTICE_REPLY.EMP_NO = EMPLOYEE.EMP_NO)
@@ -171,5 +173,26 @@
 		   SET NOTICE_REPLY_STATUS = 'N'
 		 WHERE NOTICE_REPLY_NO = #{noticeReplyNo}
 	</update>
+	
+	<!-- 공지사항 답글 작성 쿼리문 -->
+	<insert id="insertChildeReply">
+		INSERT INTO
+			NOTICE_REPLY (
+				NOTICE_REPLY_NO,
+				NOTICE_REPLY_CONTENT,
+				EMP_NO,
+				NOTICE_NO,
+				PARENT_REPLY_NO
+			)
+			VALUES (
+				SEQ_NPNO.NEXTVAL,
+				#{noticeReplyContent},
+				#{empNo},
+				#{noticeNo},
+				#{noticeReplyNo}
+			)
+	</insert>
+	
+	
 	
 </mapper>

@@ -50,6 +50,8 @@
 		                    </tr>
 						</table>
 						
+
+						
 						<!-- 등록,취소 버튼 -->
 						<div class="notice-enroll-btn">
 							<button type="submit" class="notice-enroll-btn-submit">등록</button>
@@ -64,6 +66,7 @@
 			
 		</div>
 	</div>
+
 
 </body>
 </html>

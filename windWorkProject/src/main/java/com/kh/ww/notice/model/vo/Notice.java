@@ -27,4 +27,6 @@ public class Notice {
 	private String noticeFilePath;
 	private String noticeFileLevel;
 	private String deptCode;
+	private int noticeReplyNo;
+	private int parentReplyNo;
 }

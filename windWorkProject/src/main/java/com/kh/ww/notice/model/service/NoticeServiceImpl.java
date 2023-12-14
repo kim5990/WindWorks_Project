@@ -93,8 +93,13 @@ public class NoticeServiceImpl implements NoticeService{
 		return noticeDao.deleteReply(sqlSession, nr);
 	}
 
-	
 	// 공지사항 대댓글 작성
+	@Override
+	public int insertChildeReply(NoticeReply nr) {
+		return noticeDao.insertChildeReply(sqlSession, nr);
+	}
+
+	
 	
 	// 공지사항 대댓글 수정
 	

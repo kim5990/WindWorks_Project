@@ -78,8 +78,12 @@ public class NoticeDao {
 		return sqlSession.update("noticeMapper.deleteReply", nr);
 	}
 
-	
 	// 공지사항 대댓글 작성
+	public int insertChildeReply(SqlSessionTemplate sqlSession, NoticeReply nr) {
+		return sqlSession.insert("noticeMapper.insertChildeReply", nr);
+	}
+
+
 	
 	// 공지사항 대댓글 수정
 	

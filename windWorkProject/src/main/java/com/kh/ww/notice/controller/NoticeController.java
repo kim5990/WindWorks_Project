@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.kh.ww.common.model.vo.PageInfo;
 import com.kh.ww.common.template.Pagenation;
@@ -158,7 +159,48 @@ public class NoticeController {
 	        Gson gson = new Gson();
 	        JsonObject jsonObject = new JsonObject();
 	        jsonObject.addProperty("loginUser", loginUser.getEmpNo());
-	        jsonObject.add("list", gson.toJsonTree(list));
+	       
+	        
+	        JsonArray replyList = new JsonArray();
+
+	        for (NoticeReply reply : list) {
+	        	if (reply.getParentReplyNo() != 0)
+	        		continue;
+	        		
+	            JsonObject newReply = new JsonObject();
+	            newReply.addProperty("noticeReplyNo", reply.getNoticeReplyNo());
+	            newReply.addProperty("noticeReplyContent", reply.getNoticeReplyContent());
+	            newReply.addProperty("noticeReplyCreateDate", reply.getNoticeReplyCreateDate());
+	            newReply.addProperty("noticeReplyStatus", reply.getNoticeReplyStatus());
+	            newReply.addProperty("empNo", reply.getEmpNo());
+	            newReply.addProperty("empName", reply.getEmpName());
+	            newReply.addProperty("noticeNo", reply.getNoticeNo());
+	            newReply.addProperty("parentReplyNo", reply.getParentReplyNo());
+	    
+	            JsonArray childList = new JsonArray();
+	    
+	            for (NoticeReply childReply : list) {
+	                if (reply.getNoticeReplyNo() == childReply.getParentReplyNo()) {
+	                    JsonObject childReplyJson = new JsonObject();
+	                    childReplyJson.addProperty("noticeReplyNo", childReply.getNoticeReplyNo());
+	                    childReplyJson.addProperty("noticeReplyContent", childReply.getNoticeReplyContent());
+	                    childReplyJson.addProperty("noticeReplyCreateDate", childReply.getNoticeReplyCreateDate());
+	                    childReplyJson.addProperty("noticeReplyStatus", childReply.getNoticeReplyStatus());
+	                    childReplyJson.addProperty("empNo", childReply.getEmpNo());
+	                    childReplyJson.addProperty("empName", childReply.getEmpName());
+	                    childReplyJson.addProperty("noticeNo", childReply.getNoticeNo());
+	                    childReplyJson.addProperty("parentReplyNo", childReply.getParentReplyNo());
+	            
+	                    childList.add(childReplyJson);
+	                }
+	            }
+	    
+	            newReply.add("childReply", childList);
+	            replyList.add(newReply);
+	        }
+	        
+	        jsonObject.add("list", replyList);
+	        System.out.println(replyList);
 
 	        return gson.toJson(jsonObject);
 	    } else {
@@ -204,7 +246,20 @@ public class NoticeController {
 			return "fail";
 		}
 	}
+	
 	// 공지사항 대댓글 작성
+	@ResponseBody
+	@RequestMapping(value="crinsert.no")
+	public String ajaxInsertChildeReply(NoticeReply nr) {
+		int result = noticeService.insertChildeReply(nr);
+		
+		if (result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+	
 	
 	// 공지사항 대댓글 수정
 	

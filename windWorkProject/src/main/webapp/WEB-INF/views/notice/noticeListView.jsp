@@ -86,7 +86,7 @@
 			
 			<!-- 페이지네이션 -->
 			<div class="notice-pagenation">
-				<ul class="pagination">
+				<ul id="pagination" class="pagination">
 					
 					<c:choose>
 						<c:when test="${pi.currentPage eq 1}">
@@ -112,6 +112,15 @@
 					
 				</ul>
 			</div>
+			
+			<script>
+			
+
+
+			</script>
+			
+			
+			
 		</div>
 	</div>
 	
