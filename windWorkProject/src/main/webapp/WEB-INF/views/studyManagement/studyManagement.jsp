@@ -19,27 +19,20 @@
     <div class="studyManagementMenus-left-section">
       <div class="studyManagementMenus-container">
         <div class="studyManagementMenus-container-writer">
-          <h4 id="studyManagementMenus-header">강의자료실</h4>
-          <input class="lectureMaterials-write-btn" id="studyManagementWriter" type="button" value="자료 등록"
+          <h4 id="studyManagementMenus-header">강의계획표</h4>
+          <input class="lectureMaterials-write-btn" id="studyManagementWriter" type="button" value="수정하기"
             data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         </div>
         <div class="studyManagementMenus-class-menuTitle">
-          <h5>자료실</h5>
-          <button type="button" class="btn btn-outline-dark"
-            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">폴더 추가</button>
+
         </div>
 
         <div class="studyManagementMenus-class-menu">
-          <div class="studyManagementMenus-class-menu-btn studyManagementMenus-class-menu-click"
-            onclick="changeClass(this)">자바</div>
-          <div class="studyManagementMenus-class-menu-btn" onclick="changeClass(this)">데이터베이스</div>
-          <div class="studyManagementMenus-class-menu-btn" onclick="changeClass(this)">파이썬</div>
-          <div class="studyManagementMenus-class-menu-btn" onclick="changeClass(this)">자바스크립트</div>
-          <div class="studyManagementMenus-class-menu-btn" onclick="changeClass(this)">즐겨찾기</div>
+
         </div>
         <div class="studyManagementMenus-container-menu">
-          <select class="form-select form-select-sm" id="studyManagementMenus-id" onchange="changeMenu(this)"
-            aria-label=".form-select-sm example">
+          <select class="form-select form-select-sm" id="studyManagementMenus-id"
+            onchange="changeMenu(this, 1, ${loginUser.empNo})" aria-label=".form-select-sm example">
             <option selected value="lessonPlan">강의계획표</option>
             <option value="lectureMaterials">강의자료실</option>
             <option value="studentManagement">학생 관리</option>
@@ -48,7 +41,12 @@
       </div>
     </div>
     <!-- JS -->
+    <script src="resources/studyManagement/ajax/ajax.js"></script>
     <script src="resources/studyManagement/js/studyManagement.js"></script>
+
+    <script>
+
+    </script>
   </body>
 
   </html>

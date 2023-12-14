@@ -18,4 +18,10 @@ public class EmployeeDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("employeeMapper.loginEmployee", e);
 	}
+	
+	//회원정보수정
+	public int updateEmployee(SqlSessionTemplate sqlSession, Employee e) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("employeeMapper.updateEmployee", e);
+	}
 }

@@ -7,3 +7,7 @@ function stopEvent(ev) {
 function logout(){
     location.href = "logout.em";
 }
+
+function myPageForm(){
+    location.href = "myPageForm.em";
+}
