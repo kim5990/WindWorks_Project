@@ -11,4 +11,6 @@ public interface EmployeeService {
 	
 	//로그인서비스(login)
 	Employee loginEmployee(Employee e);
+
+	int updateEmployee(Employee e);
 }

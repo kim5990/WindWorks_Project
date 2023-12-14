@@ -124,3 +124,7 @@
 .td-h6 {
     font-weight: 700;
 }
+
+.profiledisplay{
+    display: none;
+}
