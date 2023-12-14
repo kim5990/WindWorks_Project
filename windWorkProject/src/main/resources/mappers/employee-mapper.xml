@@ -18,6 +18,8 @@
 		<result column="PROFILE_FILE_PATH" property="profileFilePath"/>
 		<result column="JOB_CODE" property="jobCode"/>
 		<result column="DEPT_CODE" property="deptCode"/>
+		<result column="JOB_NAME" property="jobName"/>
+		<result column="DEPT_NAME" property="deptName"/>
 	</resultMap>
 
 	<insert id="insertEmployee">
@@ -28,7 +30,9 @@
 			EMP_PWD,
 			EMP_PHONE,
 			EMP_AGE,
-			EMP_GENDER
+			EMP_GENDER,
+			EMP_ADDRESS,
+			PROFILE_FILE_PATH
 		)
 		VALUES (
 			SEQ_ENO.NEXTVAL,
@@ -37,27 +41,39 @@
 			#{empPwd},
 			#{empPhone},
 			#{empAge},
-			#{empGender}
+			#{empGender},
+			#{empAddress},
+			#{profileFilePath}
 		)
 	</insert>
 	<select id="loginEmployee" resultMap = "employeeResult">
-	SELECT EMP_NO,
-        EMP_NAME,
-        EMP_EMAIL,
-        EMP_PWD,
-        EMP_PHONE,
-        EMP_AGE,
-        EMP_GENDER,
-        EMP_ADDRESS,
-        EMP_ENROLL_DATE,
-        EMP_CHANGE_DATE,
-        EMP_STATUS,
-        EMP_ONLINE_STATUS,
-        PROFILE_FILE_PATH,
-        JOB_CODE,
-        DEPT_CODE
-	FROM EMPLOYEE
-	WHERE EMP_EMAIL = #{empEmail}
-        AND EMP_STATUS = '1'
+		SELECT EMP_NO,
+	        EMP_NAME,
+	        EMP_EMAIL,
+	        EMP_PWD,
+	        EMP_PHONE,
+	        EMP_AGE,
+	        EMP_GENDER,
+	        EMP_ADDRESS,
+	        EMP_ENROLL_DATE,
+	        EMP_CHANGE_DATE,
+	        EMP_STATUS,
+	        EMP_ONLINE_STATUS,
+	        PROFILE_FILE_PATH,
+	        JOB_NAME,
+	        DEPT_NAME
+		FROM EMPLOYEE
+		JOIN DEPARTMENT USING (DEPT_CODE)
+		JOIN JOB USING (JOB_CODE)
+		WHERE EMP_EMAIL = #{empEmail}
+	        AND EMP_STATUS = '1'
 	</select>
+	
+	<update id="updateEmployee">
+		UPDATE EMPLOYEE
+		SET EMP_EMAIL = #{empEmail},
+			PROFILE_FILE_PATH = #{profileFilePath},
+			EMP_PHONE = #{empPhone}
+		WHERE EMP_NO = #{empNo}
+	</update>
 </mapper>

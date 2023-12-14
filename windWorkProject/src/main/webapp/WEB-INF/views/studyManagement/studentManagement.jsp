@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="resources/studyManagement/css/studentManagement.css">
     </head>
 
-    <body>
+    <body onload="lessonOnload()">
         <jsp:include page="../common/header.jsp" />
         <div class="menu">
             <jsp:include page="./studyManagement.jsp" />
@@ -159,7 +159,6 @@
                             </label>
                         </div>
                     </div>
-
                 </div>
                 <div class="student-header-table-container">
                     <table class="student-table">
@@ -193,124 +192,7 @@
                         <tbody class="student-tbody">
                             <tr class="student-tbody-tr">
                                 <td style="padding: 8px 0px 8px 24px;"><input class="student-tbody-tr-checkbox"
-                                        type="checkbox" name="" id=""></td>
-                                <td style="padding: 8px 16px;">권두언</td>
-                                <td style="padding: 8px 16px;">010-2222-1111</td>
-                                <td style="padding: 8px 16px;">dododo@naver.com</td>
-                                <td style="padding: 8px 16px;">서울특별시 강남구 테헤란로 232길</td>
-                                <td style="padding: 8px 16px;">660223</td>
-                                <td style="padding: 8px 16px;">여자</td>
-                                <td style="padding: 8px 16px;">화장실 자주 감</td>
-                                <td style="padding: 8px 16px;">I</td>
-                                <td>지각</td>
-                            </tr>
-                            <tr class="student-tbody-tr">
-                                <td style="padding: 8px 0px 8px 24px;"><input class="student-tbody-tr-checkbox"
-                                        type="checkbox" name="" id=""></td>
-                                <td style="padding: 8px 16px;">권두언</td>
-                                <td style="padding: 8px 16px;">010-2222-1111</td>
-                                <td style="padding: 8px 16px;">dododo@naver.com</td>
-                                <td style="padding: 8px 16px;">서울특별시 강남구 테헤란로 232길</td>
-                                <td style="padding: 8px 16px;">660223</td>
-                                <td style="padding: 8px 16px;">여자</td>
-                                <td style="padding: 8px 16px;">화장실 자주 감</td>
-                                <td style="padding: 8px 16px;">I</td>
-                                <td>지각</td>
-                            </tr>
-                            <tr class="student-tbody-tr">
-                                <td style="padding: 8px 0px 8px 24px;"><input class="student-tbody-tr-checkbox"
-                                        type="checkbox" name="" id=""></td>
-                                <td style="padding: 8px 16px;">권두언</td>
-                                <td style="padding: 8px 16px;">010-2222-1111</td>
-                                <td style="padding: 8px 16px;">dododo@naver.com</td>
-                                <td style="padding: 8px 16px;">서울특별시 강남구 테헤란로 232길</td>
-                                <td style="padding: 8px 16px;">660223</td>
-                                <td style="padding: 8px 16px;">여자</td>
-                                <td style="padding: 8px 16px;">화장실 자주 감</td>
-                                <td style="padding: 8px 16px;">I</td>
-                                <td>지각</td>
-                            </tr>
-                            <tr class="student-tbody-tr">
-                                <td style="padding: 8px 0px 8px 24px;"><input class="student-tbody-tr-checkbox"
-                                        type="checkbox" name="" id=""></td>
-                                <td style="padding: 8px 16px;">권두언</td>
-                                <td style="padding: 8px 16px;">010-2222-1111</td>
-                                <td style="padding: 8px 16px;">dododo@naver.com</td>
-                                <td style="padding: 8px 16px;">서울특별시 강남구 테헤란로 232길</td>
-                                <td style="padding: 8px 16px;">660223</td>
-                                <td style="padding: 8px 16px;">여자</td>
-                                <td style="padding: 8px 16px;">화장실 자주 감</td>
-                                <td style="padding: 8px 16px;">I</td>
-                                <td>지각</td>
-                            </tr>
-                            <tr class="student-tbody-tr">
-                                <td style="padding: 8px 0px 8px 24px;"><input class="student-tbody-tr-checkbox"
-                                        type="checkbox" name="" id=""></td>
-                                <td style="padding: 8px 16px;">권두언</td>
-                                <td style="padding: 8px 16px;">010-2222-1111</td>
-                                <td style="padding: 8px 16px;">dododo@naver.com</td>
-                                <td style="padding: 8px 16px;">서울특별시 강남구 테헤란로 232길</td>
-                                <td style="padding: 8px 16px;">660223</td>
-                                <td style="padding: 8px 16px;">여자</td>
-                                <td style="padding: 8px 16px;">화장실 자주 감</td>
-                                <td style="padding: 8px 16px;">I</td>
-                                <td>지각</td>
-                            </tr>
-                            <tr class="student-tbody-tr">
-                                <td style="padding: 8px 0px 8px 24px;"><input class="student-tbody-tr-checkbox"
-                                        type="checkbox" name="" id=""></td>
-                                <td style="padding: 8px 16px;">권두언</td>
-                                <td style="padding: 8px 16px;">010-2222-1111</td>
-                                <td style="padding: 8px 16px;">dododo@naver.com</td>
-                                <td style="padding: 8px 16px;">서울특별시 강남구 테헤란로 232길</td>
-                                <td style="padding: 8px 16px;">660223</td>
-                                <td style="padding: 8px 16px;">여자</td>
-                                <td style="padding: 8px 16px;">화장실 자주 감</td>
-                                <td style="padding: 8px 16px;">I</td>
-                                <td>지각</td>
-                            </tr>
-                            <tr class="student-tbody-tr">
-                                <td style="padding: 8px 0px 8px 24px;"><input class="student-tbody-tr-checkbox"
-                                        type="checkbox" name="" id=""></td>
-                                <td style="padding: 8px 16px;">권두언</td>
-                                <td style="padding: 8px 16px;">010-2222-1111</td>
-                                <td style="padding: 8px 16px;">dododo@naver.com</td>
-                                <td style="padding: 8px 16px;">서울특별시 강남구 테헤란로 232길</td>
-                                <td style="padding: 8px 16px;">660223</td>
-                                <td style="padding: 8px 16px;">여자</td>
-                                <td style="padding: 8px 16px;">화장실 자주 감</td>
-                                <td style="padding: 8px 16px;">I</td>
-                                <td>지각</td>
-                            </tr>
-                            <tr class="student-tbody-tr">
-                                <td style="padding: 8px 0px 8px 24px;"><input class="student-tbody-tr-checkbox"
-                                        type="checkbox" name="" id=""></td>
-                                <td style="padding: 8px 16px;">권두언</td>
-                                <td style="padding: 8px 16px;">010-2222-1111</td>
-                                <td style="padding: 8px 16px;">dododo@naver.com</td>
-                                <td style="padding: 8px 16px;">서울특별시 강남구 테헤란로 232길</td>
-                                <td style="padding: 8px 16px;">660223</td>
-                                <td style="padding: 8px 16px;">여자</td>
-                                <td style="padding: 8px 16px;">화장실 자주 감</td>
-                                <td style="padding: 8px 16px;">I</td>
-                                <td>지각</td>
-                            </tr>
-                            <tr class="student-tbody-tr">
-                                <td style="padding: 8px 0px 8px 24px;"><input class="student-tbody-tr-checkbox"
-                                        type="checkbox" name="" id=""></td>
-                                <td style="padding: 8px 16px;">권두언</td>
-                                <td style="padding: 8px 16px;">010-2222-1111</td>
-                                <td style="padding: 8px 16px;">dododo@naver.com</td>
-                                <td style="padding: 8px 16px;">서울특별시 강남구 테헤란로 232길</td>
-                                <td style="padding: 8px 16px;">660223</td>
-                                <td style="padding: 8px 16px;">여자</td>
-                                <td style="padding: 8px 16px;">화장실 자주 감</td>
-                                <td style="padding: 8px 16px;">I</td>
-                                <td>지각</td>
-                            </tr>
-                            <tr class="student-tbody-tr">
-                                <td style="padding: 8px 0px 8px 24px;"><input class="student-tbody-tr-checkbox"
-                                        type="checkbox" name="" id=""></td>
+                                        type="checkbox" name="" id="">
                                 <td style="padding: 8px 16px;">권두언</td>
                                 <td style="padding: 8px 16px;">010-2222-1111</td>
                                 <td style="padding: 8px 16px;">dododo@naver.com</td>
