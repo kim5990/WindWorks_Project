@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body onload="mainOnload()" >
 	<c:choose>
 		<c:when test="${!empty loginUser}">
 			<jsp:include page="common/header.jsp" />

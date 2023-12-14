@@ -14,8 +14,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Student {
-	private int studentNO;
+	private int studentNo;
+	private String classNo;
 	private String className;
+	private String classroomNo;
+	private String classroomName;
 	private String studentName;
 	private String studentPhone;
 	private String studentEmail;
@@ -24,6 +27,7 @@ public class Student {
 	private String studentGender;
 	private String studentMemo;
 	private String studentProfilePath;
+	private String studentAttemdemce;
 	private Date studentEnrolldate;
 	private Date studentModifydate;
 	private String studentStatus;

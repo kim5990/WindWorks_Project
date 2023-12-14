@@ -1,6 +1,7 @@
 a {
     text-decoration: none;
 }
+
 .right-student-container {
     display: flex;
     flex-direction: column;
@@ -102,8 +103,6 @@ a {
 
 .student-header-table-container {
     display: flex;
-    width: 100%;
-    height: 100%;
 }
 
 .student-header-toolbar-critical {
@@ -141,8 +140,9 @@ a {
 }
 
 .student-speed-regist {
-    display: block;
+    display: none;
     padding: 0;
+    width: 100%;
 }
 
 .student-speed-regist-fleldset {
@@ -237,7 +237,6 @@ a {
 
 .student-table {
     width: 100%;
-    min-width: 1200px;
     margin-bottom: 0px;
 }
 
@@ -255,6 +254,10 @@ a {
 .student-tbody-tr {
     font-size: 13px;
     height: 48px;
+}
+
+.student-tbody-tr-allcheckbox{
+    accent-color: #B62547;
 }
 
 .student-tbody-tr-checkbox {

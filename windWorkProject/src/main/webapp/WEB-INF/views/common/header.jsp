@@ -6,21 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>header</title>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
    <!-- 부트스트랩 -->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <!-- CSS -->
+        <!-- CSS -->
     <link rel="stylesheet" href="resources/common/css/styles.css">
     <link rel="stylesheet" href="resources/common/css/header.css">
     <link rel="stylesheet" href="resources/common/css/mypage-menu.css">
-
-    <style>
-        a {
-            text-decoration: none;
-        }
-    </style>
+    <script src="resources/common/js/onload.js"></script> 
+    
 </head>
-<body id="body-pd">
+<body id="body-pd" >
    <div class="l-navbar" id="navbar">
         <nav class="nav">
             <div class="main-logo">
@@ -34,7 +33,7 @@
             </div>
             <div>
                 <div class="nav__list">
-                    <a href="#" class="nav__link active">
+                    <a href="homeForm.em" id="nav-home-bar" class="nav__link">
                         <ion-icon name="home-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">홈</span>
                     </a>
@@ -74,11 +73,11 @@
                     <span class="nav_name">공지사항</span>
                 </a>
 
-                <a href="list.st" id ="nav-studyM-bar" class="nav__link">
+                <a href="list.lp" id="nav-studyM-bar" class="nav__link">
                     <ion-icon name="book-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">강의관리</span>
                 </a>
-                <a href="#" class="nav__link">
+                <a href="approval.em" class="nav__link">
                     <ion-icon name="person-add-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">인사관리</span>
                 </a>
@@ -122,7 +121,7 @@
                 <div class="right-section-userinfo" id="rightUserinfo" onclick="stopEvent(event)">
                     <div>
                         <div class="right-section-userinfo-img">
-                            <img src="./resources/common/images/PLACE_4.png" class="right-section-userinfo-img-icon-person"
+                            <img src="./${loginUser.profileFilePath}" class="right-section-userinfo-img-icon-person"
                                 alt="...">
                             <div class="notifications-person2"></div>
                         </div>
@@ -130,22 +129,22 @@
                     <div class="right-section-userinfo-info">
                         <div class="right-section-userinfo-info-name">
                             <p class="h6 fw-bold right-section-userinfo-info-font2" style="margin: 0px 10px 0px 0px;">
-                                홍길동</p>
+                                ${loginUser.empName}</p>
                         </div>
                         <div class="fw-medium right-section-userinfo-info-font">
-                            <div class="right-section-userinfo-info-name">hk강남 영업1팀 사장</div>
+                            <div class="right-section-userinfo-info-name">${loginUser.deptName} ${loginUser.jobName}</div>
                         </div>
                         <br>
                         <div class="fw-medium right-section-userinfo-info-font">
-                            <div class="right-section-userinfo-info-name">010-1111-1111</div>
+                            <div class="right-section-userinfo-info-name">${loginUser.empPhone}</div>
                         </div>
                         <div class="fw-medium right-section-userinfo-info-font">
-                            <div class="right-section-userinfo-info-name">asdfqwell@naver.com</div>
+                            <div class="right-section-userinfo-info-name">${loginUser.empEmail}</div>
                         </div>
                     </div>
                     <div class="right-section-userinfo-door">
                         <div class="right-section-userinfo-door-box">
-                        	<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor"
+                        	<svg xmlns="http://www.w3.org/2000/svg" onclick = "myPageForm()" width="17" height="17" fill="currentColor"
                                 class="bi bi-pencil-fill right-section-userinfo-door-pointer" style="color: gray;"
                                 viewBox="0 0 16 16">
                                 <path
@@ -164,6 +163,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <!-- IONICONS -->

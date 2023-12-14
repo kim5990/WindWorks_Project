@@ -17,8 +17,28 @@ a {
     height: 100%;
     justify-content: center;
     align-items: center;
+    
 }
 
+.studyManagement-title-months{
+    display: flex;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 800;
+    color: black;
+}
+
+.months{
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+}
 
 .studyManagement-title{
     display: flex;
@@ -43,10 +63,9 @@ a {
 .studyManagement-title2{
     display: flex;
     justify-content: end;
-    align-items: center;
+    align-items: end;
     width: 450px;
     height: 100px;
-    margin-top: 15px;
 }
 
 .studyManagement-title-fontStyle1{
@@ -67,7 +86,7 @@ a {
 }
 .studyManagement-contents{
     height: 400px;
-    width: 1250px;
+    width: 940px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -129,4 +148,13 @@ a {
     width: 150px;
     height: 200px;
     color: #B62547;
+}
+
+.left_movement{
+    cursor: pointer;
+}
+
+
+.right_movement{
+    cursor: pointer;
 }

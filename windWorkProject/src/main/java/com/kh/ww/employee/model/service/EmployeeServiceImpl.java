@@ -31,8 +31,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 	//로그인
 	@Override
 	public Employee loginEmployee(Employee e) {
-		// TODO Auto-generated method stub
 		return employeeDao.loginEmployee(sqlSession, e);
+	}
+	
+	
+	//회원정보수정
+	@Override
+	public int updateEmployee(Employee e) {
+		return employeeDao.updateEmployee(sqlSession, e);
 	}
 
 }
