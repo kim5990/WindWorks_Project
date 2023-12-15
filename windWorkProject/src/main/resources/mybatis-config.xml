@@ -10,14 +10,8 @@
 
   	<typeAliases>
   		<typeAlias type="com.kh.ww.employee.model.vo.Employee" alias="Employee"/>
-<<<<<<< HEAD
   		<typeAlias type="com.kh.ww.reservation.model.vo.Reservation" alias="Reservation"/>
   		<typeAlias type="com.kh.ww.reservation.model.vo.Assets" alias="Assets"/>
-  	</typeAliases>
-  	<mappers>
-		<mapper resource="/mappers/employee-mapper.xml"/>
-		<mapper resource="/mappers/reservation-mapper.xml"/>
-=======
   		<typeAlias type="com.kh.ww.studyManagement.model.vo.ClassPlan" alias="ClassPlan"/>
   		<typeAlias type="com.kh.ww.studyManagement.model.vo.ClassAttachment" alias="ClassAttachment"/>
   		<typeAlias type="com.kh.ww.studyManagement.model.vo.Student" alias="Student"/>
@@ -26,6 +20,6 @@
   	<mappers>
 		<mapper resource="/mappers/employee-mapper.xml"/>
 		<mapper resource="/mappers/classPlan-mapper.xml"/>
->>>>>>> adca392169ba4083e54653ed3d2a33ad24314746
+		<mapper resource="/mappers/reservation-mapper.xml"/>
   	</mappers>
  </configuration>
