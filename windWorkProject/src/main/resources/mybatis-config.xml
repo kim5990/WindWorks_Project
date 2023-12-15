@@ -10,8 +10,11 @@
 
   	<typeAliases>
   		<typeAlias type="com.kh.ww.employee.model.vo.Employee" alias="Employee"/>
+  		<typeAlias type="com.kh.ww.reservation.model.vo.Reservation" alias="Reservation"/>
+  		<typeAlias type="com.kh.ww.reservation.model.vo.Assets" alias="Assets"/>
   	</typeAliases>
   	<mappers>
 		<mapper resource="/mappers/employee-mapper.xml"/>
+		<mapper resource="/mappers/reservation-mapper.xml"/>
   	</mappers>
  </configuration>
