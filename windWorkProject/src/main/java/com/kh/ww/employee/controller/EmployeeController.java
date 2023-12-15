@@ -187,7 +187,4 @@ public class EmployeeController {
 		}
 	      return changeName;
 	}
-
-	
->>>>>>> adca392169ba4083e54653ed3d2a33ad24314746
 }

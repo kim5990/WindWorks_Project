@@ -149,7 +149,6 @@
           	 EMP_STATUS = #{empStatus}
        WHERE EMP_NO = #{empNo}
    </update>
-	</select>
 	<!-- 마이페이지 사원정보수정 -->
 	<update id="updateEmployee">
 		UPDATE EMPLOYEE
