@@ -29,4 +29,7 @@ public interface EmployeeService {
 	
 	//인사관리 페이지에서 사원 정보 수정하기
 	int employeeUpdate(Employee e);
+	
+	//마이페이지에서 사원 정보 수정
+	int updateEmployee(Employee e);
 }

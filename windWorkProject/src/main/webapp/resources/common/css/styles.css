@@ -155,6 +155,7 @@ a {
 
 .nav_name {
     font-size: var(--small-font-size);
+    text-decoration: none;
 }
 
 /* Expander menu */

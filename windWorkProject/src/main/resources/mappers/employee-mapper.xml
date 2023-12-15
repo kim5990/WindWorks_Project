@@ -30,7 +30,9 @@
 			EMP_PWD,
 			EMP_PHONE,
 			EMP_AGE,
-			EMP_GENDER
+			EMP_GENDER,
+			EMP_ADDRESS,
+			PROFILE_FILE_PATH
 		)
 		VALUES (
 			SEQ_ENO.NEXTVAL,
@@ -39,7 +41,9 @@
 			#{empPwd},
 			#{empPhone},
 			#{empAge},
-			#{empGender}
+			#{empGender},
+			#{empAddress},
+			#{profileFilePath}
 		)
 	</insert>
 	<!-- 로그인 쿼리문 -->
@@ -57,9 +61,11 @@
         EMP_STATUS,
         EMP_ONLINE_STATUS,
         PROFILE_FILE_PATH,
-        JOB_CODE,
-        DEPT_CODE
+        JOB_NAME,
+        DEPT_NAME
 	FROM EMPLOYEE
+	JOIN DEPARTMENT USING (DEPT_CODE)
+	JOIN JOB USING (JOB_CODE)
 	WHERE EMP_EMAIL = #{empEmail}
         AND EMP_STATUS = 1
 	</select>
@@ -143,4 +149,13 @@
           	 EMP_STATUS = #{empStatus}
        WHERE EMP_NO = #{empNo}
    </update>
+	</select>
+	<!-- 마이페이지 사원정보수정 -->
+	<update id="updateEmployee">
+		UPDATE EMPLOYEE
+		SET EMP_EMAIL = #{empEmail},
+			PROFILE_FILE_PATH = #{profileFilePath},
+			EMP_PHONE = #{empPhone}
+		WHERE EMP_NO = #{empNo}
+	</update>
 </mapper>

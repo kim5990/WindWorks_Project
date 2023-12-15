@@ -69,4 +69,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 + '<path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" /> </svg>';
         }
     });
+
+
 });
+
+
+function copyURL() {
+    let currentURL = window.location.href;
+
+    // 가상의 텍스트 입력 요소를 생성하고 값을 설정합니다.
+    let tempInput = document.createElement("input");
+    tempInput.value = currentURL;
+
+    // body에 임시 요소를 추가합니다.
+    document.body.appendChild(tempInput);
+
+    // 텍스트 입력 요소를 선택하고 복사합니다.
+    tempInput.select();
+    document.execCommand("copy");
+
+    // body에서 임시 요소를 제거합니다.
+    document.body.removeChild(tempInput);
+
+    alert("URL이 클립보드에 복사되었습니다: " + currentURL);
+}
+
+function updateForm(classDataNo){
+    location.href = "updateFormView.lm?classDataNo="+classDataNo;
+}
+
+function deleteClassData(classDataNo){
+	location.href = "delete.lm?classDataNo="+classDataNo;
+}

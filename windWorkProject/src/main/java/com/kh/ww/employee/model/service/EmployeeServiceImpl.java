@@ -28,7 +28,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public int insertEmployee(Employee e) {
 		return employeeDao.insertEmployee(sqlSession, e);
-
 	}
 
 	//로그인
@@ -65,6 +64,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public int employeeUpdate(Employee e) {
 		return employeeDao.employeeUpdate(sqlSession, e);
+	}
+	
+	//회원정보수정
+	@Override
+	public int updateEmployee(Employee e) {
+		return employeeDao.updateEmployee(sqlSession, e);
 	}
 
 }
