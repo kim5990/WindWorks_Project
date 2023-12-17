@@ -11,10 +11,12 @@
             crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <!--제이쿼리-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!--css-->
         <link rel="stylesheet" href="resources/studyManagement/css/createLectureMaterials.css">
         <script src="resources/studyManagement/js/createLectureMaterials.js"></script>
-
+        <script src="resources/studyManagement/ajax/ajax.js"></script>
     </head>
 
     <body onload="lessonOnload()">
@@ -22,8 +24,8 @@
         <div class="menu">
 
             <div class="createLectureMaterials">
-                <form class="createLectureMaterials-container" action="create.lm" method="post"
-                    enctype="multipart/form-data">
+                <form id="createLecturefileForm" name="createLecturefileForm" class="createLectureMaterials-container"
+                    method="post" enctype="multipart/form-data">
                     <div class="createLectureMaterials-title">
                         <h4>문서 등록</h4>
                     </div>
@@ -86,19 +88,20 @@
                                 </th>
                                 <td style="height: 65px;">
                                     <div class="createLectureMaterials-file-upload-box" id="drop-area">
-                                        <div class="createLectureMaterials-file-upload" ondragover="allowDrop(event)"ondragenter="highlightDropArea()" 
-                                        ondragleave="unhighlightDropArea()" 
-                                        ondrop="handleDrop(event)" >
+                                        <div class="createLectureMaterials-file-upload" ondragover="allowDrop(event)"
+                                            ondragenter="highlightDropArea()" ondragleave="unhighlightDropArea()"
+                                            ondrop="handleDrop(event)">
                                             <ion-icon class="create-document-icon"
                                                 name="cloud-upload-outline"></ion-icon>
                                             <span>
                                                 이 곳에 파일을 드래그 하세요. 또는
                                                 <span>
+                                                    <input type="hidden" name="files" />
                                                     <label id="create-fileSelected-label" for="create-fileSelected">파일
                                                         선택</label>
-                                                    <input type="file" name="files" class="create-fileSelected"
-                                                        id="fileInput" onchange="handleFileSelect(event)" title="파일선택" multiple="multiple"
-                                                        accept="undfined">
+                                                    <input type="file" class="create-fileSelected" id="fileList"
+                                                        onchange="handleFileSelect(event)" title="파일선택"
+                                                        multiple="multiple" accept="undfined">
                                                 </span>
                                             </span>
                                         </div>
@@ -118,16 +121,16 @@
                     </div>
                     <div class="createLectureMaterials-btn-container">
                         <div class="createLectureMaterials-btn-container2">
-                            <button class="form-button1" type="submit">등록</button>
-                            <button class="form-button2">취소</button>
+                            <button class="form-button1" id="save">등록</button>
+                            <button class="form-button2" onclick="history.back()">취소</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
         <!--에디터-->
-        <script src="https://cdn.tiny.cloud/1/YOUR_API_KEY/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-        <script>
+        <!--<script src="https://cdn.tiny.cloud/1/YOUR_API_KEY/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script><-->
+        <!-- <script>
             tinymce.init({
                 selector: '#postContent', // 에디터를 적용할 텍스트 영역의 ID
                 height: 300, // 에디터의 높이
@@ -135,10 +138,11 @@
                 toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | code', // 에디터 상단에 표시되는 툴바 구성
             });
 
+
             document.querySelector("#create-fileSelected-label").addEventListener("click", function () {
                 document.getElementById('fileInput').click();
             })
-        </script>
+        </script>-->
     </body>
 
     </html>

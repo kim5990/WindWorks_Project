@@ -25,49 +25,60 @@ function changeMenu(selectedDiv, cpage, loginUserEmpNo) {
 
     } else if (selectedDiv.value === "lectureMaterials") {
         lectureMaterialsView(cpage, drowlectureMaterialsView, "자바");
-        lectureMaterialsCss(loginUserEmpNo);
+        lectureMaterialsCss(loginUserEmpNo, menustr, menuTitlestr);
 
     } else if (selectedDiv.value === "studentManagement") {
         studentManagementView(cpage, drowstudentManagementView);
         studentManagementCss(loginUserEmpNo);
     }
+}
 
-
-    function lessonPlanCss() {
-        document.querySelector("#studyManagementMenus-header").innerText = "강의계획표";
-        document.querySelector(".studyManagementMenus-class-menuTitle").innerHTML = "";
-        document.querySelector(".studyManagementMenus-class-menu").innerHTML = "";
-        document.querySelector("#studyManagementWriter").value = "수정하기";
-        document.querySelector("#studyManagementWriter").setAttribute('data-bs-toggle', 'modal');
-        document.querySelector("#studyManagementWriter").setAttribute('data-bs-target', '#staticBackdrop');
+function lessonPlanCss() {
+    document.querySelector("#studyManagementMenus-header").innerText = "강의계획표";
+    document.querySelector(".studyManagementMenus-class-menuTitle").innerHTML = "";
+    document.querySelector(".studyManagementMenus-class-menu").innerHTML = "";
+    document.querySelector("#studyManagementWriter").value = "수정하기";
+        //클릭시 업데이트
+    document.querySelector("#studyManagementWriter").onclick = function () {
+        $.ajax({
+            url: "ajaxupdatePlanlist.lp",
+            success: function (res) {
+                console.log(res)
+                drowupdateBtnLessonPlanView(res);
+            },
+            error: function () {
+                console.log("lessonPlanView ajax 통신 실패")
+            },
+        })
     }
-
-    function lectureMaterialsCss(loginUserEmpNo) {
-        document.querySelector("#studyManagementMenus-header").innerText = "강의자료실";
-        document.querySelector(".studyManagementMenus-class-menuTitle").innerHTML = menuTitlestr;
-        document.querySelector(".studyManagementMenus-class-menu").innerHTML = menustr;
-        document.querySelector("#studyManagementWriter").value = "자료 등록";
-        document.querySelector("#studyManagementWriter").removeAttribute('data-bs-toggle');
-        document.querySelector("#studyManagementWriter").removeAttribute('data-bs-target');
-        document.querySelector("#studyManagementWriter").onclick = function () {
-            location.href = 'createForm.lm?empNo=' + loginUserEmpNo;
-        }
-    }
-
-    function studentManagementCss(loginUserEmpNo) {
-        document.querySelector("#studyManagementMenus-header").innerText = "학생관리";
-        document.querySelector(".studyManagementMenus-class-menuTitle").innerHTML = "";
-        document.querySelector(".studyManagementMenus-class-menu").innerHTML = "";
-        document.querySelector("#studyManagementWriter").value = "학생 추가";
-        document.querySelector("#studyManagementWriter").removeAttribute('data-bs-toggle');
-        document.querySelector("#studyManagementWriter").removeAttribute('data-bs-target');
-
-        document.querySelector("#studyManagementWriter").onclick = function () {
-            location.href = 'insertFormView.stm'
-        }
-    }
-
-
+    document.querySelector("#studyManagementWriter").setAttribute('data-bs-toggle', 'modal');
+    document.querySelector("#studyManagementWriter").setAttribute('data-bs-target', '#staticBackdrop');
 
 }
 
+function lectureMaterialsCss(loginUserEmpNo, menustr, menuTitlestr) {
+    document.querySelector("#studyManagementMenus-header").innerText = "강의자료실";
+    document.querySelector(".studyManagementMenus-class-menuTitle").innerHTML = menuTitlestr;
+    document.querySelector(".studyManagementMenus-class-menu").innerHTML = menustr;
+    document.querySelector("#studyManagementWriter").value = "자료 등록";
+
+    document.querySelector("#studyManagementWriter").removeAttribute('data-bs-toggle');
+    document.querySelector("#studyManagementWriter").removeAttribute('data-bs-target');
+
+    document.querySelector("#studyManagementWriter").onclick = function () {
+        location.href = 'createForm.lm?empNo=' + loginUserEmpNo;
+    }
+}
+
+function studentManagementCss(loginUserEmpNo) {
+    document.querySelector("#studyManagementMenus-header").innerText = "학생관리";
+    document.querySelector(".studyManagementMenus-class-menuTitle").innerHTML = "";
+    document.querySelector(".studyManagementMenus-class-menu").innerHTML = "";
+    document.querySelector("#studyManagementWriter").value = "학생 추가";
+    document.querySelector("#studyManagementWriter").removeAttribute('data-bs-toggle');
+    document.querySelector("#studyManagementWriter").removeAttribute('data-bs-target');
+
+    document.querySelector("#studyManagementWriter").onclick = function () {
+        location.href = 'insertFormView.stm'
+    }
+}
