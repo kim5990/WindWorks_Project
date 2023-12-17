@@ -74,7 +74,7 @@
                         <span class="nav_name">예약</span>
                     </a>
                 </div>
-                <a href="#" class="nav__link">
+                <a href="list.no" class="nav__link">
                     <ion-icon name="notifications-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">공지사항</span>
                 </a>

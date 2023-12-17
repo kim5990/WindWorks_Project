@@ -10,11 +10,15 @@
 
   	<typeAliases>
   		<typeAlias type="com.kh.ww.employee.model.vo.Employee" alias="Employee"/>
+
+  		<typeAlias type="com.kh.ww.notice.model.vo.Notice" alias="Notice"/>
+  		<typeAlias type="com.kh.ww.notice.model.vo.NoticeReply" alias="NoticeReply"/>
+
   		<typeAlias type="com.kh.ww.community.model.vo.Community" alias="Community"/>
   		<typeAlias type="com.kh.ww.community.model.vo.CommunityBoard" alias="CommunityBoard"/>
   		<typeAlias type="com.kh.ww.community.model.vo.CommunityReply" alias="CommunityReply"/>
   		<typeAlias type="com.kh.ww.community.model.vo.CommunityAttachment" alias="CommunityAttachment"/>
-  		
+
   		<typeAlias type="com.kh.ww.reservation.model.vo.Reservation" alias="Reservation"/>
   		<typeAlias type="com.kh.ww.reservation.model.vo.Assets" alias="Assets"/>
   		
@@ -26,8 +30,10 @@
   	
   	<mappers>
 		<mapper resource="/mappers/employee-mapper.xml"/>
+		<mapper resource="/mappers/notice-mapper.xml"/>
 		<mapper resource="/mappers/community-mapper.xml"/>
 		<mapper resource="/mappers/classPlan-mapper.xml"/>
 		<mapper resource="/mappers/reservation-mapper.xml"/>
   	</mappers>
+  	
  </configuration>
