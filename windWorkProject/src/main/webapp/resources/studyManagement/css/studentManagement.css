@@ -256,7 +256,15 @@ a {
     height: 48px;
 }
 
-.student-tbody-tr-allcheckbox{
+.student-tbody-tr:hover {
+    background-color: #b6254727;
+}
+
+.student-tbody-td-studentName {
+    cursor: pointer;
+}
+
+.student-tbody-tr-allcheckbox {
     accent-color: #B62547;
 }
 
@@ -271,4 +279,9 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.student-info-profile-img {
+    width: 20px;
+    height: 20px;
 }

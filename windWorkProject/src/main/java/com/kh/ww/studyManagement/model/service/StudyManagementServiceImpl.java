@@ -161,6 +161,25 @@ public class StudyManagementServiceImpl implements StudyManagementService {
 		return studyManagementDao.selectClassCategoryList(sqlSession);
 	}
 	
+	//강의자료 검색
+	@Override
+	public int dataSearchLikeCount(ClassAttachment c) {
+		return studyManagementDao.dataSearchLikeCount(sqlSession, c);
+	}
+	@Override
+	public ArrayList<ClassAttachment> dataSearchLikeSelectList(PageInfo lmpi, ClassAttachment c) {
+		return studyManagementDao.dataSearchLikeSelectList(sqlSession, c, lmpi);
+	}
+	@Override
+	public int searchMaterialslistCount(ClassAttachment c) {
+		return studyManagementDao.searchMaterialslistCount(sqlSession, c);
+	}
+	@Override
+	public ArrayList<ClassAttachment> searchLectureMaterialslist(PageInfo lmpi, ClassAttachment c) {
+		return studyManagementDao.searchLectureMaterialslist(sqlSession, c, lmpi);
+	}
+	
+	
 	//학생 삭제
 	@Override
 	public int deleteStudent(int sno) {
@@ -172,7 +191,54 @@ public class StudyManagementServiceImpl implements StudyManagementService {
 	public int ajaxSpeedinsertStudent(Student student) {
 		return studyManagementDao.ajaxSpeedinsertStudent(sqlSession, student);
 	}
+	//수업 번호 찾기
+	@Override
+	public int selectClassNo(int empNo) {
+		return studyManagementDao.selectClassNo(sqlSession, empNo);
+	}
 	
+	//학생 추가
+	@Override
+	public int insertStudent(Student student) {
+		return studyManagementDao.insertStudent(sqlSession, student);
+	}
+	
+	//학생 찾기
+	@Override
+	public Student selectStudent(int studentNo) {
+		return studyManagementDao.selectStudent(sqlSession, studentNo);
+	}
+	
+	//학생 정보 수정
+	@Override
+	public int updateStudent(Student student) {
+		return studyManagementDao.updateStudent(sqlSession, student);
+	}
+	
+	//학생초성 카운트
+	@Override
+	public int ajaxInutialSelectCount(Student student) {
+		return studyManagementDao.ajaxInutialSelectCount(sqlSession, student);
+	}
+	
+	//학생 초성 리스트 검색
+	@Override
+	public ArrayList<Student> ajaxInutialSelectList(PageInfo pi, Student student) {
+		return studyManagementDao.ajaxInutialSelectList(sqlSession, pi, student);
+	}
+	
+	//검색어로 학생 검색 수
+	@Override
+	public int ajaxSelectSerachStudentCount(Student student) {
+		return studyManagementDao.ajaxSelectSerachStudentCount(sqlSession, student);
+	}
+	//검색어로 학생 검색 리스트
+	@Override
+	public ArrayList<Student> ajaxSelectSerachStudent(PageInfo pi, Student student) {
+		return studyManagementDao.ajaxSelectSerachStudent(sqlSession, pi, student);
+	}
+	
+
 
 	
 

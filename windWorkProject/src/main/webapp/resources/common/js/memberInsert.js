@@ -1,5 +1,6 @@
 
-document.addEventListener("DOMContentLoaded", function () {
+
+insertEmpFormOnload = function(){
     // 아이디의 유효성 여부 검사
     let isNameValid = false;
     document.querySelector("#nameInput").addEventListener("input", function () {
@@ -152,7 +153,6 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
         }
     })
-
-});
+}
 
 

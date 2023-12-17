@@ -48,20 +48,27 @@ public interface StudyManagementService {
 	//강의자료 최대 숫자
 	int selectmaxsize();
 	
-	//학생 리스트 카운트
-	int ajaxSelectListCount(int empNo);
-	
-	//학생리스트 출력
-	ArrayList<Student> ajaxStudentSelectList(PageInfo pi, int empNo);
-	
+
 	//강의자료 삭제
 	int deleteDataAttachment(String classFileNo);
 	
 	//강의 자료 수정 추가
 	int createUpdateDataAttachment(ClassAttachment c);
 	
+	//강의자료실 검색 기능
+	int dataSearchLikeCount(ClassAttachment c);
+	ArrayList<ClassAttachment> dataSearchLikeSelectList(PageInfo lmpi, ClassAttachment c);
+	int searchMaterialslistCount(ClassAttachment c);
+	ArrayList<ClassAttachment> searchLectureMaterialslist(PageInfo lmpi, ClassAttachment c);
+	
 	//데이터 삭제
 	int deleteDataroom(int classDataNo);
+	
+	//학생 리스트 카운트
+	int ajaxSelectListCount(int empNo);
+	
+	//학생리스트 출력
+	ArrayList<Student> ajaxStudentSelectList(PageInfo pi, int empNo);
 	
 	//학생 카테고리
 	ArrayList<Category> selectClassCategoryList();
@@ -72,6 +79,26 @@ public interface StudyManagementService {
 	//학생추가
 	int ajaxSpeedinsertStudent(Student student);
 	
+	//수업 번호 선택
+	int selectClassNo(int empNo);
+	
+	//학생 추가
+	int insertStudent(Student student);
+	//학생 찾기
+	Student selectStudent(int studentNo);
+	
+	//학생 정보 수정
+	int updateStudent(Student student);
+	
+	//초성으로 검색 리스트 개수
+	int ajaxInutialSelectCount(Student student);
+	//초성으로 검색 리스트 검색
+	ArrayList<Student> ajaxInutialSelectList(PageInfo pi, Student student);
+	//검색어로 검색 리스트 개수
+	int ajaxSelectSerachStudentCount(Student student);
+	//검색어으로 검색 리스트 검색
+	ArrayList<Student> ajaxSelectSerachStudent(PageInfo pi, Student student);
+
 	
 	
 }
