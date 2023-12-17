@@ -66,7 +66,7 @@
 	JOIN DEPARTMENT USING (DEPT_CODE)
 	JOIN JOB USING (JOB_CODE)
 	WHERE EMP_EMAIL = #{empEmail}
-    AND EMP_STATUS = '1'
+    AND EMP_STATUS = 1
 	</select>
 	
 	<update id="updateEmployee">

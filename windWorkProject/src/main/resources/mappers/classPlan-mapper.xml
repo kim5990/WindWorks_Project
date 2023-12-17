@@ -500,18 +500,78 @@
 	</select>
 	
 	<select id = "dataSearchLikeCount" resultType = "_int">
-	
+		SELECT COUNT(*)
+		FROM CLASS_DATA_LIKE
+		WHERE CD_LIKE_EMP = #{empNo}
+		 AND CD_LIKE_STATUS = 'Y'
+		 <choose>
+			<when test = "searchSelect == 1">
+				AND C_DATA_TITLE LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<otherwise>
+				AND C_DATA_CONTANT LIKE '%' || #{searchbarInput} || '%'
+			</otherwise>
+		</choose>
 	</select>
 	
 	<select id = "dataSearchLikeSelectList" resultMap = "classAttachmentResult">
-	
+		SELECT CD_LIKE_NO,
+		        CD_LIKE_EMP as "REF_ENO",
+		        CD_LIKE_CDR as "C_DATA_NO",
+		        C_DATA_TITLE,
+		        C_DATA_CATEGORY_NAME,
+		        TO_CHAR(C_DATA_DATE, 'YYYY-MM-DD') as "C_DATA_DATE"
+		FROM CLASS_DATA_LIKE
+		JOIN CLASS_DATA_ROOM ON (CD_LIKE_CDR = C_DATA_NO)
+		JOIN CLASS_DATA_CATEGORY USING (C_DATA_CATEGORY_NO)
+		WHERE CD_LIKE_EMP = #{empNo}
+		 		AND CD_LIKE_STATUS = 'Y'
+		 <choose>
+			<when test = "searchSelect == 1">
+				AND C_DATA_TITLE LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<otherwise>
+				AND C_DATA_CONTANT LIKE '%' || #{searchbarInput} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY CD_LIKE_NO DESC
 	</select>
 	
 	<select id = "searchMaterialslistCount" resultType = "_int">
-	
+		SELECT COUNT(*)
+		FROM CLASS_DATA_ROOM
+		JOIN CLASS_DATA_CATEGORY USING (C_DATA_CATEGORY_NO)
+		WHERE C_DATA_STATUS = 'Y'
+			 AND C_DATA_CATEGORY_NAME = #{category}
+		<choose>
+			<when test = "searchSelect == 1">
+				AND C_DATA_TITLE LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<otherwise>
+				AND C_DATA_CONTANT LIKE '%' || #{searchbarInput} || '%'
+			</otherwise>
+		</choose>
 	</select>
 	
 	<select id = "searchLectureMaterialslist" resultMap = "classAttachmentResult">
-	
+		SELECT C_DATA_NO,
+		        C_DATA_TITLE,
+		        C_DATA_CONTANT,
+		        C_DATA_LIFE_TIME_NAME,
+		        C_DATA_CATEGORY_NAME,
+		        TO_CHAR(C_DATA_DATE, 'YYYY-MM-DD') as "C_DATA_DATE"
+		FROM CLASS_DATA_ROOM
+		JOIN CLASS_DATA_CATEGORY USING (C_DATA_CATEGORY_NO)
+		WHERE C_DATA_STATUS = 'Y'
+			AND C_DATA_CATEGORY_NAME = #{category}
+		<choose>
+			<when test = "searchSelect == 1">
+				AND C_DATA_TITLE LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<otherwise>
+				AND C_DATA_CONTANT LIKE '%' || #{searchbarInput} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY C_DATA_NO DESC	
 	</select>
 </mapper>
