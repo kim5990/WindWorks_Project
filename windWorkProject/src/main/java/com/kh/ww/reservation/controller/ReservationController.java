@@ -2,12 +2,14 @@ package com.kh.ww.reservation.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.ww.common.model.vo.PageInfo;
 import com.kh.ww.common.template.Pagenation;
 import com.kh.ww.employee.model.vo.Employee;
@@ -27,8 +29,11 @@ public class ReservationController {
 		
 		Employee e = (Employee)session.getAttribute("loginUser");
 		
-		mv.addObject("assetsList", reservationService.selectAssetsList())
-		  .addObject("reservationList", reservationService.selectReservationList(e.getEmpNo()))
+		JSONObject result = new JSONObject();
+		result.put("assetsList", reservationService.selectAssetsList());
+		result.put("reservationList", reservationService.selectReservationList(e.getEmpNo()));
+		
+		mv.addObject("result", new Gson().toJson(result))
 		  .setViewName("reservation/reservation");
 		return mv;
 	}

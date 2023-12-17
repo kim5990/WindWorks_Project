@@ -1,10 +1,3 @@
-const reservationValue = {}
-
-function init(result){
-    drawAssetsList(result.assetsList);
-}
-
-
 // 현재 날짜로 초기화
 let currentDate = new Date();
 updateCalendarTitle(currentDate);
@@ -36,6 +29,12 @@ function frontCalendarDate() {
 
     updateCalendarTitle(tomorrow);
 }
+
+//스크롤 바 없애는 기능  
+window.addEventListener("DOMContentLoaded", function () {
+    var graphBody = document.querySelector(".graph-body");
+    graphBody.style.overflow = "hidden";
+});
 
 //드래그 했을 때 초록색으로 색칠해주는 기능
 document.querySelectorAll("#selectable .graph-body-hour").forEach(function (element) {
@@ -97,77 +96,3 @@ function executeCloseButton2() {
     closeButton.click();
 }
 
-
-
-//재물예약판 그려주기
-function drawAssetsList(assetsList){
-    const assetsBody = document.querySelector(".reservation-graph > .graph-body > .graph-body-list");
-
-    console.log(assetsList)
-    for(const asset of assetsList) {
-        const assetZone = document.createElement('div');
-        assetZone.className = 'graph-row';
-
-        const titleZone = document.createElement('div');
-        titleZone.className = 'graph-body-title';
-        titleZone.innerHTML = asset.assName;
-        assetZone.appendChild(titleZone);
-
-        for(let i = 0; i < 24; i++) {
-            const hour = (i < 10 ? ('0' + i) : i); 
-            const timeUnit00 = document.createElement('div');
-            timeUnit00.className = 'graph-body-hour';
-            assetZone.appendChild(timeUnit00);
-            timeUnitAddDragEvent(timeUnit00, asset, hour + ":00");
-
-            const timeUnit30 = document.createElement('div');
-            timeUnit30.className = 'graph-body-hour';
-            assetZone.appendChild(timeUnit30);
-            timeUnitAddDragEvent(timeUnit30, asset, hour + ":30");
-        }
-        assetsBody.appendChild(assetZone);
-    }
-}
-
-function timeUnitAddDragEvent(timeUnit, asset, time){
-    timeUnit.addEventListener("click", function () {
-        reservationValue.clickUnit = {
-            ...asset,
-            time
-        }
-
-        console.log(reservationValue)
-    });
-
-    timeUnit.addEventListener("mousedown", function () {
-       //div하나만들어 클릭한곳에 그려주고 
-       //div에는 시간을 좀 나타내줘야겠다.
-       reservationValue.startUnit = {
-            ...asset,
-            time
-        }
-        console.log(reservationValue)
-    });
-
-    timeUnit.addEventListener("mouseenter", function () {
-       //div에 표시된 시간을 변경해줘야겠다.
-       if (reservationValue.startUnit && reservationValue.startUnit.assNo === asset.assNo){
-            reservationValue.endUnit = {
-                ...asset,
-                time
-            }
-            console.log(reservationValue);
-       }
-    });
-
-    timeUnit.addEventListener("mouseup", function () {
-      //드래그했던 시간정보들을 가지고 모달에 넘겨주면 되겠다
-
-      //값을 사용
-
-      
-      reservationValue.clickUnit = {};
-      reservationValue.endUnit = {};
-      reservationValue.startUnit = {};
-    });
-}
