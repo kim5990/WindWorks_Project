@@ -37,27 +37,16 @@
     flex-direction: column;
     justify-content: center;
 }
-.graph-header, .graph-body{
+.graph-header{
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
-
-.graph-row{
-    height: 24px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-.graph-head, .graph-body-title{
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+.graph-head{
     flex: 1;
     border: 1px solid #d4d4d4;
-    max-width: 200px;
 }
-.graph-head-hour, .graph-body-hour{
+.graph-head-hour{
     width: 50px;
     border: 1px solid #d4d4d4;
     border-left: none;
@@ -65,16 +54,6 @@
     justify-content: center;
     align-items: center;
 }
-
-.graph-body-hour{
-    width: 25px;
-    border: 1px solid #d4d4d4;
-    border-left: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .reservation-status{
     display: flex;
     flex-direction: column;
@@ -110,7 +89,6 @@
     height: 450px;
 }
 .graph-body-list{
-    width: 100%;
     height: 450px;
     -ms-overflow-style: none;
     scrollbar-width: none;
