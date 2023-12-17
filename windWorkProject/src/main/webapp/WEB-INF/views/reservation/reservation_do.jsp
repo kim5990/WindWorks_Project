@@ -13,7 +13,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 </head>
-<body onload='init(${result})'>
+<body>
     <jsp:include page="../common/header.jsp" />
     <div class ="menu">
         <div class="reservation-all">
@@ -59,7 +59,61 @@
                 </div>
                 <div class="graph-body">
                     <div class="graph-body-list">
-                
+                        <c:forEach var="a" items="${assetsList}">
+                            <div class="graph-body-content">
+                                <div class="graph-body-head${a.assNo}">${a.assName}</div>
+                                <div class="graph-body-body" id="selectable">
+                                    <div class="graph-body-hour" value="00:30"></div>
+                                    <div class="graph-body-hour" value="01:00"></div>
+                                    <div class="graph-body-hour" value="01:30"></div>
+                                    <div class="graph-body-hour" value="02:00"></div>
+                                    <div class="graph-body-hour" value="02:30"></div>
+                                    <div class="graph-body-hour" value="03:00"></div>
+                                    <div class="graph-body-hour" value="03:30"></div>
+                                    <div class="graph-body-hour" value="04:00"></div>
+                                    <div class="graph-body-hour" value="04:30"></div>
+                                    <div class="graph-body-hour" value="05:00"></div>
+                                    <div class="graph-body-hour" value="05:30"></div>
+                                    <div class="graph-body-hour" value="06:00"></div>
+                                    <div class="graph-body-hour" value="06:30"></div>
+                                    <div class="graph-body-hour" value="07:00"></div>
+                                    <div class="graph-body-hour" value="07:30"></div>
+                                    <div class="graph-body-hour" value="08:00"></div>
+                                    <div class="graph-body-hour" value="08:30"></div>
+                                    <div class="graph-body-hour" value="09:00"></div>
+                                    <div class="graph-body-hour" value="09:30"></div>
+                                    <div class="graph-body-hour" value="10:00"></div>
+                                    <div class="graph-body-hour" value="10:30"></div>
+                                    <div class="graph-body-hour" value="11:00"></div>
+                                    <div class="graph-body-hour" value="11:30"></div>
+                                    <div class="graph-body-hour" value="12:00"></div>
+                                    <div class="graph-body-hour" value="12:30"></div>
+                                    <div class="graph-body-hour" value="13:00"></div>
+                                    <div class="graph-body-hour" value="13:30"></div>
+                                    <div class="graph-body-hour" value="14:00"></div>
+                                    <div class="graph-body-hour" value="14:30"></div>
+                                    <div class="graph-body-hour" value="15:00"></div>
+                                    <div class="graph-body-hour" value="15:30"></div>
+                                    <div class="graph-body-hour" value="16:00"></div>
+                                    <div class="graph-body-hour" value="16:30"></div>
+                                    <div class="graph-body-hour" value="17:00"></div>
+                                    <div class="graph-body-hour" value="17:30"></div>
+                                    <div class="graph-body-hour" value="18:00"></div>
+                                    <div class="graph-body-hour" value="18:30"></div>
+                                    <div class="graph-body-hour" value="19:00"></div>
+                                    <div class="graph-body-hour" value="19:30"></div>
+                                    <div class="graph-body-hour" value="20:00"></div>
+                                    <div class="graph-body-hour" value="20:30"></div>
+                                    <div class="graph-body-hour" value="21:00"></div>
+                                    <div class="graph-body-hour" value="21:30"></div>
+                                    <div class="graph-body-hour" value="22:00"></div>
+                                    <div class="graph-body-hour" value="22:30"></div>
+                                    <div class="graph-body-hour" value="23:00"></div>
+                                    <div class="graph-body-hour" value="23:30"></div>
+                                    <div class="graph-body-hour" value="00:00"></div>
+                                </div>
+                            </div>
+                        </c:forEach>   
                     </div>
                 </div>
             </div>
@@ -76,7 +130,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                        
+                            <c:forEach var="r" items="${reservationList}"> 
+                                <tr>
+                                    <td>${r.assName}</td>
+                                    <td>${r.startDate} ${r.startTime} ~ ${r.endDate} ${r.endTime}</td>
+                                    <td>${r.reserName}</td>
+                                    <td><button class="reservation-status-cancel" onclick="cancelReservation(${r.reserNo})">취소</button></td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>

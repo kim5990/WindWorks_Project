@@ -93,11 +93,40 @@ public class EmployeeController {
 	//인사관리페이지
 	@RequestMapping("/approval.em")
 	public ModelAndView employeeList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
+			@RequestParam(value="condition", defaultValue="empNo") String condition,
+			@RequestParam(value="sorting", defaultValue="desc") String sorting,
+			@RequestParam(value="keyword", defaultValue="") String keyword,
 			ModelAndView mv) {
-		PageInfo pi = Pagenation.getPageInfo(employeeService.selectListCount(), currentPage, 16, 3);
+
+		PageInfo pi = Pagenation.getPageInfo(employeeService.selectListCount(), currentPage, 3, 16);
+
+		mv.addObject("pi",pi)
+		  .addObject("sorting", sorting)
+		  .addObject("condition", condition)
+		  .addObject("keyword",keyword)
+		  .addObject("list", employeeService.selectList(pi,condition,sorting,keyword))
+		  .addObject("empConut", employeeService.empYCount())
+		  .addObject("empJobCount", employeeService.empJobCount())
+		  .setViewName("personManage/personManage");
 		
+		return mv;
 	}
 	
+	//인사관리페이지 사원 정보 수정
+	@RequestMapping("/emUpdate.em")
+	public String updateMember(Employee e, HttpSession session, Model model) {
+		
+		int result = employeeService.employeeUpdate(e);
+		
+		if (result > 0) {
+			session.setAttribute("alertMsg", "회원정보 수정 성공");
+			return "redirect:/approval.em";
+		} else {
+			model.addAttribute("alertMsg", "회원정보 수정 실패");
+			return "redirect:/approval.em";
+		}
+	}
+
 	//마이페이지 폼
 	@RequestMapping("/myPageForm.em")
 	public String InsertForm() {
@@ -158,6 +187,4 @@ public class EmployeeController {
 		}
 	      return changeName;
 	}
-
-	
 }
