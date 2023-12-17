@@ -1,0 +1,337 @@
+a {
+    text-decoration: none;
+}
+
+.studyManagementMenus {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 60px);
+    justify-content: center;
+    flex: 1;
+}
+
+.right-section-lectureMaterialsDetail {
+    width: 200px;
+    height: calc(100vh - 60px);
+    border-left: 1px solid rgba(0, 0, 0, 0.165);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 50px;
+}
+
+.right-section-lectureMaterialsDetail-in {
+    width: 190px;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.lectureMaterialsDetail-Materials-cotainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 750px;
+}
+
+.lectureMaterialsDetail {
+    width: 100%;
+    height: 100%;
+}
+
+.lectureMaterialsDetail-title {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 15px;
+}
+
+.lectureMaterialsDetail-title1 {
+    display: flex;
+    width: 300px;
+    height: 50px;
+    align-items: center;
+}
+
+.lectureMaterialsDetail-title2 {
+    display: flex;
+    width: 500px;
+    height: 50px;
+    align-items: center;
+    justify-content: end;
+}
+
+.lectureMaterialsDetail-title2-searchbar {
+    display: flex;
+    width: 300px;
+    height: 34px;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.233);
+    border-radius: 2px;
+    margin-right: 30px;
+}
+
+.lectureMaterialsDetail-title2-searchbar:hover {
+    border: 1px solid #B62547;
+}
+
+.lectureMaterialsDetail-title2-searchbar-select {
+    width: 90px;
+    height: 32px;
+    border: 1px solid rgba(0, 0, 0, 0.233);
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.lectureMaterialsDetail-title2-searchbar-input1 {
+    flex: 1;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lectureMaterialsDetail-title2-searchbar-input {
+    border: none;
+    width: 100%;
+    height: 30px;
+}
+
+.lectureMaterialsDetail-title2-searchbar-input-searchbtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.lectureMaterialsDetail-btns {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.lectureMaterialsDetail-btns2 {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    width: 600px;
+    height: 50px;
+}
+
+.lectureMaterialsDetail-btns1 {
+    display: flex;
+    align-items: end;
+    width: 490px;
+    height: 50px;
+}
+
+.lectureMaterialsDetail-btn1 {
+    display: flex;
+    width: 250px;
+    height: 32px;
+    margin-left: 30px;
+}
+
+.lectureMaterialsDetail-btn1-update {
+    width: 100px;
+}
+
+.lectureMaterialsDetail-btn1-mode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 2px;
+    background-color: white;
+    border: none;
+    font-size: 13px;
+}
+
+.lectureMaterialsDetail-btn1-mode:hover {
+    background: rgba(0, 0, 0, 0.075);
+}
+
+.lectureMaterialsDetail-btn1-movement {
+    width: 65px;
+
+}
+
+.lectureMaterialsDetail-btn1-delete {
+    width: 65px;
+}
+
+.lectureMaterialsDetail-btns2 {
+    display: flex;
+    justify-content: center;
+    width: 420px;
+    height: 50px;
+    margin-right: 30px;
+}
+
+.lectureMaterialsDetail-btn2 {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    height: 32px;
+}
+
+.lectureMaterialsDetail-btn-margin {
+    margin-right: 5px;
+}
+
+.lectureMaterialsDetail-hr {
+    width: 100%;
+    height: 9px;
+    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0.075);
+    margin-bottom: 20px;
+}
+
+#lectureMaterialsDetail-title-favorites {
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.096);
+}
+
+.lectureMaterialsDetail-contents {
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.lectureMaterialsDetail-content {
+    height: 580px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+}
+
+.lectureMaterialsDetail-item-bar {
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.lectureMaterialsDetail-item-bar1 {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+}
+
+.lectureMaterialsDetail-item-bar1-checkbox-label {
+    font-weight: 800;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.lectureMaterialsDetail-item-bar1-checkbox-hr-box {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.lectureMaterialsDetail-item-bar1-checkbox-hr {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.075);
+}
+
+.lectureMaterialsDetail-item-bar1-content {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    flex-direction: column;
+
+}
+
+.lectureMaterialsDetail-item-bar1-content2 {
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    min-height: 100px;
+
+}
+
+.lectureMaterialsDetail-item-bar1-content-details1 {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    align-items: center;
+}
+
+#lectureMaterialsDetail-item-bar1-checkbox {
+    display: none;
+}
+
+#lectureMaterialsDetail-item-bar1-checkbox2 {
+    display: none;
+}
+
+#lectureMaterialsDetail-item-bar1-checkbox3 {
+    display: none;
+}
+
+.lectureMaterialsDetail-details-prof {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.lectureMaterialsDetail-details-title {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.589);
+}
+
+.lectureMaterialsDetail-details-content {
+    font-size: 13px;
+    margin-left: 60px;
+    font-weight: 500;
+}
+
+.lectureMaterialsDetail-details-content2 {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.lectureMaterialsDetail-details-content3 {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    color: #B62547;
+}
+
+.lectureMaterialsDetail-details-content4 {
+    font-size: 10px;
+    font-weight: 500;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    color: rgba(0, 0, 0, 0.589);
+}
+
+.lectureMaterialsDetail-item-bar1-content3-content {
+    display: flex;
+    width: 100%;
+    height: 31px;
+    align-items: center;
+
+}
