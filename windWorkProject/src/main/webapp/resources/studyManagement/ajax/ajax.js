@@ -14,6 +14,20 @@ function lessonPlanView(czpage, drowlessonPlanView) {
         },
     })
 }
+//강의 계획표 수정 모달
+document.querySelector("#studyManagementWriter").onclick = function () {
+    $.ajax({
+        url: "ajaxupdatePlanlist.lp",
+        success: function (res) {
+            console.log(res)
+            drowupdateBtnLessonPlanView(res);
+            alert("수정에 성공하셨습니다.");
+        },
+        error: function () {
+            console.log("lessonPlanView ajax 통신 실패")
+        },
+    })
+}
 
 
 //자료실 보여주기
@@ -35,12 +49,12 @@ function lectureMaterialsView(czpage, drowlectureMaterialsView, category) {
 }
 
 //자료실 검색
-function ajaxLectureMaterialsSearch(searchSelect, searchbarInput, drowstudentManagementView, czpage, category){
+function ajaxLectureMaterialsSearch(searchSelect, searchbarInput, drowstudentManagementView, czpage, category) {
     $.ajax({
         url: "ajaxLectureMaterialsSearch.lm",
         data: {
             searchSelect: searchSelect,
-            searchbarInput : searchbarInput,
+            searchbarInput: searchbarInput,
             cpage: czpage,
             category: category
         },
@@ -112,7 +126,7 @@ function ajaxstudentaddManagementView(classNo, studentName, studentEmail, studen
 }
 
 //학생초성으로 검색
-function ajaxStudentSelectInutialManagement(minUnicodeNum, maxUnicodeNum, classNo, czpage, drowstudentManagementView, boardLimit){
+function ajaxStudentSelectInutialManagement(minUnicodeNum, maxUnicodeNum, classNo, czpage, drowstudentManagementView, boardLimit) {
     $.ajax({
         url: "ajaxInutialSelectList.stm",
         data: {
@@ -132,14 +146,14 @@ function ajaxStudentSelectInutialManagement(minUnicodeNum, maxUnicodeNum, classN
 }
 
 //학생검색어로 검색
-function ajaxSelectSerachStudent(searchSelect, searchbarInput, czpage, classNo, drowstudentManagementView, boardLimit){
+function ajaxSelectSerachStudent(searchSelect, searchbarInput, czpage, classNo, drowstudentManagementView, boardLimit) {
     $.ajax({
         url: "ajaxSelectSerachStudent.stm",
         data: {
             classNo: classNo,
             searchSelect: searchSelect,
             searchbarInput: searchbarInput,
-            boardLimit : boardLimit,
+            boardLimit: boardLimit,
             cpage: czpage
         },
         success: function (res) {
@@ -164,6 +178,41 @@ function deletedStudent(checkBoxtrueList, drowstudentManagementView) {
         },
         error: function () {
             console.log("studentManagementView ajax 통신 실패")
+        },
+    })
+}
+
+//강의자료실 즐겨찾기
+function ajaxLikeAddSelect(classNo, empNo) {
+    $.ajax({
+        url: "ajaxLikeAddSelect,lm",
+        data: {
+            studentNoList: checkBoxtrueList
+        },
+        success: function (res) {
+            alert("즐겨찾기 완료");
+
+        },
+        error: function () {
+            console.log("ajaxLikeAddSelect ajax 통신 실패")
+        },
+    })
+}
+
+//강의자료실 즐겨찾기 삭제
+
+//강의자료실 즐겨찾기
+function ajaxLikeDeleteSelect(classNo, empNo) {
+    $.ajax({
+        url: "ajaxLikeDeleteSelect.lm",
+        data: {
+            studentNoList: checkBoxtrueList
+        },
+        success: function (res) {
+            alert("즐겨찾기 삭제");
+        },
+        error: function () {
+            console.log("ajaxLikeDeleteSelect ajax 통신 실패")
         },
     })
 }

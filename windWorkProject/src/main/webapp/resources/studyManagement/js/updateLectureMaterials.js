@@ -71,9 +71,9 @@ function formatBytes(bytes, decimals = 2) {
 
 
 //저장
-$(document).on("click", "#save", function () {
+$(document).on("click", "#updateSave", function () {
     console.log(document.getElementById("postContent").value)
-    let formData = new FormData($("#createLecturefileForm")[0]);
+    let formData = new FormData($("#updateLecturefileForm")[0]);
     if (fileList.length > 0) {
         fileList.forEach(function (f) {
             formData.append("fileList", f);
@@ -81,7 +81,7 @@ $(document).on("click", "#save", function () {
     }
 
     $.ajax({
-        url: "fileUpload.lm",
+        url: "update.lm",
         data: formData,
         type: 'POST',
         enctype: 'multipart/form-data',
@@ -91,6 +91,7 @@ $(document).on("click", "#save", function () {
         cache: false,
         success: function (res) {
             alert("저장에 성공하셨습니다.");
+
         }, error: function (res) {
             alert("오류 발생.\n관리자에게 문의해주세요.");
         }
