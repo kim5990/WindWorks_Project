@@ -48,10 +48,10 @@ public interface NoticeService {
 	// 공지사항 대댓글 작성
 	int insertChildeReply(NoticeReply nr);
 
-	
-	
 	// 공지사항 대댓글 수정
-	
+	int updateChildReply(NoticeReply nr);
+
 	// 공지사항 대댓글 삭제
+	int deleteChildReply(NoticeReply nr);
 
 }

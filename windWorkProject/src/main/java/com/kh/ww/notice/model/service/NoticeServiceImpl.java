@@ -99,13 +99,16 @@ public class NoticeServiceImpl implements NoticeService{
 		return noticeDao.insertChildeReply(sqlSession, nr);
 	}
 
-	
-	
 	// 공지사항 대댓글 수정
-	
+	@Override
+	public int updateChildReply(NoticeReply nr) {
+		return noticeDao.updateChildReply(sqlSession, nr);
+	}
+
 	// 공지사항 대댓글 삭제
-	
-	
-	
+	@Override
+	public int deleteChildReply(NoticeReply nr) {
+		return noticeDao.deleteChildReply(sqlSession, nr);
+	}
 	
 }

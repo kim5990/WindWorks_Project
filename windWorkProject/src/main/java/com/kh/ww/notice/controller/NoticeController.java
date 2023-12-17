@@ -158,6 +158,7 @@ public class NoticeController {
 	    if (loginUser != null) {
 	        Gson gson = new Gson();
 	        JsonObject jsonObject = new JsonObject();
+	        jsonObject.addProperty("loginUserName", loginUser.getEmpName());
 	        jsonObject.addProperty("loginUser", loginUser.getEmpNo());
 	       
 	        
@@ -200,7 +201,6 @@ public class NoticeController {
 	        }
 	        
 	        jsonObject.add("list", replyList);
-	        System.out.println(replyList);
 
 	        return gson.toJson(jsonObject);
 	    } else {
@@ -262,9 +262,29 @@ public class NoticeController {
 	
 	
 	// 공지사항 대댓글 수정
+	@ResponseBody
+	@RequestMapping(value="crupdate.no")
+	public String ajaxUpdateChildReply(NoticeReply nr) {
+		int result = noticeService.updateChildReply(nr);
+		System.out.println(nr);
+		if (result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
 	
 	// 공지사항 대댓글 삭제
-	
-	
+	@ResponseBody
+	@RequestMapping(value="crdelete.no")
+	public String ajaxDeleteChildReply(NoticeReply nr) {
+		int result = noticeService.deleteChildReply(nr);
+
+		if (result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
 	
 }
