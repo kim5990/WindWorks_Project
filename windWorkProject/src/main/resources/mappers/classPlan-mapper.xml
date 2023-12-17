@@ -342,6 +342,7 @@
 		JOIN EMPLOYEE USING (EMP_NO)
 		WHERE STUDENT_STATUS = 'Y'
 		    AND CLASS_NO = #{empNo}
+		ORDER BY STUDENT_NO DESC
 	</select>
 	
 	<update id ="deleteStudent">
@@ -362,4 +363,155 @@
 				 #{studentPhone}, 
 				 #{studentEmail})
 	</insert>
+	
+	<select id="selectClassNo" resultType = "_int">
+		SELECT CLASS_NO
+		FROM CLASS
+		WHERE EMP_NO = #{empNo}
+	</select>
+	
+	<insert id="insertStudent">
+		INSERT INTO STUDENT(STUDENT_NO, 
+							CLASS_NO, 
+							STUDENT_NAME, 
+							STUDENT_PHONE, 
+							STUDENT_EMAIL,
+							STUDENT_ADDRESS,
+							STUDENT_BIRTH,
+							STUDENT_GENDER,
+							STUDENT_MEMO,
+							ST_PROFILE_FILE_PATH)
+		VALUES(SEQ_SNO.NEXTVAL,
+				 #{classNo}, 
+				 #{studentName}, 
+				 #{studentPhone}, 
+				 #{studentEmail},
+				 #{studentAddress},
+				 #{studentBirth},
+				 #{studentGender},
+				 #{studentMemo},
+				 #{studentProfilePath})
+	</insert>
+	
+	<select id = "selectStudent" resultMap = "studentResult">
+		SELECT STUDENT_NO,
+		        CLASS_NO,
+		        STUDENT_NAME,
+		        STUDENT_PHONE,
+		        STUDENT_EMAIL,
+		        STUDENT_ADDRESS,
+		        STUDENT_BIRTH,
+		        STUDENT_GENDER,
+		        STUDENT_MEMO,
+		        ST_PROFILE_FILE_PATH,
+		        STUDENT_ATTEMDAMCE,
+		        STUDENT_STATUS
+		FROM STUDENT
+		WHERE STUDENT_NO = #{studentNo}
+			AND STUDENT_STATUS = 'Y'
+	</select>
+	
+	<update id = "updateStudent">
+		UPDATE STUDENT
+			SET STUDENT_NAME = #{studentName},
+				STUDENT_PHONE = #{studentPhone},
+				STUDENT_EMAIL = #{studentEmail},
+				STUDENT_ADDRESS = #{studentAddress},
+				STUDENT_BIRTH = #{studentBirth},
+				STUDENT_GENDER = #{studentGender},
+				STUDENT_MEMO = #{studentMemo},
+				ST_PROFILE_FILE_PATH = #{studentProfilePath},
+				STUDENT_MODIFY_DATE = SYSDATE
+			WHERE STUDENT_NO = #{studentNo}
+	</update>
+	
+	<select id = "ajaxInutialSelectCount" resultType = "_int">
+		SELECT COUNT(*)
+		FROM STUDENT
+		WHERE STUDENT_NAME BETWEEN NCHR(${minUnicodeNum}) AND NCHR(${maxUnicodeNum})
+			AND CLASS_NO = #{classNo}
+			AND STUDENT_STATUS = 'Y'
+	</select>
+	
+	<select id = "ajaxInutialSelectList" resultMap = "studentResult">
+		SELECT STUDENT_NO,
+		        CLASS_NO,
+		        STUDENT_NAME,
+		        STUDENT_PHONE,
+		        STUDENT_EMAIL,
+		        STUDENT_ADDRESS,
+		        STUDENT_BIRTH,
+		        STUDENT_GENDER,
+		        STUDENT_MEMO,
+		        ST_PROFILE_FILE_PATH,
+		        STUDENT_ATTEMDAMCE,
+		        STUDENT_STATUS
+		FROM STUDENT
+		WHERE STUDENT_NAME BETWEEN NCHR(${minUnicodeNum}) AND NCHR(${maxUnicodeNum})
+			AND CLASS_NO = #{classNo}
+			AND STUDENT_STATUS = 'Y'
+		ORDER BY STUDENT_NO DESC
+	</select>
+	
+	<select id = "ajaxSelectSerachStudentCount" resultType = "_int">
+		SELECT COUNT(*)
+		FROM STUDENT
+		WHERE STUDENT_STATUS = 'Y'
+		<choose>
+			<when test = "searchSelect == 'studentName'">
+				AND STUDENT_NAME LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<when test = "searchSelect == 'studentPhone'">
+				AND STUDENT_PHONE LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<otherwise>
+				AND STUDENT_EMAIL LIKE '%' || #{searchbarInput} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id = "ajaxSelectSerachStudent" resultMap = "studentResult">
+		SELECT STUDENT_NO,
+		        CLASS_NO,
+		        STUDENT_NAME,
+		        STUDENT_PHONE,
+		        STUDENT_EMAIL,
+		        STUDENT_ADDRESS,
+		        STUDENT_BIRTH,
+		        STUDENT_GENDER,
+		        STUDENT_MEMO,
+		        ST_PROFILE_FILE_PATH,
+		        STUDENT_ATTEMDAMCE,
+		        STUDENT_STATUS
+		FROM STUDENT
+		WHERE STUDENT_STATUS = 'Y'
+		<choose>
+			<when test = "searchSelect == 'studentName'">
+				AND STUDENT_NAME LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<when test = "searchSelect == 'studentPhone'">
+				AND STUDENT_PHONE LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<otherwise>
+				AND STUDENT_EMAIL LIKE '%' || #{searchbarInput} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY STUDENT_NO DESC
+	</select>
+	
+	<select id = "dataSearchLikeCount" resultType = "_int">
+	
+	</select>
+	
+	<select id = "dataSearchLikeSelectList" resultMap = "classAttachmentResult">
+	
+	</select>
+	
+	<select id = "searchMaterialslistCount" resultType = "_int">
+	
+	</select>
+	
+	<select id = "searchLectureMaterialslist" resultMap = "classAttachmentResult">
+	
+	</select>
 </mapper>

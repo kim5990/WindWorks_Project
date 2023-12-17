@@ -2,9 +2,6 @@
     display: flex;
     width: 100%;
     height: calc(100vh - 60px);
-    min-width: 1000px;
-    justify-content: center;
-    align-items: center;
 }
 
 .insert-h2 {
@@ -12,14 +9,19 @@
 }
 
 .student-insert {
+    padding-left: 20px;
     width: 100%;
-    height: 100%;
+    height: auto;
+    min-width: 1200px;
 }
 
 .input-photo {
-    width: 200px;
-    height: 200px;
-    border-radius: 8px;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+    border-radius: 3px;
+    position: relative;
 
 }
 
@@ -48,14 +50,18 @@
 }
 
 .student-img-td {
-    width: 976px;
+    width: auto;
     height: 140px;
 
 }
 
+.flex-td{
+    display: flex;
+}
 
 .student-input {
     border: 1px solid #ddd;
+    background-color: #fff;
     padding: 0 4px;
     height: 26px;
     box-sizing: border-box;
@@ -65,7 +71,6 @@
 .student-textarea {
     border: 1px solid #ddd;
     resize: none;
-    min-height: 100px;
     font-weight: normal;
     width: 100%;
 }
@@ -74,4 +79,87 @@
     width: 155px;
     text-align: center;
     border: 1px solid #ddd;
+}
+
+.student-delete-btn-div{
+    display: flex;
+    height: 100px;
+    align-items: end;
+    margin-left: 10px;
+
+}
+
+.student-btn{
+    width: 31px;
+    height: 21px;
+    font-size: 9px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.student-address-btn{
+    width: 50px;
+    height: 21px;
+    font-size: 9px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.student-birth-input{
+    display: flex;
+    align-items: center;
+}
+
+.student-add-submit-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+}
+
+.student-btn:hover,
+.student-address-btn:hover{
+    background-color: #ddd;
+}
+
+.student-profile-img-text{
+    position: absolute;
+    width: 98px;
+    height: 20px;
+    font-size: 9px;
+    font-weight: normal;
+    color: #ffffff;
+    background-color: #8b8b8b;
+    top: 80px;
+    opacity: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.form-button1 {
+    height: 40px;
+    width: 80px;
+    border: 1px solid rgb(182, 37, 71);
+    background-color: rgb(182, 37, 71);
+    color: white;
+    border-radius: 7px;
+    margin: 0 15px;
+    font-size: 13px;
+}
+
+.form-button2 {
+    height: 40px;
+    width: 80px;
+    border: 1px solid rgb(182, 37, 71);
+    background-color: white;
+    color: rgb(182, 37, 71);
+    border-radius: 7px;
+    margin: 0 15px;
+    font-size: 13px;
 }

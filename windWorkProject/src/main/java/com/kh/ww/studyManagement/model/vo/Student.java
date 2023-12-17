@@ -23,7 +23,7 @@ public class Student {
 	private String studentPhone;
 	private String studentEmail;
 	private String studentAddress;
-	private Date studentBirth;
+	private String studentBirth;
 	private String studentGender;
 	private String studentMemo;
 	private String studentProfilePath;
@@ -31,5 +31,8 @@ public class Student {
 	private Date studentEnrolldate;
 	private Date studentModifydate;
 	private String studentStatus;
-	
+	private String minUnicodeNum;
+	private String maxUnicodeNum;
+	private String searchSelect;
+	private String searchbarInput;
 }

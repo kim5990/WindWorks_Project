@@ -162,8 +162,8 @@ function drowlectureMaterialsView(res) {
             + '<option value="1">제목</option>'
             + '<option value="2">내용</option>'
             + '</select>'
-            + '<input class="form-control form-control-sm" type="search">'
-            + '<button class="btn btn-outline-danger" type="submit"style="--bs-btn-padding-y: .5rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 0.5rem;">'
+            + '<input id = "lectureMaterialsSearch" onkeyup = "lectureMaterialsSearch(event, '+ "'" + category + "'" +')" class="form-control form-control-sm" type="search">'
+            + '<button class="btn btn-outline-danger" onclick = "lectureMaterialsSearch(event, '+ "'" + category + "'" +')" type="submit"style="--bs-btn-padding-y: .5rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 0.5rem;">'
             + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">'
             + '<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>'
             + '</svg>'
@@ -204,12 +204,13 @@ function drowlectureMaterialsView(res) {
     document.querySelector("#studyManagemetMenu").innerHTML = str;
 }
 
-//강의자료실 리스트 뷰
+//강의계획표 수정 모달
 function drowupdateBtnLessonPlanView(res) {
     const cp = res.cp;
     const list = res.list;
     const rlist = res.rlist;
 
+    console.log(res)
     let headerStr = '<input type="hidden" value="' + cp.classNo + '" name="classNo">'
 
     document.querySelector("#modallptitle").innerHTML = headerStr;
@@ -284,54 +285,61 @@ function drowstudentManagementView(res) {
     }
     let studentStr = ""
     for (let student of studentList) {
+        let studentProfilePath = student.studentProfilePath ? student.studentProfilePath : "resources/uploadFiles/student/2023121414253910365.png";
+        let studentAddress = student.studentAddress ? student.studentAddress : "";
+        let studentBirth = student.studentBirth ? student.studentBirth : "";
+        let studentGender = student.studentGender ? student.studentGender : "";
+        let studentMemo = student.studentMemo ? student.studentMemo : "";
+        let classroomName = student.classroomName ? student.classroomName : "";
+        let studentAttemdemce = student.studentAttemdemce ? student.studentAttemdemce : "";
         studentStr += '<tr class="student-tbody-tr">'
             + '<td style="padding: 8px 0px 8px 24px; width : 50px;">'
-            + '<input class="student-tbody-tr-checkbox" value = "'+student.studentNo+'" type="checkbox" name="studentNo" id="">'
+            + '<input class="student-tbody-tr-checkbox" value = "' + student.studentNo + '" type="checkbox" name="studentNo" id="">'
             + '</td>'
-            + '<td style="padding: 8px 4px; width : 80px;">' + student.studentName + '</td>'
+            + '<td class = "student-tbody-td-studentName" onclick = "updateStudent(' + student.studentNo + ')" style="padding: 8px 4px; width : 80px;">' + '<img class="student-info-profile-img" src="' + studentProfilePath + '">' + student.studentName + '</td>'
             + '<td style="padding: 8px 4px; width : 100px;">' + student.studentPhone + '</td>'
             + '<td style="padding: 8px 4px; width : 130px;">' + student.studentEmail + '</td>'
-            + '<td style="padding: 8px 4px;">' + student.studentAddress + '</td>'
-            + '<td style="padding: 8px 4px; width : 100px;">' + student.studentBirth + '</td>'
-            + '<td style="padding: 8px 4px; width : 50px;">' + student.studentGender + '</td>'
-            + '<td style="padding: 8px 4px; width : 150px;">' + student.studentMemo + '</td>'
-            + '<td style="padding: 8px 4px; width : 80px;">' + student.classroomName + '</td>'
-            + '<td style="padding: 8px 4px; width : 50px;">' + student.studentAttemdemce + '</td>'
+            + '<td style="padding: 8px 4px;">' + studentAddress + '</td>'
+            + '<td style="padding: 8px 4px; width : 100px;">' + studentBirth + '</td>'
+            + '<td style="padding: 8px 4px; width : 50px;">' + studentGender + '</td>'
+            + '<td style="padding: 8px 4px; width : 150px;">' + studentMemo + '</td>'
+            + '<td style="padding: 8px 4px; width : 80px;">' + classroomName + '</td>'
+            + '<td style="padding: 8px 4px; width : 50px;">' + studentAttemdemce + '</td>'
             + '</tr>'
     }
     let boardLimitStr = "";
 
-    if(boardLimit == 5){
+    if (boardLimit == 5) {
         boardLimitStr = '<select onchange = "studentBoardLimit(this);" name="boardLimit" id="boardLimit" class="student-dataTables-length-select">'
-                        + '<option selected value="5">5</option>'
-                        + '<option value="10">10</option>'
-                        + '<option value="15">15</option>'
-                        + '<option value="20">20</option>'
-                        + '</select>';
-    }else if (boardLimit == 10){
+            + '<option selected value="5">5</option>'
+            + '<option value="10">10</option>'
+            + '<option value="15">15</option>'
+            + '<option value="20">20</option>'
+            + '</select>';
+    } else if (boardLimit == 10) {
         boardLimitStr = '<select onchange = "studentBoardLimit(this);" name="boardLimit" id="boardLimit" class="student-dataTables-length-select">'
-                        + '<option value="5">5</option>'
-                        + '<option selected value="10">10</option>'
-                        + '<option value="15">15</option>'
-                        + '<option value="20">20</option>'
-                        + '</select>';
-    }else if (boardLimit == 15){
+            + '<option value="5">5</option>'
+            + '<option selected value="10">10</option>'
+            + '<option value="15">15</option>'
+            + '<option value="20">20</option>'
+            + '</select>';
+    } else if (boardLimit == 15) {
         boardLimitStr = '<select onchange = "studentBoardLimit(this);" name="boardLimit" id="boardLimit" class="student-dataTables-length-select">'
-                        + '<option value="5">5</option>'
-                        + '<option value="10">10</option>'
-                        + '<option selected value="15">15</option>'
-                        + '<option value="20">20</option>'
-                        + '</select>';
-    }else{
+            + '<option value="5">5</option>'
+            + '<option value="10">10</option>'
+            + '<option selected value="15">15</option>'
+            + '<option value="20">20</option>'
+            + '</select>';
+    } else {
         boardLimitStr = '<select onchange = "studentBoardLimit(this);" name="boardLimit" id="boardLimit" class="student-dataTables-length-select">'
-                        + '<option value="5">5</option>'
-                        + '<option value="10">10</option>'
-                        + '<option value="15">15</option>'
-                        + '<option selected value="20">20</option>'
-                        + '</select>';
+            + '<option value="5">5</option>'
+            + '<option value="10">10</option>'
+            + '<option value="15">15</option>'
+            + '<option selected value="20">20</option>'
+            + '</select>';
     }
 
-    
+
     let pageStr = "";
     if (pi.currentPage === 1) {
         pageStr += '<li class="page-item disabled"><a class="page-link"><</a></li>'
@@ -340,12 +348,12 @@ function drowstudentManagementView(res) {
     }
 
     for (i = pi.startPage; i <= pi.endPage; i++) {
-        pageStr += '<li class="page-item" onclick = "studentBoardLimitManagementView(' + i + ', drowstudentManagementView, '+ boardLimit +')"><a class="page-link page-color">' + i + '</a></li>'
+        pageStr += '<li class="page-item" onclick = "studentBoardLimitManagementView(' + i + ', drowstudentManagementView, ' + boardLimit + ')"><a class="page-link page-color">' + i + '</a></li>'
     }
     if (pi.currentPage === pi.maxPage) {
         pageStr += '<li class="page-item disabled"><a class="page-link page-color" href="#">></a></li>'
     } else {
-        pageStr += '<li class="page-item" onclick = "studentBoardLimitManagementView(' + (pi.currentPage + 1) + ', drowstudentManagementView, '+ boardLimit +')"><a class="page-link page-color">></a></li>'
+        pageStr += '<li class="page-item" onclick = "studentBoardLimitManagementView(' + (pi.currentPage + 1) + ', drowstudentManagementView, ' + boardLimit + ')"><a class="page-link page-color">></a></li>'
     }
     let str = "";
 
@@ -356,16 +364,15 @@ function drowstudentManagementView(res) {
         + '</h1>'
         + '<div class="student-header-searchbar">'
         + '<div class="student-header-searchbar-container">'
-        + '<select class="student-header-searchbar-select">'
-        + '<option>이름</option>'
-        + '<option>휴대폰</option>'
-        + '<option>이메일</option>'
-        + '<option selected>학생주소록</option>'
+        + '<select name = "seacrhSelect" id = "seacrhSelect" class="student-header-searchbar-select">'
+        + '<option selected value = "studentName">이름</option>'
+        + '<option value = "studentPhone">휴대폰</option>'
+        + '<option value = "studentEmail">이메일</option>'
         + '</select>'
         + '<div class="student-header-searchbar-input1">'
-        + ' <input class="student-header-searchbar-input" type="text">'
+        + ' <input name = "searchbarInput" id = "searchbarInput" onkeyup="enterkey(event, '+ studentList[0].classNo +', '+ boardLimit +');" class="student-header-searchbar-input" type="text">'
         + '</div>'
-        + '<div class="student-header-searchbar-input-searchbtn">'
+        + '<div onclick = "enterkey(event, '+ studentList[0].classNo +', '+ boardLimit +');" class="student-header-searchbar-input-searchbtn">'
         + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">'
         + '<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />'
         + '</svg>'
@@ -390,12 +397,6 @@ function drowstudentManagementView(res) {
         + '</li>'
         + '<li>'
         + '<a class="student-btn-tool">'
-        + '<span class="student-btn-tool-icon"><ion-icon name="people-outline"></ion-icon></span>'
-        + '<span>그룹 지정</span>'
-        + '</a>'
-        + '</li>'
-        + '<li>'
-        + '<a class="student-btn-tool">'
         + '<span class="student-btn-tool-icon"><ion-icon name="trash-outline"></ion-icon></span>'
         + '<span onclick="deleteStudent()">삭제</span>'
         + '</a>'
@@ -406,7 +407,7 @@ function drowstudentManagementView(res) {
     str += ' <form class="student-speed-regist">'
         + '<fieldset class="student-speed-regist-fleldset">'
         + '<div class="student-header-form-speed">'
-        + '<input type="hidden" name = "classNo" id = "speedInputClassNo" value = "'+studentList[0].classNo +'">'
+        + '<input type="hidden" name = "classNo" id = "speedInputClassNo" value = "' + studentList[0].classNo + '">'
         + '<input type="text" placeholder="이름" id = "speedInputStudentName" name = "studentName" class="student-input student-speed-first">'
         + '<input type="text" placeholder="이메일" id = "speedInputStudentEmail" name = "studentEmail"  class="student-input">'
         + '<input type="text" placeholder="휴대폰"  id = "speedInputStudentPhone"  name = "studentPhone" class="student-input">'
@@ -414,57 +415,57 @@ function drowstudentManagementView(res) {
         + '<ion-icon name="add-outline"></ion-icon>'
         + '</div>'
         + '<div class="student-speed-detail-add-btn">'
-        + '<span>상세정보 추가</span>'
+        + '<span onclick = "detailStudentInfoAdd();" >상세정보 추가</span>'
         + '</div>'
         + '</div>'
         + '</fieldset>'
         + '</form>';
 
     str += '<div class="student-header-toolbar-container">'
-        + '<ul class="student-header-toolbar-critical ">'
-        + '<li class="student-btn-tool2 student-on">'
+        + '<ul id ="student-ul" class="student-header-toolbar-critical">'
+        + '<li onclick="initialconsonantSearh(0, 55203, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2 student-on">'
         + '<span>전체</span>'
         + '</li>'
-        + '<li class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(0, 45207, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
         + ' <span>ㄱ</span>'
         + '</li>'
-        + '<li class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(45207, 45795, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
         + '<span>ㄴ</span>'
         + '</li>'
-        + '<li class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(45795, 46971, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
         + '<span>ㄷ</span>'
         + '</li>'
-        + '<li class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(46971, 47559, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
         + '<span>ㄹ</span>'
         + '</li>'
-        + '<li class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(47559, 48147, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
         + '<span>ㅁ</span>'
         + '</li>'
-        + '<li class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(48147, 49323, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
         + '<span>ㅂ</span>'
         + '</li>'
-        + '<li class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(49323, 50499, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
         + '<span>ㅅ</span>'
         + '</li>'
-        + '<li class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(50499, 51087, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
         + '<span>ㅇ</span>'
         + '</li>'
-        + '<li class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(51087, 52263, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
         + '<span>ㅈ</span>'
         + '</li>'
-        + '<li class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(52263, 52851, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
         + '<span>ㅊ</span>'
         + '</li>'
-        + '<li class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(52851, 53439, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
         + '<span>ㅋ</span>'
         + '</li>'
-        + '<li class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(53439, 54027, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
         + '<span>ㅌ</span>'
         + '</li>'
-        + '<li class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(54027, 54615, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
         + '<span>ㅍ</span>'
         + '</li>'
-        + '<li class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(54615, 55203, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
         + '<span>ㅎ</span>'
         + '</li>'
         + '</ul>';
@@ -526,36 +527,93 @@ function drowstudentManagementView(res) {
     document.querySelector("#studyManagemetMenu").innerHTML = str;
 }
 
-function deleteStudent(){
+function deleteStudent() {
     const checkBoxList = document.getElementsByClassName('student-tbody-tr-checkbox');
     let checkBoxtrueList = new Array();
-    for (let checkBox of checkBoxList){
-        if(checkBox.checked == true){
+    for (let checkBox of checkBoxList) {
+        if (checkBox.checked == true) {
             checkBoxtrueList.push(checkBox.value)
         }
     }
     deletedStudent(checkBoxtrueList, drowstudentManagementView);
 }
 
-function studentAllClick(input){
+function studentAllClick(input) {
     const checkBoxList = document.getElementsByClassName('student-tbody-tr-checkbox');
-    for (let checkBox of checkBoxList){
+    for (let checkBox of checkBoxList) {
         checkBox.checked = input.checked;
     }
 }
 
-function studentBoardLimit(selectLimit){
+function studentBoardLimit(selectLimit) {
     console.log(selectLimit);
     studentBoardLimitManagementView(1, drowstudentManagementView, selectLimit.value)
 
 }
 
-function speedStudentAdd(){
-    
+function speedStudentAdd() {
+
     let classNo = document.querySelector("#speedInputClassNo").value;
-    let className = document.querySelector("#speedInputStudentName").value;
-    let classEmail = document.querySelector("#speedInputStudentEmail").value;
-    let classPhone = document.querySelector("#speedInputStudentPhone").value;
-    console.log(classNo)
-    ajaxstudentaddManagementView(classNo, className, classEmail, classPhone, 1, drowstudentManagementView)
+    let studentName = document.querySelector("#speedInputStudentName").value;
+    let studentEmail = document.querySelector("#speedInputStudentEmail").value;
+    let studentPhone = document.querySelector("#speedInputStudentPhone").value;
+    ajaxstudentaddManagementView(classNo, studentName, studentEmail, studentPhone, 1, drowstudentManagementView)
+}
+
+function detailStudentInfoAdd() {
+    let classNo = document.querySelector("#speedInputClassNo").value;
+    let studentName = document.querySelector("#speedInputStudentName").value;
+    let studentEmail = document.querySelector("#speedInputStudentEmail").value;
+    let studentPhone = document.querySelector("#speedInputStudentPhone").value;
+
+    if (!classNo || !studentName || !studentEmail || !studentPhone) {
+        alert("빈칸을 전부 입력해주세요");
+    } else {
+        location.href = "detailAddStudent.stm?classNo=" + classNo + "&studentName=" + studentName + "&studentEmail=" + studentEmail + "&studentPhone=" + studentPhone;
+    }
+}
+
+function updateStudent(studentNo) {
+    location.href = "updateStudentForm.stm?studentNo=" + studentNo;
+}
+
+function initialconsonantSearh(minUnicodeNum, maxUnicodeNum, liitem, classNo, boardLimit){
+    let listItems = document.querySelectorAll("#student-ul li");
+
+    listItems.forEach(function (item) {
+        item.oncilck = function(){
+            item.classList.add("student-on");
+            // 나머지 항목에서 'selected' 클래스 제거
+            listItems.forEach(function (otherItem) {
+                if (otherItem !== item) {
+                    otherItem.classList.remove("student-on");
+                }
+            });
+        }
+    });
+
+    ajaxStudentSelectInutialManagement(minUnicodeNum, maxUnicodeNum, classNo, 1, drowstudentManagementView, boardLimit);
+}
+
+function enterkey(event, classNo, boardLimit){
+    let searchSelect  = document.querySelector("#seacrhSelect").value
+    let searchbarInput = document.querySelector("#searchbarInput").value
+
+    if ((window.event.keyCode == 13 || !window.event.keyCode) && searchbarInput) {
+      console.log(searchSelect);
+      console.log(searchbarInput);
+      console.log(classNo);
+      ajaxSelectSerachStudent(searchSelect, searchbarInput, 1, classNo, drowstudentManagementView, boardLimit)
+   }
+}
+
+function lectureMaterialsSearch(event, category){
+    let searchSelect  = document.querySelector("#specificSizeSelect").value
+    let searchbarInput = document.querySelector("#lectureMaterialsSearch").value
+    if ((window.event.keyCode == 13 || !window.event.keyCode) && searchbarInput) {
+        console.log(searchSelect);
+        console.log(searchbarInput);
+        console.log(category);
+        ajaxLectureMaterialsSearch(searchSelect, searchbarInput, drowstudentManagementView, 1, category)
+     }
 }

@@ -16,7 +16,7 @@
      <!--JS-->
   <script src="resources/common/js/memberInsert.js"></script>
 </head>
-<body>
+<body onload="insertEmpFormOnload()">
 	<form action="insert.em" method="post" enctype="multipart/form-data" class="row g-3 needs-validation" id="signupForm">
     <div class="memberInsertForm">
       <div class="memberInsertForm-inputs">
