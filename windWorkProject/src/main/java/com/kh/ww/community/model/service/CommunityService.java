@@ -28,6 +28,15 @@ public interface CommunityService {
 	// 댓글 리스트
 	ArrayList<CommunityReply> replyList(int bno); 
 	ArrayList<CommunityReply> reReplyList(int bno); 
+	
+	// 댓글 등록
+	int communityReplyIn(CommunityReply cr);
+	// 댓글 삭제
+	int communityReplyDel(int rno);
+	// 답글 등록
+	int communityReReplyIn(CommunityReply cr);
+	// 댓글 수정
+	int communityReplyUp(CommunityReply cr);
 
 	// 전체 커뮤 리스트
 	ArrayList<Community> communityListAll();
@@ -44,5 +53,16 @@ public interface CommunityService {
 	int communityUpdate(Community c);
 	// 커뮤 삭제
 	int communityDelete(Community c);
+	
+	// 게시글 등록
+	int comBoardInsert(CommunityBoard cb);
+	// 첨부파일 등록
+	int comBoardAttInsert(CommunityAttachment ca);
+	// 게시글 삭제
+	int comBoardDelete(int bno);
+	// 첨부파일 조회
+	ArrayList<CommunityAttachment> selectBoardAttList(int bno);
+	// 첨부파일 삭제
+	int deleteBoardAtt(int fno);
 
 }

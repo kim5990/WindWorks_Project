@@ -64,6 +64,26 @@ public class CommunityServiceImpl implements CommunityService{
 	public ArrayList<CommunityReply> reReplyList(int bno) {
 		return communityDao.reReplyList(sqlSession, bno);
 	}
+	
+	@Override
+	public int communityReplyIn(CommunityReply cr) {
+		return communityDao.communityReplyIn(sqlSession, cr);
+	}
+	
+	@Override
+	public int communityReplyDel(int rno) {
+		return communityDao.communityReplyDel(sqlSession, rno);
+	}
+	
+	@Override
+	public int communityReReplyIn(CommunityReply cr) {
+		return communityDao.communityReReplyIn(sqlSession, cr);
+	}
+	
+	@Override
+	public int communityReplyUp(CommunityReply cr) {
+		return communityDao.communityReplyUp(sqlSession, cr);
+	}
 
 	@Override
 	public ArrayList<Community> communityListAll() {
@@ -99,6 +119,36 @@ public class CommunityServiceImpl implements CommunityService{
 	public int communityDelete(Community c) {
 		return communityDao.communityDelete(sqlSession, c);
 	}
+
+	@Override
+	public int comBoardInsert(CommunityBoard cb) {
+		return communityDao.comBoardInsert(sqlSession, cb);
+	}
+
+	@Override
+	public int comBoardAttInsert(CommunityAttachment ca) {
+		return communityDao.comBoardAttInsert(sqlSession, ca);
+	}
+
+	@Override
+	public int comBoardDelete(int bno) {
+		return communityDao.comBoardDelete(sqlSession, bno);
+	}
+
+	@Override
+	public ArrayList<CommunityAttachment> selectBoardAttList(int bno) {
+		return communityDao.selectBoardAttList(sqlSession, bno);
+	}
+
+	@Override
+	public int deleteBoardAtt(int fno) {
+		return communityDao.deleteBoardAtt(sqlSession, fno);
+	}
+
+
+
+
+
 
 
 

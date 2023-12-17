@@ -51,6 +51,22 @@ public class CommunityDao {
 		return (ArrayList)sqlSession.selectList("communityMapper.reReplyList", bno);
 	}
 	
+	public int communityReplyIn(SqlSessionTemplate sqlSession, CommunityReply cr){
+		return sqlSession.insert("communityMapper.communityReplyIn", cr);
+	}
+	
+	public int communityReplyDel(SqlSessionTemplate sqlSession, int rno) {
+		return sqlSession.delete("communityMapper.communityReplyDel", rno);
+	}
+	
+	public int communityReReplyIn(SqlSessionTemplate sqlSession, CommunityReply cr){
+		return sqlSession.insert("communityMapper.communityReReplyIn", cr);
+	}
+	
+	public int communityReplyUp(SqlSessionTemplate sqlSession, CommunityReply cr){
+		return sqlSession.insert("communityMapper.communityReplyUp", cr);
+	}
+	
 	public ArrayList<Community> communityListAll(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("communityMapper.communityListAll");
 	}
@@ -79,7 +95,29 @@ public class CommunityDao {
 		return sqlSession.update("communityMapper.communityDelete", c);
 	}
 	
+	public int comBoardInsert(SqlSessionTemplate sqlSession, CommunityBoard cb) {
+		return sqlSession.insert("communityMapper.comBoardInsert", cb);
+	}
 	
+	public int comBoardAttInsert(SqlSessionTemplate sqlSession, CommunityAttachment ca) {
+		return sqlSession.insert("communityMapper.comBoardAttInsert", ca);
+	}
+	
+	public int comBoardDelete(SqlSessionTemplate sqlSession, int bno) {
+		System.out.println(bno);
+		return sqlSession.update("communityMapper.comBoardDelete", bno);
+	}
 
-
+	public ArrayList<CommunityAttachment> selectBoardAttList(SqlSessionTemplate sqlSession, int bno){
+		return (ArrayList)sqlSession.selectList("communityMapper.selectBoardAttList", bno);
+	}
+	
+	public int deleteBoardAtt(SqlSessionTemplate sqlSession, int fno) {
+		return sqlSession.delete("communityMapper.deleteBoardAtt", fno);
+	}
+	
+	
+	
+	
+	
 }

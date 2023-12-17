@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="communityMapper">
+ 
 	 <resultMap type="Community" id="communityResult">
  		<result column="COMMUNITY_NO" property="communityNo" />
  		<result column="COMMUNITY_NAME" property="communityName" />
@@ -27,7 +28,6 @@
  		<result column="EMP_NAME" property="empName" />
  		<result column="PROFILE_FILE_PATH" property="profileFilePath" />
  		<result column="JOB_NAME" property="jobName" />
- 		
 	</resultMap>
 	
 	<resultMap type="CommunityReply" id="communityReplyResult">
@@ -184,6 +184,54 @@
 		ORDER BY COMMUNITY_REPLY_CREATE_DATE DESC
  	</select>
  	
+ 	<!-- 댓글 등록 -->
+ 	<insert id="communityReplyIn">
+ 		INSERT INTO COMMUNITY_REPLY(
+	 				COMMUNITY_REPLY_NO,
+					COMMUNITY_BOARD_NO,
+					EMP_NO,
+					COMMUNITY_REPLY_COMMENT
+ 					)
+ 			VALUES(
+ 				SEQ_CRNO.NEXTVAL,
+ 				#{communityBoardNo},
+ 				#{empNo},
+ 				#{communityReplyComment}
+ 				)
+ 	</insert>
+ 	
+ 	<!-- 댓글, 대댓글 삭제 -->
+ 	<delete id="communityReplyDel">
+	 	DELETE FROM COMMUNITY_REPLY
+		WHERE COMMUNITY_REPLY_NO = #{rno}
+ 	</delete>
+ 	
+ 	<!-- 대댓글 등록 -->
+ 	<insert id="communityReReplyIn">
+ 		INSERT INTO COMMUNITY_REPLY(
+	 				COMMUNITY_REPLY_NO,
+					COMMUNITY_BOARD_NO,
+					EMP_NO,
+					COMMUNITY_REPLY_COMMENT,
+					PARENT_REPLY_NO
+ 					)
+ 			VALUES(
+ 				SEQ_CRNO.NEXTVAL,
+ 				#{communityBoardNo},
+ 				#{empNo},
+ 				#{communityReplyComment},
+ 				#{parentReplyNo}
+ 				)
+ 	</insert>
+ 	
+ 	<!-- 댓글 수정 -->
+ 	<update id="communityReplyUp">
+ 		UPDATE COMMUNITY_REPLY
+		SET COMMUNITY_REPLY_COMMENT = #{communityReplyComment}
+			WHERE COMMUNITY_REPLY_NO = #{communityReplyNo}
+ 	</update>
+
+ 	
  	<!-- 전체 커뮤 리스트 조회 -->
  	<select id="communityListAll" resultMap="communityResult">
  		SELECT COMMUNITY_NO, COMMUNITY_NAME, COMMUNITY_POINT, COMMUNITY_STATUS
@@ -255,6 +303,76 @@
  			SET COMMUNITY_STATUS = 'N'
  		WHERE COMMUNITY_NO = #{communityNo}
  	</update>
+ 	
+ 	<!-- 보드 등록 -->
+ 	<insert id="comBoardInsert">
+ 		INSERT INTO COMMUNITY_BOARD(
+	 				COMMUNITY_BOARD_NO,
+					COMMUNITY_NO,
+					EMP_NO,
+					COMMUNITY_BOARD_TITLE,
+					COMMUNITY_BOARD_CONTENT
+ 					)
+ 			VALUES(
+ 				SEQ_CBNO.NEXTVAL,
+ 				#{communityNo},
+ 				#{empNo},
+ 				#{communityBoardTitle},
+ 				#{communityBoardContent}
+ 				)
+ 	</insert>
+ 	
+ 	<!-- 첨부파일 등록 -->
+ 	<insert id="comBoardAttInsert">
+ 		INSERT INTO COMMUNITY_ATTACHMENT(
+                COMMUNITY_FILE_NO,
+                COMMUNITY_BOARD_NO,
+                COMMUNITY_ORIGIN_NAME,
+                COMMUNITY_CHANGE_NAME,
+                COMMUNITY_FILE_PATH,
+                COMMUNITY_FILE_LEVEL
+                )
+	        VALUES(
+	            SEQ_CANO.NEXTVAL,
+	            SEQ_CBNO.CURRVAL,
+	            #{communityOriginName},
+	            #{communityChangeName},
+	            #{communityFilePath},
+	            #{communityFileLevel}
+	            )
+ 	</insert>
+ 	
+ 	<!-- 게시글 삭제 -->
+ 	<update id="comBoardDelete">
+ 		UPDATE COMMUNITY_BOARD
+ 			SET COMMUNITY_BOARD_STATUS = 'N'
+ 		WHERE COMMUNITY_BOARD_NO = #{bno}
+ 	</update>
+ 	
+ 	<!-- 첨부파일 리스트 조회 -->
+ 	<select id="selectBoardAttList" resultMap="communityAttachmentResult">
+ 		SELECT COMMUNITY_FILE_NO, 
+ 				COMMUNITY_BOARD_NO, 
+ 				COMMUNITY_ORIGIN_NAME, 
+ 				COMMUNITY_CHANGE_NAME,
+ 				COMMUNITY_FILE_PATH,
+ 				COMMUNITY_UPLOAD_DATE,
+ 				COMMUNITY_FILE_LEVEL
+		FROM COMMUNITY_ATTACHMENT
+		WHERE COMMUNITY_BOARD_NO = #{bno}
+		ORDER BY COMMUNITY_FILE_LEVEL
+ 	</select>
+ 	
+ 	<!-- 첨부파일 삭제 -->
+ 	<delete id="deleteBoardAtt">
+	 	DELETE FROM COMMUNITY_ATTACHMENT
+		WHERE COMMUNITY_FILE_NO = #{fno}
+
+ 	</delete>
+ 	
+ 	
+ 	
+ 	
  	
  	
  	
