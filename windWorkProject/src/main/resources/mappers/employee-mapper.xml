@@ -68,6 +68,7 @@
 		JOIN JOB USING (JOB_CODE)
 		WHERE EMP_EMAIL = #{empEmail}
 	        AND EMP_STATUS = 1
+
 	</select>
 	<!-- 총 사원수 조회 쿼리문 -->
 	<select id="selectListCount" resultType="_int">
