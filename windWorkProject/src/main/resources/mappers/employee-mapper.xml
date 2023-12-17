@@ -21,7 +21,7 @@
 		<result column="JOB_NAME" property="jobName"/>
 		<result column="DEPT_NAME" property="deptName"/>
 	</resultMap>
-
+	<!-- 회원가입 쿼리문 -->
 	<insert id="insertEmployee">
 		INSERT INTO EMPLOYEE(
 			EMP_NO,
@@ -46,6 +46,7 @@
 			#{profileFilePath}
 		)
 	</insert>
+	<!-- 로그인 쿼리문 -->
 	<select id="loginEmployee" resultMap = "employeeResult">
 	SELECT EMP_NO,
         EMP_NAME,
@@ -67,8 +68,89 @@
 	JOIN JOB USING (JOB_CODE)
 	WHERE EMP_EMAIL = #{empEmail}
     AND EMP_STATUS = 1
+
 	</select>
-	
+	<!-- 총 사원수 조회 쿼리문 -->
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM EMPLOYEE
+	</select>
+	<!-- 사원들 리스트 조회 쿼리문 -->
+	<select id="selectList" resultMap="employeeResult">
+		SELECT EMP_NO,
+			   DEPT_CODE,
+			   JOB_CODE,
+			   EMP_NAME,
+			   EMP_EMAIL,
+			   EMP_PHONE,
+			   EMP_AGE,
+			   EMP_ENROLL_DATE,
+			   EMP_STATUS,
+			   DEPT_NAME,
+			   JOB_NAME
+		  FROM EMPLOYEE
+		  LEFT JOIN DEPARTMENT USING (DEPT_CODE)
+		  LEFT JOIN JOB USING(JOB_CODE)
+		  <if test="keyword !=''">
+		  	WHERE EMP_NAME LIKE '%' || #{keyword} || '%'
+		  </if>  
+		  <choose>
+		  	<when test="condition == 'empNo'">
+	  			<if test="sorting == 'desc'">
+	  				ORDER BY EMP_NO DESC
+	  			</if>
+	  			<if test="sorting == 'asc'">
+	  				ORDER BY EMP_NO ASC
+	  			</if>
+		  	</when>
+		  	<when test="condition == 'deptCode'">
+				<if test="sorting == 'desc'">
+	  				ORDER BY DEPT_CODE DESC
+	  			</if>
+	  			<if test="sorting == 'asc'">
+	  				ORDER BY DEPT_CODE ASC
+	  			</if>
+		  	</when>
+		  	<when test="condition == 'jobCode'">
+				<if test="sorting == 'desc'">
+	  				ORDER BY JOB_CODE DESC
+	  			</if>
+	  			<if test="sorting == 'asc'">
+	  				ORDER BY JOB_CODE ASC
+	  			</if>
+		  	</when>
+		  	<when test="condition == 'empStatus'">
+				<if test="sorting == 'desc'">
+	  				ORDER BY EMP_STATUS DESC
+	  			</if>
+	  			<if test="sorting == 'asc'">
+	  				ORDER BY EMP_STATUS ASC
+	  			</if>
+		  	</when>
+		  </choose>
+		  
+	</select>
+	<!-- 재직중인 사원수 가져오는 쿼리문 -->
+	<select id="empYCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM EMPLOYEE
+		 WHERE EMP_STATUS = 1
+	</select>
+	<!-- 미승인 사원수 가져오는 쿼리문 -->
+	<select id="empJobCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM EMPLOYEE
+		 WHERE EMP_STATUS = 0
+	</select>
+	<!-- 인사관리 페이지에서 사원 정보 수정 -->
+	<update id="employeeUpdate">
+      UPDATE EMPLOYEE
+         SET DEPT_CODE = #{deptCode},
+          	 JOB_CODE = #{jobCode},
+          	 EMP_STATUS = #{empStatus}
+       WHERE EMP_NO = #{empNo}
+   </update>
+	<!-- 마이페이지 사원정보수정 -->
 	<update id="updateEmployee">
 		UPDATE EMPLOYEE
 		SET EMP_EMAIL = #{empEmail},

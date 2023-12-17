@@ -33,4 +33,7 @@ public class Employee {
 	private String deptCode;
 	private String jobName;
 	private String deptName;
+	private String condition;
+	private String sorting;
+	private String keyword;
 }
