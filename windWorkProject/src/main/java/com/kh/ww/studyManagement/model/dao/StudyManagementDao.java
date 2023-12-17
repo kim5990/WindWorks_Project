@@ -137,15 +137,79 @@ public class StudyManagementDao {
 	public ArrayList<Category> selectClassCategoryList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("classMapper.selectClassCategoryList");
 	}
+	
+	//자료실 검색
+	public int dataSearchLikeCount(SqlSessionTemplate sqlSession, ClassAttachment c) {
+		return sqlSession.selectOne("classMapper.dataSearchLikeCount", c);
+	}
+	
+	public ArrayList<ClassAttachment> dataSearchLikeSelectList(SqlSessionTemplate sqlSession, ClassAttachment c,
+			PageInfo lmpi) {
+		int offset = (lmpi.getCurrentPage() - 1) * lmpi.getBoardLimit();
+		int limit = lmpi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("classMapper.dataSearchLikeSelectList", c, rowBounds);
+	}
+	
+	public int searchMaterialslistCount(SqlSessionTemplate sqlSession, ClassAttachment c) {
+		return sqlSession.selectOne("classMapper.searchMaterialslistCount", c);
+	}
+	
+	public ArrayList<ClassAttachment> searchLectureMaterialslist(SqlSessionTemplate sqlSession, ClassAttachment c,
+			PageInfo lmpi) {
+		int offset = (lmpi.getCurrentPage() - 1) * lmpi.getBoardLimit();
+		int limit = lmpi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("classMapper.searchLectureMaterialslist", c, rowBounds);
+	}
+	
+	//학생 삭제
 	public int deleteStudent(SqlSessionTemplate sqlSession, int studentNo) {
 		return sqlSession.update("classMapper.deleteStudent", studentNo);
 	}
+	//학생 빠른 추가
 	public int ajaxSpeedinsertStudent(SqlSessionTemplate sqlSession, Student student) {
 		return sqlSession.insert("classMapper.ajaxSpeedinsertStudent", student);
 	}
+	//수업 찾기
+	public int selectClassNo(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("classMapper.selectClassNo", empNo);
+	}
 	
+	//학생 추가
+	public int insertStudent(SqlSessionTemplate sqlSession, Student student) {
+		return sqlSession.insert("classMapper.insertStudent", student);
+	}
 	
+	//학생 찾기
+	public Student selectStudent(SqlSessionTemplate sqlSession, int studentNo) {
+		return sqlSession.selectOne("classMapper.selectStudent", studentNo);
+	}
+	public int updateStudent(SqlSessionTemplate sqlSession, Student student) {
+		return sqlSession.update("classMapper.updateStudent", student);
+	}
+	public int ajaxInutialSelectCount(SqlSessionTemplate sqlSession, Student student) {
+		return sqlSession.selectOne("classMapper.ajaxInutialSelectCount", student);
+	}
+	public ArrayList<Student> ajaxInutialSelectList(SqlSessionTemplate sqlSession, PageInfo pi, Student student) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("classMapper.ajaxInutialSelectList", student, rowBounds);
+	}
+	public int ajaxSelectSerachStudentCount(SqlSessionTemplate sqlSession, Student student) {
+		return sqlSession.selectOne("classMapper.ajaxSelectSerachStudentCount", student);
+	}
+	public ArrayList<Student> ajaxSelectSerachStudent(SqlSessionTemplate sqlSession, PageInfo pi, Student student) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("classMapper.ajaxSelectSerachStudent", student, rowBounds);
+	}
 
-	
 
 }
