@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="classMapper">
+
+	<resultMap type = "ClassPlan" id="classPlanResult">
+		<result column="CLASS_WEEK_NO" property="classWeekNo"/>
+		<result column="CLASS_WEEK" property="classWeek"/>
+		<result column="CLASS_CONTENT" property="classContent"/>
+		<result column="EMP_NO" property="className"/>
+		<result column="CLASS_NO" property="classNo"/>
+		<result column="CLASS_TITLE" property="classTitle"/>
+		<result column="EMP_NO" property="teacher"/>
+		<result column="CLASSROOM_CATAGORY_NAME" property="classroomName"/>
+		<result column="CLASS_START_DATE" property="classStartDate"/>
+		<result column="CLASS_END_DATE" property="classEndDate"/>
+		<result column="CLASSROOM_TOTAL_NUMBER" property="classTotalNumber"/>
+		<result column="MONTHS" property="months"/>
+		<result column="CLASSROOM_NO" property="classRoomNo"/>
+	</resultMap>
+	
+	<resultMap type = "ClassAttachment" id="classAttachmentResult">
+		<result column="CLASS_FILE_NO" property="classFileNo"/>
+		<result column="C_DATA_NO" property="classDataNo"/>
+		<result column="CLASS_ORIGIN_NAME" property="classOriginName"/>
+		<result column="CLASS_CHANGE_NAME" property="classChangeName"/>
+		<result column="CLASS_UPLOAD_DATE" property="classUploadDate"/>
+		<result column="CLASS_FILE_PATH" property="classFilePath"/>
+		<result column="CLASS_FILE_SIZE" property="classFileSize"/>
+		<result column="CLASS_FILE_LEVEL" property="classFileLevel"/>
+		<result column="CLASS_WEEK_NO" property="classAttachmentStatus"/>
+		<result column="REF_ENO" property="empNo"/>
+		<result column="EMP_NAME" property="empName"/>
+		<result column="C_DATA_TITLE" property="classDataTitle"/>
+		<result column="C_DATA_CONTANT" property="classDataContent"/>
+		<result column="C_DATA_LIFE_TIME_NAME" property="classDataTimeName"/>
+		<result column= "C_DATA_DATE" property="classDataDate"/>
+		<result column="C_DATA_STATUS" property="classDataStatus"/>
+		<result column="C_DATA_CATEGORY_NO" property="categoryNo"/>
+		<result column="C_DATA_CATEGORY_NAME" property="category"/>
+		<result column="JOB_NAME" property="jobName"/>
+		<result column="DEPT_NAME" property="deptName"/>
+		<result column="C_END_DATA_DATE" property="classDataEndDate"/>
+		<result column="PROFILE_FILE_PATH" property="profileFilePath"/>
+		<result column="CD_LIKE_NO" property="classLikeNo"/>
+	</resultMap>
+	
+	<resultMap type = "Student" id="studentResult">
+		<result column="STUDENT_NO" property="studentNo"/>
+		<result column="CLASS_NO" property="classNo"/>
+		<result column="CLASS_NAME" property="className"/>
+		<result column="CLASSROOM_NO" property="classroomNo"/>
+		<result column="CLASSROOM_CATAGORY_NAME" property="classroomName"/>
+		<result column="STUDENT_NAME" property="studentName"/>
+		<result column="STUDENT_PHONE" property="studentPhone"/>
+		<result column="STUDENT_EMAIL" property="studentEmail"/>
+		<result column="STUDENT_ADDRESS" property="studentAddress"/>
+		<result column="STUDENT_BIRTH" property="studentBirth"/>
+		<result column="STUDENT_GENDER" property="studentGender"/>
+		<result column="STUDENT_MEMO" property="studentMemo"/>
+		<result column="ST_PROFILE_FILE_PATH" property="studentProfilePath"/>
+		<result column="STUDENT_ATTEMDAMCE" property="studentAttemdemce"/>
+		<result column="STUDENT_ENROLL_DATE" property="studentEnrolldate"/>
+		<result column="STUDENT_MODIFY_DATE" property="studentModifydate"/>
+		<result column="STUDENT_STATUS" property="studentStatus"/>
+	</resultMap>
+	
+	<resultMap type = "Category" id="categoryResult">
+		<result column="CLASSROOM_NO" property="classroomNo"/>
+		<result column="CLASSROOM_CATAGORY_NAME" property="classroomCategoryName"/>
+		<result column="CLASSROOM_TOTAL_NUMBER" property="classroomTotalNumber"/>
+	</resultMap>
+	
+	
+	<select id="planlistCount" resultType = "_int">
+		SELECT COUNT(*)
+		FROM CLASS_WEEK
+		JOIN CLASS USING (CLASS_NO)
+		JOIN CLASSROOM USING(CLASSROOM_NO)
+		JOIN CLASS_PLAN USING(CLASS_PLAN_NO)
+		WHERE EMP_NO = #{empNo}
+	</select>
+	
+	
+	
+	<select id="studySelect" resultMap = "classPlanResult">
+		SELECT CLASS_NO, 
+		        CLASS_TITLE, 
+		        TO_CHAR(CLASS_START_DATE, 'YYYY-MM-DD') as "CLASS_START_DATE",
+		        TO_CHAR(CLASS_END_DATE, 'YYYY-MM-DD') as "CLASS_END_DATE",
+		        CLASSROOM_CATAGORY_NAME,
+		        ABS(ROUND(MONTHS_BETWEEN(CLASS_START_DATE, CLASS_END_DATE))) AS MONTHS,
+		        CLASSROOM_TOTAL_NUMBER
+		FROM CLASS
+		JOIN CLASSROOM USING (CLASSROOM_NO)
+		WHERE EMP_NO = #{empNo}
+	</select>
+	
+	<select id="planSelectList" resultMap = "classPlanResult">
+		SELECT CLASS_WEEK_NO,
+		        CLASS_WEEK,
+		        CLASS_CONTENT
+		FROM CLASS_WEEK
+		JOIN CLASS USING (CLASS_NO)
+		JOIN CLASSROOM USING(CLASSROOM_NO)
+		JOIN CLASS_PLAN USING(CLASS_PLAN_NO)
+		WHERE EMP_NO = #{empNo}
+        ORDER BY CLASS_WEEK_NO
+	</select>
+	
+	<select id="ajaxUpdateplanList" resultMap = "classPlanResult">
+		SELECT CLASS_WEEK_NO,
+		        CLASS_WEEK,
+		        CLASS_CONTENT,
+		        CLASS_PLAN_NO
+		FROM CLASS_WEEK
+		JOIN CLASS USING (CLASS_NO)
+		JOIN CLASSROOM USING(CLASSROOM_NO)
+		JOIN CLASS_PLAN USING(CLASS_PLAN_NO)
+		WHERE EMP_NO = #{empNo}
+        ORDER BY CLASS_WEEK_NO
+	</select>
+	<update  id="updateplan">
+		UPDATE CLASS
+		    SET CLASS_TITLE = #{classTitle},
+		        CLASSROOM_NO = #{classRoomNo},
+		        CLASS_START_DATE = #{classStartDate},
+		        CLASS_END_DATE = #{classEndDate}
+		    WHERE CLASS_NO = #{classNo}
+	</update>
+	
+	<update id="updateplanContent">
+		UPDATE CLASS_PLAN
+		    SET CLASS_CONTENT = #{classContent}
+		    WHERE CLASS_PLAN_NO = #{classPlanNo}
+	</update>
+
+	<select  id="ajaxClassroomSelect" resultMap = "classPlanResult">
+		SELECT CLASSROOM_NO,
+				CLASSROOM_CATAGORY_NAME,
+				CLASSROOM_TOTAL_NUMBER
+		FROM CLASSROOM
+	</select>
+	
+	<select id="MaterialslistCount" resultType = "_int">
+		SELECT COUNT(*)
+		FROM CLASS_DATA_ROOM
+		JOIN CLASS_DATA_CATEGORY USING (C_DATA_CATEGORY_NO)
+		WHERE C_DATA_STATUS = 'Y'
+			 AND C_DATA_CATEGORY_NAME = #{category}
+	</select>
+	
+	<select id="lectureMaterialslist" resultMap = "classAttachmentResult">
+		SELECT C_DATA_NO,
+		        C_DATA_TITLE,
+		        C_DATA_CONTANT,
+		        C_DATA_LIFE_TIME_NAME,
+		        C_DATA_CATEGORY_NAME,
+		        TO_CHAR(C_DATA_DATE, 'YYYY-MM-DD') as "C_DATA_DATE"
+		FROM CLASS_DATA_ROOM
+		JOIN CLASS_DATA_CATEGORY USING (C_DATA_CATEGORY_NO)
+		WHERE C_DATA_STATUS = 'Y'
+			AND C_DATA_CATEGORY_NAME = #{category}
+		ORDER BY C_DATA_NO DESC
+	</select>
+	
+	<select id="lectureMaterialsLevellist" resultMap = "classAttachmentResult">
+		SELECT CLASS_FILE_NO,
+		        REF_CDNO as "C_DATA_NO",
+		        CLASS_ORIGIN_NAME,
+		        CLASS_CHANGE_NAME,
+		        CLASS_FILE_PATH,
+		        CLASS_FILE_SIZE
+		FROM CLASS_ATTACHMENT
+		WHERE CLASS_FILE_LEVEL = 1
+		 AND CLASS_ATTACHMENT_STATUS = 'Y'
+	</select>
+	
+	<select id="selectData" resultMap = "classAttachmentResult">
+		SELECT C_DATA_NO,
+	        C_DATA_TITLE,
+	        C_DATA_CONTANT,
+	        C_DATA_LIFE_TIME_NAME,
+	        TO_CHAR(C_DATA_DATE, 'YYYY-MM-DD') as "C_DATA_DATE",
+	        TO_CHAR(ADD_MONTHS(C_DATA_DATE, (C_DATA_LIFE_TIME_NAME *12)), 'YYYY-MM-DD') C_END_DATA_DATE,
+	        C_DATA_CATEGORY_NAME,
+	        REF_ENO,
+	        EMP_NAME,
+	        JOB_NAME,
+	        DEPT_NAME,
+	        PROFILE_FILE_PATH
+		FROM CLASS_DATA_ROOM
+		JOIN CLASS_DATA_CATEGORY USING (C_DATA_CATEGORY_NO)
+		JOIN EMPLOYEE ON (EMP_NO = REF_ENO)
+		JOIN JOB USING (JOB_CODE)
+		JOIN DEPARTMENT USING (DEPT_CODE)
+		WHERE C_DATA_NO = #{dataNo}
+			AND C_DATA_STATUS = 'Y'
+	</select>
+	
+	<select id="selectDataAttachmentList" resultMap = "classAttachmentResult">
+		SELECT CLASS_FILE_NO,
+		        REF_CDNO as "C_DATA_NO",
+		        CLASS_ORIGIN_NAME,
+		        CLASS_CHANGE_NAME,
+		        CLASS_FILE_PATH,
+		        TO_CHAR(CLASS_UPLOAD_DATE, 'YYYY-MM-DD') as "CLASS_UPLOAD_DATE",
+		        CLASS_FILE_SIZE
+		FROM CLASS_ATTACHMENT
+		WHERE REF_CDNO = #{dataNo}
+	</select>
+	
+	<insert id="createDataroom">
+		INSERT INTO CLASS_DATA_ROOM(C_DATA_NO,
+									REF_ENO,
+									C_DATA_TITLE,
+									C_DATA_CONTANT,
+									C_DATA_CATEGORY_NO)
+				VALUES(SEQ_CDNO.NEXTVAL,
+						#{empNo},
+						#{classDataTitle},
+						#{classDataContent},
+						#{categoryNo})
+	</insert>
+	<insert id="createDataAttachment">
+		INSERT INTO CLASS_ATTACHMENT(CLASS_FILE_NO,
+									REF_CDNO,
+									CLASS_ORIGIN_NAME,
+									CLASS_CHANGE_NAME,
+									CLASS_FILE_PATH,
+									 CLASS_FILE_LEVEL,
+									 CLASS_FILE_SIZE)
+				VALUES(SEQ_CANO.NEXTVAL,
+		 				SEQ_CDNO.CURRVAL, 
+		 				#{classOriginName}, 
+		 				#{classChangeName}, 
+		 				#{classFilePath}, 
+		 				#{classFileLevel},
+		 				#{classFileSize})
+	</insert>
+	
+	<select id="dataLikeCount" resultType = "_int">
+		SELECT COUNT(*)
+		FROM CLASS_DATA_LIKE
+		WHERE CD_LIKE_EMP = #{empNo}
+		 AND CD_LIKE_STATUS = 'Y'
+	</select>
+	
+	<select id="dataLikeSelectList" resultMap = "classAttachmentResult">
+		SELECT CD_LIKE_NO,
+		        CD_LIKE_EMP as "REF_ENO",
+		        CD_LIKE_CDR as "C_DATA_NO",
+		        C_DATA_TITLE,
+		        C_DATA_CATEGORY_NAME,
+		        TO_CHAR(C_DATA_DATE, 'YYYY-MM-DD') as "C_DATA_DATE"
+		FROM CLASS_DATA_LIKE
+		JOIN CLASS_DATA_ROOM ON (CD_LIKE_CDR = C_DATA_NO)
+		JOIN CLASS_DATA_CATEGORY USING (C_DATA_CATEGORY_NO)
+		WHERE CD_LIKE_EMP = #{empNo}
+		 		AND CD_LIKE_STATUS = 'Y'
+		ORDER BY CD_LIKE_NO DESC
+	</select>
+	
+	<select id="selectmaxsize" resultType = "_int">
+		SELECT MAX(C_DATA_NO) as COUNT
+		FROM CLASS_DATA_ROOM
+		WHERE C_DATA_STATUS = 'Y'
+	</select>
+	
+	<select id = "ajaxSelectListCount" resultType = "_int">
+		SELECT COUNT(STUDENT_NO)
+		FROM STUDENT
+		JOIN CLASS USING (CLASS_NO)
+		WHERE EMP_NO  = #{empNo}
+			AND STUDENT_STATUS = 'Y'
+	</select>
+	
+	<update id = "updateDataroom">
+		UPDATE CLASS_DATA_ROOM
+			SET C_DATA_TITLE = #{classDataTitle},
+				C_DATA_CONTANT = #{classDataContent},
+				C_DATA_LIFE_TIME_NAME = #{classDataTimeName},
+				C_DATA_CATEGORY_NO = #{categoryNo}
+			WHERE C_DATA_NO = #{classDataNo}
+	</update>
+	
+	<delete id = "deleteDataAttachment">
+		DELETE FROM CLASS_ATTACHMENT
+		WHERE
+		CLASS_FILE_NO = #{classFileNo}
+	</delete>
+	
+	<insert id="createUpdateDataAttachment">
+		INSERT INTO CLASS_ATTACHMENT(CLASS_FILE_NO,
+									REF_CDNO,
+									CLASS_ORIGIN_NAME,
+									CLASS_CHANGE_NAME,
+									CLASS_FILE_PATH,
+									 CLASS_FILE_LEVEL,
+									 CLASS_FILE_SIZE)
+				VALUES(SEQ_CANO.NEXTVAL,
+		 				#{classDataNo}, 
+		 				#{classOriginName}, 
+		 				#{classChangeName}, 
+		 				#{classFilePath}, 
+		 				#{classFileLevel},
+		 				#{classFileSize})
+	</insert>
+	
+	<update id="deleteDataroom">
+		UPDATE CLASS_DATA_ROOM
+		    SET C_DATA_STATUS = 'N'
+		    WHERE C_DATA_NO = #{classDataNo}
+	</update>
+	
+	<select id="selectClassCategoryList" resultMap = "categoryResult">
+		SELECT CLASSROOM_NO,
+				CLASSROOM_CATAGORY_NAME,
+				CLASSROOM_TOTAL_NUMBER
+		FROM CLASSROOM
+	</select>
+	
+	<select id="ajaxStudentSelectList" resultMap = "studentResult">
+		SELECT STUDENT_NO,
+		        CLASS_NO,
+		        CLASS_TITLE,
+		        CLASSROOM_CATAGORY_NAME,
+		        STUDENT_NAME,
+		        STUDENT_PHONE,
+		        STUDENT_EMAIL,
+		        STUDENT_ADDRESS,
+		        STUDENT_BIRTH,
+		        STUDENT_GENDER,
+		        STUDENT_MEMO,
+		        ST_PROFILE_FILE_PATH,
+		        STUDENT_ATTEMDAMCE,
+		        STUDENT_ENROLL_DATE,
+		        STUDENT_MODIFY_DATE,
+		        STUDENT_STATUS
+		FROM STUDENT
+		JOIN CLASS USING (CLASS_NO)
+		JOIN CLASSROOM USING (CLASSROOM_NO)
+		JOIN EMPLOYEE USING (EMP_NO)
+		WHERE STUDENT_STATUS = 'Y'
+		    AND CLASS_NO = #{empNo}
+		ORDER BY STUDENT_NO DESC
+	</select>
+	
+	<update id ="deleteStudent">
+	UPDATE STUDENT
+		SET STUDENT_STATUS = 'N'
+		WHERE STUDENT_NO = #{studentNo}
+	</update>
+	
+	<insert id="ajaxSpeedinsertStudent">
+		INSERT INTO STUDENT(STUDENT_NO, 
+							CLASS_NO, 
+							STUDENT_NAME, 
+							STUDENT_PHONE, 
+							STUDENT_EMAIL)
+		VALUES(SEQ_SNO.NEXTVAL,
+				 #{classNo}, 
+				 #{studentName}, 
+				 #{studentPhone}, 
+				 #{studentEmail})
+	</insert>
+	
+	<select id="selectClassNo" resultType = "_int">
+		SELECT CLASS_NO
+		FROM CLASS
+		WHERE EMP_NO = #{empNo}
+	</select>
+	
+	<insert id="insertStudent">
+		INSERT INTO STUDENT(STUDENT_NO, 
+							CLASS_NO, 
+							STUDENT_NAME, 
+							STUDENT_PHONE, 
+							STUDENT_EMAIL,
+							STUDENT_ADDRESS,
+							STUDENT_BIRTH,
+							STUDENT_GENDER,
+							STUDENT_MEMO,
+							ST_PROFILE_FILE_PATH)
+		VALUES(SEQ_SNO.NEXTVAL,
+				 #{classNo}, 
+				 #{studentName}, 
+				 #{studentPhone}, 
+				 #{studentEmail},
+				 #{studentAddress},
+				 #{studentBirth},
+				 #{studentGender},
+				 #{studentMemo},
+				 #{studentProfilePath})
+	</insert>
+	
+	<select id = "selectStudent" resultMap = "studentResult">
+		SELECT STUDENT_NO,
+		        CLASS_NO,
+		        STUDENT_NAME,
+		        STUDENT_PHONE,
+		        STUDENT_EMAIL,
+		        STUDENT_ADDRESS,
+		        STUDENT_BIRTH,
+		        STUDENT_GENDER,
+		        STUDENT_MEMO,
+		        ST_PROFILE_FILE_PATH,
+		        STUDENT_ATTEMDAMCE,
+		        STUDENT_STATUS
+		FROM STUDENT
+		WHERE STUDENT_NO = #{studentNo}
+			AND STUDENT_STATUS = 'Y'
+	</select>
+	
+	<update id = "updateStudent">
+		UPDATE STUDENT
+			SET STUDENT_NAME = #{studentName},
+				STUDENT_PHONE = #{studentPhone},
+				STUDENT_EMAIL = #{studentEmail},
+				STUDENT_ADDRESS = #{studentAddress},
+				STUDENT_BIRTH = #{studentBirth},
+				STUDENT_GENDER = #{studentGender},
+				STUDENT_MEMO = #{studentMemo},
+				ST_PROFILE_FILE_PATH = #{studentProfilePath},
+				STUDENT_MODIFY_DATE = SYSDATE
+			WHERE STUDENT_NO = #{studentNo}
+	</update>
+	
+	<select id = "ajaxInutialSelectCount" resultType = "_int">
+		SELECT COUNT(*)
+		FROM STUDENT
+		WHERE STUDENT_NAME BETWEEN NCHR(${minUnicodeNum}) AND NCHR(${maxUnicodeNum})
+			AND CLASS_NO = #{classNo}
+			AND STUDENT_STATUS = 'Y'
+	</select>
+	
+	<select id = "ajaxInutialSelectList" resultMap = "studentResult">
+		SELECT STUDENT_NO,
+		        CLASS_NO,
+		        STUDENT_NAME,
+		        STUDENT_PHONE,
+		        STUDENT_EMAIL,
+		        STUDENT_ADDRESS,
+		        STUDENT_BIRTH,
+		        STUDENT_GENDER,
+		        STUDENT_MEMO,
+		        ST_PROFILE_FILE_PATH,
+		        STUDENT_ATTEMDAMCE,
+		        STUDENT_STATUS
+		FROM STUDENT
+		WHERE STUDENT_NAME BETWEEN NCHR(${minUnicodeNum}) AND NCHR(${maxUnicodeNum})
+			AND CLASS_NO = #{classNo}
+			AND STUDENT_STATUS = 'Y'
+		ORDER BY STUDENT_NO DESC
+	</select>
+	
+	<select id = "ajaxSelectSerachStudentCount" resultType = "_int">
+		SELECT COUNT(*)
+		FROM STUDENT
+		WHERE STUDENT_STATUS = 'Y'
+		<choose>
+			<when test = "searchSelect == 'studentName'">
+				AND STUDENT_NAME LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<when test = "searchSelect == 'studentPhone'">
+				AND STUDENT_PHONE LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<otherwise>
+				AND STUDENT_EMAIL LIKE '%' || #{searchbarInput} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id = "ajaxSelectSerachStudent" resultMap = "studentResult">
+		SELECT STUDENT_NO,
+		        CLASS_NO,
+		        STUDENT_NAME,
+		        STUDENT_PHONE,
+		        STUDENT_EMAIL,
+		        STUDENT_ADDRESS,
+		        STUDENT_BIRTH,
+		        STUDENT_GENDER,
+		        STUDENT_MEMO,
+		        ST_PROFILE_FILE_PATH,
+		        STUDENT_ATTEMDAMCE,
+		        STUDENT_STATUS
+		FROM STUDENT
+		WHERE STUDENT_STATUS = 'Y'
+		<choose>
+			<when test = "searchSelect == 'studentName'">
+				AND STUDENT_NAME LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<when test = "searchSelect == 'studentPhone'">
+				AND STUDENT_PHONE LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<otherwise>
+				AND STUDENT_EMAIL LIKE '%' || #{searchbarInput} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY STUDENT_NO DESC
+	</select>
+	
+	<select id = "dataSearchLikeCount" resultType = "_int">
+		SELECT COUNT(*)
+		FROM CLASS_DATA_LIKE
+		WHERE CD_LIKE_EMP = #{empNo}
+		 AND CD_LIKE_STATUS = 'Y'
+		 <choose>
+			<when test = "searchSelect == 1">
+				AND C_DATA_TITLE LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<otherwise>
+				AND C_DATA_CONTANT LIKE '%' || #{searchbarInput} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id = "dataSearchLikeSelectList" resultMap = "classAttachmentResult">
+		SELECT CD_LIKE_NO,
+		        CD_LIKE_EMP as "REF_ENO",
+		        CD_LIKE_CDR as "C_DATA_NO",
+		        C_DATA_TITLE,
+		        C_DATA_CATEGORY_NAME,
+		        TO_CHAR(C_DATA_DATE, 'YYYY-MM-DD') as "C_DATA_DATE"
+		FROM CLASS_DATA_LIKE
+		JOIN CLASS_DATA_ROOM ON (CD_LIKE_CDR = C_DATA_NO)
+		JOIN CLASS_DATA_CATEGORY USING (C_DATA_CATEGORY_NO)
+		WHERE CD_LIKE_EMP = #{empNo}
+		 		AND CD_LIKE_STATUS = 'Y'
+		 <choose>
+			<when test = "searchSelect == 1">
+				AND C_DATA_TITLE LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<otherwise>
+				AND C_DATA_CONTANT LIKE '%' || #{searchbarInput} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY CD_LIKE_NO DESC
+	</select>
+	
+	<select id = "searchMaterialslistCount" resultType = "_int">
+		SELECT COUNT(*)
+		FROM CLASS_DATA_ROOM
+		JOIN CLASS_DATA_CATEGORY USING (C_DATA_CATEGORY_NO)
+		WHERE C_DATA_STATUS = 'Y'
+			 AND C_DATA_CATEGORY_NAME = #{category}
+		<choose>
+			<when test = "searchSelect == 1">
+				AND C_DATA_TITLE LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<otherwise>
+				AND C_DATA_CONTANT LIKE '%' || #{searchbarInput} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id = "searchLectureMaterialslist" resultMap = "classAttachmentResult">
+		SELECT C_DATA_NO,
+		        C_DATA_TITLE,
+		        C_DATA_CONTANT,
+		        C_DATA_LIFE_TIME_NAME,
+		        C_DATA_CATEGORY_NAME,
+		        TO_CHAR(C_DATA_DATE, 'YYYY-MM-DD') as "C_DATA_DATE"
+		FROM CLASS_DATA_ROOM
+		JOIN CLASS_DATA_CATEGORY USING (C_DATA_CATEGORY_NO)
+		WHERE C_DATA_STATUS = 'Y'
+			AND C_DATA_CATEGORY_NAME = #{category}
+		<choose>
+			<when test = "searchSelect == 1">
+				AND C_DATA_TITLE LIKE '%' || #{searchbarInput} || '%'
+			</when>
+			<otherwise>
+				AND C_DATA_CONTANT LIKE '%' || #{searchbarInput} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY C_DATA_NO DESC	
+	</select>
+</mapper>

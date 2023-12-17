@@ -1,0 +1,124 @@
+.reservation-all{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.reservation-calender{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 20px 0px;
+}
+#calendar-title-yesterday{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+}
+#calendar-title-tomorrow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+}
+#calendar-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+    width: 25px;
+    height: 25px;
+}
+.reservation-graph{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.graph-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.graph-head{
+    width: 130px;
+    border: 1px solid #d4d4d4;
+}
+.graph-head-hour{
+    width: 50px;
+    border: 1px solid #d4d4d4;
+    border-left: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.reservation-status{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.reservation-status-title{
+    width: 1255px;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    font-weight: bold;
+}
+.reservation-status-cancel{
+    background-color: white;
+    border: 1px solid #d4d4d4;
+    color: #d4d4d4;
+    width: 40px;
+    height: 25px;
+    font-size: 13px;
+}
+.reservation-status-table{
+    width: 1255px;
+}
+.reservation-status-table table{
+    width: 100%;
+}
+.reservation-status-table th{
+    border-top: 1px solid #9e9e9e;
+    border-bottom: 1px solid #9e9e9e;
+}
+.graph-body{
+    height: 450px;
+}
+.graph-body-list{
+    height: 450px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll; 
+}
+.graph-body-list::-webkit-scrollbar {
+    display: none; 
+}
+.graph-body-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.graph-body-head{
+    padding-left: 10px;
+    width: 130px;
+    border: 1px solid #d4d4d4;
+    border-top: none;
+}
+.graph-body-hour{
+    width: 25px;
+    border: 1px solid #d4d4d4;
+    border-left: none;
+    border-top: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.graph-body-body{
+    display: flex;
+    flex-direction: row;
+}
+#selectable .ui-selecting { background: rgb(85, 175, 130); }
+#selectable .ui-selected { background: rgb(85, 175, 130); }
