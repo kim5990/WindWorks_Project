@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -120,6 +121,32 @@ public class studyManagementController {
 		return mv;
 	}
 	
+	//강의자료실 검색
+	@ResponseBody
+	@RequestMapping(value = "ajaxLectureMaterialsSearch.lm",  produces = "appalication/json; charset = UTF-8")
+	public String ajaxLectureMaterialsSearch(HttpSession session, @RequestParam(value="cpage", defaultValue = "1") int currentPage, ClassAttachment c) {
+		int empNo = ((Employee)session.getAttribute("loginUser")).getEmpNo();
+		c.setEmpNo(empNo);
+		int listCount = 0;
+		PageInfo lmpi = new PageInfo();
+		ArrayList<ClassAttachment> calist = new ArrayList();
+		ArrayList<ClassAttachment> caLevellist = new ArrayList();
+		if(c.getCategory().equals("즐겨찾기")) {
+			 listCount = studyManagementService.dataSearchLikeCount(c);
+			 lmpi = Pagenation.getPageInfo(listCount, currentPage, 3, 7);
+			 calist = studyManagementService.dataSearchLikeSelectList(lmpi, c);
+		}else {
+			 listCount = studyManagementService.searchMaterialslistCount(c);
+			 lmpi = Pagenation.getPageInfo(listCount, currentPage, 3, 7);
+			 calist = studyManagementService.searchLectureMaterialslist(lmpi, c);
+		}
+		caLevellist = studyManagementService.lectureMaterialsLevellist();
+		JSONObject jobj = new JSONObject();
+		jobj.put("lmpi", lmpi);
+		jobj.put("calist", calist);
+		jobj.put("caLevellist", caLevellist);
+		return new Gson().toJson(jobj);
+	}
 	//강의자료실 작성하기 폼
 	@RequestMapping(value = "createForm.lm")
 	public ModelAndView createDataView(ModelAndView mv, int empNo) {
@@ -267,7 +294,7 @@ public class studyManagementController {
 		int empNo = ((Employee)session.getAttribute("loginUser")).getEmpNo();
 		int listCount = studyManagementService.ajaxSelectListCount(empNo);
 		PageInfo pi = Pagenation.getPageInfo(listCount, currentPage, 3, boardLimit);
-		ArrayList<Category> classroomList = studyManagementService. selectClassCategoryList();
+		ArrayList<Category> classroomList = studyManagementService.selectClassCategoryList();
 		ArrayList<Student> studentList = studyManagementService.ajaxStudentSelectList(pi, empNo);
 		
 		JSONObject jobj = new JSONObject();
@@ -301,9 +328,140 @@ public class studyManagementController {
 	
 	//학생 추가 폼
 	@RequestMapping(value = "insertFormView.stm")
-	public String insertStudentForm() {
-		return "studyManagement/studentInsertForm";
+	public ModelAndView insertStudentForm(ModelAndView mv, HttpSession session) {
+		int empNo = ((Employee)session.getAttribute("loginUser")).getEmpNo();
+		ArrayList<Category> classroomList = studyManagementService.selectClassCategoryList();
+		int  classNo = studyManagementService.selectClassNo(empNo);
+		
+		mv.addObject("classNo",classNo)
+		  .addObject("classroomList", classroomList)
+		  .setViewName("studyManagement/studentInsertForm");
+		return mv;
 	}
+	
+	//학생 추가
+	@RequestMapping(value = "insert.stm")
+	public String insertStudent(Student student, MultipartFile studentfile, HttpSession session) {
+		System.out.println(student);
+		if(!studentfile.getOriginalFilename().equals("")) {
+			String changeName = getSaveFileInfo(studentfile, session, "resources/uploadFiles/student/");
+			student.setStudentProfilePath("resources/uploadFiles/student/"+ changeName);
+		}
+		int result = studyManagementService.insertStudent(student);
+		
+		return "studyManagement/lessonPlan";
+	}
+	
+	//학생 상세 정보 추가 후 수정
+	@RequestMapping(value = "detailAddStudent.stm")
+	public ModelAndView insertDetailStudent(ModelAndView mv, Student student) {
+		mv.addObject("student",student)
+		.setViewName("studyManagement/studentDetailForm");
+		return mv;
+	}
+	
+	//학생 수정 폼
+	@RequestMapping(value = "updateStudentForm.stm")
+	public ModelAndView updateStudentForm(ModelAndView mv, int studentNo) {
+		Student student = studyManagementService.selectStudent(studentNo);
+		ArrayList<Category> classroomList = studyManagementService.selectClassCategoryList();
+		mv.addObject("student",student)
+		.addObject("classroomList",classroomList)
+		.setViewName("studyManagement/studentUpdateForm");
+		return mv;
+	}
+	
+	//학생 정보 수정
+	@RequestMapping(value = "update.stm")
+	public String updateStudent(Student student, MultipartFile studentfile, HttpSession session) {
+		
+		if(!studentfile.getOriginalFilename().equals("")) {
+			String changeName = getSaveFileInfo(studentfile, session, "resources/uploadFiles/student/");
+			student.setStudentProfilePath("resources/uploadFiles/student/"+ changeName);
+		}
+		int result = studyManagementService.updateStudent(student);
+		
+	
+		return "studyManagement/lessonPlan";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "fileUpload.stm")
+	public String ajaxFileUpLoad(@RequestBody MultipartFile[] files,  ClassAttachment c, HttpSession session) {
+		System.out.println(files);
+//		List<MultipartFile> fileList = files.getFiles("fileList");
+//		int result1 = studyManagementService.createDataroom(c);
+//		int result2 = 0;
+//		int i = 1;
+//		for(MultipartFile f : fileList) {
+//			System.out.println(f);
+//			if(!f.getOriginalFilename().equals("") && i == 1) {
+//				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/classRoomData/");
+//				c.setClassOriginName(f.getOriginalFilename());
+//				c.setClassChangeName(changeName);
+//				c.setClassFileSize(f.getSize()/1024);
+//				c.setClassFilePath("resources/uploadFiles/employee/"+ changeName);
+//				c.setClassFileLevel(i);
+//				result2 = studyManagementService.createDataAttachment(c);
+//				i = 0;
+//			}else if(!f.getOriginalFilename().equals("") && i == 0){
+//				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/classRoomData/");
+//				c.setClassOriginName(f.getOriginalFilename());
+//				c.setClassChangeName(changeName);
+//				c.setClassFileSize(f.getSize());
+//				c.setClassFilePath("resources/uploadFiles/employee/"+ changeName);
+//				c.setClassFileLevel(i);
+//				result2 = studyManagementService.createDataAttachment(c);
+//			}
+//		}
+//		JSONObject jobj = new JSONObject();
+//		jobj.put("c", c);
+//		return new Gson().toJson(jobj);
+		
+		return "ok";
+	}
+	
+	
+	//학생초성 검색
+	@ResponseBody
+	@RequestMapping(value = "ajaxInutialSelectList.stm",  produces = "appalication/json; charset = UTF-8")
+	public String ajaxInutialSelectList( HttpSession session,  Student student, @RequestParam(value="cpage", defaultValue = "1") int currentPage, @RequestParam(value="boardLimit", defaultValue = "10") int boardLimit) {
+		int listCount = studyManagementService.ajaxInutialSelectCount(student);
+		PageInfo pi = Pagenation.getPageInfo(listCount, currentPage, 3, boardLimit);
+		ArrayList<Category> classroomList = studyManagementService. selectClassCategoryList();
+		ArrayList<Student> studentList = studyManagementService.ajaxInutialSelectList(pi, student);
+		
+		JSONObject jobj = new JSONObject();
+		jobj.put("pi", pi);
+		jobj.put("classroomList", classroomList);
+		jobj.put("listCount", listCount);
+		jobj.put("boardLimit", boardLimit);
+		jobj.put("studentList", studentList);
+		return new Gson().toJson(jobj);
+	}
+	
+	//학생초성 검색
+	@ResponseBody
+	@RequestMapping(value = "ajaxSelectSerachStudent.stm",  produces = "appalication/json; charset = UTF-8")
+	public String ajaxSelectSerachStudent( HttpSession session,  Student student, 
+												@RequestParam(value="cpage", defaultValue = "1") int currentPage, 
+												@RequestParam(value="boardLimit", defaultValue = "10") int boardLimit) {
+		System.out.println(student);
+		int listCount = studyManagementService.ajaxSelectSerachStudentCount(student);
+		PageInfo pi = Pagenation.getPageInfo(listCount, currentPage, 3, boardLimit);
+		ArrayList<Category> classroomList = studyManagementService. selectClassCategoryList();
+		ArrayList<Student> studentList = studyManagementService.ajaxSelectSerachStudent(pi, student);
+		
+		JSONObject jobj = new JSONObject();
+		jobj.put("pi", pi);
+		jobj.put("classroomList", classroomList);
+		jobj.put("listCount", listCount);
+		jobj.put("boardLimit", boardLimit);
+		jobj.put("studentList", studentList);
+		return new Gson().toJson(jobj);
+	}
+
+	
 	
 	public String getSaveFileInfo(MultipartFile upfile, HttpSession session, String path) {
 	      // 파일명 수정 후 서버 업로드 시키기("이미지저장용 (2).jpg" => 20231109102712345.jpg)

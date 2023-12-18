@@ -37,4 +37,6 @@ public class ClassAttachment {
 		private long classFileSize;
 		private int classFileLevel;
 		private int classLikeNo;
+		private String searchSelect;
+		private String searchbarInput;
 }
