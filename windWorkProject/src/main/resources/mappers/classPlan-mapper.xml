@@ -439,6 +439,7 @@
 	<select id = "ajaxInutialSelectList" resultMap = "studentResult">
 		SELECT STUDENT_NO,
 		        CLASS_NO,
+		        CLASSROOM_CATAGORY_NAME,
 		        STUDENT_NAME,
 		        STUDENT_PHONE,
 		        STUDENT_EMAIL,
@@ -450,6 +451,8 @@
 		        STUDENT_ATTEMDAMCE,
 		        STUDENT_STATUS
 		FROM STUDENT
+		JOIN CLASS USING (CLASS_NO)
+		JOIN CLASSROOM USING (CLASSROOM_NO)
 		WHERE STUDENT_NAME BETWEEN NCHR(${minUnicodeNum}) AND NCHR(${maxUnicodeNum})
 			AND CLASS_NO = #{classNo}
 			AND STUDENT_STATUS = 'Y'

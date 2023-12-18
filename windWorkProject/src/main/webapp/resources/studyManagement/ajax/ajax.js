@@ -137,7 +137,7 @@ function ajaxStudentSelectInutialManagement(minUnicodeNum, maxUnicodeNum, classN
             cpage: czpage
         },
         success: function (res) {
-            drowstudentManagementView(res)
+            drowstudentManagementinutialView(res, minUnicodeNum,maxUnicodeNum, classNo)
         },
         error: function () {
             console.log("ajaxInutialSelectList add ajax 통신 실패")
