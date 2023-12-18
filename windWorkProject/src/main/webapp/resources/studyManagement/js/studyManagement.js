@@ -38,7 +38,7 @@ function lessonPlanCss() {
     document.querySelector(".studyManagementMenus-class-menuTitle").innerHTML = "";
     document.querySelector(".studyManagementMenus-class-menu").innerHTML = "";
     document.querySelector("#studyManagementWriter").value = "수정하기";
-        //클릭시 업데이트
+    //클릭시 업데이트
     document.querySelector("#studyManagementWriter").onclick = function () {
         $.ajax({
             url: "ajaxupdatePlanlist.lp",

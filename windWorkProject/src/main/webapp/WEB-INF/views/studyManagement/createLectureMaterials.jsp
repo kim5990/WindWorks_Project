@@ -15,8 +15,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!--css-->
         <link rel="stylesheet" href="resources/studyManagement/css/createLectureMaterials.css">
-        <script src="resources/studyManagement/js/createLectureMaterials.js"></script>
         <script src="resources/studyManagement/ajax/ajax.js"></script>
+        <!--js-->
+        <script src="resources/studyManagement/js/createLectureMaterials.js"></script>
     </head>
 
     <body onload="lessonOnload()">
@@ -97,7 +98,7 @@
                                                 이 곳에 파일을 드래그 하세요. 또는
                                                 <span>
                                                     <input type="hidden" name="files" />
-                                                    <label id="create-fileSelected-label" for="create-fileSelected">파일
+                                                    <label id="create-fileSelected-label" for="fileList">파일
                                                         선택</label>
                                                     <input type="file" class="create-fileSelected" id="fileList"
                                                         onchange="handleFileSelect(event)" title="파일선택"
@@ -112,10 +113,15 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th colspan="2" style="height: 316px;">
-                                    <textarea id="postContent" name="classDataContent"
-                                        style="width: 100%; height: 100%;"></textarea>
+                                <th style="width: 172px; height: 65px;">
+                                    <br>
+                                    <p class="createLectureMaterials-createInputs-p ">내용</p>
                                 </th>
+                                <td style="height: 316px;">
+                                    <br>
+                                    <textarea class="form-control form-control-sm" id="postContent"
+                                        name="classDataContent" style="width: 100%; height: 100%;"></textarea>
+                                </td>
                             </tr>
                         </table>
                     </div>

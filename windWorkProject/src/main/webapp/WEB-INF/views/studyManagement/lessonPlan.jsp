@@ -48,7 +48,8 @@
                   <div class="input-group mb-3" id="modalclassroomInput">
 
                   </div>
-                  <select class="form-select form-select-sm" id="modalclassWeekInput" name="classPlanNo"
+                  <select class="form-select form-select-sm" id="modalclassWeekInput"
+                    onchange="modalclassWeekInputOnchange(this)" name="classPlanNo"
                     aria-label=".form-select-sm example">
 
                   </select>
