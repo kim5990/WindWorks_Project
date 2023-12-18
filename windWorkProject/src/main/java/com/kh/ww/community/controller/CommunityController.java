@@ -66,7 +66,7 @@ public class CommunityController {
 	@RequestMapping(value="boardList.com", produces="application/json; charset=UTF-8")
 	public JSONObject boardList(int comNo, int cpage) {
 		// 페이지정보
-		PageInfo pi = Pagenation.getPageInfo(communityService.boardListCount(comNo), cpage, 10, 5);
+		PageInfo pi = Pagenation.getPageInfo(communityService.boardListCount(comNo), cpage, 10, 6);
 		
 		// 보드리스트 조회
 		ArrayList<CommunityBoard> boardList = communityService.boardList(pi, comNo);
@@ -238,7 +238,6 @@ public class CommunityController {
 				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/community/");
 				ca.setCommunityOriginName(f.getOriginalFilename());
 				ca.setCommunityChangeName(changeName);
-				// ca.setClassFileSize(f.getSize()/1024);
 				ca.setCommunityFilePath("resources/uploadFiles/community/"+ changeName);
 				ca.setCommunityFileLevel(i);
 				result2 = communityService.comBoardAttInsert(ca);
@@ -247,7 +246,6 @@ public class CommunityController {
 				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/community/");
 				ca.setCommunityOriginName(f.getOriginalFilename());
 				ca.setCommunityChangeName(changeName);
-				// ca.setClassFileSize(f.getSize());
 				ca.setCommunityFilePath("resources/uploadFiles/community/"+ changeName);
 				ca.setCommunityFileLevel(i);
 				result2 = communityService.comBoardAttInsert(ca);
@@ -277,11 +275,65 @@ public class CommunityController {
 		return "redirect:/list.com";
 	}
 	
-
+	// 게시글 수정폼
+	@ResponseBody
+	@RequestMapping(value="updateBoForm.com", produces="application/json; charset=UTF-8")
+	public JSONObject comBoardUpdate(int bno) {
+		CommunityBoard board = communityService.selectBoard(bno);
+		ArrayList<CommunityAttachment> atList = communityService.boardFile(bno);
+		
+		JSONObject jobj = new JSONObject();
+		jobj.put("board", board);
+		jobj.put("atList", atList);
+		
+		return jobj;
+	}
 	
 	
-	
-	
+	// 게시글 수정
+	@RequestMapping(value="updateBo.com")
+	public String comBoardUpdate(HttpSession session, CommunityBoard cb,  String[] filePath, int[] fileNo, CommunityAttachment ca, MultipartHttpServletRequest file) {
+		// 게시글 수정
+		int result1 = communityService.comBoardUpdate(cb);
+		int result2 = 0;
+		int i = 1;	
+		List<MultipartFile> fileList = file.getFiles("reupfiles");
+		// 새로운 첨부파일 있을 경우 기존 파일 삭제
+		if(fileList.size() > 0) {
+			if(filePath != null) {
+				for(String s : filePath) {
+					new File(session.getServletContext().getRealPath(s)).delete();
+				}
+				for(int fn : fileNo) {
+					int num = communityService.deleteBoardAtt(fn);
+				}
+			}
+		}
+		// 새로운 파일 등록
+		for (MultipartFile f : fileList) {
+			if(!f.getOriginalFilename().equals("") && i == 1) {
+				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/community/");
+				ca.setCommunityOriginName(f.getOriginalFilename());
+				ca.setCommunityChangeName(changeName);
+				ca.setCommunityFilePath("resources/uploadFiles/community/"+ changeName);
+				ca.setCommunityFileLevel(i);
+				result2 = communityService.comBoardAttUpdate(ca);
+				i = 0;
+			}else if(!f.getOriginalFilename().equals("") && i == 0){
+				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/community/");
+				ca.setCommunityOriginName(f.getOriginalFilename());
+				ca.setCommunityChangeName(changeName);
+				ca.setCommunityFilePath("resources/uploadFiles/community/"+ changeName);
+				ca.setCommunityFileLevel(i);
+				result2 = communityService.comBoardAttUpdate(ca);
+			}
+		}
+		if((result1 * result2) == 1) {
+			return "redirect:/list.com";
+		} else {
+			return "redirect:/list.com";
+		}
+	}
 	
 
 	public String getSaveFileInfo(MultipartFile upfile, HttpSession session, String path) {

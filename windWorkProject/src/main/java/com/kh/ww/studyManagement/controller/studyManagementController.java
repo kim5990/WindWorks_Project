@@ -163,11 +163,11 @@ public class studyManagementController {
 	@ResponseBody
 	@RequestMapping(value = "ajaxLikeAddSelect,lm",  produces = "appalication/json; charset = UTF-8")
 	public String ajaxLikeAddSelect(ClassAttachment c) {
+		System.out.println(c);
 		int result = studyManagementService.ajaxLikeAddSelect(c);
-		
 		ClassAttachment like = studyManagementService.likeClassData(c);
 		JSONObject jobj = new JSONObject();
-		jobj.put("like", like);
+		jobj.put("c", c);
 		return new Gson().toJson(jobj);
 	}
 	
@@ -175,11 +175,11 @@ public class studyManagementController {
 	@ResponseBody
 	@RequestMapping(value = "ajaxLikeDeleteSelect.lm",  produces = "appalication/json; charset = UTF-8")
 	public String ajaxLikeDeleteSelect(ClassAttachment c) {
+		System.out.println(c);
 		int result = studyManagementService.ajaxLikeDeleteSelect(c);
-		
 		ClassAttachment like = studyManagementService.likeClassData(c);
 		JSONObject jobj = new JSONObject();
-		jobj.put("like", like);
+		jobj.put("c", c);
 		return new Gson().toJson(jobj);
 	}
 	//강의자료실 작성하기 폼
@@ -329,15 +329,20 @@ public class studyManagementController {
 	//강의자료 페이지 삭제
 	@RequestMapping(value = "delete.lm")
 	public String deleteDataroom(HttpSession session, int classDataNo) {
-		int result = studyManagementService.deleteDataroom(classDataNo);
+		int empNo = ((Employee)session.getAttribute("loginUser")).getEmpNo();
+		int result1 = studyManagementService.deleteDataroom(classDataNo);
 		ArrayList<ClassAttachment> calist = studyManagementService.selectDataAttachmentList(classDataNo);
+		
 		if(calist.size() > 0) {
 			for(ClassAttachment c : calist) {
 				new File(session.getServletContext().getRealPath(c.getClassFilePath())).delete();
 				int num = studyManagementService.deleteDataAttachment(Integer.toString(c.getClassFileNo()));
 			}
 		}
-		
+		ClassAttachment c = new ClassAttachment();
+		c.setEmpNo(empNo);
+		c.setClassDataNo(classDataNo);
+		int result2 = studyManagementService.ajaxLikeDeleteSelect(c);
 		return "studyManagement/lessonPlan";
 	}
 	

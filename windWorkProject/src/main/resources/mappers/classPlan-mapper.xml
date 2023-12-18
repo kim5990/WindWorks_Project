@@ -596,10 +596,10 @@
 		INSERT INTO CLASS_DATA_LIKE (CD_LIKE_NO,
 									 CD_LIKE_EMP, 
 									 CD_LIKE_CDR) 
-			VALUES (SEQ_CDLNO.NEXTVAL, #{empNo}, #{classNo});
+			VALUES (SEQ_CDLNO.NEXTVAL, #{empNo}, #{classDataNo})
 	</insert>
 	<delete id="ajaxLikeDeleteSelect">
 		DELETE FROM CLASS_DATA_LIKE
-			WHERE CD_LIKE_EMP = #{empNo} AND CD_LIKE_CDR = #{classNo}
+			WHERE CD_LIKE_EMP = #{empNo} AND CD_LIKE_CDR = #{classDataNo}
 	</delete>
 </mapper>

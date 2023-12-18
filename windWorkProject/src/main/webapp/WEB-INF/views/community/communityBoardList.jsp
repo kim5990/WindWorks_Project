@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body onload="comOnload()">
 
 		<!-- 게시글 공간 -->
 		<div class="communityList-area2">

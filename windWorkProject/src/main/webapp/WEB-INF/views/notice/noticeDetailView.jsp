@@ -22,7 +22,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body onload="selectReplyList('${n.noticeNo}')">  
+<body onload="selectReplyList('${n.noticeNo}'), noticeOnload()">  
 
 <jsp:include page="../common/header.jsp" />
 	<c:if test="${!empty alertMsg}">
