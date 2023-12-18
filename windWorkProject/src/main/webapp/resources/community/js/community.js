@@ -83,7 +83,7 @@ function selectCommunityMemberList(selectComNo){
             let str = "";
             str +=  '<div class="communityList-area3-title">' +
                         '<h5 id="select-com-name">'+ res[0].communityName +'</h5>' +
-                        '<div data-bs-toggle="modal" data-bs-target="#com-update" onclick="comUpdateModal()">톱</div>' +
+                        '<div data-bs-toggle="modal" data-bs-target="#com-update" onclick="comUpdateModal()"><ion-icon style="width:20px; height:20px" name="cog-outline"></ion-icon></div>' +
                     '</div>' +
                     '<div class="communityList-area3-member">' +
                         '<div><h5>멤버</h5></div>' +
@@ -190,14 +190,14 @@ function selectBoard(bno){
                                 '<div class="detail-title">' + board.communityBoardTitle + '</div>' +
                             '</div>' +
                             '<div class="communityList-area2-detail-title-title-profile">' +
-                                '<div class="profile-image">' + board.profileFilePath + '</div>' +
+                                '<div class="profile-image"><img style="width: 30px;" src="' + board.profileFilePath + '"></div>' +
                                 '<div class="profile-name">' + board.empName + '</div>' +
                                 '<div class="profile-date">' + board.communityBoardCreateDate + '</div>' +
                             '</div>' +
                         '</div>' +
                         '<div class="communityList-area2-detail-title-like">'
                         if(board.empNo == loginUserNo){
-                        str +=	'<button class="boardDetailUpdateBtn">수정</button>' +
+                        str +=	'<button class="boardDetailUpdateBtn" onclick="boardUpdate(' + board.communityBoardNo + ')">수정</button>' +
                             '<button class="boardDetailDeleteBtn" onclick="boardDelete(' + board.communityBoardNo + ')">삭제</button>'
                         }
                         str += '</div>' +
@@ -581,8 +581,87 @@ function formatBytes(bytes, decimals = 2) {
 function boardDelete(bno){
     if(window.confirm("삭제하시겠습니까?")){
         location.href = "deleteBo.com?bno=" + bno;
-        // location.href = "list.com";  안먹음
     }
+}
+
+// 게시글 수정
+function boardUpdate(bno){
+    $.ajax({
+        url: "updateBoForm.com",
+        data:{
+            bno: bno,
+        },
+        success: function(res){
+            let board = res.board;
+            let atList = res.atList;
+            console.log(atList)
+
+            let str = "";
+            str +='<div class="communityList-area2-all">' +
+                    '<div class="communityEnrollForm-title">글쓰기 수정</div>' +
+                    '<form action="updateBo.com" method="post" enctype="multipart/form-data">' +
+                        '<table class="communityEnrollForm-table">' +
+                            '<tr>' +
+                                '<td class="td1">분류</td>' +
+                                '<td>' +
+                                    '<input type="hidden" name="empNo" value="' + currentUser.empNo + '"/>'+
+                                    '<input type="hidden" name="communityNo" value="' + currentCommunity.comNo + '"/>'+
+                                    '<input type="hidden" name="communityBoardNo" value="' + board.communityBoardNo + '"/>'+
+                                    '<input class="td-name" type="text" value="' + currentCommunity.comName + '" readonly>' +
+                                '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                                '<td class="td1">제목</td>' +
+                                '<td><input type="text" name="communityBoardTitle" class="td2 table-title" id="create-board-title" value="' + board.communityBoardTitle + '"></td>' +
+                            '</tr>' +
+                            '<tr>' +
+                                '<td class="td1 test-up">기존파일</td>' +
+                                '<td>'
+                            for (let list of atList){
+                                str += '<span class="updateForm-file-list">'+ list.communityOriginName +'</span>' +
+                                    '<input type="hidden" name="filePath" value="' + list.communityFilePath + '"/>' +
+                                    '<input type="hidden" name="fileNo" value="' + list.communityFileNo + '"/>'
+                                }
+                                str += '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                                '<td class="td1 test-up">파일첨부</td>' +
+                                '<td style="height: 80px;">' +
+                                    '<div class="createLectureMaterials-file-upload-box" id="drop-area">' +
+                                        '<div class="createLectureMaterials-file-upload" ondragover="allowDrop(event)"ondragenter="highlightDropArea()" ' +
+                                            'ondragleave="unhighlightDropArea()" ' +
+                                            'ondrop="handleDrop(event)" >' +
+
+                                            '<ion-icon class="create-document-icon" name="cloud-upload-outline"></ion-icon>' +
+                                            '<span>이 곳에 파일을 드래그 하세요. 또는<span>' +
+                                            '<label id="create-fileSelected-label" for="fileInput">파일선택</label> (변경시 기존파일 삭제)' +
+                                            '<input type="file" name="reupfiles" class="create-fileSelected" id="fileInput" onchange="handleFileSelect(event)" title="파일선택" multiple="multiple" accept="undfined">' +
+                                            '</span>' +
+                                            '</span>' +
+                                        '</div>' +
+                                        '<ui class="createLectureMaterials-file-upload-wrap">' +
+                                        '</ui>' +
+                                    '</div>' +
+                                '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                                '<td class="td1 test-up">내용</td>' +
+                                '<td><textarea class="td2" id="create-board-content" name="communityBoardContent" id="" cols="30" rows="10">'+ board.communityBoardContent +'</textarea></td>' +
+                            '</tr>' +
+                        '</table>' +
+                        '<div class="form-button-all">' +
+                            '<button class="form-button1" type="submit">등록</button>' +
+                            '<button class="form-button2" type="reset">취소</button>' +
+                        '</div>' +
+                    '</form>' +
+                '</div>' 
+                document.querySelector(".communityList-container-box").innerHTML = str;
+
+        },
+        error: function() {
+            console.log("실패")
+        }
+    })
 }
 
 
