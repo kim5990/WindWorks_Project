@@ -7,6 +7,9 @@
     overflow: hidden; /* 내용이 부모 요소를 벗어날 경우 자르기 */
     text-overflow: ellipsis; /* 생략 부분에 "..." 표시 */
 }
+.communityList-area2::-webkit-scrollbar{
+    display: none;
+}
 
 
 .menu{
@@ -19,7 +22,7 @@
 }
 .communityList-area2{
     flex: 1;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 .communityList-area3{
     display: flex;
@@ -580,6 +583,10 @@
     display : flex;
     align-items: flex-start;
     padding-top: 6px;
+}
+
+.updateForm-file-list{
+    padding: 20px;
 }
 
 /* 파일 첨부 영역 */

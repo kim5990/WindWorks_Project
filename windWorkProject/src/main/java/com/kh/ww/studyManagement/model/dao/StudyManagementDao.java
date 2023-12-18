@@ -210,6 +210,18 @@ public class StudyManagementDao {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return (ArrayList)sqlSession.selectList("classMapper.ajaxSelectSerachStudent", student, rowBounds);
 	}
-
-
+	//즐겨찾기 검색
+	public ClassAttachment likeClassData(SqlSessionTemplate sqlSession, ClassAttachment likeC) {
+		return sqlSession.selectOne("classMapper.likeClassData", likeC);
+	}
+	
+	//즐겨찾기 추가
+	public int ajaxLikeAddSelect(SqlSessionTemplate sqlSession, ClassAttachment c) {
+		return sqlSession.insert("classMapper.ajaxLikeAddSelect", c);
+	}
+	
+	//즐겨찾기 삭제
+	public int ajaxLikeDeleteSelect(SqlSessionTemplate sqlSession, ClassAttachment c) {
+		return sqlSession.delete("classMapper.ajaxLikeDeleteSelect", c);
+	}
 }
