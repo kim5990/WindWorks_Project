@@ -59,7 +59,7 @@
                         <span class="nav_name">메일</span>
                     </a>
 
-                    <a href="#" class="nav__link">
+                    <a href="list.ch" class="nav__link">
                         <ion-icon name="chatbubbles-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">채팅</span>
                     </a>
