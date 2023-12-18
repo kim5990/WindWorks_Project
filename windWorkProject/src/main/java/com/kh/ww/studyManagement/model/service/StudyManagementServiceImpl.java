@@ -238,6 +238,23 @@ public class StudyManagementServiceImpl implements StudyManagementService {
 		return studyManagementDao.ajaxSelectSerachStudent(sqlSession, pi, student);
 	}
 	
+	//강의자료 디테일 즐겨찾기 검색
+	@Override
+	public ClassAttachment likeClassData(ClassAttachment likeC) {
+		return studyManagementDao.likeClassData(sqlSession, likeC);
+	}
+	
+	//강의자료 디테일 즐겨찾기 추가
+	@Override
+	public int ajaxLikeAddSelect(ClassAttachment c) {
+		return studyManagementDao.ajaxLikeAddSelect(sqlSession, c);
+	}
+	//강의자료 디테일 즐겨찾기 삭제
+	@Override
+	public int ajaxLikeDeleteSelect(ClassAttachment c) {
+		return studyManagementDao.ajaxLikeDeleteSelect(sqlSession, c);
+	}
+	
 
 
 	
