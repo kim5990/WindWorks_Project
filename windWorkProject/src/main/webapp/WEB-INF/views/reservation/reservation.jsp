@@ -79,6 +79,7 @@
                         
                         </tbody>
                     </table>
+                    <button type="button" style="display: none;" id="reservation-btn" data-bs-toggle="modal" data-bs-target="#reservationModal"></button>
                 </div>
             </div>
         </div>
@@ -100,12 +101,12 @@
                             <table class="modal-table">
                                 <tr>
                                     <th>이름</th>
-                                    <td><input type="text" class="modal-input" id="assetName" name="assName" readonly></td>
+                                    <td><input type="text" class="modal-input" id="assetName" name="assName" value="" readonly></td>
                                 </tr>
                                 <tr>
                                     <th id="modal-table-th-date">일시</th>
                                     <td>
-                                        <input type="date" class="modal-input-date">
+                                        <input type="date" class="modal-input-date" id="startDate" value="">
 
                                         <select class="modal-input-date" id="reservation-time-start">
                                             <option value="00:30">00:30</option>
@@ -158,7 +159,7 @@
                                             <option value="00:00">00:00</option>
                                         </select>
                                         ~
-                                        <input type="date" class="modal-input-date">
+                                        <input type="date" class="modal-input-date" id="endDate" value="">
                                         <select class="modal-input-date" id="reservation-time-end">
                                             <option value="00:30">00:30</option>
                                             <option value="01:00">01:00</option>

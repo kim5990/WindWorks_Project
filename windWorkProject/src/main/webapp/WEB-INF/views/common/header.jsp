@@ -83,10 +83,14 @@
                     <ion-icon name="book-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">강의관리</span>
                 </a>
-                <a href="approval.em" class="nav__link">
-                    <ion-icon name="person-add-outline" class="nav__icon"></ion-icon>
-                    <span class="nav_name">인사관리</span>
-                </a>
+                <c:choose>
+                	<c:when test="${ loginUser.deptCode == 'D4' }">
+		                <a href="approval.em" class="nav__link">
+		                    <ion-icon name="person-add-outline" class="nav__icon"></ion-icon>
+		                    <span class="nav_name">인사관리</span>
+		                </a>
+	                </c:when>
+                </c:choose>
             </div>
             <div class="nav__brand">
                 <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>

@@ -99,7 +99,7 @@ public class EmployeeController {
 			ModelAndView mv) {
 
 		PageInfo pi = Pagenation.getPageInfo(employeeService.selectListCount(), currentPage, 3, 16);
-
+		
 		mv.addObject("pi",pi)
 		  .addObject("sorting", sorting)
 		  .addObject("condition", condition)
