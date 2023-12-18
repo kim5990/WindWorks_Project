@@ -85,23 +85,23 @@ public class NoticeController {
 		List<MultipartFile> fileList = file.getFiles("upfile");
 		// 파일 등록
 		for (MultipartFile f : fileList) {
-			if(!f.getOriginalFilename().equals("") && i == 1) {
-				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/notice/");
+			if (!f.getOriginalFilename().equals("") && i == 1) {
+				String changeName = SaveFile.getSaveFileInfo(f, session, "resources/uploadFiles/notice/");
 				na.setNoticeOriginName(f.getOriginalFilename());
-				na.setCommunityChangeName(changeName);
+				na.setNoticeChangeName(changeName);
 				// ca.setClassFileSize(f.getSize()/1024);
-				na.setCommunityFilePath("resources/uploadFiles/notice/"+ changeName);
-				na.setCommunityFileLevel(i);
-				result2 = noticeService.comBoardAttInsert(ca);
+				na.setNoticeFilePath("resources/uploadFiles/notice/"+ changeName);
+				na.setNoticeFileLevel(i);
+				result2 = noticeService.insertNoticeAttachment(na);
 				i = 0;
-			}else if(!f.getOriginalFilename().equals("") && i == 0){
-				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/notice/");
-				ca.setCommunityOriginName(f.getOriginalFilename());
-				ca.setCommunityChangeName(changeName);
+			} else if (!f.getOriginalFilename().equals("") && i == 0) {
+				String changeName = SaveFile.getSaveFileInfo(f, session, "resources/uploadFiles/notice/");
+				na.setNoticeOriginName(f.getOriginalFilename());
+				na.setNoticeChangeName(changeName);
 				// ca.setClassFileSize(f.getSize());
-				ca.setCommunityFilePath("resources/uploadFiles/notice/"+ changeName);
-				ca.setCommunityFileLevel(i);
-				result2 = noticeService.comBoardAttInsert(ca);
+				na.setNoticeFilePath("resources/uploadFiles/notice/"+ changeName);
+				na.setNoticeFileLevel(i);
+				result2 = noticeService.insertNoticeAttachment(na);
 			}
 		}
 		if((result1 * result2) == 1) {
@@ -146,29 +146,72 @@ public class NoticeController {
 	
 	// 공지사항 수정
 	@RequestMapping("update.no")
-	public String updateNotice(Notice n, MultipartFile reupfile, HttpSession session, Model model) {
+	public String updateNotice(Notice n, NoticeAttachment na, String[] filePath, int[] fileNo, MultipartHttpServletRequest file, HttpSession session) {
+		
+				// 게시글 수정
+				int result1 = noticeService.updataNotice(na);
+				int result2 = 0;
+				int i = 1;	
+				List<MultipartFile> fileList = file.getFiles("reupfiles");
+				// 새로운 첨부파일 있을 경우 기존 파일 삭제
+				if(fileList.size() > 0) {
+					if(filePath != null) {
+						for(String s : filePath) {
+							new File(session.getServletContext().getRealPath(s)).delete();
+						}
+						for(int fn : fileNo) {
+							int num = noticeService.deleteNoticeAtt(fn);
+						}
+					}
+				}
+				// 새로운 파일 등록
+				for (MultipartFile f : fileList) {
+					if(!f.getOriginalFilename().equals("") && i == 1) {
+						String changeName = SaveFile.getSaveFileInfo(f, session, "resources/uploadFiles/notice/");
+						na.setNoticeOriginName(f.getOriginalFilename());
+						na.setNoticeChangeName(changeName);
+						na.setNoticeFilePath("resources/uploadFiles/notice/"+ changeName);
+						na.setNoticeFileLevel(i);
+						result2 = noticeService.comBoardAttUpdate(na);
+						i = 0;
+					}else if(!f.getOriginalFilename().equals("") && i == 0){
+						String changeName = SaveFile.getSaveFileInfo(f, session, "resources/uploadFiles/notice/");
+						na.setNoticeOriginName(f.getOriginalFilename());
+						na.setNoticeChangeName(changeName);
+						na.setNoticeFilePath("resources/uploadFiles/notice/"+ changeName);
+						na.setNoticeFileLevel(i);
+						result2 = noticeService.comBoardAttUpdate(na);
+					}
+				}
+				if((result1 * result2) == 1) {
+					return "redirect:detail.no?nno=" + n.getNoticeNo();
+				} else {
+					return "common/noticeListView";
+				}
+	
+		
 		// 새로운 첨부파일 존재유무 확인
-		if (!reupfile.getOriginalFilename().equals("")) {
-			// 새로운 첨부파일 서버 업로드
-			String changeName = SaveFile.getSaveFileInfo(reupfile, session, "resources/uploadFiles/notice/");
-			// 새로운 첨부파일이 있다면 => 기존 첨부파일 삭제
-			if (n.getNoticeOriginName() != null) {
-				new File(session.getServletContext().getRealPath(n.getNoticeChangeName())).delete();
-			}
-			// n객체에 새로운 첨부파일 정보(원본명, 저장경로) 저장
-			n.setNoticeOriginName(reupfile.getOriginalFilename());
-			n.setNoticeChangeName("resources/uploadFiles/notice/" + changeName);
-		}
-		// n객체 update
-		int result = noticeService.updataNotice(n);
-		// 성공유무 확인 후 페이지 리턴
-		if (result > 0) {
-			session.setAttribute("alertMsg", "공지사항 수정이 완료되었습니다.");
-			return "redirect:detail.no?nno=" + n.getNoticeNo();
-		} else {
-			model.addAttribute("errorMsg", "공지사항 수정 실패");
-			return "common/noticeListView";
-		}
+//		if (!reupfile.getOriginalFilename().equals("")) {
+//			// 새로운 첨부파일 서버 업로드
+//			String changeName = SaveFile.getSaveFileInfo(reupfile, session, "resources/uploadFiles/notice/");
+//			// 새로운 첨부파일이 있다면 => 기존 첨부파일 삭제
+//			if (n.getNoticeOriginName() != null) {
+//				new File(session.getServletContext().getRealPath(n.getNoticeChangeName())).delete();
+//			}
+//			// n객체에 새로운 첨부파일 정보(원본명, 저장경로) 저장
+//			n.setNoticeOriginName(reupfile.getOriginalFilename());
+//			n.setNoticeChangeName("resources/uploadFiles/notice/" + changeName);
+//		}
+//		// n객체 update
+//		int result = noticeService.updataNotice(n);
+//		// 성공유무 확인 후 페이지 리턴
+//		if (result > 0) {
+//			session.setAttribute("alertMsg", "공지사항 수정이 완료되었습니다.");
+//			return "redirect:detail.no?nno=" + n.getNoticeNo();
+//		} else {
+//			model.addAttribute("errorMsg", "공지사항 수정 실패");
+//			return "common/noticeListView";
+//		}
 	}
 	
 	// 공지사항 삭제
