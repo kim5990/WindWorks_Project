@@ -87,9 +87,21 @@ function timeUnitAddDragEvent(timeUnit, asset, time){
 
         // console.log(reservationValue)
         // console.log(reservationValue.clickUnit.assName)
-
+        document.getElementById("assetName").value = reservationValue.clickUnit.assName;
+        for(let i = 0; i<48; i++){
+            if(i=0){ 
+                if(document.getElementById("reservation-time-start").options[i].value == reservationValue.clickUnit.time){
+                    document.getElementById("reservation-time-start").options[45].selected = true;
+                    document.getElementById("reservation-time-end").options[i].selected = true;
+                }
+            } else {
+                if(document.getElementById("reservation-time-start").options[i].value == reservationValue.clickUnit.time){
+                    document.getElementById("reservation-time-start").options[i-1].selected = true;
+                    document.getElementById("reservation-time-end").options[i].selected = true;
+                }
+            }
+        }
         document.getElementById("reservation-btn").click();
-        document.getElementById("assetName").value = reservationValue.clickUnit.assName; 
     });
     //두칸부터 드래그 이벤트
     timeUnit.addEventListener("mousedown", function () {
@@ -114,9 +126,19 @@ function timeUnitAddDragEvent(timeUnit, asset, time){
     });
 
     timeUnit.addEventListener("mouseup", function () {
-      //드래그했던 시간정보들을 가지고 모달에 넘겨주면 되겠다
-      document.getElementById("reservation-btn").click();
-      document.getElementById("assetName").value = reservationValue.endUnit.assName;
+        //드래그했던 시간정보들을 가지고 모달에 넘겨주면 되겠다
+        document.getElementById("reservation-btn").click();
+        document.getElementById("assetName").value = reservationValue.endUnit.assName;
+        // for(let i = 0; i<24; i++){
+        //     if(document.getElementById("reservation-time-start").options[i].value == reservationValue.startUnit.time){
+        //         document.getElementById("reservation-time-start").options[i].selected = true;
+        //     }
+        // }
+        // for(let i = 1; i<25; i++){
+        //     if(document.getElementById("reservation-time-end").options[i].value == reservationValue.endUnit.time){
+        //         document.getElementById("reservation-time-end").options[i-1].selected = true;
+        //     }
+        // }
       //값을 사용
 
       
