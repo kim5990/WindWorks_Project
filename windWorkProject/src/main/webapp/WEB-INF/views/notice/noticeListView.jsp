@@ -18,6 +18,7 @@
 </head>
 <body>
 <jsp:include page="../common/header.jsp" />
+
 	<c:if test="${!empty alertMsg}">
 		<script>
 			swal("", "${alertMsg}", "success");
@@ -32,7 +33,8 @@
 			
 			<!-- 작성하기 버튼 -->
 			<div class="notice-write-top">
-			
+				
+				<!-- 강사 제외 글쓰기 가능 -->
 				<c:choose>
 					<c:when test="${loginUser.deptCode ne 'D5'}">
 						<div class="notice-write">
@@ -112,14 +114,6 @@
 					
 				</ul>
 			</div>
-			
-			<script>
-			
-
-
-			</script>
-			
-			
 			
 		</div>
 	</div>

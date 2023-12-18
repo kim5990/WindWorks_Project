@@ -225,41 +225,7 @@ selectReplyListDraw = (result) => {
 /* -----답글 쓰기 버튼 ----- */
 function appendReply(num) {
     displayAllNone(num)
-    // // 답글 쓰기 클릭시 입력할 textarea 불러오기
-    // const appendReplyTextarea = document.querySelectorAll(".notice-reply-parent-bottom")
-    // // 답글 쓰기 수정 클릭시 기존 내용이 담긴 textarea 불러오기
-    // const updateReplyTextarea =  document.querySelectorAll(".notice-child-reply-write-area")
-    // // 대댓글 그리기
-    // const childReplyContent = document.querySelectorAll(".notice-reply-parent-content-area")
-   
-    // // 댓글 수정 클릭시 기존 내용이 담긴 textarea display 불러오기
-    // const noticeReplyContent = document.querySelectorAll(".notice-reply-all .notice-reply-write-area")
-    // // 댓글 그리기
-    // const noticeReply = document.querySelectorAll(".notice-reply-all .notice-reply-content")
-  
-
- 
-    // // 답글 쓰기 클릭시 댓글 아래 빈 textarea 돌면서 none으로 바꿔주기
-    // for (let i = 0; i < appendReplyTextarea.length; i++) {
-    //     appendReplyTextarea[i].style.display = "none";
-    // }
-
-    // // 답글 쓰기 수정 클릭시 기존 내용이 담긴 textarea 돌기
-    // for (let j = 0; j < updateReplyTextarea.length; j++) {
-    //     if (updateReplyTextarea[j].style.display === "block") {
-    //         childReplyContent[j].style.display = "block";
-    //     }
-    //     updateReplyTextarea[j].style.display = "none";
-    // }
-
-    // // 댓글 수정 클릭시 기존 내용이 담긴 textarea display 는 block 댓글 block
-    // for(let i = 0; i < noticeReplyContent.length; i++) {
-    //     if (noticeReplyContent[i].style.display === "block") {
-    //         noticeReply[i].style.display = "block";
-    //     }
-    //     noticeReplyContent[i].style.display = "none";
-    // }
-
+    
     // 답글 쓰기 클릭시 댓글 아래 빈 textarea 불러오기
     let replyElement = document.querySelector('#appendReply' + num);
     replyElement.style.display = "block";

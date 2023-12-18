@@ -2,6 +2,7 @@ package com.kh.ww.notice.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -70,26 +72,67 @@ public class NoticeController {
 	
 	// 공지사항 작성
 	@RequestMapping("insert.no")
-	public String insertNotice(Notice n, NoticeAttachment na, MultipartFile upfile, HttpSession session, Model model) {
+	public String insertNotice(Notice n, NoticeAttachment na, MultipartHttpServletRequest file, HttpSession session) {
 		
-		// 전달된 파일이 있을 경우 => 파일명 수정 후 서버 업로드 => 원본명, 서버 업로드된 경로로 n에 담기(파일이 있을 때만)
-		if (!upfile.getOriginalFilename().equals("")) {
-			String changeName = SaveFile.getSaveFileInfo(upfile, session, "resources/uploadFiles/notice/");
-			
-			n.setNoticeOriginName(upfile.getOriginalFilename());
-			n.setNoticeChangeName("resources/uploadFiles/notice/" + changeName);
-		} 
-		
-		int result1 = noticeService.insertNotice(n);
+//		int result1 = noticeService.insertNotice(n);
 //		int result2 = noticeService.insertNoticeAttachment(na);
 		
-		if (result1 > 0) {
-			session.setAttribute("alertMsg", "공지사항이 작성되었습니다.");
+		
+		// 게시글 등록
+		int result1 = noticeService.insertNotice(n);
+		int result2 = 0;
+		int i = 1;	
+		List<MultipartFile> fileList = file.getFiles("upfile");
+		// 파일 등록
+		for (MultipartFile f : fileList) {
+			if(!f.getOriginalFilename().equals("") && i == 1) {
+				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/notice/");
+				na.setNoticeOriginName(f.getOriginalFilename());
+				na.setCommunityChangeName(changeName);
+				// ca.setClassFileSize(f.getSize()/1024);
+				na.setCommunityFilePath("resources/uploadFiles/notice/"+ changeName);
+				na.setCommunityFileLevel(i);
+				result2 = noticeService.comBoardAttInsert(ca);
+				i = 0;
+			}else if(!f.getOriginalFilename().equals("") && i == 0){
+				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/notice/");
+				ca.setCommunityOriginName(f.getOriginalFilename());
+				ca.setCommunityChangeName(changeName);
+				// ca.setClassFileSize(f.getSize());
+				ca.setCommunityFilePath("resources/uploadFiles/notice/"+ changeName);
+				ca.setCommunityFileLevel(i);
+				result2 = noticeService.comBoardAttInsert(ca);
+			}
+		}
+		if((result1 * result2) == 1) {
 			return "redirect:list.no";
 		} else {
-			model.addAttribute("errorMsg", "공지사항 작성에 실패하였습니다.");
 			return "common/noticeListView";
 		}
+		
+		
+		
+		
+		
+		
+		// 전달된 파일이 있을 경우 => 파일명 수정 후 서버 업로드 => 원본명, 서버 업로드된 경로로 n에 담기(파일이 있을 때만)
+//		if (!upfile.getOriginalFilename().equals("")) {
+//			String changeName = SaveFile.getSaveFileInfo(upfile, session, "resources/uploadFiles/notice/");
+//			
+//			n.setNoticeOriginName(upfile.getOriginalFilename());
+//			n.setNoticeChangeName("resources/uploadFiles/notice/" + changeName);
+//		} 
+//		
+//		int result1 = noticeService.insertNotice(n);
+//		int result2 = noticeService.insertNoticeAttachment(na);
+//		
+//		if (result1 > 0) {
+//			session.setAttribute("alertMsg", "공지사항이 작성되었습니다.");
+//			return "redirect:list.no";
+//		} else {
+//			model.addAttribute("errorMsg", "공지사항 작성에 실패하였습니다.");
+//			return "common/noticeListView";
+//		}
 		
 	}
 	

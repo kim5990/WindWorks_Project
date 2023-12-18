@@ -13,12 +13,34 @@
 		<result column="NOTICE_STATUS" property="noticeStatus" />
 		<result column="EMP_NO" property="empNo" />
 		<result column="EMP_NAME" property="empName" />
-		<result column="NOTICE_ORIGIN_NAME" property="noticeOriginName" />
+		
+		<!-- <result column="NOTICE_ORIGIN_NAME" property="noticeOriginName" />
 		<result column="NOTICE_CHANGE_NAME" property="noticeChangeName" />
 		<result column="NOTICE_FILE_PATH" property="noticeFilePath" />
 		<result column="NOTICE_FILE_LEVEL" property="noticeFileLevel" />
 		<result column="DEPT_CODE" property="deptCode" />
 		<result column="NOTICE_REPLY_NO" property="noticeReplyNo" />
+		<result column="PARENT_REPLY_NO" property="parentReplyNo" /> -->
+	</resultMap>
+	
+	<resultMap type="NoticeAttachment" id="noticeAttachmentResult">
+		<result column="NOTICE_FILE_NO" property="noticeFileNo" />
+		<result column="NOTICE_NO" property="noticeNo" />
+		<result column="NOTICE_ORIGIN_NAME" property="noticeOriginName" />
+		<result column="NOTICE_CHANGE_NAME" property="noticeChangeName" />
+		<result column="NOTICE_FILE_PATH" property="noticeFilePath" />
+		<result column="NOTICE_UPLOAD_DATE" property="noticeUploadDate" />
+		<result column="NOTICE_FILE_LEVEL" property="noticeFileLevel" />
+		<result column="NOTICE_ATTACHMENT_STATUS" property="noticeAttachmentStatus" />
+	</resultMap>
+	
+	<resultMap type="NoticeReply" id="noticeReplyResult">
+		<result column="NOTICE_REPLY_NO" property="noticeReplyNo" />
+		<result column="NOTICE_REPLY_CONTENT" property="noticeReplyContent" />
+		<result column="NOTICE_REPLY_CREATE_DATE" property="noticeReplyCreateDate" />
+		<result column="NOTICE_REPLY_STATUS" property="noticeReplyStatus" />
+		<result column="EMP_NO" property="empNo" />
+		<result column="NOTICE_NO" property="noticeNo" />
 		<result column="PARENT_REPLY_NO" property="parentReplyNo" />
 	</resultMap>
 	

@@ -8,6 +8,9 @@
 <!-- CSS -->
 <link rel="stylesheet" href="resources/notice/css/notice-enroll-form.css">
 
+<!-- JS -->
+<script src="resources/notice/js/notice-enroll-form.js"></script>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -37,11 +40,59 @@
 							<tr>
 		                        <th><label>파일첨부</label></th>
 		                        <td>
-			                        <label for="upfile" class="notice-enroll-file">
-			                        	<!-- <ion-icon class="notice-enroll-file-icon" name="document-attach-outline"></ion-icon>
-			                        	첨부할 파일을 선택해주세요 -->
+			                        <!-- <label for="upfile" class="notice-enroll-file">
+			                        	<ion-icon class="notice-enroll-file-icon" name="document-attach-outline"></ion-icon>
+			                        	첨부할 파일을 선택해주세요
 			                        	<input type="file" id="upfile" name="upfile" value="noticeOriginName">
-			                        </label>
+			                        </label> -->
+			                        
+			                        <div class="createLectureMaterials-file-upload-box" id="drop-area">
+                                        <div class="createLectureMaterials-file-upload" ondragover="allowDrop(event)" ondragenter="highlightDropArea()"
+											ondragleave="unhighlightDropArea()" ondrop="handleDrop(event)">
+			                        		
+			                        		<ion-icon class="create-document-icon" name="cloud-upload-outline"></ion-icon>
+                                            <span>이 곳에 파일을 드래그 하세요. 또는<span>
+			                        		<label id="create-fileSelected-label" for="upfile">파일 선택</label>
+                                            <input type="file" name="upfile" id="upfile" class="create-fileSelected"  onchange="handleFileSelect(event)" title="파일선택" multiple="multiple" accept="undfined">
+                                            </span>
+                                            </span>
+			                        
+			                        	</div>
+                                        <ui class="createLectureMaterials-file-upload-wrap"></ui>
+                                    </div>
+                                    
+			                        <!-- 효주 
+			                        <div class="createLectureMaterials-file-upload-box" id="drop-area">
+		                                <div class="createLectureMaterials-file-upload" ondragover="allowDrop(event)" ondragenter="highlightDropArea()"
+		                                    ondragleave="unhighlightDropArea()" ondrop="handleDrop(event)" >
+		
+		                                    <ion-icon class="create-document-icon" name="cloud-upload-outline"></ion-icon>
+		                                    <span>이 곳에 파일을 드래그 하세요. 또는<span>
+		                                    <label id="create-fileSelected-label" for="fileInput">파일선택</label>
+		                                    <input type="file" name="filesss" class="create-fileSelected" id="fileInput" onchange="handleFileSelect(event)" title="파일선택" multiple="multiple" accept="undfined">
+		                                    </span>
+		                                    </span>
+		                                </div>
+		                                <ui class="createLectureMaterials-file-upload-wrap"></ui>
+		                            </div> -->
+                                    
+                                    
+                                    <!-- 상원 
+                                    <div class="createLectureMaterials-file-upload-box" id="drop-area">
+                                        <div class="createLectureMaterials-file-upload" ondragover="allowDrop(event)" ondragenter="highlightDropArea()"
+											ondragleave="unhighlightDropArea()" ondrop="handleDrop(event)">
+                                            
+                                            <ion-icon class="create-document-icon" name="cloud-upload-outline"></ion-icon>
+                                            <span>이 곳에 파일을 드래그 하세요. 또는<span>
+                                            <input type="hidden" name="files" />
+                                            <label id="create-fileSelected-label" for="create-fileSelected">파일 선택</label>
+                                            <input type="file" class="create-fileSelected" id="fileList" onchange="handleFileSelect(event)" title="파일선택" multiple="multiple" accept="undfined">
+                                            </span>
+                                            </span>
+                                        </div>
+                                        <ui class="createLectureMaterials-file-upload-wrap"></ui>
+                                    </div> -->
+                                    
 		                        </td>
 		                    </tr>
 		                    <tr>
@@ -49,8 +100,6 @@
 		                        <td><textarea id="content" class="notice-enroll-content" rows="12" style="resize:none;" name="noticeContent" required></textarea></td>
 		                    </tr>
 						</table>
-						
-
 						
 						<!-- 등록,취소 버튼 -->
 						<div class="notice-enroll-btn">
@@ -62,11 +111,12 @@
 				</div>
 			</div>
 			
-		
-			
-		</div>
-	</div>
-
+		</div><!-- <div class="notice-enroll-area"> -->
+	</div><!-- <div class="menu"> -->
+	
+	<script>
+	
+	</script>
 
 </body>
 </html>
