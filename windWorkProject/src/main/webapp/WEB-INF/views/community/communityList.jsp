@@ -371,6 +371,9 @@
 			myCommunityList(function (startList) {
 				selectCommunityOne(startList);
 			});
+			
+			document.querySelector("#nav-com-bar").classList.add('active');
+			document.querySelector("#navbar").style.background = 'rgb(85, 175, 130)';
 		}
 	</script>
 
