@@ -241,7 +241,7 @@
 </style>
 
 
-</head>
+</head onload="comOnload()">
 <body>
 	<jsp:include page="../common/header.jsp" />
 	<div class="menu">

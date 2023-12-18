@@ -237,7 +237,7 @@ public class StudyManagementServiceImpl implements StudyManagementService {
 	public ArrayList<Student> ajaxSelectSerachStudent(PageInfo pi, Student student) {
 		return studyManagementDao.ajaxSelectSerachStudent(sqlSession, pi, student);
 	}
-	
+
 	//강의자료 디테일 즐겨찾기 검색
 	@Override
 	public ClassAttachment likeClassData(ClassAttachment likeC) {
@@ -254,10 +254,5 @@ public class StudyManagementServiceImpl implements StudyManagementService {
 	public int ajaxLikeDeleteSelect(ClassAttachment c) {
 		return studyManagementDao.ajaxLikeDeleteSelect(sqlSession, c);
 	}
-	
-
-
-	
-
 
 }

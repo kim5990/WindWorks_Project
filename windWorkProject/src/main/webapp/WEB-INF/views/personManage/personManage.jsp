@@ -11,7 +11,7 @@
 <!--css-->
 <link rel="stylesheet" href="./resources/personManage/css/personManage.css">
 </head>
-<body onload="lessonOnload()">
+<body onload="approvalOnload()">
 	<jsp:include page="../common/header.jsp" />
     <div class ="menu">
         <div class="pmMainbox">
