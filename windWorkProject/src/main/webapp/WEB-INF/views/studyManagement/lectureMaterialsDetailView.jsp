@@ -30,7 +30,7 @@
             <div class="lectureMaterialsDetail">
               <div class="lectureMaterialsDetail-title">
                 <div class="lectureMaterialsDetail-title1">
-                  <h3 style="margin: 0 0 0 30px;">
+                  <h3 class = "lectureMaterialsDetail-title1-h3" style="margin: 0 0 0 30px;">
                     <c:choose>
                       <c:when test="${c.category == '자바'}">
                         Java
@@ -45,10 +45,11 @@
                         JavaScript
                       </c:otherwise>
                     </c:choose>
-                    <c:choose>
+                    <div id = "ajaxlikediv">
+                      <c:choose>
                       <c:when test="${!empty likeClassData}">
                         <svg xmlns="http://www.w3.org/2000/svg"
-                          onclick="ajaxLikeDeleteSelect(${dataNo}, ${loginUser.empNo})" style="color: #fbf4a8;"
+                          onclick="ajaxLikeDeleteSelect(${c.classDataNo}, ${loginUser.empNo})" style="color: #fbf4a8;"
                           width="16" height="16" fill="currentColor" id="lectureMaterialsDetail-title-favorites"
                           class="bi bi-star" viewBox="0 0 16 16">
                           <path
@@ -57,7 +58,7 @@
                       </c:when>
                       <c:otherwise>
                         <svg xmlns="http://www.w3.org/2000/svg"
-                          onclick="ajaxLikeAddSelect(${dataNo}, ${loginUser.empNo})"
+                          onclick="ajaxLikeAddSelect(${c.classDataNo}, ${loginUser.empNo})"
                           style="color: rgba(0, 0, 0, 0.281);" width="16" height="16" fill="currentColor"
                           id="lectureMaterialsDetail-title-favorites" class="bi bi-star" viewBox="0 0 16 16">
                           <path
@@ -65,6 +66,7 @@
                         </svg>
                       </c:otherwise>
                     </c:choose>
+                    </div>
                   </h3>
                 </div>
                 <div class="lectureMaterialsDetail-title2">

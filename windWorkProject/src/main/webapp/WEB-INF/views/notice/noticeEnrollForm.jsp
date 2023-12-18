@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body onload="noticeOnload()">
 <jsp:include page="../common/header.jsp" />
 
 	<div class="menu">

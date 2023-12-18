@@ -34,6 +34,7 @@ function handleFileSelect(event) {
 }
 
 function handleFiles(files) {
+
     for (i = 0; i < files.length; i++) {
 
         let f = files[i];
@@ -68,7 +69,6 @@ function formatBytes(bytes, decimals = 2) {
 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
-
 
 //저장
 $(document).on("click", "#save", function () {

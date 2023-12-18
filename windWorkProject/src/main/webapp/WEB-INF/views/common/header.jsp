@@ -64,17 +64,17 @@
                         <span class="nav_name">채팅</span>
                     </a>
 
-                    <a href="list.com" class="nav__link">
+                    <a href="list.com" id="nav-com-bar" class="nav__link">
                         <ion-icon name="chatbox-ellipses-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">커뮤니티</span>
                     </a>
 
-                    <a href="reservationPage.re" class="nav__link">
+                    <a href="reservationPage.re" id="nav-reservationPage-bar" class="nav__link">
                         <ion-icon name="time-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">예약</span>
                     </a>
                 </div>
-                <a href="list.no" class="nav__link">
+                <a href="list.no" id="nav-notice-bar" class="nav__link">
                     <ion-icon name="notifications-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">공지사항</span>
                 </a>
@@ -83,7 +83,7 @@
                     <ion-icon name="book-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">강의관리</span>
                 </a>
-                <a href="approval.em" class="nav__link">
+                <a href="approval.em" id="nav-approval-bar" class="nav__link">
                     <ion-icon name="person-add-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">인사관리</span>
                 </a>
