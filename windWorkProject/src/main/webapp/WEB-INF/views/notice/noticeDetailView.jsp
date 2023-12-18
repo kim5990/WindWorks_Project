@@ -70,7 +70,7 @@
 						
 						<form action="" method="post" id="updateForm">
 							<input type="hidden" name="nno" value="${n.noticeNo}">
-							<input type="hidden" name="filePath" value="${n.noticeChangeName}">
+							<input type="hidden" name="filePath" value="${na.noticeChangeName}">
 						</form>
 						
 						<script>
@@ -91,10 +91,9 @@
 				<div class="notice-bottom">
 				
 					<c:choose>
-						<c:when test="${not empty n.noticeOriginName}">
+						<c:when test="${not empty na.noticeOriginName}">
 							<div class="notice-attchment">
-								<a href="${n.noticeChangeName}" download="${n.noticeOriginName}">${n.noticeOriginName}</a>
-								<a href="${n.noticeChangeName}" download="${n.noticeOriginName}">${n.noticeOriginName}</a>
+								<a href="${na.noticeChangeName}" download="${na.noticeOriginName}">${na.noticeOriginName}</a>
 							</div>
 						</c:when>
 						<c:otherwise>

@@ -38,12 +38,10 @@ public class NoticeDao {
 		return sqlSession.selectOne("noticeMapper.selectNotice", noticeNo);
 	}
 	
-	// 공지사항 작성 result1
+	// 공지사항 작성
 	public int insertNotice(SqlSessionTemplate sqlSession, Notice n) {
 		return sqlSession.insert("noticeMapper.insertNotice", n);
 	}
-	
-	// 공지사항 작성 result2
 	public int insertNoticeAttachment(SqlSessionTemplate sqlSession, NoticeAttachment na) {
 		return sqlSession.insert("noticeMapper.insertNoticeAttachment", na);
 	}

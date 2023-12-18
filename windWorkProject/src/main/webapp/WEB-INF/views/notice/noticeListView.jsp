@@ -67,11 +67,7 @@
 								<td>
 									<div class="notice-title">
 									${n.noticeTitle}
-										<c:if test="${not empty n.noticeOriginName}">
-											<div class="notice-attachment-icon">
-												<ion-icon class="attachment-icon" name="document-attach-outline"></ion-icon>
-											</div>
-										</c:if>
+										
 										<div class="notice-reply-count">
 											<span id="rcount"><!-- 댓글갯수 --></span>
 										</div>

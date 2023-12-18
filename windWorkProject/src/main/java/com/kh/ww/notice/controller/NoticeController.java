@@ -55,6 +55,7 @@ public class NoticeController {
 
 		if (result > 0) {
 			Notice n = noticeService.selectNotice(nno);
+			
 			model.addAttribute("n", n);
 			
 			return "notice/noticeDetailView";
@@ -73,11 +74,7 @@ public class NoticeController {
 	// 공지사항 작성
 	@RequestMapping("insert.no")
 	public String insertNotice(Notice n, NoticeAttachment na, MultipartHttpServletRequest file, HttpSession session) {
-		
-//		int result1 = noticeService.insertNotice(n);
-//		int result2 = noticeService.insertNoticeAttachment(na);
-		
-		
+
 		// 게시글 등록
 		int result1 = noticeService.insertNotice(n);
 		int result2 = 0;
@@ -85,11 +82,10 @@ public class NoticeController {
 		List<MultipartFile> fileList = file.getFiles("upfile");
 		// 파일 등록
 		for (MultipartFile f : fileList) {
-			if (!f.getOriginalFilename().equals("") && i == 1) {
+			if (!f.getOriginalFilename().equals("") && i == 1) { 
 				String changeName = SaveFile.getSaveFileInfo(f, session, "resources/uploadFiles/notice/");
 				na.setNoticeOriginName(f.getOriginalFilename());
 				na.setNoticeChangeName(changeName);
-				// ca.setClassFileSize(f.getSize()/1024);
 				na.setNoticeFilePath("resources/uploadFiles/notice/"+ changeName);
 				na.setNoticeFileLevel(i);
 				result2 = noticeService.insertNoticeAttachment(na);
@@ -98,7 +94,6 @@ public class NoticeController {
 				String changeName = SaveFile.getSaveFileInfo(f, session, "resources/uploadFiles/notice/");
 				na.setNoticeOriginName(f.getOriginalFilename());
 				na.setNoticeChangeName(changeName);
-				// ca.setClassFileSize(f.getSize());
 				na.setNoticeFilePath("resources/uploadFiles/notice/"+ changeName);
 				na.setNoticeFileLevel(i);
 				result2 = noticeService.insertNoticeAttachment(na);
@@ -149,10 +144,10 @@ public class NoticeController {
 	public String updateNotice(Notice n, NoticeAttachment na, String[] filePath, int[] fileNo, MultipartHttpServletRequest file, HttpSession session) {
 		
 				// 게시글 수정
-				int result1 = noticeService.updataNotice(na);
+				int result1 = noticeService.updateNotice(na);
 				int result2 = 0;
 				int i = 1;	
-				List<MultipartFile> fileList = file.getFiles("reupfiles");
+				List<MultipartFile> fileList = file.getFiles("reupfiles"); // reupfiles?
 				// 새로운 첨부파일 있을 경우 기존 파일 삭제
 				if(fileList.size() > 0) {
 					if(filePath != null) {
@@ -172,7 +167,7 @@ public class NoticeController {
 						na.setNoticeChangeName(changeName);
 						na.setNoticeFilePath("resources/uploadFiles/notice/"+ changeName);
 						na.setNoticeFileLevel(i);
-						result2 = noticeService.comBoardAttUpdate(na);
+						result2 = noticeService.updateNoticeAtt(na);
 						i = 0;
 					}else if(!f.getOriginalFilename().equals("") && i == 0){
 						String changeName = SaveFile.getSaveFileInfo(f, session, "resources/uploadFiles/notice/");
@@ -180,7 +175,7 @@ public class NoticeController {
 						na.setNoticeChangeName(changeName);
 						na.setNoticeFilePath("resources/uploadFiles/notice/"+ changeName);
 						na.setNoticeFileLevel(i);
-						result2 = noticeService.comBoardAttUpdate(na);
+						result2 = noticeService.updateNoticeAtt(na);
 					}
 				}
 				if((result1 * result2) == 1) {

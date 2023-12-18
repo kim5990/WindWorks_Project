@@ -21,14 +21,12 @@ public interface NoticeService {
 	// 공지사항 상세 조회
 	Notice selectNotice(int noticeNo);
 
-	// 공지사항 작성 result1
+	// 공지사항 작성
 	int insertNotice(Notice n);
-	
-	// 공지사항 작성 result2
 	int insertNoticeAttachment(NoticeAttachment na);
 	
 	// 공지사항 수정
-	int updataNotice(Notice n);
+	int updateNotice(Notice n);
 
 	// 공지사항 삭제
 	int deleteNotice(int noticeNo);
@@ -53,5 +51,7 @@ public interface NoticeService {
 
 	// 공지사항 대댓글 삭제
 	int deleteChildReply(NoticeReply nr);
+
+	
 
 }
