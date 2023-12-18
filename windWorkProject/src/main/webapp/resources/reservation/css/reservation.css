@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding: 24px;
 }
 .reservation-calender{
     display: flex;
@@ -36,16 +37,27 @@
     flex-direction: column;
     justify-content: center;
 }
-.graph-header{
+.graph-header, .graph-body{
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
-.graph-head{
-    width: 130px;
-    border: 1px solid #d4d4d4;
+
+.graph-row{
+    height: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
-.graph-head-hour{
+.graph-head, .graph-body-title{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    flex: 1;
+    border: 1px solid #d4d4d4;
+    max-width: 200px;
+}
+.graph-head-hour, .graph-body-hour{
     width: 50px;
     border: 1px solid #d4d4d4;
     border-left: none;
@@ -53,6 +65,16 @@
     justify-content: center;
     align-items: center;
 }
+
+.graph-body-hour{
+    width: 25px;
+    border: 1px solid #d4d4d4;
+    border-left: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .reservation-status{
     display: flex;
     flex-direction: column;
@@ -88,6 +110,7 @@
     height: 450px;
 }
 .graph-body-list{
+    width: 100%;
     height: 450px;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -120,5 +143,102 @@
     display: flex;
     flex-direction: row;
 }
-#selectable .ui-selecting { background: rgb(85, 175, 130); }
-#selectable .ui-selected { background: rgb(85, 175, 130); }
+#selectable .ui-selecting-start { 
+    background: rgb(85, 175, 130);
+    border-right: none;
+    border-left: none;
+}
+#selectable .ui-selecting { 
+    background: rgb(85, 175, 130);
+    border-right: none;
+    border-left: none;
+}
+#selectable .ui-selected { 
+    background: rgb(85, 175, 130);
+    border-right: none;
+    border-left: none;
+}
+#modal-title-id{
+    font-size: 20px;
+    font-weight: bold;
+}
+#modal-header-id{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: none;
+    padding-bottom: 0px;
+    padding-left: 50px;
+    padding-right: 69px;
+    padding-top: 40px;
+}
+#modal-body-id{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 40px;
+}
+.modal-table {
+    height: 150px;
+    font-size: 15px;
+}
+#modal-dialog-id{
+    width: 700px;
+}
+.modal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-controllBtn{
+    margin: 10px;
+}
+.modal-table tr th{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 35px;
+}
+#modal-body-id tr{
+    height: 35px;
+    display: inline-table;
+}
+.form-button2{
+    height: 25px;
+    width: 45px;
+    border: 1px solid #9e9e9e;
+    background-color: white;
+    color: #9e9e9e;
+    font-size: 14px;
+}
+.form-button3{
+    height: 25px;
+    width: 45px;
+    border: 1px solid rgb(85, 175, 130);
+    color: rgb(85, 175, 130);
+    margin-left: 190px;
+    margin-right: 10px;
+    font-size: 14px;
+    background-color: white;
+}
+#close-btn2{
+    margin: 0px;
+    display: none;
+}
+.modal-input{
+    width: 512px;
+    background-color: rgb(224, 224, 224);
+    border-style: solid;
+    border-color: rgb(158, 158, 158);
+}
+.modal-input2{
+    width: 512px;
+}
+#modal-table-th-date{
+    height: 60px;
+}
+.modal-input-date{
+    background-color: rgb(224, 224, 224);
+    border-style: solid;
+    border-color: rgb(158, 158, 158);
+}

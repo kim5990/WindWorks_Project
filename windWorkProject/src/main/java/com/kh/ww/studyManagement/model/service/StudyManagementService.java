@@ -99,6 +99,13 @@ public interface StudyManagementService {
 	//검색어으로 검색 리스트 검색
 	ArrayList<Student> ajaxSelectSerachStudent(PageInfo pi, Student student);
 
+	//데이터 즐겨찾기 여부 검색
+	ClassAttachment likeClassData(ClassAttachment likeC);
+	//데이터 즐겨찾기 추가
+	int ajaxLikeAddSelect(ClassAttachment c);
+	//데이터 즐겨찾기 삭제
+	int ajaxLikeDeleteSelect(ClassAttachment c);
+
 	
 	
 }

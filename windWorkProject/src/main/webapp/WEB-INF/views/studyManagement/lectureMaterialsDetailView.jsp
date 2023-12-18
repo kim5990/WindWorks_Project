@@ -19,6 +19,7 @@
       <!--js-->
       <script src="./resources/studyManagement/js/lectureMaterialsDetailView.js"></script>
       <script src="./resources/studyManagement/js/lessonPlan.js"></script>
+      <script src="./resources/studyManagement/ajax/ajax.js"></script>
     </head>
 
     <body onload="lectureMaterialsDetailOnload()">
@@ -44,11 +45,26 @@
                         JavaScript
                       </c:otherwise>
                     </c:choose>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                      id="lectureMaterialsDetail-title-favorites" class="bi bi-star" viewBox="0 0 16 16">
-                      <path
-                        d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
-                    </svg>
+                    <c:choose>
+                      <c:when test="${!empty likeClassData}">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                          onclick="ajaxLikeDeleteSelect(${dataNo}, ${loginUser.empNo})" style="color: #fbf4a8;"
+                          width="16" height="16" fill="currentColor" id="lectureMaterialsDetail-title-favorites"
+                          class="bi bi-star" viewBox="0 0 16 16">
+                          <path
+                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                      </c:when>
+                      <c:otherwise>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                          onclick="ajaxLikeAddSelect(${dataNo}, ${loginUser.empNo})"
+                          style="color: rgba(0, 0, 0, 0.281);" width="16" height="16" fill="currentColor"
+                          id="lectureMaterialsDetail-title-favorites" class="bi bi-star" viewBox="0 0 16 16">
+                          <path
+                            d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                        </svg>
+                      </c:otherwise>
+                    </c:choose>
                   </h3>
                 </div>
                 <div class="lectureMaterialsDetail-title2">
@@ -78,23 +94,25 @@
                 <div class="lectureMaterialsDetail-btns1">
                   <div class="lectureMaterialsDetail-btn1">
                     <c:choose>
-                      <c:when test = "${loginUser.empNo eq c.empNo}">
-                        <button onclick="updateForm(${c.classDataNo})" class="lectureMaterialsDetail-btn1-update lectureMaterialsDetail-btn1-mode"><svg
-                          xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-arrow-up lectureMaterialsDetail-btn-margin" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd"
-                            d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
-                        </svg> 업데이트</button>
+                      <c:when test="${loginUser.empNo eq c.empNo}">
+                        <button onclick="updateForm(${c.classDataNo})"
+                          class="lectureMaterialsDetail-btn1-update lectureMaterialsDetail-btn1-mode"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-arrow-up lectureMaterialsDetail-btn-margin" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                              d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                          </svg> 업데이트</button>
                       </c:when>
                       <c:otherwise>
-                        <button onclick="alert('본인 게시글이 아니면 수정할 수 없습니다.')"  class="lectureMaterialsDetail-btn1-update lectureMaterialsDetail-btn1-mode"><svg
-                          xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-arrow-up lectureMaterialsDetail-btn-margin" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd"
-                            d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
-                        </svg> 업데이트</button>
+                        <button onclick="alert('본인 게시글이 아니면 수정할 수 없습니다.')"
+                          class="lectureMaterialsDetail-btn1-update lectureMaterialsDetail-btn1-mode"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-arrow-up lectureMaterialsDetail-btn-margin" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                              d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                          </svg> 업데이트</button>
                       </c:otherwise>
-                      </c:choose>
+                    </c:choose>
 
                     <button class="lectureMaterialsDetail-btn1-mode lectureMaterialsDetail-btn1-movement">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -103,24 +121,26 @@
                           d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2z" />
                       </svg> 이동</button>
 
-                      <c:choose>
-                        <c:when test="${loginUser.empNo eq c.empNo}">
-                          <button onclick="deleteClassData(${c.classDataNo})" class="lectureMaterialsDetail-btn1-mode lectureMaterialsDetail-btn1-delete">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                              class="bi bi-trash3 lectureMaterialsDetail-btn-margin" viewBox="0 0 16 16">
-                              <path
-                                d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-                            </svg> 삭제</button>
-                        </c:when>
-                        <c:otherwise>
-                          <button onclick="alert('본인 게시글만 삭제할 수 있습니다.')"  class="lectureMaterialsDetail-btn1-mode lectureMaterialsDetail-btn1-delete">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                              class="bi bi-trash3 lectureMaterialsDetail-btn-margin" viewBox="0 0 16 16">
-                              <path
-                                d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-                            </svg> 삭제</button>
-                        </c:otherwise>
-                      </c:choose>
+                    <c:choose>
+                      <c:when test="${loginUser.empNo eq c.empNo}">
+                        <button onclick="deleteClassData(${c.classDataNo})"
+                          class="lectureMaterialsDetail-btn1-mode lectureMaterialsDetail-btn1-delete">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-trash3 lectureMaterialsDetail-btn-margin" viewBox="0 0 16 16">
+                            <path
+                              d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                          </svg> 삭제</button>
+                      </c:when>
+                      <c:otherwise>
+                        <button onclick="alert('본인 게시글만 삭제할 수 있습니다.')"
+                          class="lectureMaterialsDetail-btn1-mode lectureMaterialsDetail-btn1-delete">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-trash3 lectureMaterialsDetail-btn-margin" viewBox="0 0 16 16">
+                            <path
+                              d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                          </svg> 삭제</button>
+                      </c:otherwise>
+                    </c:choose>
                   </div>
                 </div>
                 <div class="lectureMaterialsDetail-btns2">
@@ -149,9 +169,9 @@
                         <path
                           d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
                       </svg> URL 복사</button>
-                    <button class="lectureMaterialsDetail-btn1-mode " onclick="history.back()"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                        height="16" fill="currentColor" class="bi bi-justify lectureMaterialsDetail-btn-margin"
-                        viewBox="0 0 16 16">
+                    <button class="lectureMaterialsDetail-btn1-mode " onclick="history.back()"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-justify lectureMaterialsDetail-btn-margin" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                           d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
                       </svg>목록</button>

@@ -51,6 +51,7 @@ public class studyManagementController {
 		int listCount = studyManagementService.planlistCount(empNo);
 		PageInfo pi = Pagenation.getPageInfo(listCount, currentPage, 2, 2);
 		ArrayList<ClassPlan> list = studyManagementService.planSelectList(empNo ,pi);
+		System.out.println(cp);
 		
 		JSONObject jobj = new JSONObject();
 		jobj.put("pi", pi);
@@ -77,6 +78,7 @@ public class studyManagementController {
 	//강의계획표 수정
 	@RequestMapping(value = "update.lp")
 	public ModelAndView updateplan(ModelAndView mv, HttpSession session, ClassPlan cp) {
+		System.out.println(cp);
 		int result1 =  studyManagementService.updateplan(cp);
 		int result2 =  studyManagementService.updateplanContent(cp);
 		mv.setViewName("studyManagement/lessonPlan");
@@ -106,17 +108,25 @@ public class studyManagementController {
 		jobj.put("lmpi", lmpi);
 		jobj.put("calist", calist);
 		jobj.put("caLevellist", caLevellist);
+		jobj.put("category", category);
 		return new Gson().toJson(jobj);
 	}
 	//강의자료실 detail
 	@RequestMapping(value = "detailView.lm")
-	public ModelAndView detailLectureMaterialView(ModelAndView mv, int dataNo) {
+	public ModelAndView detailLectureMaterialView(HttpSession session, ModelAndView mv, int dataNo) {
+		int empNo = ((Employee)session.getAttribute("loginUser")).getEmpNo();
 		int dataSize = studyManagementService.selectmaxsize();
 		ClassAttachment c = studyManagementService.selectData(dataNo);
 		ArrayList<ClassAttachment> calist = studyManagementService.selectDataAttachmentList(dataNo);
+		ClassAttachment likeC = new ClassAttachment();
+		likeC.setEmpNo(empNo);
+		likeC.setClassDataNo(dataNo);
+		ClassAttachment likeClassData = studyManagementService.likeClassData(likeC);
 		mv.addObject("c",c)
 			.addObject("calist", calist)
 			.addObject("dataSize", dataSize)
+			.addObject("likeClassData", likeClassData)
+			.addObject("dataNo", dataNo)
 			.setViewName("studyManagement/lectureMaterialsDetailView");
 		return mv;
 	}
@@ -145,6 +155,31 @@ public class studyManagementController {
 		jobj.put("lmpi", lmpi);
 		jobj.put("calist", calist);
 		jobj.put("caLevellist", caLevellist);
+		jobj.put("category", c.getCategory());
+		return new Gson().toJson(jobj);
+	}
+	
+	//강의자료실 즐겨찾기
+	@ResponseBody
+	@RequestMapping(value = "ajaxLikeAddSelect,lm",  produces = "appalication/json; charset = UTF-8")
+	public String ajaxLikeAddSelect(ClassAttachment c) {
+		int result = studyManagementService.ajaxLikeAddSelect(c);
+		
+		ClassAttachment like = studyManagementService.likeClassData(c);
+		JSONObject jobj = new JSONObject();
+		jobj.put("like", like);
+		return new Gson().toJson(jobj);
+	}
+	
+	//강의자료실 즐겨찾기 삭제
+	@ResponseBody
+	@RequestMapping(value = "ajaxLikeDeleteSelect.lm",  produces = "appalication/json; charset = UTF-8")
+	public String ajaxLikeDeleteSelect(ClassAttachment c) {
+		int result = studyManagementService.ajaxLikeDeleteSelect(c);
+		
+		ClassAttachment like = studyManagementService.likeClassData(c);
+		JSONObject jobj = new JSONObject();
+		jobj.put("like", like);
 		return new Gson().toJson(jobj);
 	}
 	//강의자료실 작성하기 폼
@@ -163,7 +198,6 @@ public class studyManagementController {
 		int result2 = 0;
 		int i = 1;
 		for(MultipartFile f : fileList) {
-			System.out.println(f);
 			if(!f.getOriginalFilename().equals("") && i == 1) {
 				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/classRoomData/");
 				c.setClassOriginName(f.getOriginalFilename());
@@ -200,24 +234,62 @@ public class studyManagementController {
 		return mv;
 	}
 	
-	//강의 수정 페이지 이동
+	
+	//강의작성
+	@ResponseBody
+	@RequestMapping(value = "fileUpload.lm")
+	public String ajaxFileUpLoad(MultipartHttpServletRequest files,  ClassAttachment c, HttpSession session) {
+		List<MultipartFile> fileList = files.getFiles("fileList");
+		int result1 = studyManagementService.createDataroom(c);
+		int result2 = 0;
+		int i = 1;
+		for(MultipartFile f : fileList) {
+			if(!f.getOriginalFilename().equals("") && i == 1) {
+				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/classRoomData/");
+				c.setClassOriginName(f.getOriginalFilename());
+				c.setClassChangeName(changeName);
+				c.setClassFileSize(f.getSize()/1024);
+				c.setClassFilePath("resources/uploadFiles/employee/"+ changeName);
+				c.setClassFileLevel(i);
+				result2 = studyManagementService.createDataAttachment(c);
+				i = 0;
+			}else if(!f.getOriginalFilename().equals("") && i == 0){
+				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/classRoomData/");
+				c.setClassOriginName(f.getOriginalFilename());
+				c.setClassChangeName(changeName);
+				c.setClassFileSize(f.getSize());
+				c.setClassFilePath("resources/uploadFiles/employee/"+ changeName);
+				c.setClassFileLevel(i);
+				result2 = studyManagementService.createDataAttachment(c);
+			}
+		}
+		JSONObject jobj = new JSONObject();
+		jobj.put("c", c);
+		return new Gson().toJson(jobj);
+	}
+	
+	
+	//강의 수정
+	@ResponseBody
 	@RequestMapping(value = "update.lm")
-	public String updateDataroom(ModelAndView mv, ClassAttachment c, String[] filePath, String[] fileNo,HttpSession session, MultipartHttpServletRequest reupfiles) {
-		List<MultipartFile> fileList = reupfiles.getFiles("reupfiles");
+	public String updateDataroom(ClassAttachment c, String[] filePath, String[] fileNo, HttpSession session, MultipartHttpServletRequest reupfiles) {
+		List<MultipartFile> fileList = reupfiles.getFiles("fileList");
 		int result1 = studyManagementService.updateDataroom(c);
 		int result2 = 0;
 		int i = 1;
-		
+
 		if(fileList.size() > 0) {
 			if(filePath.length > 0) {
 				for(String s : filePath) {
 					new File(session.getServletContext().getRealPath(s)).delete();
+					System.out.println("사진삭제성공");
 				}
 				
 				for(String fn : fileNo) {
 					int num = studyManagementService.deleteDataAttachment(fn);
+					System.out.println("DB삭제성공");
 				}
-		}
+			}
 			
 			for(MultipartFile f : fileList) {
 				if(!f.getOriginalFilename().equals("") && i == 1) {
@@ -229,6 +301,9 @@ public class studyManagementController {
 					c.setClassFilePath("resources/uploadFiles/employee/"+ changeName);
 					c.setClassFileLevel(i);
 					result2 = studyManagementService.createUpdateDataAttachment(c);
+					if(result2 > 0) {
+						System.out.println("수정성공");
+					}
 					i = 0;
 				}else if(!f.getOriginalFilename().equals("") && i == 0){
 					String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/classRoomData/");
@@ -239,11 +314,16 @@ public class studyManagementController {
 					c.setClassFilePath("resources/uploadFiles/employee/"+ changeName);
 					c.setClassFileLevel(i);
 					result2 = studyManagementService.createUpdateDataAttachment(c);
+					if(result2 > 0) {
+						System.out.println("수정성공");
+					}
 				}
 			}
 		}
-		System.out.println(c.getClassDataNo());
-		return "redirect:/detailView.lm?dataNo="+ c.getClassDataNo();
+		
+		JSONObject jobj = new JSONObject();
+		jobj.put("c", c);
+		return new Gson().toJson(jobj);
 	}
 	
 	//강의자료 페이지 삭제
@@ -269,14 +349,19 @@ public class studyManagementController {
 		System.out.println(boardLimit);
 		int listCount = studyManagementService.ajaxSelectListCount(empNo);
 		PageInfo pi = Pagenation.getPageInfo(listCount, currentPage, 3, boardLimit);
-		ArrayList<Category> classroomList = studyManagementService. selectClassCategoryList();
+		ArrayList<Category> classroomList = studyManagementService.selectClassCategoryList();
 		ArrayList<Student> studentList = studyManagementService.ajaxStudentSelectList(pi, empNo);
+		int classNo = 0;
+		for(Student s : studentList) {
+			classNo = s.getClassNo();
+		}
 		JSONObject jobj = new JSONObject();
 		jobj.put("pi", pi);
 		jobj.put("classroomList", classroomList);
 		jobj.put("listCount", listCount);
 		jobj.put("boardLimit", boardLimit);
 		jobj.put("studentList", studentList);
+		jobj.put("classNo", classNo);
 		return new Gson().toJson(jobj);
 	}
 
@@ -284,6 +369,7 @@ public class studyManagementController {
 	@ResponseBody
 	@RequestMapping(value = "deleted.stm",  produces = "appalication/json; charset = UTF-8")
 	public String ajaxStudentDeleteList(HttpSession session,  @RequestParam(value="studentNoList[]") List<Integer> studentNoList, @RequestParam(value="cpage", defaultValue = "1") int currentPage, @RequestParam(value="boardLimit", defaultValue = "10") int boardLimit) {
+		int classNo= 0;
 		for(int sno : studentNoList) {
 			int result = studyManagementService.deleteStudent(sno);
 			if(result < 1) {
@@ -297,15 +383,20 @@ public class studyManagementController {
 		ArrayList<Category> classroomList = studyManagementService.selectClassCategoryList();
 		ArrayList<Student> studentList = studyManagementService.ajaxStudentSelectList(pi, empNo);
 		
+		for(Student s : studentList) {
+			classNo = s.getClassNo();
+		}
+		
 		JSONObject jobj = new JSONObject();
 		jobj.put("pi", pi);
 		jobj.put("classroomList", classroomList);
 		jobj.put("listCount", listCount);
 		jobj.put("studentList", studentList);
+		jobj.put("classNo", classNo);
 		return new Gson().toJson(jobj);
 	}
 	
-	//학생추가 폼
+	//학생빠른추가
 	@ResponseBody	
 	@RequestMapping(value = "ajaxaddSelectList.stm",  produces = "appalication/json; charset = UTF-8")
 	public String ajaxSpeedinsertStudent(HttpSession session, Student student,
@@ -316,13 +407,15 @@ public class studyManagementController {
 		int empNo = ((Employee)session.getAttribute("loginUser")).getEmpNo();
 		int listCount = studyManagementService.ajaxSelectListCount(empNo);
 		PageInfo pi = Pagenation.getPageInfo(listCount, currentPage, 3, boardLimit);
-		ArrayList<Category> classroomList = studyManagementService. selectClassCategoryList();
+		ArrayList<Category> classroomList = studyManagementService.selectClassCategoryList();
 		ArrayList<Student> studentList = studyManagementService.ajaxStudentSelectList(pi, empNo);
 		JSONObject jobj = new JSONObject();
 		jobj.put("pi", pi);
 		jobj.put("classroomList", classroomList);
 		jobj.put("listCount", listCount);
 		jobj.put("studentList", studentList);
+		jobj.put("classNo", student.getClassNo());
+
 		return new Gson().toJson(jobj);
 	}
 	
@@ -384,63 +477,35 @@ public class studyManagementController {
 	
 		return "studyManagement/lessonPlan";
 	}
-	
-	@ResponseBody
-	@RequestMapping(value = "fileUpload.stm")
-	public String ajaxFileUpLoad(@RequestBody MultipartFile[] files,  ClassAttachment c, HttpSession session) {
-		System.out.println(files);
-//		List<MultipartFile> fileList = files.getFiles("fileList");
-//		int result1 = studyManagementService.createDataroom(c);
-//		int result2 = 0;
-//		int i = 1;
-//		for(MultipartFile f : fileList) {
-//			System.out.println(f);
-//			if(!f.getOriginalFilename().equals("") && i == 1) {
-//				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/classRoomData/");
-//				c.setClassOriginName(f.getOriginalFilename());
-//				c.setClassChangeName(changeName);
-//				c.setClassFileSize(f.getSize()/1024);
-//				c.setClassFilePath("resources/uploadFiles/employee/"+ changeName);
-//				c.setClassFileLevel(i);
-//				result2 = studyManagementService.createDataAttachment(c);
-//				i = 0;
-//			}else if(!f.getOriginalFilename().equals("") && i == 0){
-//				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/classRoomData/");
-//				c.setClassOriginName(f.getOriginalFilename());
-//				c.setClassChangeName(changeName);
-//				c.setClassFileSize(f.getSize());
-//				c.setClassFilePath("resources/uploadFiles/employee/"+ changeName);
-//				c.setClassFileLevel(i);
-//				result2 = studyManagementService.createDataAttachment(c);
-//			}
-//		}
-//		JSONObject jobj = new JSONObject();
-//		jobj.put("c", c);
-//		return new Gson().toJson(jobj);
 		
-		return "ok";
-	}
-	
-	
 	//학생초성 검색
 	@ResponseBody
 	@RequestMapping(value = "ajaxInutialSelectList.stm",  produces = "appalication/json; charset = UTF-8")
 	public String ajaxInutialSelectList( HttpSession session,  Student student, @RequestParam(value="cpage", defaultValue = "1") int currentPage, @RequestParam(value="boardLimit", defaultValue = "10") int boardLimit) {
 		int listCount = studyManagementService.ajaxInutialSelectCount(student);
-		PageInfo pi = Pagenation.getPageInfo(listCount, currentPage, 3, boardLimit);
-		ArrayList<Category> classroomList = studyManagementService. selectClassCategoryList();
-		ArrayList<Student> studentList = studyManagementService.ajaxInutialSelectList(pi, student);
-		
+		System.out.println(student);
+		PageInfo pi = new PageInfo();
+		ArrayList<Category> classroomList = new ArrayList();
+		ArrayList<Student> studentList = new ArrayList();
+		if(listCount > 0) {
+			pi = Pagenation.getPageInfo(listCount, currentPage, 3, boardLimit);
+			classroomList = studyManagementService.selectClassCategoryList();
+			studentList = studyManagementService.ajaxInutialSelectList(pi, student);
+		}else {
+			
+			System.out.println("초성없습니다.");
+		}
 		JSONObject jobj = new JSONObject();
 		jobj.put("pi", pi);
 		jobj.put("classroomList", classroomList);
 		jobj.put("listCount", listCount);
 		jobj.put("boardLimit", boardLimit);
 		jobj.put("studentList", studentList);
+		jobj.put("classNo", student.getClassNo());
 		return new Gson().toJson(jobj);
 	}
 	
-	//학생초성 검색
+	//학생검색어로 검색
 	@ResponseBody
 	@RequestMapping(value = "ajaxSelectSerachStudent.stm",  produces = "appalication/json; charset = UTF-8")
 	public String ajaxSelectSerachStudent( HttpSession session,  Student student, 
@@ -449,7 +514,7 @@ public class studyManagementController {
 		System.out.println(student);
 		int listCount = studyManagementService.ajaxSelectSerachStudentCount(student);
 		PageInfo pi = Pagenation.getPageInfo(listCount, currentPage, 3, boardLimit);
-		ArrayList<Category> classroomList = studyManagementService. selectClassCategoryList();
+		ArrayList<Category> classroomList = studyManagementService.selectClassCategoryList();
 		ArrayList<Student> studentList = studyManagementService.ajaxSelectSerachStudent(pi, student);
 		
 		JSONObject jobj = new JSONObject();
@@ -458,6 +523,7 @@ public class studyManagementController {
 		jobj.put("listCount", listCount);
 		jobj.put("boardLimit", boardLimit);
 		jobj.put("studentList", studentList);
+		jobj.put("classNo", student.getClassNo());
 		return new Gson().toJson(jobj);
 	}
 

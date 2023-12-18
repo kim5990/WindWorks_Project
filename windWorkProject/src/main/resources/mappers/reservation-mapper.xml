@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="reservationMapper">
+	<resultMap type = "Reservation" id="reservationResult">
+		<result column="RESERVATION_NO" property="reserNo"/>
+		<result column="ASSETS_NO" property="assNo"/>
+		<result column="EMP_NO" property="empNo"/>
+		<result column="RESERVATION_NAME" property="reserName"/>
+		<result column="START_TIME" property="startTime"/>
+		<result column="END_TIME" property="endTime"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="DELETE_STATUS" property="deleteStatus"/>
+		<result column="ASSETS_NAME" property="assName"/>
+	</resultMap>
+	
+	<resultMap type = "Assets" id="assetsResult">
+		<result column="ASSETS_NO" property="assNo"/>
+		<result column="ASSETS_NAME" property="assName"/>
+	</resultMap>
+	
+	<!-- 재물 리스트 조회 쿼리문 -->
+	<select id="selectAssetsList" resultMap="assetsResult">
+ 		SELECT ASSETS_NO,
+ 			   ASSETS_NAME
+ 		  FROM ASSETS
+ 		 ORDER BY ASSETS_NO ASC
+ 	</select>
+ 	
+ 	<!-- 예약된 재물 리스트 조회 쿼리문 -->
+	<select id="selectReservationList" resultMap="reservationResult">
+ 		SELECT RESERVATION_NO,
+ 			   ASSETS_NO,
+ 			   EMP_NO,
+ 			   RESERVATION_NAME,
+ 			   TO_CHAR(START_TIME, 'HH24:MI') AS START_TIME,
+ 			   TO_CHAR(END_TIME, 'HH24:MI') AS END_TIME,
+ 			   TO_CHAR(START_DATE, 'YYYY-MM-DD') AS START_DATE,
+ 			   TO_CHAR(END_DATE, 'YYYY-MM-DD') AS END_DATE,
+ 			   DELETE_STATUS,
+ 			   ASSETS_NAME
+ 		  FROM RESERVATION
+ 		  JOIN ASSETS USING (ASSETS_NO)
+ 		 WHERE EMP_NO = #{empNo}
+ 		   AND DELETE_STATUS = 'Y'
+ 		 ORDER BY RESERVATION_NO ASC
+ 	</select>
+</mapper>

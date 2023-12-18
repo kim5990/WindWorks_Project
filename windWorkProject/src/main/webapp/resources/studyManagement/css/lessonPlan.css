@@ -1,7 +1,8 @@
 a {
     text-decoration: none;
 }
-.lessonPlan{
+
+.lessonPlan {
     display: flex;
     width: 100%;
     height: calc(100vh - 60px);
@@ -10,17 +11,17 @@ a {
     align-items: center;
 }
 
-.studyManagementMenus{
+.studyManagementMenus {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
     justify-content: center;
     align-items: center;
-    
+
 }
 
-.studyManagement-title-months{
+.studyManagement-title-months {
     display: flex;
     width: 20px;
     height: 20px;
@@ -34,25 +35,25 @@ a {
     color: black;
 }
 
-.months{
+.months {
     border: 1px solid black;
     background-color: black;
     color: white;
 }
 
-.studyManagement-title{
+.studyManagement-title {
     display: flex;
     width: 850px;
     height: 120px;
 }
 
-.studyManagement-title-container{
+.studyManagement-title-container {
     display: flex;
     width: 850px;
     height: 100px;
 }
 
-.studyManagement-title1{
+.studyManagement-title1 {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -60,7 +61,7 @@ a {
     height: 100px;
 }
 
-.studyManagement-title2{
+.studyManagement-title2 {
     display: flex;
     justify-content: end;
     align-items: end;
@@ -68,44 +69,46 @@ a {
     height: 100px;
 }
 
-.studyManagement-title-fontStyle1{
+.studyManagement-title-fontStyle1 {
     font-weight: 400;
 }
 
-.studyManagement-title-fontStyle2{
+.studyManagement-title-fontStyle2 {
     font-weight: 800;
     margin: 0;
 }
 
-.studyManagement-title2-month{
+.studyManagement-title2-month {
     width: 384px;
     height: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.studyManagement-contents{
+
+.studyManagement-contents {
     height: 400px;
     width: 940px;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
-.studyManagement-contents-container{
+
+.studyManagement-contents-container {
     width: 850px;
     height: 400px;
     display: flex;
     justify-content: space-between;
 }
 
-.studyManagement-contents-container1{
+.studyManagement-contents-container1 {
     width: 423px;
     height: 400px;
     display: flex;
     flex-direction: column;
 }
 
-.studyManagement-contents-container2{
+.studyManagement-contents-container2 {
     width: 423px;
     height: 60px;
     display: flex;
@@ -115,7 +118,7 @@ a {
     color: white;
 }
 
-.studyManagement-contents-container3{
+.studyManagement-contents-container3 {
     flex: 1;
     width: 423px;
     display: flex;
@@ -123,7 +126,8 @@ a {
     align-items: center;
     border: 1px solid rgba(0, 0, 0, 0.171);
 }
-.studyManagement-contents-container4{
+
+.studyManagement-contents-container4 {
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -133,7 +137,8 @@ a {
     line-height: 30px;
 
 }
-.studyManagement-contents-container-icon1{
+
+.studyManagement-contents-container-icon1 {
     display: flex;
     align-items: center;
     justify-content: end;
@@ -141,7 +146,8 @@ a {
     height: 200px;
     color: #B62547;
 }
-.studyManagement-contents-container-icon2{
+
+.studyManagement-contents-container-icon2 {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -150,11 +156,11 @@ a {
     color: #B62547;
 }
 
-.left_movement{
+.left_movement {
     cursor: pointer;
 }
 
 
-.right_movement{
+.right_movement {
     cursor: pointer;
 }

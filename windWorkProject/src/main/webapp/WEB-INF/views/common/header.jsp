@@ -19,7 +19,13 @@
     <script src="resources/common/js/onload.js"></script> 
     
 </head>
-<body id="body-pd" >
+<body id="body-pd">
+    <c:if test="${ !empty alertMsg }">
+		<script>
+			alert("${alertMsg}");
+		</script>
+		<c:remove var="alertMsg" scope="session"/>
+	</c:if>
    <div class="l-navbar" id="navbar">
         <nav class="nav">
             <div class="main-logo">
@@ -58,17 +64,17 @@
                         <span class="nav_name">채팅</span>
                     </a>
 
-                    <a href="#" class="nav__link">
+                    <a href="list.com" class="nav__link">
                         <ion-icon name="chatbox-ellipses-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">커뮤니티</span>
                     </a>
 
-                    <a href="#" class="nav__link">
+                    <a href="reservationPage.re" class="nav__link">
                         <ion-icon name="time-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">예약</span>
                     </a>
                 </div>
-                <a href="#" class="nav__link">
+                <a href="list.no" class="nav__link">
                     <ion-icon name="notifications-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">공지사항</span>
                 </a>

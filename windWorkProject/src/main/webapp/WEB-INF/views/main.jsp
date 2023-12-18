@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body onload="mainOnload()" >
+
 	<c:choose>
 		<c:when test="${!empty loginUser}">
 			<jsp:include page="common/header.jsp" />
@@ -16,5 +17,6 @@
 			<jsp:include page="common/login.jsp" />
 		</c:otherwise>
 	</c:choose>
+
 </body>
 </html>

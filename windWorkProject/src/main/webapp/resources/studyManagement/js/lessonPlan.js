@@ -1,3 +1,4 @@
+const context = [];
 function detailMaterialsView(dataNo) {
     location.href = "detailView.lm?dataNo=" + dataNo
 }
@@ -13,6 +14,7 @@ const studyManageFormMovement = function (num, cpage) {
 
 //강의계획표 뷰
 function drowlessonPlanView(res) {
+
     let str = "";
     const list = res.list;
     const cpage = res.pi;
@@ -105,27 +107,37 @@ function drowlectureMaterialsView(res) {
     let caLevellist = res.caLevellist;
     let calist = res.calist;
     let lmpi = res.lmpi;
-    let category = calist[0].category;
+    let category = res.category;
     let str = "";
     let calistStr = "";
-
-    for (let i = 0; i < calist.length; i++) {
-        calistStr += '<tr style="height : 50px;" onclick = "detailMaterialsView(' + calist[i].classDataNo + ')" class = "lectureMaterials-Materials-tr">'
-            + '<td class="lectureMaterials-Materials-table-th2">' + calist[i].classDataNo + '</td>'
-            + '<td class="lectureMaterials-Materials-table-th">' + calist[i].classDataTitle + '</td>'
-            + '<td class="lectureMaterials-Materials-table-th">' + calist[i].classDataDate + '</td>'
+    if (calist.length == 0) {
+        calistStr += '<tr style="height : 50px;"  class = "lectureMaterials-Materials-tr">'
+            + '<td class="lectureMaterials-Materials-table-th2"> 1 </td>'
+            + '<td class="lectureMaterials-Materials-table-th">자료가 없습니다.</td>'
+            + '<td class="lectureMaterials-Materials-table-th"></td>'
             + '<td class="lectureMaterials-Materials-table-th3">'
-        for (let caLevel of caLevellist) {
-            if (caLevel.classDataNo === calist[i].classDataNo) {
-                calistStr += '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">'
-                    + '<path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>'
-                    + '<path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>'
-                    + '</svg>'
+            + '</td>'
+            + '<tr>'
+    } else {
+        for (let i = 0; i < calist.length; i++) {
+            calistStr += '<tr style="height : 50px;" onclick = "detailMaterialsView(' + calist[i].classDataNo + ')" class = "lectureMaterials-Materials-tr">'
+                + '<td class="lectureMaterials-Materials-table-th2">' + calist[i].classDataNo + '</td>'
+                + '<td class="lectureMaterials-Materials-table-th">' + calist[i].classDataTitle + '</td>'
+                + '<td class="lectureMaterials-Materials-table-th">' + calist[i].classDataDate + '</td>'
+                + '<td class="lectureMaterials-Materials-table-th3">'
+            for (let caLevel of caLevellist) {
+                if (caLevel.classDataNo === calist[i].classDataNo) {
+                    calistStr += '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">'
+                        + '<path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>'
+                        + '<path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>'
+                        + '</svg>'
+                }
             }
+            calistStr += '</td>'
+                + '</tr>'
         }
-        calistStr += '</td>'
-            + '</tr>'
     }
+
 
 
     let pageStr = "";
@@ -157,18 +169,18 @@ function drowlectureMaterialsView(res) {
             + '<div class="lectureMaterials-Materials-cotainer">'
             + '<div class="lectureMaterials-search-container">'
             + '<div class="lectureMaterials-search-container2">'
-            + '<form class="d-flex">'
+            + '<div class="d-flex">'
             + '<select class="form-select form-select-sm" style="width: 80px;" id="specificSizeSelect">'
             + '<option value="1">제목</option>'
             + '<option value="2">내용</option>'
             + '</select>'
-            + '<input id = "lectureMaterialsSearch" onkeyup = "lectureMaterialsSearch(event, '+ "'" + category + "'" +')" class="form-control form-control-sm" type="search">'
-            + '<button class="btn btn-outline-danger" onclick = "lectureMaterialsSearch(event, '+ "'" + category + "'" +')" type="submit"style="--bs-btn-padding-y: .5rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 0.5rem;">'
+            + '<input id = "lectureMaterialsSearch" onkeyup = "lectureMaterialsSearch(event, ' + "'" + category + "'" + ')" class="form-control form-control-sm" type="search">'
+            + '<button class="btn btn-outline-danger" onclick = "lectureMaterialsSearch(event, ' + "'" + category + "'" + ')" type="submit"style="--bs-btn-padding-y: .5rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 0.5rem;">'
             + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">'
             + '<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>'
             + '</svg>'
             + '</button>'
-            + '</form>'
+            + '</div>'
             + '</div>'
             + '</div>'
             + '<div class="lectureMaterials-Materials-cotainer2">'
@@ -255,22 +267,21 @@ function drowupdateBtnLessonPlanView(res) {
 
     let textareaStr = '<textarea style="height: 465px;" name = "classContent" class="form-control" aria-label="With textarea">' + list[0].classContent
         + '</textarea>'
-
     document.querySelector("#modalclassContentInput").innerHTML = textareaStr;
-
-    document.querySelector("#modalclassWeekInput").onChange = function () {
-
-        let textareaStr = '';
-        for (let i = 0; i < list.length; i++) {
-            if (this.value == i) {
-                textareaStr += '<textarea style="height: 465px;" name ="classContent" class="form-control" aria-label="With textarea">' + list[i].classContent
-                    + '</textarea>'
-            }
-        }
-
-        document.querySelector("#modalclassContentInput").innerHTML = textareaStr;
-    }
+    context.push = list;
 }
+//수정 모달 주가 바뀔시
+function modalclassWeekInputOnchange(week) {
+    console.log(week.value);
+    let num = week.value - 1;
+    console.log(num);
+    console.log(context);
+    let text = '<textarea style="height: 465px;" name ="classContent" class="form-control" aria-label="With textarea">' + context.push[num].classContent
+        + '</textarea>'
+
+    document.querySelector("#modalclassContentInput").innerHTML = text;
+}
+
 
 //학생관리 뷰
 function drowstudentManagementView(res) {
@@ -279,34 +290,50 @@ function drowstudentManagementView(res) {
     const pi = res.pi;
     const listCount = res.listCount;
     const classroomList = res.classroomList;
+    let classNo = 0;
+    if (res.classNo === 0) {
+        classNo = res.studentList[0].classNo;
+    } else {
+        classNo = res.classNo;
+    }
+
     let classroomStr = ""
     for (let classroom of classroomList) {
         classroomStr += '<option value="">' + classroom.classroomCategoryName + '</option>'
     }
     let studentStr = ""
-    for (let student of studentList) {
-        let studentProfilePath = student.studentProfilePath ? student.studentProfilePath : "resources/uploadFiles/student/2023121414253910365.png";
-        let studentAddress = student.studentAddress ? student.studentAddress : "";
-        let studentBirth = student.studentBirth ? student.studentBirth : "";
-        let studentGender = student.studentGender ? student.studentGender : "";
-        let studentMemo = student.studentMemo ? student.studentMemo : "";
-        let classroomName = student.classroomName ? student.classroomName : "";
-        let studentAttemdemce = student.studentAttemdemce ? student.studentAttemdemce : "";
+    if (listCount > 0) {
+        for (let student of studentList) {
+            let studentProfilePath = student.studentProfilePath ? student.studentProfilePath : "resources/uploadFiles/student/2023121414253910365.png";
+            let studentAddress = student.studentAddress ? student.studentAddress : "";
+            let studentBirth = student.studentBirth ? student.studentBirth : "";
+            let studentGender = student.studentGender ? student.studentGender : "";
+            let studentMemo = student.studentMemo ? student.studentMemo : "";
+            let classroomName = student.classroomName ? student.classroomName : "";
+            let studentAttemdemce = student.studentAttemdemce ? student.studentAttemdemce : "";
+            studentStr += '<tr class="student-tbody-tr">'
+                + '<td style="padding: 8px 0px 8px 24px; width : 50px;">'
+                + '<input class="student-tbody-tr-checkbox" value = "' + student.studentNo + '" type="checkbox" name="studentNo" id="">'
+                + '</td>'
+                + '<td class = "student-tbody-td-studentName" onclick = "updateStudent(' + student.studentNo + ')" style="padding: 8px 4px; width : 80px;">' + '<img class="student-info-profile-img" src="' + studentProfilePath + '">' + student.studentName + '</td>'
+                + '<td style="padding: 8px 4px; width : 100px;">' + student.studentPhone + '</td>'
+                + '<td style="padding: 8px 4px; width : 130px;">' + student.studentEmail + '</td>'
+                + '<td style="padding: 8px 4px;">' + studentAddress + '</td>'
+                + '<td style="padding: 8px 4px; width : 100px;">' + studentBirth + '</td>'
+                + '<td style="padding: 8px 4px; width : 50px;">' + studentGender + '</td>'
+                + '<td style="padding: 8px 4px; width : 150px;">' + studentMemo + '</td>'
+                + '<td style="padding: 8px 4px; width : 80px;">' + classroomName + '</td>'
+                + '<td style="padding: 8px 4px; width : 50px;">' + studentAttemdemce + '</td>'
+                + '</tr>'
+        }
+    } else {
         studentStr += '<tr class="student-tbody-tr">'
-            + '<td style="padding: 8px 0px 8px 24px; width : 50px;">'
-            + '<input class="student-tbody-tr-checkbox" value = "' + student.studentNo + '" type="checkbox" name="studentNo" id="">'
+            + '<td colspan = "10" style="padding: 8px 0px 8px 24px; width : 50px;">'
+            + '검색 결과가 없습니다.'
             + '</td>'
-            + '<td class = "student-tbody-td-studentName" onclick = "updateStudent(' + student.studentNo + ')" style="padding: 8px 4px; width : 80px;">' + '<img class="student-info-profile-img" src="' + studentProfilePath + '">' + student.studentName + '</td>'
-            + '<td style="padding: 8px 4px; width : 100px;">' + student.studentPhone + '</td>'
-            + '<td style="padding: 8px 4px; width : 130px;">' + student.studentEmail + '</td>'
-            + '<td style="padding: 8px 4px;">' + studentAddress + '</td>'
-            + '<td style="padding: 8px 4px; width : 100px;">' + studentBirth + '</td>'
-            + '<td style="padding: 8px 4px; width : 50px;">' + studentGender + '</td>'
-            + '<td style="padding: 8px 4px; width : 150px;">' + studentMemo + '</td>'
-            + '<td style="padding: 8px 4px; width : 80px;">' + classroomName + '</td>'
-            + '<td style="padding: 8px 4px; width : 50px;">' + studentAttemdemce + '</td>'
             + '</tr>'
     }
+
     let boardLimitStr = "";
 
     if (boardLimit == 5) {
@@ -370,9 +397,9 @@ function drowstudentManagementView(res) {
         + '<option value = "studentEmail">이메일</option>'
         + '</select>'
         + '<div class="student-header-searchbar-input1">'
-        + ' <input name = "searchbarInput" id = "searchbarInput" onkeyup="enterkey(event, '+ studentList[0].classNo +', '+ boardLimit +');" class="student-header-searchbar-input" type="text">'
+        + ' <input name = "searchbarInput" id = "searchbarInput" onkeyup="enterkey(event, ' + classNo + ', ' + boardLimit + ');" class="student-header-searchbar-input" type="text">'
         + '</div>'
-        + '<div onclick = "enterkey(event, '+ studentList[0].classNo +', '+ boardLimit +');" class="student-header-searchbar-input-searchbtn">'
+        + '<div onclick = "enterkey(event, ' + classNo + ', ' + boardLimit + ');" class="student-header-searchbar-input-searchbtn">'
         + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">'
         + '<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />'
         + '</svg>'
@@ -407,7 +434,7 @@ function drowstudentManagementView(res) {
     str += ' <form class="student-speed-regist">'
         + '<fieldset class="student-speed-regist-fleldset">'
         + '<div class="student-header-form-speed">'
-        + '<input type="hidden" name = "classNo" id = "speedInputClassNo" value = "' + studentList[0].classNo + '">'
+        + '<input type="hidden" name = "classNo" id = "speedInputClassNo" value = "' + classNo + '">'
         + '<input type="text" placeholder="이름" id = "speedInputStudentName" name = "studentName" class="student-input student-speed-first">'
         + '<input type="text" placeholder="이메일" id = "speedInputStudentEmail" name = "studentEmail"  class="student-input">'
         + '<input type="text" placeholder="휴대폰"  id = "speedInputStudentPhone"  name = "studentPhone" class="student-input">'
@@ -423,49 +450,49 @@ function drowstudentManagementView(res) {
 
     str += '<div class="student-header-toolbar-container">'
         + '<ul id ="student-ul" class="student-header-toolbar-critical">'
-        + '<li onclick="initialconsonantSearh(0, 55203, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2 student-on">'
+        + '<li onclick="initialconsonantSearh(0, 55203, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2 student-on">'
         + '<span>전체</span>'
         + '</li>'
-        + '<li onclick="initialconsonantSearh(0, 45207, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(0, 45207, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2">'
         + ' <span>ㄱ</span>'
         + '</li>'
-        + '<li onclick="initialconsonantSearh(45207, 45795, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(45207, 45795, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2">'
         + '<span>ㄴ</span>'
         + '</li>'
-        + '<li onclick="initialconsonantSearh(45795, 46971, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(45795, 46971, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2">'
         + '<span>ㄷ</span>'
         + '</li>'
-        + '<li onclick="initialconsonantSearh(46971, 47559, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(46971, 47559, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2">'
         + '<span>ㄹ</span>'
         + '</li>'
-        + '<li onclick="initialconsonantSearh(47559, 48147, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(47559, 48147, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2">'
         + '<span>ㅁ</span>'
         + '</li>'
-        + '<li onclick="initialconsonantSearh(48147, 49323, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(48147, 49323, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2">'
         + '<span>ㅂ</span>'
         + '</li>'
-        + '<li onclick="initialconsonantSearh(49323, 50499, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(49323, 50499, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2">'
         + '<span>ㅅ</span>'
         + '</li>'
-        + '<li onclick="initialconsonantSearh(50499, 51087, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(50499, 51087, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2">'
         + '<span>ㅇ</span>'
         + '</li>'
-        + '<li onclick="initialconsonantSearh(51087, 52263, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(51087, 52263, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2">'
         + '<span>ㅈ</span>'
         + '</li>'
-        + '<li onclick="initialconsonantSearh(52263, 52851, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(52263, 52851, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2">'
         + '<span>ㅊ</span>'
         + '</li>'
-        + '<li onclick="initialconsonantSearh(52851, 53439, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(52851, 53439, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2">'
         + '<span>ㅋ</span>'
         + '</li>'
-        + '<li onclick="initialconsonantSearh(53439, 54027, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(53439, 54027, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2">'
         + '<span>ㅌ</span>'
         + '</li>'
-        + '<li onclick="initialconsonantSearh(54027, 54615, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(54027, 54615, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2">'
         + '<span>ㅍ</span>'
         + '</li>'
-        + '<li onclick="initialconsonantSearh(54615, 55203, this, ' + studentList[0].classNo + ', '+ boardLimit +')" class="student-btn-tool2">'
+        + '<li onclick="initialconsonantSearh(54615, 55203, this, ' + classNo + ', ' + boardLimit + ')" class="student-btn-tool2">'
         + '<span>ㅎ</span>'
         + '</li>'
         + '</ul>';
@@ -525,6 +552,7 @@ function drowstudentManagementView(res) {
     }
 
     document.querySelector("#studyManagemetMenu").innerHTML = str;
+
 }
 
 function deleteStudent() {
@@ -577,43 +605,37 @@ function updateStudent(studentNo) {
     location.href = "updateStudentForm.stm?studentNo=" + studentNo;
 }
 
-function initialconsonantSearh(minUnicodeNum, maxUnicodeNum, liitem, classNo, boardLimit){
+function initialconsonantSearh(minUnicodeNum, maxUnicodeNum, liitem, classNo, boardLimit) {
     let listItems = document.querySelectorAll("#student-ul li");
+    ajaxStudentSelectInutialManagement(minUnicodeNum, maxUnicodeNum, classNo, 1, drowstudentManagementView, boardLimit);
 
-    listItems.forEach(function (item) {
-        item.oncilck = function(){
-            item.classList.add("student-on");
-            // 나머지 항목에서 'selected' 클래스 제거
-            listItems.forEach(function (otherItem) {
-                if (otherItem !== item) {
-                    otherItem.classList.remove("student-on");
-                }
-            });
+    liitem.classList.add("student-on");
+    listItems.forEach(function (otherItem) {
+        if (otherItem !== item) {
+            otherItem.classList.remove("student-on");
         }
     });
-
-    ajaxStudentSelectInutialManagement(minUnicodeNum, maxUnicodeNum, classNo, 1, drowstudentManagementView, boardLimit);
 }
 
-function enterkey(event, classNo, boardLimit){
-    let searchSelect  = document.querySelector("#seacrhSelect").value
+function enterkey(event, classNo, boardLimit) {
+    let searchSelect = document.querySelector("#seacrhSelect").value
     let searchbarInput = document.querySelector("#searchbarInput").value
 
     if ((window.event.keyCode == 13 || !window.event.keyCode) && searchbarInput) {
-      console.log(searchSelect);
-      console.log(searchbarInput);
-      console.log(classNo);
-      ajaxSelectSerachStudent(searchSelect, searchbarInput, 1, classNo, drowstudentManagementView, boardLimit)
-   }
+        console.log(searchSelect);
+        console.log(searchbarInput);
+        console.log(classNo);
+        ajaxSelectSerachStudent(searchSelect, searchbarInput, 1, classNo, drowstudentManagementView, boardLimit)
+    }
 }
 
-function lectureMaterialsSearch(event, category){
-    let searchSelect  = document.querySelector("#specificSizeSelect").value
+function lectureMaterialsSearch(event, category) {
+    let searchSelect = document.querySelector("#specificSizeSelect").value
     let searchbarInput = document.querySelector("#lectureMaterialsSearch").value
     if ((window.event.keyCode == 13 || !window.event.keyCode) && searchbarInput) {
         console.log(searchSelect);
         console.log(searchbarInput);
         console.log(category);
         ajaxLectureMaterialsSearch(searchSelect, searchbarInput, drowstudentManagementView, 1, category)
-     }
+    }
 }

@@ -18,14 +18,15 @@
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <!--css-->
                 <link rel="stylesheet" href="resources/studyManagement/css/createLectureMaterials.css">
-                <script src="resources/studyManagement/js/createLectureMaterials.js"></script>
+                <!--js-->
+                <script src="resources/studyManagement/js/updateLectureMaterials.js"></script>
             </head>
 
             <body onload="lessonOnload()">
                 <jsp:include page="../common/header.jsp" />
                 <div class="menu">
                     <div class="createLectureMaterials">
-                        <form class="createLectureMaterials-container" action="update.lm" method="post"
+                        <form id="updateLecturefileForm" class="createLectureMaterials-container" method="post"
                             enctype="multipart/form-data">
                             <div class="createLectureMaterials-title">
                                 <h4>문서 수정</h4>
@@ -44,24 +45,24 @@
                                         <td style="height: 42px;">
                                             <select
                                                 class="form-select form-select-sm createLectureMaterials-select-subject"
-                                                aria-label="Small select example" name="categoryNo"
-                                                style="font-size: 13px;">
+                                                aria-label="Small select example" id="updateSelectCategory"
+                                                name="categoryNo" style="font-size: 13px;">
                                                 <c:choose>
-                                                    <c:when test="c.category == '자바'">
+                                                    <c:when test="${c.category eq '자바'}">
                                                         <option>선택</option>
                                                         <option selected value="1">자바</option>
                                                         <option value="2">데이터베이스</option>
                                                         <option value="4">파이썬</option>
                                                         <option value="3">자바스크립트</option>
                                                     </c:when>
-                                                    <c:when test="c.category == '데이터베이스'">
+                                                    <c:when test="${c.category eq '데이터베이스'}">
                                                         <option>선택</option>
                                                         <option value="1">자바</option>
                                                         <option selected value="2">데이터베이스</option>
                                                         <option value="4">파이썬</option>
                                                         <option value="3">자바스크립트</option>
                                                     </c:when>
-                                                    <c:when test="c.category == '파이썬'">
+                                                    <c:when test="${c.category eq '파이썬'}">
                                                         <option>선택</option>
                                                         <option value="1">자바</option>
                                                         <option value="2">데이터베이스</option>
@@ -105,28 +106,28 @@
                                                 aria-label="Small select example" name="classDataTimeName"
                                                 style=" font-size: 13px;">
                                                 <c:choose>
-                                                    <c:when test="c.classDataTimeName == 3">
+                                                    <c:when test="${c.classDataTimeName eq 3}">
                                                         <option selected value="3">3년</option>
                                                         <option value="5">5년</option>
                                                         <option value="15">15년</option>
                                                         <option value="20">20년</option>
                                                         <option value="25">25년</option>
                                                     </c:when>
-                                                    <c:when test="c.classDataTimeName == 5">
+                                                    <c:when test="${c.classDataTimeName eq 5}">
                                                         <option value="3">3년</option>
                                                         <option selected value="5">5년</option>
                                                         <option value="15">15년</option>
                                                         <option value="20">20년</option>
                                                         <option value="25">25년</option>
                                                     </c:when>
-                                                    <c:when test="c.classDataTimeName == 15">
+                                                    <c:when test="${c.classDataTimeName eq 15}">
                                                         <option value="3">3년</option>
                                                         <option value="5">5년</option>
                                                         <option selected value="15">15년</option>
                                                         <option value="20">20년</option>
                                                         <option value="25">25년</option>
                                                     </c:when>
-                                                    <c:when test="c.classDataTimeName == 20">
+                                                    <c:when test="${c.classDataTimeName eq 20}">
                                                         <option value="3">3년</option>
                                                         <option value="5">5년</option>
                                                         <option value="15">15년</option>
@@ -180,8 +181,7 @@
                                                     <span>
                                                         이 곳에 파일을 드래그 하세요. 또는
                                                         <span>
-                                                            <label id="create-fileSelected-label"
-                                                                for="create-fileSelected">파일
+                                                            <label id="create-fileSelected-label" for="fileInput">파일
                                                                 선택</label>
                                                             <input type="file" name="reupfiles"
                                                                 class="create-fileSelected" id="fileInput"
@@ -197,16 +197,22 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th colspan="2" style="height: 316px;">
-                                            <textarea id="postContent" name="classDataContent"
-                                                style="width: 100%; height: 100%;">${c.classDataContent}</textarea>
+                                        <th style="width: 172px; height: 65px;">
+                                            <br>
+                                            <p class="createLectureMaterials-createInputs-p ">내용</p>
                                         </th>
+                                        <td style="height: 316px;">
+                                            <br>
+                                            <textarea class="form-control form-control-sm" id="postContent"
+                                                name="classDataContent"
+                                                style="width: 100%; height: 100%;">${c.classDataContent}</textarea>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
                             <div class="createLectureMaterials-btn-container">
                                 <div class="createLectureMaterials-btn-container2">
-                                    <button class="form-button1" type="submit">등록</button>
+                                    <button class="form-button1" id="updateSave">등록</button>
                                     <button class="form-button2" onclick="history.back()">취소</button>
                                 </div>
                             </div>
