@@ -157,4 +157,14 @@
 			EMP_PHONE = #{empPhone}
 		WHERE EMP_NO = #{empNo}
 	</update>
+	
+	<!-- 이메일 전달 -->
+	<select id="emailEmpList" resultMap="employeeResult">
+		SELECT EMP_NO,
+				EMP_NAME,
+				EMP_EMAIL
+		FROM EMPLOYEE
+		WHERE EMP_STATUS = 1
+			AND EMP_NO != #{empNo}
+	</select>
 </mapper>

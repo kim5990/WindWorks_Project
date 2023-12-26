@@ -26,6 +26,9 @@
   		<typeAlias type="com.kh.ww.studyManagement.model.vo.ClassAttachment" alias="ClassAttachment"/>
   		<typeAlias type="com.kh.ww.studyManagement.model.vo.Student" alias="Student"/>
   		<typeAlias type="com.kh.ww.studyManagement.model.vo.Category" alias="Category"/>
+  		
+  		<typeAlias type="com.kh.ww.mail.model.vo.EmailAttachment" alias="EmailAttachment"/>
+  		<typeAlias type="com.kh.ww.mail.model.vo.Email" alias="Email"/>
   	</typeAliases>
   	
   	<mappers>
@@ -34,6 +37,7 @@
 		<mapper resource="/mappers/community-mapper.xml"/>
 		<mapper resource="/mappers/classPlan-mapper.xml"/>
 		<mapper resource="/mappers/reservation-mapper.xml"/>
+		<mapper resource="/mappers/email-mapper.xml"/>
   	</mappers>
   	
  </configuration>
