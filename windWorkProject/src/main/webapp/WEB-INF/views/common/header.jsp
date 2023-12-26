@@ -54,7 +54,7 @@
                         <span class="nav_name">캘린더</span>
                     </a>
 
-                    <a href="#" class="nav__link">
+                    <a href="list.mail" class="nav__link">
                         <ion-icon name="mail-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">메일</span>
                     </a>
