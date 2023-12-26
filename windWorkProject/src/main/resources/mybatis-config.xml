@@ -32,6 +32,8 @@
   		<typeAlias type="com.kh.ww.chatting.model.vo.ChattingMessage" alias="ChattingMessage"/>
   		<typeAlias type="com.kh.ww.chatting.model.vo.ChattingRoom" alias="ChattingRoom"/>
   		
+		<typeAlias type="com.kh.ww.mail.model.vo.EmailAttachment" alias="EmailAttachment"/>
+		<typeAlias type="com.kh.ww.mail.model.vo.Email" alias="Email"/>
   	</typeAliases>
   	
   	<mappers>
@@ -41,6 +43,7 @@
 		<mapper resource="/mappers/classPlan-mapper.xml"/>
 		<mapper resource="/mappers/reservation-mapper.xml"/>
 		<mapper resource="/mappers/chatting-mapper.xml"/>
+		<mapper resource="/mappers/email-mapper.xml"/>
   	</mappers>
   	
  </configuration>
