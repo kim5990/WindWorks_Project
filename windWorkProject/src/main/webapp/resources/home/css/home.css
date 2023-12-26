@@ -70,6 +70,7 @@ a {
     height: 50%;
     min-width: 120px;
     padding: 3px;
+    font-size: 15px;
 
     display: flex;
     justify-content: space-between;
@@ -83,6 +84,7 @@ a {
     height: 50%;
     min-width: 120px;
     padding: 3px;
+    font-size: 15px;
 
     display: flex;
     justify-content: space-between;
@@ -104,8 +106,8 @@ a {
     padding: 10px;
 }
 .profile-profile-1-img{
-    width: 160px;
-    height: 160px;
+    width: 140px;
+    height: 140px;
 
     border-radius: 50%;
 }
