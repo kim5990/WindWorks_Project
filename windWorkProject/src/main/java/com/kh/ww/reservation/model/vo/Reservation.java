@@ -23,4 +23,6 @@ public class Reservation {
 	private String endDate;
 	private String deleteStatus;
 	private String assName;
+	private String startDateTime;
+	private String endDateTime;
 }

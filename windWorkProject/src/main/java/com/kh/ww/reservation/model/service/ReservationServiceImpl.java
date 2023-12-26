@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.ww.common.model.vo.PageInfo;
 import com.kh.ww.reservation.model.dao.ReservationDao;
 import com.kh.ww.reservation.model.vo.Assets;
 import com.kh.ww.reservation.model.vo.Reservation;
@@ -24,15 +25,33 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationDao.selectAssetsList(sqlSession);
 	}
 	
-	//예약된 재물 리스트 조회
+	//예약된 재물 리스트 조회 페이지 하단
 	@Override
-	public ArrayList<Reservation> selectReservationList(int empNo) {
-		return reservationDao.selectReservationList(sqlSession, empNo);
+	public ArrayList<Reservation> selectReservationListPi(int empNo) {
+		return reservationDao.selectReservationListPi(sqlSession, empNo);
 	}
 	
 	@Override
-	public int selectReservationListCount() {
-		return 0;
+	public int selectReservationListCount(int empNo) {
+		return reservationDao.selectReservationListCount(sqlSession, empNo);
 	}
+	
+	//재물 예약
+	@Override
+	public int reservationAssets(Reservation r) {
+		return reservationDao.reservationAssets(sqlSession, r);
+	}
+	
+	//재물 반납
+	@Override
+	public int deleteReservation(int reserNo) {
+		return reservationDao.deleteReservation(sqlSession, reserNo);
+	}
+
+	//예약된 재물 리스트 조회 페이지 상단
+		@Override
+		public ArrayList<Reservation> selectReservationList(int empNo) {
+			return reservationDao.selectReservationList(sqlSession, empNo);
+		}
 	
 }

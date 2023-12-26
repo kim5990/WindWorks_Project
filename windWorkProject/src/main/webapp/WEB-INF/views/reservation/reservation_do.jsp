@@ -130,7 +130,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="r" items="${reservationList}"> 
+                            <c:forEach var="r" items="${result.reservationList}"> 
                                 <tr>
                                     <td>${r.assName}</td>
                                     <td>${r.startDate} ${r.startTime} ~ ${r.endDate} ${r.endTime}</td>
