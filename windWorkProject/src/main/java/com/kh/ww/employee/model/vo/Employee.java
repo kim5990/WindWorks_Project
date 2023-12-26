@@ -39,5 +39,7 @@ public class Employee {
 	private String condition;
 	private String sorting;
 	private String keyword;
+	
+	private int chatRoomNo;
 
 }
