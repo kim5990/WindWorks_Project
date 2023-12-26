@@ -69,6 +69,28 @@
 		WHERE EMP_EMAIL = #{empEmail}
 	        AND EMP_STATUS = 1
 	</select>
+	
+	<!-- 온라인상태 변경 -->
+	<update id="updateOnline">
+      UPDATE EMPLOYEE
+         SET EMP_ONLINE_STATUS = 1
+       WHERE EMP_NO = #{empNo}
+   </update>
+   
+   <!-- 오프라인 상태 변경 -->
+	<update id="updateOffline">
+      UPDATE EMPLOYEE
+         SET EMP_ONLINE_STATUS = 0
+       WHERE EMP_NO = #{empNo}
+   </update>
+   
+   <!-- 자리비움 상태 변경 -->
+	<update id="updateAway">
+      UPDATE EMPLOYEE
+         SET EMP_ONLINE_STATUS = 2
+       WHERE EMP_NO = #{empNo}
+   </update>
+   
 	<!-- 총 사원수 조회 쿼리문 -->
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)

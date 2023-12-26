@@ -36,6 +36,25 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.loginEmployee(sqlSession, e);
 	}
 	
+	//온라인 상태 변경
+	@Override
+	public int updateOnline(Employee e) {
+		return employeeDao.updateOnline(sqlSession, e);
+	}
+	
+	//오프라인 상태 변경
+	@Override
+	public int updateOffline(Employee e) {
+		return employeeDao.updateOffline(sqlSession, e);
+	}
+	
+	//자리비움 상태 변경
+	@Override
+	public int updateAway(Employee e) {
+		return employeeDao.updateAway(sqlSession, e);
+	}
+
+	
 	//사원수 가져오기
 	@Override
 	public int selectListCount() {
@@ -71,5 +90,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int updateEmployee(Employee e) {
 		return employeeDao.updateEmployee(sqlSession, e);
 	}
+
+
+
+
+
 
 }

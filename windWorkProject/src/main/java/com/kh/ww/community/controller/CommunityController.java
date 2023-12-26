@@ -29,6 +29,8 @@ import com.kh.ww.community.model.vo.CommunityReply;
 import com.kh.ww.employee.model.vo.Employee;
 import com.kh.ww.studyManagement.model.vo.ClassAttachment;
 
+import com.kh.ww.common.template.SaveFile;
+
 @Controller
 public class CommunityController {
 	
@@ -235,7 +237,7 @@ public class CommunityController {
 		// 파일 등록
 		for (MultipartFile f : fileList) {
 			if(!f.getOriginalFilename().equals("") && i == 1) {
-				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/community/");
+				String changeName = SaveFile.getSaveFileInfo(f, session, "resources/uploadFiles/community/");
 				ca.setCommunityOriginName(f.getOriginalFilename());
 				ca.setCommunityChangeName(changeName);
 				ca.setCommunityFilePath("resources/uploadFiles/community/"+ changeName);
@@ -243,7 +245,7 @@ public class CommunityController {
 				result2 = communityService.comBoardAttInsert(ca);
 				i = 0;
 			}else if(!f.getOriginalFilename().equals("") && i == 0){
-				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/community/");
+				String changeName = SaveFile.getSaveFileInfo(f, session, "resources/uploadFiles/community/");
 				ca.setCommunityOriginName(f.getOriginalFilename());
 				ca.setCommunityChangeName(changeName);
 				ca.setCommunityFilePath("resources/uploadFiles/community/"+ changeName);
@@ -312,7 +314,7 @@ public class CommunityController {
 		// 새로운 파일 등록
 		for (MultipartFile f : fileList) {
 			if(!f.getOriginalFilename().equals("") && i == 1) {
-				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/community/");
+				String changeName = SaveFile.getSaveFileInfo(f, session, "resources/uploadFiles/community/");
 				ca.setCommunityOriginName(f.getOriginalFilename());
 				ca.setCommunityChangeName(changeName);
 				ca.setCommunityFilePath("resources/uploadFiles/community/"+ changeName);
@@ -320,7 +322,7 @@ public class CommunityController {
 				result2 = communityService.comBoardAttUpdate(ca);
 				i = 0;
 			}else if(!f.getOriginalFilename().equals("") && i == 0){
-				String changeName = getSaveFileInfo(f, session, "resources/uploadFiles/community/");
+				String changeName = SaveFile.getSaveFileInfo(f, session, "resources/uploadFiles/community/");
 				ca.setCommunityOriginName(f.getOriginalFilename());
 				ca.setCommunityChangeName(changeName);
 				ca.setCommunityFilePath("resources/uploadFiles/community/"+ changeName);
@@ -335,33 +337,6 @@ public class CommunityController {
 		}
 	}
 	
-
-	public String getSaveFileInfo(MultipartFile upfile, HttpSession session, String path) {
-	      // 파일명 수정 후 서버 업로드 시키기("이미지저장용 (2).jpg" => 20231109102712345.jpg)
-	      // 년월일시분초 + 랜덤숫자 5개 + 확장자
-	      // 원래 파일명
-	      String originName = upfile.getOriginalFilename();
-	      // 시간정보 (년월일시분초)
-	      String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-	      // 랜덤숫자 5자리
-	      int ranNum = (int) (Math.random() * 90000) + 10000;
-	      // 확장자
-	      String ext = originName.substring(originName.lastIndexOf("."));
-	      // 변경된이름
-	      String changeName = currentTime + ranNum + ext;
-
-	      // 첨부파일 저장할 폴더의 물리적인 경우
-	      String savePath = session.getServletContext().getRealPath(path);
-	      try {
-			upfile.transferTo(new File(savePath + changeName));
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	      return changeName;
-	}
-
 
 	
 	
