@@ -11,17 +11,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ChattingMessage {
+public class ChattingMsgRead {
 	
-	private int chatMsgNo;
+	private int msgReadNo;
 	private int chatRoomNo;
+	private int chatMsgNo;
 	private int empNo;
-	private String chatMsgContent;
-	private String chatMsgDate;
-	private int chatMsgType;
+	private int isread;
 	
-	private String empName;
-	private int chatRoomLevel;
-	private int isSide;
 
 }

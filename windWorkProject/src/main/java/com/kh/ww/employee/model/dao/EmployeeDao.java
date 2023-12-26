@@ -22,6 +22,21 @@ public class EmployeeDao {
 		return sqlSession.selectOne("employeeMapper.loginEmployee", e);
 	}
 	
+	//온라인 상태 변경
+	public int updateOnline(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.updateOnline", e);
+	}
+	
+	//오프라인 상태 변경
+	public int updateOffline(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.updateOffline", e);
+	}
+	
+	//자리비움 상태 변경
+	public int updateAway(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.updateAway", e);
+	}
+
 	//사원수 가져오기
 	public int selectListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("employeeMapper.selectListCount");
