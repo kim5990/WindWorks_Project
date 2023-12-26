@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>커뮤니티</title>
+<title>COMMUNITY</title>
 
 <!-- 부트스트랩 -->
 <!-- Latest compiled and minified CSS -->

@@ -15,6 +15,15 @@ public interface EmployeeService {
 	//로그인서비스(login)
 	Employee loginEmployee(Employee e);
 	
+	//온라인 상태로 변경
+	int updateOnline(Employee e);
+	
+	//오프라인 상태로 변경
+	int updateOffline(Employee e);
+	
+	//자리비움 상태로 변경
+	int updateAway(Employee e);
+	
 	//총 사원수 가져오기
 	int selectListCount();
 	

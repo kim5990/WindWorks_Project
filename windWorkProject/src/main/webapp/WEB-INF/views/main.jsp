@@ -12,6 +12,7 @@
 	<c:choose>
 		<c:when test="${!empty loginUser}">
 			<jsp:include page="common/header.jsp" />
+			<jsp:include page="home/home.jsp" />
 		</c:when>
 		<c:otherwise>
 			<jsp:include page="common/login.jsp" />

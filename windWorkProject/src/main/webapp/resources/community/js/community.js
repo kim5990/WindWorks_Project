@@ -450,6 +450,7 @@ function comOut(comNo, empNo){
                 if(res == "success"){
                     alert("탈퇴 완료")
                     myCommunityList();
+                    comListAll();
                 } else {
                     console.log("delete 실패")
                 }

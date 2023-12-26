@@ -14,11 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.ww.common.model.vo.PageInfo;
 import com.kh.ww.common.template.Pagenation;
+import com.kh.ww.community.model.vo.CommunityReply;
 import com.kh.ww.employee.model.service.EmployeeService;
 import com.kh.ww.employee.model.vo.Employee;
 
@@ -74,6 +76,8 @@ public class EmployeeController {
 			mv.addObject("error", "로그인 실패");
 			mv.setViewName("common/login");
 		}else {
+			// 온라인 상태로 바꿔주기
+			int result = employeeService.updateOnline(loginUser);
 			session.setAttribute("loginUser", loginUser);
 			mv.setViewName("redirect:/");
 		}
@@ -84,6 +88,9 @@ public class EmployeeController {
 	@RequestMapping("/logout.em")
 	public ModelAndView logoutMember(ModelAndView mv, HttpSession session) {
 		//session.invalidate();
+		// 오프라인 상태로 바꿔주기
+		Employee e = (Employee)session.getAttribute("loginUser");
+		int result = employeeService.updateOffline(e);
 		session.removeAttribute("loginUser");
 		mv.setViewName("redirect:/");
 		return mv;
@@ -186,4 +193,30 @@ public class EmployeeController {
 		}
 	      return changeName;
 	}
+	
+	// 오프라인 상태로 변경
+	@ResponseBody
+	@RequestMapping(value="changeOffline.emp")
+	public String updateOffline(Employee e) {
+		return employeeService.updateOffline(e) > 0 ? "success" : "fail";
+	}
+	
+	// 온라인 상태로 변경
+	@ResponseBody
+	@RequestMapping(value="changeOnline.emp")
+	public String updateOnline(Employee e) {
+		return employeeService.updateOnline(e) > 0 ? "success" : "fail";
+	}
+	
+	// 자리비움 상태로 변경
+	@ResponseBody
+	@RequestMapping(value="changeAway.emp")
+	public String updateAway(Employee e) {
+		return employeeService.updateAway(e) > 0 ? "success" : "fail";
+	}
+	
+	
 }
+
+
+
