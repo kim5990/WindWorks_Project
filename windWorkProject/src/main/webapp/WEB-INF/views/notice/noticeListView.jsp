@@ -14,15 +14,14 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항</title>
 </head>
 <body onload="noticeOnload()">
 <jsp:include page="../common/header.jsp" />
 
 	<c:if test="${!empty alertMsg}">
 		<script>
-			swal("", "${alertMsg}", "success");
-			/* alertify.alert('알림', "${alertMsg}"); */
+
 		</script>
 		<c:remove var="alertMsg" scope="session" />
 	</c:if>

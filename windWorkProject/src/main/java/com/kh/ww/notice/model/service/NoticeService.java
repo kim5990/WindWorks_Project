@@ -20,6 +20,7 @@ public interface NoticeService {
 	
 	// 공지사항 상세 조회
 	Notice selectNotice(int noticeNo);
+	ArrayList<NoticeAttachment> selectNoticeAtt(int noticeNo);
 
 	// 공지사항 작성
 	int insertNotice(Notice n);
@@ -27,6 +28,8 @@ public interface NoticeService {
 	
 	// 공지사항 수정
 	int updateNotice(Notice n);
+	int deleteNoticeAtt(int fn);
+	int updateNoticeAtt(NoticeAttachment na);
 
 	// 공지사항 삭제
 	int deleteNotice(int noticeNo);
@@ -51,7 +54,5 @@ public interface NoticeService {
 
 	// 공지사항 대댓글 삭제
 	int deleteChildReply(NoticeReply nr);
-
-	
 
 }

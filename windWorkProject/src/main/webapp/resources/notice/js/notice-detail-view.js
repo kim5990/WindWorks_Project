@@ -3,9 +3,7 @@ const notice = {
     noticeNo: 0
 }
 selectReplyList = (nno) => {
-    console.log(nno);
     notice.noticeNo = nno;
-    console.log(notice.noticeNo)
     data = {
         nno :nno
     }
@@ -14,12 +12,13 @@ selectReplyList = (nno) => {
 
 /* ----- 댓글 쓰기 기능 ----- */
 addReply = (noticeNo, empNo) => {
+
     data = {
         noticeNo,
         empNo,
         noticeReplyContent: $("#contentReply").val()
     }
-    console.log(data)
+
     noticeDetailViewController.addReplyAjax(data, selectReplyList)
 }
 
@@ -32,12 +31,12 @@ addReplyUpdate1 = (noticeReplyNo, content) => {
         noticeReplyContent: document.getElementById(content).value
     }
 
-    console.log(document.getElementById(content).value)
     noticeDetailViewController.noticeReplyUpdateAjax(data, selectReplyList)
 }
 
 /* ----- 댓글 삭제 기능 ----- */
 noticeReplyDelete = (noticeReplyNo) => {
+
     data = {
         noticeNo: notice.noticeNo,
         noticeReplyNo: noticeReplyNo
@@ -47,8 +46,7 @@ noticeReplyDelete = (noticeReplyNo) => {
 
 /* ----- 답글 쓰기 기능 ----- */
 addChildReply = (noticeReplyNo, parentReplyNo, empNo, num) => {
-    
-    console.log(num)
+
     data = {
         noticeNo: notice.noticeNo,
         noticeReplyNo: noticeReplyNo,
@@ -61,6 +59,7 @@ addChildReply = (noticeReplyNo, parentReplyNo, empNo, num) => {
 
 /* ----- 답글 수정 기능 ----- */
 appendChildReplyUpdate = (noticeReplyNo, childReplyContent) => {
+
     data = {
         noticeNo: notice.noticeNo,
         noticeReplyNo: noticeReplyNo,
@@ -71,6 +70,7 @@ appendChildReplyUpdate = (noticeReplyNo, childReplyContent) => {
 
 /* ----- 답글 삭제 기능 ----- */
 noticeChildReplyDelete = (noticeReplyNo) => {
+
     data = {
         noticeNo: notice.noticeNo,
         noticeReplyNo: noticeReplyNo
@@ -80,7 +80,6 @@ noticeChildReplyDelete = (noticeReplyNo) => {
 
 /* ----- 댓글 그려주기 -----*/
 selectReplyListDraw = (result) => {
-    console.log(result)
 
     let list = result.list;
     let str1="";
@@ -128,7 +127,7 @@ selectReplyListDraw = (result) => {
                         +'<div id="appendChildReplyUpdate' + list[i].childReply[j].noticeReplyNo + '" class="notice-child-reply-write-area" style="display: none;">'
                         + '<div class="notice-reply-write-writer">' + list[i].childReply[j].empName + '</div>'
                         + '<div class="notice-reply-write-content">'
-                        + 	'<textarea id="childReplyContent' + list[i].childReply[j].noticeReplyNo  + '" class="childReplyContentUpdate" cols="100">' + list[i].childReply[j].noticeReplyContent + '</textarea>'
+                        + 	'<textarea id="childReplyContent' + list[i].childReply[j].noticeReplyNo  + '" class="childReplyContentUpdate" cols="100" spellcheck="false">' + list[i].childReply[j].noticeReplyContent + '</textarea>'
                         + '</div>'
                         + '<div class="notice-reply-write-btn">'
                         + '<button onclick="appendChildReplyUpdate(' + list[i].childReply[j].noticeReplyNo + ',' + "'" + 'childReplyContent' + list[i].childReply[j].noticeReplyNo  + "'" + ')">' + '수정' + '</button>'
@@ -156,7 +155,7 @@ selectReplyListDraw = (result) => {
                     + '<div id="appendReplyUpdate'+ list[i].noticeReplyNo +'" class="notice-reply-write-area" style="display: none;">'
                     + '<div class="notice-reply-write-writer">' + list[i].empName + '</div>'
                     + '<div class="notice-reply-write-content">'
-                    + 	'<textarea id="content' + i + '" class="replyContentUpdate" cols="100">' + list[i].noticeReplyContent + '</textarea>'
+                    + 	'<textarea id="content' + i + '" class="replyContentUpdate" cols="100" spellcheck="false">' + list[i].noticeReplyContent + '</textarea>'
                     + '</div>'
                     + '<div class="notice-reply-write-btn">'
                     + '<button onclick="addReplyUpdate1(' + list[i].noticeReplyNo + ',' + "'" + 'content' + i + "'" + ')">' + '수정' + '</button>'
@@ -177,7 +176,7 @@ selectReplyListDraw = (result) => {
                 + '<div class="notice-reply-write-area">'
                 + '<div class="notice-reply-write-writer">' + result.loginUserName + '</div>'
                 + '<div class="notice-reply-write-content">'
-                + 	'<textarea id="contentChildReply'+i+'" rows="1" cols="100">' + '</textarea>'
+                + 	'<textarea id="contentChildReply'+i+'" rows="1" cols="100" spellcheck="false">' + '</textarea>'
                 + '</div>'
                 + '<div class="notice-reply-write-btn">'
                 + '<button onclick="addChildReply(' + list[i].noticeReplyNo + ',' + list[i].childReply.parentReplyNo + ',' + result.loginUser + ',' + i + ')">' + '등록' + '</button>'

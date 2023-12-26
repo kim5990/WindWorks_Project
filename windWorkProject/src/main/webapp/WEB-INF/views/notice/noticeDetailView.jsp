@@ -20,7 +20,7 @@
 <script src="resources/notice/js/notice-detail-view-Ajax.js"></script>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항 상세보기</title>
 </head>
 <body onload="selectReplyList('${n.noticeNo}'), noticeOnload()">  
 
@@ -84,32 +84,32 @@
 								$("#updateForm").submit();
 							}
 						</script>
-						
 					</div>
 				</div>
 				
 				<div class="notice-bottom">
-				
-					<c:choose>
-						<c:when test="${not empty na.noticeOriginName}">
-							<div class="notice-attchment">
-								<a href="${na.noticeChangeName}" download="${na.noticeOriginName}">${na.noticeOriginName}</a>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div class="notice-attchment">
-								첨부파일이 없습니다.
-							</div>
-						</c:otherwise>
-					</c:choose>
-					
+				    <!-- 파일 리스트를 돌면서 -->
+				    <c:choose>
+				        <c:when test="${!empty naList}">
+				            <div class="notice-attachment">
+				            <c:forEach var="na" items="${naList}">
+				                <a href="${na.noticeChangeName}" download="${na.noticeOriginName}" style="color: rgb(85, 175, 130);">${na.noticeOriginName}</a><br>
+				            </c:forEach>
+				            </div>
+				        </c:when>
+				        <c:otherwise>
+				            <!-- 파일 리스트가 없을 때 -->
+				            <div class="notice-attachment">
+				                	첨부된 파일이 없습니다.
+				            </div>
+				        </c:otherwise>
+				    </c:choose>
 				</div>
 					
-				
 				<!-- 공지사항 댓글 -->
 				<div class="notice-reply-area">
 					<div class="notice-reply-top">
-						댓글 (<span id="rcount"></span>)
+						댓글 (<span id="rcount">0</span>)
 					</div>
 					
 					<div id="notice-reply" class="notice-reply-middle">

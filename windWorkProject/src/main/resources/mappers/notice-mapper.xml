@@ -13,12 +13,13 @@
 		<result column="NOTICE_STATUS" property="noticeStatus" />
 		<result column="EMP_NO" property="empNo" />
 		<result column="EMP_NAME" property="empName" />
+		<result column="DEPT_CODE" property="deptCode" />
 		
 		<!-- <result column="NOTICE_ORIGIN_NAME" property="noticeOriginName" />
 		<result column="NOTICE_CHANGE_NAME" property="noticeChangeName" />
 		<result column="NOTICE_FILE_PATH" property="noticeFilePath" />
 		<result column="NOTICE_FILE_LEVEL" property="noticeFileLevel" />
-		<result column="DEPT_CODE" property="deptCode" />
+		
 		<result column="NOTICE_REPLY_NO" property="noticeReplyNo" />
 		<result column="PARENT_REPLY_NO" property="parentReplyNo" /> -->
 	</resultMap>
@@ -74,27 +75,28 @@
 	
 	<!-- 공지사항 상세 조회 쿼리문 -->
 	<select id="selectNotice" resultMap="noticeResult">
-		SELECT N.NOTICE_NO,
+		SELECT NOTICE_NO,
 		       EMP_NO,
 		       EMP_NAME,
 		       NOTICE_TITLE,
 		       NOTICE_CONTENT,
-		       TO_CHAR(NOTICE_CREATE_DATE, 'YYYY-MM-DD') AS "NOTICE_CREATE_DATE",
-		       
-		       NA.NOTICE_FILE_NO,
-			   NA.NOTICE_NO,
-			   NA.NOTICE_ORIGIN_NAME,
-			   NA.NOTICE_CHANGE_NAME,
-			   NA.NOTICE_FILE_PATH,
-			   TO_CHAR(NOTICE_UPLOAD_DATE, 'YYYY-MM-DD') as "NOTICE_UPLOAD_DATE",
-			   NA.NOTICE_FILE_LEVEL
-		  FROM NOTICE N
+		       TO_CHAR(NOTICE_CREATE_DATE, 'YYYY-MM-DD') AS "NOTICE_CREATE_DATE"
+		  FROM NOTICE
 	      JOIN EMPLOYEE USING (EMP_NO)
-	 LEFT JOIN NOTICE_ATTACHMENT NA ON (N.NOTICE_NO = NA.NOTICE_NO)
 	     WHERE NOTICE_STATUS = 'Y'
-	       AND N.NOTICE_NO = #{NOTICE_NO}
+	       AND NOTICE_NO = #{NOTICE_NO}
 	</select>
-	
+	<select id="selectNoticeAtt" resultMap="noticeAttachmentResult">
+		SELECT NOTICE_FILE_NO,
+			   NOTICE_NO,
+			   NOTICE_ORIGIN_NAME,
+			   NOTICE_CHANGE_NAME,
+			   NOTICE_FILE_PATH,
+			   TO_CHAR(NOTICE_UPLOAD_DATE, 'YYYY-MM-DD') as "NOTICE_UPLOAD_DATE",
+			   NOTICE_FILE_LEVEL
+		FROM NOTICE_ATTACHMENT
+		WHERE NOTICE_NO = #{NOTICE_NO}
+	</select>
 	
 	
 	<!-- 공지사항 작성  쿼리문 -->
@@ -117,19 +119,19 @@
 		INSERT INTO
 			NOTICE_ATTACHMENT (
 					NOTICE_FILE_NO,
-					NOTICE_NO,
 					NOTICE_ORIGIN_NAME,
 					NOTICE_CHANGE_NAME,
 					NOTICE_FILE_PATH,
-					NOTICE_FILE_LEVEL
+					NOTICE_FILE_LEVEL,
+					NOTICE_NO
 			)
 			VALUES (
 					SEQ_NANO.NEXTVAL,
-					#{noticeNo}
 					#{noticeOriginName},
 					#{noticeChangeName},
 					#{noticeFilePath},
-					#{noticeFileLevel}
+					#{noticeFileLevel},
+					SEQ_NNO.CURRVAL
 			)
 	</insert>
 	
@@ -137,22 +139,32 @@
 	<update id="updateNotice">
 		UPDATE NOTICE
 		   SET NOTICE_TITLE = #{noticeTitle},
-		   	   NOTICE_CONTENT = #{noticeContent},
-		   	   NOTICE_ORIGIN_NAME = #{noticeOriginName},
-		   	   NOTICE_CHANGE_NAME = #{noticeChangeName}
+		   	   NOTICE_CONTENT = #{noticeContent}
 	   	 WHERE NOTICE_NO = #{noticeNo}
 	</update>
-	
-	<!-- 첨부파일 수정 쿼리문
-	<update id="">
-		UPDATE NOTICE
-		   SET NOTICE_TITLE = #{noticeTitle},
-		   	   NOTICE_CONTENT = #{noticeContent},
-		   	   NOTICE_ORIGIN_NAME = #{noticeOriginName},
-		   	   NOTICE_CHANGE_NAME = #{noticeChangeName}
-	   	 WHERE NOTICE_NO = #{noticeNo}
-	</update> -->
-	
+	<delete id="deleteNoticeAtt">
+		DELETE FROM NOTICE_ATTACHMENT
+		WHERE NOTICE_FILE_NO = #{fn}
+	</delete>
+	<insert id="updateNoticeAtt">
+		INSERT INTO
+			NOTICE_ATTACHMENT (
+					NOTICE_FILE_NO,
+					NOTICE_ORIGIN_NAME,
+					NOTICE_CHANGE_NAME,
+					NOTICE_FILE_PATH,
+					NOTICE_FILE_LEVEL,
+					NOTICE_NO
+			)
+			VALUES (
+					SEQ_NANO.NEXTVAL,
+					#{noticeOriginName},
+					#{noticeChangeName},
+					#{noticeFilePath},
+					#{noticeFileLevel},
+					#{noticeNo}
+			)
+	</insert>
 	
 	<!-- 공지사항 삭제 쿼리문 -->
 	<update id="deleteNotice">
