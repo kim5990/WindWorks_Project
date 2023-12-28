@@ -73,13 +73,6 @@
             </div>
 
 
-            <!-- ----- 지도 영역 ----- -->
-            <div class="home-upArea-area3">
-                <div class="home-upArea-area3-map">
-                    
-                </div>
-            </div>
-
         </div>
             
 
