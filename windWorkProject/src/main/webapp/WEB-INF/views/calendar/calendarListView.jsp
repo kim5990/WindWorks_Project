@@ -218,7 +218,7 @@
                                         <td>
                                             <div id="calendarCategory1">
                                                 <label for="inpHold" class="labl-hold">
-                                                <input type="radio" name="calendarCategory" value="0" id="myCalendar1" class="txt-hide" checked>
+                                                <input type="radio" name="calendarCategory" value="0" id="myCalendar1" class="txt-hide">
                                                 내 일정</label>
                                                 <div class="mycircle"></div>
         

@@ -176,10 +176,10 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
             user-select: none;
     background-color: white;
     border: white;
-    padding: 0.4em 0.65em;
-    font-size: 1em;
-    line-height: 1.5;
-    border-radius: 15px;
+    padding: 5px;
+    font-size: 14px;
+    line-height: 1.3;
+    border-radius: 50px;
     margin: 0 3px 0 3px;
   }
 .fc .fc-button:hover {
@@ -190,7 +190,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 
   }
 .fc .fc-button:disabled {
-    opacity: 0;
+    opacity: 0.65;
   }
 .fc {
 
@@ -200,7 +200,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 .fc .fc-button-primary {
     color: #fff;
     color: var(--fc-button-text-color, black);
-    font-size: 20px;
+    font-size: 18px;
     background-color: rgb(85, 175, 130);
     background-color: var(--fc-button-bg-color, white);
     border-color: #2C3E50;
@@ -288,14 +288,16 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
     align-items: center;
   }
 .fc .fc-toolbar.fc-header-toolbar {
-    margin: 10px 0 10px 0;
+    padding: 5px 0 5px 0;
+    border-bottom: 1px solid lightgray;
   }
 .fc .fc-toolbar.fc-footer-toolbar {
     margin-top: 1.5em;
   }
 .fc .fc-toolbar-title {
-    font-size: 25px;
-    margin-left: 100px;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0;
   }
 .fc-direction-ltr .fc-toolbar > * > :not(:first-child) {
     margin-left: .75em; /* space between */
@@ -306,16 +308,6 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 .fc-direction-rtl .fc-toolbar-ltr { /* when the toolbar-chunk positioning system is explicitly left-to-right */
     flex-direction: row-reverse;
   }
-.fc .fc-today-button{
-  color: white;
-  background-color: rgb(85, 175, 130);
-  margin-left: 10px;
-}
-.fc-toolbar-chunk{
-  display: flex;
-  align-items: flex-end;
-}
-
 .fc .fc-scroller {
     -webkit-overflow-scrolling: touch;
     position: relative; /* for abs-positioned elements within */
@@ -443,6 +435,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
     bottom: 0;
     left: 0;
     border-radius: 0 0 20px 20px;
+    border: none;
   }
 .fc .fc-col-header-cell-cushion {
     display: inline-block; /* x-browser for when sticky (when multi-tier header) */
@@ -1352,16 +1345,17 @@ A VERTICAL event
 
 }
 .fc .fc-list-empty {
-    background-color: rgba(208, 208, 208, 0.3);
-    background-color: var(--fc-neutral-bg-color, rgba(208, 208, 208, 0.3));
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center; /* vertically aligns fc-list-empty-inner */
   }
 .fc .fc-list-empty-cushion {
-    margin: 5em 0;
+    display: none;
   }
+.fc .fc-list-empty-event {
+    display: flex;
+}
 .fc {
 
   /* table within the scroller */
@@ -1425,6 +1419,7 @@ A VERTICAL event
 .fc-direction-ltr .fc-list-day-text,
 .fc-direction-rtl .fc-list-day-side-text {
   float: left;
+  font-size: 15px;
 }
 .fc-direction-ltr .fc-list-day-side-text,
 .fc-direction-rtl .fc-list-day-text {
@@ -1434,7 +1429,7 @@ A VERTICAL event
 .fc-direction-ltr .fc-list-table .fc-list-event-graphic { padding-right: 0 }
 .fc-direction-rtl .fc-list-table .fc-list-event-graphic { padding-left: 0 }
 .fc .fc-list-event.fc-event-forced-url {
-    cursor: pointer; /* whole row will seem clickable */
+    
   }
 .fc .fc-list-event:hover td {
     background-color: #f5f5f5;
@@ -1449,6 +1444,7 @@ A VERTICAL event
   .fc .fc-list-event-time {
     white-space: nowrap;
     width: 1px;
+    font-size: 15px;
   }
 .fc .fc-list-event-dot {
     display: inline-block;
@@ -1466,8 +1462,11 @@ A VERTICAL event
 
 }
 .fc .fc-list-event-title a {
+    font-size: 14px;
     color: inherit;
     text-decoration: none;
+    pointer-events: none; /*이벤트를 막음*/
+    cursor: default; /*마우스 커서를 포인트에서 디폴트로 변경*/
   }
 .fc {
 
@@ -1475,7 +1474,7 @@ A VERTICAL event
 
 }
 .fc .fc-list-event.fc-event-forced-url:hover a {
-    text-decoration: underline;
+    text-decoration: none;
   }
 
 

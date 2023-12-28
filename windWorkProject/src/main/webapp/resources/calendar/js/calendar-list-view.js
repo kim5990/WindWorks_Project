@@ -21,7 +21,7 @@ function drawCalendar(start){
 			},
 			headerToolbar: { // 헤더에 표시할 툴바
 				left: 'prev',
-				center: 'title',
+				center: 'title today',
 				right: 'next'
 			},
 			// 공휴일 데이터 추가
@@ -44,7 +44,6 @@ function drawCalendar(start){
 
 				// 입력 필드 초기화
 				$("#calendarName").val("");
-				//$("#modal-start-date").val("");
 				$("#modal-end-date").val("");
 				$("#calendarContent").val("");
 
@@ -97,7 +96,9 @@ function drawCalendar(start){
 			},
 			// 일정 클릭(일정 수정/삭제)
 			eventClick: function(info) {
-				console.log(info)
+				info.jsEvent.stopPropagation();
+				info.jsEvent.preventDefault();
+
 				$("#calendarUpdateModal").modal("show");
 				
 				$("#calendarName1").val(info.event.title);
@@ -106,7 +107,12 @@ function drawCalendar(start){
 				$("#start1").val(info.event.extendedProps.timeStart);
 				$("#end1").val(info.event.extendedProps.timeEnd);
 				$("#calendarContent1").val(info.event.extendedProps.content);
-				
+
+				// 이전 이벤트의 disabled 속성 초기화
+				document.getElementById("myCalendar1").disabled = false;
+				document.getElementById("teamCalendar1").disabled = false;
+				document.getElementById("allCalendar1").disabled = false;
+
 				// 클릭한 이벤트의 카테고리 값을 가져옴
 				let categoryValue = info.event.extendedProps.calendarCategory;
 				console.log(categoryValue)
@@ -118,10 +124,19 @@ function drawCalendar(start){
 					document.getElementById("teamCalendar1").checked = true;
 				} else if (categoryValue === 2) {
 					document.getElementById("allCalendar1").checked = true;
+				} else if (categoryValue === 3) {
+					document.getElementById("myCalendar1").disabled = true;
+					document.getElementById("teamCalendar1").disabled = true;
+					document.getElementById("allCalendar1").disabled = true;
+				} else {
+					document.getElementById("myCalendar1").disabled = false;
+					document.getElementById("teamCalendar1").disabled = false;
+					document.getElementById("allCalendar1").disabled = false;
 				}
 
 				// 일정 수정
 				document.getElementById("updateSchedule").onclick = function(){
+
 					const categoryList= document.querySelectorAll("input[name='calendarCategory']")
 					let category;
 
@@ -222,7 +237,7 @@ function saveCalendarEvent(eventData, callback){
 	const endDate = eventData.endDate + " " + eventData.end;
 
 	console.log(startDate)
-	console.log(startDate)
+	console.log(endDate)
 	setTimeout(function(){
 		console.log("서버응답완료")
 		callback();
@@ -248,7 +263,7 @@ function saveCalendarEvent(eventData, callback){
 
 // 일정 조회
 function listCalendar(timeData, callback){
-
+	console.log(timeData)
 	$.ajax({
 		url: "clist.ca",
 		data:{
@@ -257,6 +272,7 @@ function listCalendar(timeData, callback){
 		},
 		success: function(calendar){
 			console.log(calendar)
+			console.log(calendar.list)
 
 			const data =[]
 			const list = calendar.list
@@ -265,11 +281,12 @@ function listCalendar(timeData, callback){
 
 				// 주어진 날짜를 JavaScript Date 객체로 파싱합니다.
 				const dateStart = new Date(list[i].startTime);
+				dateStart.toLocaleString("en-US", {timeZone: "Asia/Seoul"});
 				const dateEnd = new Date(list[i].endTime);
 
 				// Tue Dec 26 2023 18:00:00 GMT+0900 (한국 표준시) {}
 				// 원하는 형식으로 날짜를 변환합니다. (YYYY-MM-DD 형식으로)
-				const formattedStartDate = dateStart.toISOString().slice(0, 10);
+				const formattedStartDate = dateStart.toISOString().slice(0, 10); // 이게 하루 빠름
 				const formattedEndDate = dateEnd.toISOString().slice(0, 10);
 
 				// 시간 변환
@@ -291,20 +308,25 @@ function listCalendar(timeData, callback){
 					borderColor = "rgb(119, 187, 243)";
 					textColor = "white";
 				} else if (list[i].calendarCategory === 1) { // 팀 일정
-					backgroundColor = "rgb(85, 175, 130)";
-					borderColor = "rgb(85, 175, 130)";
+					backgroundColor = "rgb(194, 124, 221)";
+					borderColor = "rgb(194, 124, 221)";
 					textColor = "white";
 				} else if (list[i].calendarCategory === 2) { // 전체 일정
 					backgroundColor = "rgb(255, 200, 82)";
 					borderColor = "rgb(255, 200, 82)";
 					textColor = "white";
+				} else if (list[i].calendarCategory === 3) { // 자산 예약
+					backgroundColor = "rgb(85, 175, 130)";
+					borderColor = "rgb(85, 175, 130)";
+					textColor = "white";
 				}
 
 				data2 = {
 					"title"   : list[i].calendarName,
-					"start"   : startTime,
-					"end" 	  : endTime,
+					"start"   : dateStart,
+					"end" 	  : dateEnd,
 					"content" : list[i].calendarContent,
+					"allDay"  : false,
 					"calNo"   : list[i].calendarListNo,
 					"calendarCategory" : list[i].calendarCategory,
 					"dateStart": formattedStartDate,
