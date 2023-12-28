@@ -49,7 +49,7 @@
                         <span class="nav_name">조직도</span>
                     </a>
 
-                    <a href="#" class="nav__link">
+                    <a href="list.ca" id="nav-calendar-bar" class="nav__link">
                         <ion-icon name="calendar-clear-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">캘린더</span>
                     </a>
