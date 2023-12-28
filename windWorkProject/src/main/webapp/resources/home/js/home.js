@@ -1,28 +1,3 @@
-const loginUser = {
-
-}
-
-
-// 채팅페이지로 이동
-function chattingList(){
-    location.href = "list.ch";
-}
-
-// 미확인 채팅 카운트
-function noReadChatCount(){
-    $.ajax({
-        url: "noReadChatCount.ch",
-        data: {
-            empNo: loginUser.empNo
-        },
-        success: function (res) {
-            document.querySelector(".profile-inform-chat-2").innerHTML = res;
-        },
-        error: function () {
-            console.log("실패");
-        }
-    });
-}
 
 // 캘린더 그리기
 document.addEventListener('DOMContentLoaded', function() {
@@ -34,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			locale: 'ko', // 한국어 설정
 			//selectable: true, // 달력 일자 드래그 설정가능
 			events: function(timezone, callback){
-				console.log("서버로부터 가져와서 실행함")
+				// console.log("서버로부터 가져와서 실행함")
 				//여기서 서버로부터 데이터가져오기
 				listCalendar(timezone, function(res){
                     if (res.length === 0) {
@@ -89,20 +64,44 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         calendar.render();
 
-        if (events === null){
-            // 이벤트 없을때
-            const noEventsMessage = '일정이 없습니다.';
-            const emptyEventDiv = document.createElement('div');
-            emptyEventDiv.classList.add('fc-list-empty-event');
-            emptyEventDiv.innerHTML = noEventsMessage;
+        // if (!events){
+        //     // 이벤트 없을때
+        //     const noEventsMessage = '일정이 없습니다.';
+        //     const emptyEventDiv = document.createElement('div');
+        //     emptyEventDiv.classList.add('fc-list-empty-event');
+        //     emptyEventDiv.innerHTML = noEventsMessage;
             
-            const noEventElement = document.querySelector('.fc-list-empty');
-            if (noEventElement) {
-                noEventElement.appendChild(emptyEventDiv);
-            }
-        }
-            
+        //     const noEventElement = document.querySelector('.fc-list-empty');
+        //     if (noEventElement) {
+        //         noEventElement.appendChild(emptyEventDiv);
+        //     }
+        // }
+       
+
+        noReadChatCount();
     })
+
+
+// 채팅페이지로 이동
+function chattingList(){
+    location.href = "list.ch";
+}
+
+
+// 미확인 채팅 카운트
+function noReadChatCount(){
+    
+    $.ajax({
+        url: "noReadChatCount.ch",
+        success: function (res) {
+            document.querySelector(".profile-inform-chat-2").innerHTML = res;
+        },
+        error: function () {
+            console.log("실패");
+        }
+    });
+}
+
 
 // 일정 조회
 function listCalendar(timeData, callback){
@@ -113,8 +112,8 @@ function listCalendar(timeData, callback){
 			endTime : timeData.end,
 		},
 		success: function(calendar){
-			console.log(calendar)
-			console.log(calendar.list.startTime)
+			// console.log(calendar)
+			// console.log(calendar.list.startTime)
 
 			const data =[]
 			const list = calendar.list
