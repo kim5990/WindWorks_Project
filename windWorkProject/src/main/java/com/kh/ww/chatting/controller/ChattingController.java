@@ -216,7 +216,9 @@ public class ChattingController {
 	// 안읽은 메세지 카운트 (총)
 	@ResponseBody
 	@RequestMapping("/noReadChatCount.ch")
-	public int selectnoReadChatCount(int empNo) {
+	public int selectnoReadChatCount(HttpSession session) {
+		Employee e = (Employee)session.getAttribute("loginUser");
+		int empNo = e.getEmpNo();
 		return chattingService.selectnoReadChatCount(empNo);
 	}
 
