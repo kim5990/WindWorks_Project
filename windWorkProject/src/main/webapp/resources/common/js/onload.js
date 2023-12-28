@@ -57,3 +57,8 @@ const lectureMaterialsDetailOnload = function () {
     }
 
 }
+
+const calendarOnload = function () {
+    document.querySelector("#nav-calendar-bar").classList.add('active');
+    document.querySelector("#navbar").style.background = 'rgb(85, 175, 130)';
+}
