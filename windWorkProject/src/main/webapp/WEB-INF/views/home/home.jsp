@@ -15,6 +15,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- fullcalendar-5.11.5 -->
+<link href="resources/home/fullcalendar-5.11.5/lib/main.css" rel="stylesheet" />
+<script src="resources/home/fullcalendar-5.11.5/lib/main.js"></script>
 
 <link rel="stylesheet" href="resources/home/css/home.css">
 <script src="resources/home/js/home.js"></script>
@@ -56,11 +59,19 @@
             <!-- ----- 캘린더 영역 ----- -->
             <div class="home-upArea-area2">
                 <div class="home-upArea-area2-calendar">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+
+            <!-- ----- 지도 영역 ----- -->
+            <div class="home-upArea-area3">
+                <div class="home-upArea-area3-map">
                     
                 </div>
             </div>
 
         </div>
+            
 
         <!-- --------------- 하단 영역 --------------- -->
         <div class="home-downArea">

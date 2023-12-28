@@ -14,14 +14,14 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항</title>
 </head>
 <body onload="noticeOnload()">
 <jsp:include page="../common/header.jsp" />
+
 	<c:if test="${!empty alertMsg}">
 		<script>
-			swal("", "${alertMsg}", "success");
-			/* alertify.alert('알림', "${alertMsg}"); */
+
 		</script>
 		<c:remove var="alertMsg" scope="session" />
 	</c:if>
@@ -32,7 +32,8 @@
 			
 			<!-- 작성하기 버튼 -->
 			<div class="notice-write-top">
-			
+				
+				<!-- 강사 제외 글쓰기 가능 -->
 				<c:choose>
 					<c:when test="${loginUser.deptCode ne 'D5'}">
 						<div class="notice-write">
@@ -65,11 +66,7 @@
 								<td>
 									<div class="notice-title">
 									${n.noticeTitle}
-										<c:if test="${not empty n.noticeOriginName}">
-											<div class="notice-attachment-icon">
-												<ion-icon class="attachment-icon" name="document-attach-outline"></ion-icon>
-											</div>
-										</c:if>
+										
 										<div class="notice-reply-count">
 											<span id="rcount"><!-- 댓글갯수 --></span>
 										</div>
@@ -112,14 +109,6 @@
 					
 				</ul>
 			</div>
-			
-			<script>
-			
-
-
-			</script>
-			
-			
 			
 		</div>
 	</div>
