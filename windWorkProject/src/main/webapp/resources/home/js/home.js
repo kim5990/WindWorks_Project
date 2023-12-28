@@ -1,15 +1,17 @@
+
+
 const loginUser = {
 
 }
 
 
 // 채팅페이지로 이동
-function chattingList(){
+function chattingList() {
     location.href = "list.ch";
 }
 
 // 미확인 채팅 카운트
-function noReadChatCount(){
+function noReadChatCount() {
     $.ajax({
         url: "noReadChatCount.ch",
         data: {
