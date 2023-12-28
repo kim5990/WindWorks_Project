@@ -225,6 +225,7 @@ function executeCloseButton2() {
     closeButton.click();
 }
 
+// 모달 취소버튼2
 function executeCloseButton() {
     let closeButton = document.getElementById("close-btn");
     closeButton.click();
@@ -303,6 +304,7 @@ function listCalendar(timeData, callback){
 				let borderColor = "";
 				let textColor = "";
 
+
 				if (list[i].calendarCategory === 0) { // 내 일정
 					backgroundColor = "rgb(119, 187, 243)";
 					borderColor = "rgb(119, 187, 243)";
@@ -320,6 +322,7 @@ function listCalendar(timeData, callback){
 					borderColor = "rgb(85, 175, 130)";
 					textColor = "white";
 				}
+				
 
 				data2 = {
 					"title"   : list[i].calendarName,
@@ -329,6 +332,7 @@ function listCalendar(timeData, callback){
 					"allDay"  : false,
 					"calNo"   : list[i].calendarListNo,
 					"calendarCategory" : list[i].calendarCategory,
+					"reservationNo" : list[i].reservationNo,
 					"dateStart": formattedStartDate,
 					"dateEnd" : formattedEndDate,
 					"timeStart" : formattedStartTime,
