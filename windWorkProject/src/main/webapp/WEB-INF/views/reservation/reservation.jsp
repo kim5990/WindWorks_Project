@@ -162,7 +162,7 @@
                                             <option value="23:30">23:30</option>
                                         </select>
                                         ~
-                                        <input type="date" class="modal-input-date" name="endDate" id="endDate" value="">
+                                        <input type="date" class="modal-input-date" name="endDate" id="endDate" value="${reserDate}">
                                         <select class="modal-input-date" name="endTime" id="reservation-time-end">
                                             <option value="00:00">00:00</option>
                                             <option value="00:30">00:30</option>

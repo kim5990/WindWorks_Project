@@ -52,25 +52,26 @@ public class ReservationController {
 		int result = reservationService.reservationAssets(r);
 		if (result > 0) {
 			session.setAttribute("alertMsg", "예약 성공");
-			return "redirect:/reservationPage.re";
+			return "redirect:/reservationPage.re?reserDate=" + r.getStartDate();
 		} else {
 			model.addAttribute("alertMsg", "예약 실패");
-			return "redirect:/reservationPage.re";
+			return "redirect:/reservationPage.re?reserDate=" + r.getStartDate();
 		}
 	}
 	
 	//재물예약취소
 	@RequestMapping("/delete.re")
-	public String deleteReservation(@RequestParam(value="reserNo") int reserNo, HttpSession session, Model model) {
-		
+	public String deleteReservation(int reserNo, 
+			String deleteDate, HttpSession session, Model model) {
+		System.out.println(deleteDate);
 		int result = reservationService.deleteReservation(reserNo);
 		
 		if (result > 0) {
 			session.setAttribute("alertMsg", "반납 성공");
-			return "redirect:/reservationPage.re";
+			return "redirect:/reservationPage.re?reserDate=" + deleteDate;
 		} else {
 			model.addAttribute("alertMsg", "반납 실패");
-			return "redirect:/reservationPage.re";
+			return "redirect:/reservationPage.re?reserDate=" + deleteDate;
 		}
 	}
 }

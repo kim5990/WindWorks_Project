@@ -117,16 +117,16 @@ function drawMyReservationsList(reservationList){
         tr.appendChild(reservationName);
         tr.appendChild(cancelBtnTd);
         reservationBody.appendChild(tr);
-
+        let deleteDate = document.getElementById('calendar-title').textContent;
         document.getElementById('cancelBtn' + reservation.reserNo).onclick = function() {
-
-            cancelReservation(reservation.reserNo);
+        
+            cancelReservation(reservation.reserNo, deleteDate);
         }
     }
 }
 //예약취소 버튼 눌렀을때 이벤트
-function cancelReservation(reserNo){
-    location.href = "delete.re?reserNo="+ reserNo;
+function cancelReservation(reserNo, deleteDate){
+    location.href = "delete.re?reserNo="+ reserNo + "&deleteDate=" + deleteDate;
 }
 //예약시간 나타내는 div들 드래그 이벤트
 function timeUnitAddDragEvent(timeUnit, asset, time){
