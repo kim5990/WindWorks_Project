@@ -23,7 +23,7 @@
 <script src="resources/home/js/home.js"></script>
 
 </head>
-<body onload="homeOnload('${loginUser.empNo}')">
+<body>
     <div class="home-All">
 
         <!-- --------------- 상단 영역 --------------- -->
