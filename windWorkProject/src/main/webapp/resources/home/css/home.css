@@ -138,16 +138,13 @@ a {
 }
 
 
-
-
-
 /* ---------- 상단2-캘린더 영역 ---------- */
-.home-upArea-area2 {
-    width: 75%;
+
+.home-upArea-area2{
+    width: 50%;
     height: 100%;
 
     padding: 20px;
-    padding-right: 40px;
     padding-top: 40px;
 }
 
@@ -158,6 +155,34 @@ a {
     border-radius: 20px;
 }
 
+/* 일요일: 빨간색 */
+.fc-day-sun a{
+    color: rgb(255, 84, 84);
+}
+/* 토요일: 파란색 */
+.fc-day-sat a{
+    color: rgb(37, 106, 255);
+}
+/* 평일: 검은색 */
+.fc-day-mon a,.fc-day-tue a,.fc-day-wed a,.fc-day-thu a,.fc-day-fri a{
+	color: black;
+}
+
+/* ---------- 상단3-지도 영역 ---------- */
+.home-upArea-area3{
+    width: 25%;
+    height: 100%;
+
+    padding: 20px;
+    padding-right: 40px;
+    padding-top: 40px;  
+}
+.home-upArea-area3-map{
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 20px;
+}
 
 
 
