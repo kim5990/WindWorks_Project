@@ -1,6 +1,6 @@
 package com.kh.ww.reservation.controller;
 
-import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,13 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.kh.ww.common.model.vo.PageInfo;
-import com.kh.ww.common.template.Pagenation;
-import com.kh.ww.community.model.vo.Community;
 import com.kh.ww.employee.model.vo.Employee;
 import com.kh.ww.reservation.model.service.ReservationService;
 import com.kh.ww.reservation.model.vo.Reservation;
@@ -25,17 +21,20 @@ import com.kh.ww.reservation.model.vo.Reservation;
 public class ReservationController {
 	@Autowired
 	private ReservationService reservationService;
-	
 	//예약페이지
 	@RequestMapping("/reservationPage.re")
-	public ModelAndView reservationPage(HttpSession session, ModelAndView mv) {
-		
+	public ModelAndView reservationPage(String reserDate, HttpSession session, ModelAndView mv) {
+		System.out.println(reserDate);
 		Employee e = (Employee)session.getAttribute("loginUser");
-		
+		Reservation r = new Reservation();
+		r.setReserDate(reserDate);
+		r.setEmpNo(e.getEmpNo());
 		JSONObject result = new JSONObject();
 		result.put("assetsList", reservationService.selectAssetsList());
-		result.put("reservationList", reservationService.selectReservationList(e.getEmpNo()));
+		result.put("reservationList", reservationService.selectReservationList(r));
+		result.put("reservationListDiv", reservationService.selectReservationListDiv(r));
 		mv.addObject("result", new Gson().toJson(result))
+			.addObject("reserDate", reserDate)
 		  .setViewName("reservation/reservation");
 		return mv;
 	}
@@ -46,7 +45,7 @@ public class ReservationController {
 		
 		r.setStartDateTime(r.getStartDate() + " " + r.getStartTime());
 		r.setEndDateTime(r.getEndDate() + " " +r.getEndTime());
-		
+
 		System.out.println(r.getStartDateTime());
 		System.out.println(r.getEndDateTime());
 		
@@ -73,28 +72,5 @@ public class ReservationController {
 			model.addAttribute("alertMsg", "반납 실패");
 			return "redirect:/reservationPage.re";
 		}
-	}
-	
-	@RequestMapping("/delete.re")
-	public String deleteReservation(@RequestParam(value="reserNo") int reserNo, HttpSession session, Model model) {
-		
-		int result = reservationService.deleteReservation(reserNo);
-		
-		if (result > 0) {
-			session.setAttribute("alertMsg", "반납 성공");
-			return "redirect:/reservationPage.re";
-		} else {
-			model.addAttribute("alertMsg", "반납 실패");
-			return "redirect:/reservationPage.re";
-		}
-	}
-	
-	// 내 예약리스트 조회
-	@ResponseBody
-	@RequestMapping(value="myReservation.re", produces="application/json; charset=UTF-8")
-	public String myCommunityList(HttpSession session) {
-		Employee e = (Employee)session.getAttribute("loginUser");
-		ArrayList<Community> comList = communityService.communityList(e);
-		return new Gson().toJson(comList);
 	}
 }

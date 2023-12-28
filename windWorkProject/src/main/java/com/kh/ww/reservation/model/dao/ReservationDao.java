@@ -18,11 +18,6 @@ public class ReservationDao {
 		return (ArrayList)sqlSession.selectList("reservationMapper.selectAssetsList");
 	}
 	
-	//예약된 재물 리스트 조회 페이지 하단
-	public ArrayList<Reservation> selectReservationListPi(SqlSessionTemplate sqlSession, int empNo){
-		return (ArrayList)sqlSession.selectList("reservationMapper.selectReservationListPi", empNo);
-	}
-	
 	//재물 예약
 	public int reservationAssets(SqlSessionTemplate sqlSession, Reservation r) {
 		return sqlSession.insert("reservationMapper.reservationAssets", r);
@@ -38,9 +33,15 @@ public class ReservationDao {
 		return sqlSession.selectOne("employeeMapper.selectListCount", empNo);
 	}
 	
-	//예약된 재물 리스트 조회 페이지 상단
-		public ArrayList<Reservation> selectReservationList(SqlSessionTemplate sqlSession, int empNo){
-			
-			return (ArrayList)sqlSession.selectList("reservationMapper.selectReservationList", empNo);
-		}
+	//예약된 재물 리스트 조회 
+	public ArrayList<Reservation> selectReservationList(SqlSessionTemplate sqlSession, Reservation r){
+		
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectReservationList", r);
+	}
+	
+	//예약된 자산 리스트 상단
+	public ArrayList<Reservation> selectReservationListDiv(SqlSessionTemplate sqlSession, Reservation r){
+		
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectReservationListDiv", r);
+	}
 }

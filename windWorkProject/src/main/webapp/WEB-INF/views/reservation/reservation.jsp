@@ -19,11 +19,11 @@
         <div class="reservation-all">
             <div class="reservation-calender">
                 <div id="calendar-title-yesterday" >
-                    <ion-icon name="chevron-back-outline" onclick='backCalendarDate()'></ion-icon>
+                    <ion-icon name="chevron-back-outline" onclick='backCalendarDate("${reserDate}")'></ion-icon>
                 </div>
-                <div id="calendar-title"></div>
+                <div id="calendar-title">${reserDate}</div>
                 <div id="calendar-title-tomorrow">
-                    <ion-icon name="chevron-forward-outline" onclick='frontCalendarDate()'></ion-icon>
+                    <ion-icon name="chevron-forward-outline" onclick='frontCalendarDate("${reserDate}")'></ion-icon>
                 </div>
                 <div id="calendar-title-btn">
                     <button id="todayBtn" onclick="goToday()">오늘</button>
@@ -109,7 +109,7 @@
                                 <tr>
                                     <th id="modal-table-th-date">일시</th>
                                     <td>
-                                        <input type="date" class="modal-input-date" name="startDate" id="startDate" value="">
+                                        <input type="date" class="modal-input-date" name="startDate" id="startDate" value="${reserDate}">
 
                                         <select class="modal-input-date" name="startTime" id="reservation-time-start">
                                             <option value="00:00">00:00</option>

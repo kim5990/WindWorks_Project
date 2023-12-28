@@ -69,7 +69,7 @@
                         <span class="nav_name">커뮤니티</span>
                     </a>
 
-                    <a href="reservationPage.re" id="nav-reservationPage-bar" class="nav__link">
+                    <a onclick="reservation()" id="nav-reservationPage-bar" class="nav__link">
                         <ion-icon name="time-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">예약</span>
                     </a>

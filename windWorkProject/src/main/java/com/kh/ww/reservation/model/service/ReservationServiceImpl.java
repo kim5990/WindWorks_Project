@@ -25,12 +25,6 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationDao.selectAssetsList(sqlSession);
 	}
 	
-	//예약된 재물 리스트 조회 페이지 하단
-	@Override
-	public ArrayList<Reservation> selectReservationListPi(int empNo) {
-		return reservationDao.selectReservationListPi(sqlSession, empNo);
-	}
-	
 	@Override
 	public int selectReservationListCount(int empNo) {
 		return reservationDao.selectReservationListCount(sqlSession, empNo);
@@ -48,10 +42,16 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationDao.deleteReservation(sqlSession, reserNo);
 	}
 
-	//예약된 재물 리스트 조회 페이지 상단
-		@Override
-		public ArrayList<Reservation> selectReservationList(int empNo) {
-			return reservationDao.selectReservationList(sqlSession, empNo);
-		}
+	//예약된 재물 리스트 조회
+	@Override
+	public ArrayList<Reservation> selectReservationList(Reservation r) {
+		return reservationDao.selectReservationList(sqlSession, r);
+	}
+	
+	//예약된 자산 리스트 div
+	@Override
+	public ArrayList<Reservation> selectReservationListDiv(Reservation r) {
+		return reservationDao.selectReservationListDiv(sqlSession, r);
+	}
 	
 }

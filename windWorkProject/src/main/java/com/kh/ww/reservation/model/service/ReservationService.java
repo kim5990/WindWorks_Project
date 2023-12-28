@@ -10,11 +10,8 @@ public interface ReservationService {
 	//재물 리스트 조회
 	ArrayList<Assets> selectAssetsList();
 	
-	//예약된 재물 리스트 조회 페이지 하단
-	ArrayList<Reservation> selectReservationListPi(int empNo);
-	
 	//예약된 재물 리스트 조회 페이지 상단
-	ArrayList<Reservation> selectReservationList(int empNo);
+	ArrayList<Reservation> selectReservationList(Reservation r);
 	
 	//예약페이지 예약된 재물 리스트
 	int selectReservationListCount(int empNo);
@@ -24,4 +21,7 @@ public interface ReservationService {
 	
 	//재물 반납
 	int deleteReservation(int reserNo);
+	
+	//예약된 자산 리스트 div
+	ArrayList<Reservation> selectReservationListDiv(Reservation r);
 }
