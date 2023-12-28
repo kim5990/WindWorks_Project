@@ -5,26 +5,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		let calendar = new FullCalendar.Calendar(calendarEl, {
 			googleCalendarApiKey: "AIzaSyDms3oLpDbnfLhL9z6TFgFnBoh5Jk5T2Fc",
 			height: 365, // 캘린더 높이 설정
-			initialView: 'listWeek', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+			initialView: 'listWeek',
 			locale: 'ko', // 한국어 설정
-			//selectable: true, // 달력 일자 드래그 설정가능
 			events: function(timezone, callback){
-				// console.log("서버로부터 가져와서 실행함")
-				//여기서 서버로부터 데이터가져오기
 				listCalendar(timezone, function(res){
-                    if (res.length === 0) {
-                        const noEventsMessage = '일정이 없습니다.';
-                        const emptyEventDiv = document.createElement('div');
-                        emptyEventDiv.classList.add('fc-list-empty-event');
-                        emptyEventDiv.innerHTML = noEventsMessage;
-    
-                        const noEventElement = document.querySelector('.fc-list-empty');
-                        if (noEventElement) {
-                            noEventElement.appendChild(emptyEventDiv);
-                        }
-                    } else {
-					    callback(res)
-                    }
+                    const noEventElement = document.querySelector('.fc-list-empty');
+					if (res.length === 0 && noEventElement && noEventElement.querySelector('.fc-list-empty-event') === null) {
+						const noEventsMessage = '일정이 없습니다.';
+						const emptyEventDiv = document.createElement('div');
+						emptyEventDiv.classList.add('fc-list-empty-event');
+						emptyEventDiv.innerHTML = noEventsMessage;
+
+						noEventElement.appendChild(emptyEventDiv);
+					} else {
+						callback(res);
+					}
 				})
 			},
             // 일정 클릭

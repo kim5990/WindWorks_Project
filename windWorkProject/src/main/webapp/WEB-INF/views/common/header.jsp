@@ -12,11 +12,14 @@
    <!-- 부트스트랩 -->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-        <!-- CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="resources/common/css/styles.css">
     <link rel="stylesheet" href="resources/common/css/header.css">
     <link rel="stylesheet" href="resources/common/css/mypage-menu.css">
     <script src="resources/common/js/onload.js"></script> 
+    
+    <!-- SweetAlert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
 </head>
 <body id="body-pd">

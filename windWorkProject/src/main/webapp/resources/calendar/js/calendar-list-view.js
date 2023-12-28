@@ -375,7 +375,8 @@ function updateCalendarEvent(eventData, callback){
 			calendarContent: eventData.content
 		},
 		success: function(result){
-			console.log(result)
+			swal("", "일정이 수정되었습니다.", "success");
+
 			callback();
 		},
 		error: function(){
@@ -398,16 +399,9 @@ function deleteCalendarEvent(eventData, callback){
 			calendarListNo: eventData.calendarListNo
 		},
 		success: function(result){
-			let confirmation = confirm("일정을 삭제하시겠습니까?");
-            if (confirmation) {
-				alert("삭제되었습니다.")
-				console.log(result)
-                callback(); 
-            } else if (confirmation === false){
-                console.log("사용자가 취소를 선택했습니다."); // 사용자가 취소를 선택한 경우
-            } else {
-				console.log("사용자가 취소를 선택했습니다.");
-			}
+			swal("", "일정이 삭제되었습니다.", "success");
+
+			callback(); 
 		},
 		error: function(){
 			console.log("cdelete.ca ajax 통신 실패")
