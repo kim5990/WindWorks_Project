@@ -20,7 +20,7 @@
 <script src="resources/home/js/home.js"></script>
 
 </head>
-<body>
+<body onload="homeOnload('${loginUser.empNo}')">
     <div class="home-All">
 
         <!-- --------------- 상단 영역 --------------- -->
@@ -53,9 +53,19 @@
                 </div>
             </div>
 
+
+
             <!-- ----- 캘린더 영역 ----- -->
             <div class="home-upArea-area2">
                 <div class="home-upArea-area2-calendar">
+                    
+                </div>
+            </div>
+
+
+            <!-- ----- 지도 영역 ----- -->
+            <div class="home-upArea-area3">
+                <div class="home-upArea-area3-map">
                     
                 </div>
             </div>
@@ -72,9 +82,9 @@
                 </div>
             </div>
 
-            <!-- ----- 뉴스 영역 ----- -->
+            <!-- ----- 번역 영역 ----- -->
             <div class="home-downArea-area2">
-                <div class="home-downArea-area2-news">
+                <div class="home-downArea-area2-translate">
 
                 </div>
             </div>
@@ -89,20 +99,5 @@
         </div>
 
     </div>
-
-
-
-    <script>
-        onload = function(){
-
-            loginUser.empNo = '${loginUser.empNo}',
-            loginUser.empName = '${loginUser.empName}'
-
-            noReadChatCount();
-              
-        }
-    </script>
-
-
 </body>
 </html>

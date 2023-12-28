@@ -130,14 +130,29 @@ a {
 
 /* ---------- 상단2-캘린더 영역 ---------- */
 .home-upArea-area2{
-    width: 75%;
+    width: 50%;
+    height: 100%;
+
+    padding: 20px;
+    padding-top: 40px;
+}
+.home-upArea-area2-calendar{
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 20px;
+}
+
+/* ---------- 상단3-지도 영역 ---------- */
+.home-upArea-area3{
+    width: 25%;
     height: 100%;
 
     padding: 20px;
     padding-right: 40px;
-    padding-top: 40px;
+    padding-top: 40px;  
 }
-.home-upArea-area2-calendar{
+.home-upArea-area3-map{
     width: 100%;
     height: 100%;
     border: 1px solid rgb(190, 190, 190);
@@ -172,7 +187,7 @@ a {
 }
 
 
-/* ---------- 하단2-뉴스 영역 ---------- */
+/* ---------- 하단2-번역 영역 ---------- */
 .home-downArea-area2{
     width: 25%;
     height: 100%;
@@ -180,7 +195,7 @@ a {
     padding: 20px;
     padding-bottom: 40px;
 }
-.home-downArea-area2-news{
+.home-downArea-area2-translate{
     width: 100%;
     height: 100%;
     border: 1px solid rgb(190, 190, 190);
