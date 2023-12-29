@@ -210,6 +210,13 @@ a {
     height: 100%;
     border: 1px solid rgb(190, 190, 190);
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.home-downArea-area1-weather-temperature{
+    display: flex;
 }
 
 

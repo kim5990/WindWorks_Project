@@ -1,68 +1,68 @@
 
 // 캘린더 그리기
 document.addEventListener('DOMContentLoaded', function() {
-	let calendarEl = document.getElementById('calendar');
-		let calendar = new FullCalendar.Calendar(calendarEl, {
-			googleCalendarApiKey: "AIzaSyDms3oLpDbnfLhL9z6TFgFnBoh5Jk5T2Fc",
-			height: 365, // 캘린더 높이 설정
-			initialView: 'listWeek', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
-			locale: 'ko', // 한국어 설정
-			//selectable: true, // 달력 일자 드래그 설정가능
-			events: function(timezone, callback){
-				// console.log("서버로부터 가져와서 실행함")
-				//여기서 서버로부터 데이터가져오기
-				listCalendar(timezone, function(res){
-                    if (res.length === 0) {
-                        const noEventsMessage = '일정이 없습니다.';
-                        const emptyEventDiv = document.createElement('div');
-                        emptyEventDiv.classList.add('fc-list-empty-event');
-                        emptyEventDiv.innerHTML = noEventsMessage;
+	// let calendarEl = document.getElementById('calendar');
+	// 	let calendar = new FullCalendar.Calendar(calendarEl, {
+	// 		googleCalendarApiKey: "AIzaSyDms3oLpDbnfLhL9z6TFgFnBoh5Jk5T2Fc",
+	// 		height: 365, // 캘린더 높이 설정
+	// 		initialView: 'listWeek', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+	// 		locale: 'ko', // 한국어 설정
+	// 		//selectable: true, // 달력 일자 드래그 설정가능
+	// 		events: function(timezone, callback){
+	// 			// console.log("서버로부터 가져와서 실행함")
+	// 			//여기서 서버로부터 데이터가져오기
+	// 			listCalendar(timezone, function(res){
+    //                 if (res.length === 0) {
+    //                     const noEventsMessage = '일정이 없습니다.';
+    //                     const emptyEventDiv = document.createElement('div');
+    //                     emptyEventDiv.classList.add('fc-list-empty-event');
+    //                     emptyEventDiv.innerHTML = noEventsMessage;
     
-                        const noEventElement = document.querySelector('.fc-list-empty');
-                        if (noEventElement) {
-                            noEventElement.appendChild(emptyEventDiv);
-                        }
-                    } else {
-					    callback(res)
-                    }
-				})
-			},
-            // 일정 클릭
-			eventClick: function(info) {
-				info.jsEvent.stopPropagation();
-				info.jsEvent.preventDefault();
-            },
-			headerToolbar: { // 헤더에 표시할 툴바
-				left: 'prev',
-				center: 'title',
-				right: 'next'
-			},
-			// 공휴일 데이터 추가
-			eventSources: [{ // 구글 캘린더 API 키를 발급받은 경우 공휴일 데이터 추가
-				googleCalendarId: "ko.south_korea#holiday@group.v.calendar.google.com",
-				backgroundColor: "rgb(253, 112, 94)",
-				borderColor: "rgb(253, 112, 94)",
-				className: "ko-holiday",
-				textColor: "white",
-			}],
-            titleFormat : function(date) { // title 설정 yyyy. mm. dd - mm. dd
-                const start = new Date(date.date.year, date.date.month, date.date.day); 
-                const end = new Date(date.date.year, date.date.month, date.date.day + 6);
-                return start.getFullYear() + '. ' + (start.getMonth() + 1) + '. ' + start.getDate() + ' ~ ' +
-                       (end.getMonth() + 1) + '. ' + end.getDate();
-            },
-            listDayFormat : function(date) {
-                const dayOfWeek = new Date(date.date.year, date.date.month, date.date.day).getDay();
-                const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+    //                     const noEventElement = document.querySelector('.fc-list-empty');
+    //                     if (noEventElement) {
+    //                         noEventElement.appendChild(emptyEventDiv);
+    //                     }
+    //                 } else {
+	// 				    callback(res)
+    //                 }
+	// 			})
+	// 		},
+    //         // 일정 클릭
+	// 		eventClick: function(info) {
+	// 			info.jsEvent.stopPropagation();
+	// 			info.jsEvent.preventDefault();
+    //         },
+	// 		headerToolbar: { // 헤더에 표시할 툴바
+	// 			left: 'prev',
+	// 			center: 'title',
+	// 			right: 'next'
+	// 		},
+	// 		// 공휴일 데이터 추가
+	// 		eventSources: [{ // 구글 캘린더 API 키를 발급받은 경우 공휴일 데이터 추가
+	// 			googleCalendarId: "ko.south_korea#holiday@group.v.calendar.google.com",
+	// 			backgroundColor: "rgb(253, 112, 94)",
+	// 			borderColor: "rgb(253, 112, 94)",
+	// 			className: "ko-holiday",
+	// 			textColor: "white",
+	// 		}],
+    //         titleFormat : function(date) { // title 설정 yyyy. mm. dd - mm. dd
+    //             const start = new Date(date.date.year, date.date.month, date.date.day); 
+    //             const end = new Date(date.date.year, date.date.month, date.date.day + 6);
+    //             return start.getFullYear() + '. ' + (start.getMonth() + 1) + '. ' + start.getDate() + ' ~ ' +
+    //                    (end.getMonth() + 1) + '. ' + end.getDate();
+    //         },
+    //         listDayFormat : function(date) {
+    //             const dayOfWeek = new Date(date.date.year, date.date.month, date.date.day).getDay();
+    //             const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
 
-                return (date.date.month + 1) + ". " + (date.date.day) + ". " + weekdays[dayOfWeek];
-            },
-            listDaySideFormat: function() {
-                return "";
-            } 
+    //             return (date.date.month + 1) + ". " + (date.date.day) + ". " + weekdays[dayOfWeek];
+    //         },
+    //         listDaySideFormat: function() {
+    //             return "";
+    //         } 
 				
-        })
-        calendar.render();
+    //     })
+    //     calendar.render();
 
         // if (!events){
         //     // 이벤트 없을때
@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
        
 
         noReadChatCount();
+		weatherView()
     })
 
 
@@ -189,7 +190,58 @@ function listCalendar(timeData, callback){
 	})
 }
 
+//날씨 보여주기
+function weatherView(){
+	let today = new Date();
+	let year = today.getFullYear();
+    let month = String(today.getMonth() + 1).padStart(2, '0');
+    let day = String(today.getDate()).padStart(2, '0');
+	let hour = String(today.getHours());
+	let minute = String(today.getMinutes()).padStart(2, '0');
 
+	if(parseInt(minute) > 30) {
+		minute = '30';
+	} else {
+		minute = '00';
+	}
+
+    let todayDate = year + month + day;
+	let todayTime = hour + minute;
+	$.ajax({
+        url: "weatherView.we",
+		data: {
+			todayDate: todayDate,
+			todayTime: todayTime,
+		},
+        success: function (data) {
+            console.log(data);
+			drawWeather(data);
+        },
+        error: function () {
+            console.log("실패");
+        }
+    });
+}
+
+const drawWeather = function(data) {
+	const itemArr = data.response.body.items;
+
+	// let str = "";
+	for (let i in itemArr){
+		let item = itemArr[i];
+		console.log(item);
+		// str += '<tr>'
+		// 	 + '<td>' + item.stationName  + '</td>'
+		// 	 + '<td>' + item.dataTime  + '</td>'
+		// 	 + '<td>' + item.khaiValue  + '</td>'
+		// 	 + '<td>' + item.pm10Value  + '</td>'
+		// 	 + '<td>' + item.so2Value  + '</td>'
+		// 	 + '<td>' + item.coValue  + '</td>'
+		// 	 + '<td>' + item.o3Value  + '</td>'
+		// 	 + '<td>' + item.no2Value  + '</td>'
+		// 	 + '<tr>';
+	}
+}
 
 
 
