@@ -254,5 +254,11 @@ public class StudyManagementServiceImpl implements StudyManagementService {
 	public int ajaxLikeDeleteSelect(ClassAttachment c) {
 		return studyManagementDao.ajaxLikeDeleteSelect(sqlSession, c);
 	}
+	
+	//강의자료실 자료 이동
+	@Override
+	public int ajaxLectureMovement(ClassAttachment c) {
+		return studyManagementDao.ajaxLectureMovement(sqlSession, c);
+	}
 
 }

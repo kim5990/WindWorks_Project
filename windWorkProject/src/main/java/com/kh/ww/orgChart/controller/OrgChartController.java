@@ -35,7 +35,7 @@ public class OrgChartController {
 	public JSONObject orgChart() {	
 		
 		ArrayList<Employee> deptList = orgChartService.selectDeptList();
-		ArrayList<ArrayList<Employee>> jobList = new ArrayList<>();
+		ArrayList<ArrayList<Employee>> jobList = new ArrayList<ArrayList<Employee>>();
 
 		
 		for (Employee dl : deptList) {
