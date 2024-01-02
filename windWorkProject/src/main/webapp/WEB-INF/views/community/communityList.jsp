@@ -198,7 +198,6 @@
 					},
 					success: function (res) {
 						if(res == "success"){
-								alert("삭제 완료")
 								myCommunityList(function (startList) {
 									selectCommunityOne(startList);
 								});
