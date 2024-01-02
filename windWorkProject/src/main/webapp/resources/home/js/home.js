@@ -3,6 +3,12 @@ function chattingList(){
     location.href = "list.ch";
 }
 
+//메일페이지로 이동
+function mailList(){
+    console.log('들어옴')
+    location.href = "list.mail";
+}
+
 
 // 미확인 채팅 카운트
 function noReadChatCount(){

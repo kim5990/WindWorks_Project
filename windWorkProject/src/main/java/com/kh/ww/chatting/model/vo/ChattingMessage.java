@@ -23,5 +23,6 @@ public class ChattingMessage {
 	private String empName;
 	private int chatRoomLevel;
 	private int isSide;
+	private String jobName;
 
 }
