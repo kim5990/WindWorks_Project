@@ -110,7 +110,6 @@
                 </div>
             </div>
         </div>
-            
 
         <!-- --------------- 하단 영역 --------------- -->
         <div class="home-downArea">
@@ -118,7 +117,12 @@
             <!-- ----- 날씨 영역 ----- -->
             <div class="home-downArea-area1">
                 <div class="home-downArea-area1-weather">
-
+                    <div class="home-downArea-area1-weather-temperature">
+                    
+                    </div>
+                    <div class="home-downArea-area1-weather-misseMunji" id="home-downArea-area1-weather-misseMunji">
+                        
+                    </div>
                 </div>
             </div>
 
@@ -150,6 +154,7 @@
 
                 </div>
             </div>
+
 
             <!-- ----- gpt 영역 ----- -->
             <div class="home-downArea-area3">
