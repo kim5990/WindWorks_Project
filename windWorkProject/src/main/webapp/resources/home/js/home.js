@@ -10,7 +10,8 @@ function noReadChatCount(){
     $.ajax({
         url: "noReadChatCount.ch",
         success: function (res) {
-            document.querySelector(".profile-inform-chat-2").innerHTML = res;
+            document.querySelector(".profile-inform-chat-2").innerHTML = res.readChatCount;
+            document.querySelector(".profile-inform-mail-2").innerHTML = res.readEmailCount;
         },
         error: function () {
             console.log("실패");
