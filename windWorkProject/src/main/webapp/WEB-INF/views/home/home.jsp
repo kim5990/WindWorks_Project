@@ -39,8 +39,17 @@
                         <div class="profile-profile-3">${loginUser.deptName}</div>
                     </div>
 
+                    <!-- 2. 출퇴근 -->
+                    <div class="commute-area">
+                        <div class="current-time"></div>
+                        <div class="commute-status">
+                            <button class="status-work" onclick="statusWork('${loginUser.empNo}')">출근</button>
+                            <button class="status-leave" onclick="statusLeave('${loginUser.empNo}')">퇴근</button>
+                        </div>
+                    </div>
 
-                    <!-- 2.알림 -->
+
+                    <!-- 3.알림 -->
                     <div class="profile-inform">
                         <div class="profile-inform-">
                             <div class="profile-inform-mail">
@@ -109,6 +118,28 @@
             <!-- ----- 번역 영역 ----- -->
             <div class="home-downArea-area2">
                 <div class="home-downArea-area2-translate">
+
+                    <div class="home-downArea-area2-translate-up">
+                        <div class="source-Language">한국어</div>
+                        <div class="change-icon-div" onclick="changeLanguage()"><ion-icon class="change-icon" name="repeat-outline" style="width: 20px; height: 20px;"></ion-icon></div>
+                        <div class="target-Language">English</div>
+                    </div>
+
+                    <div class="home-downArea-area2-translate-center">
+                        <div class="home-downArea-area2-translate-center-1">
+                            <textarea name="" id="translate-input"></textarea>
+                        </div>
+                        <div class="home-downArea-area2-translate-center-2">
+                            <div class="deleteText-area" onclick="deleteText()">
+                                <ion-icon name="trash-outline" style="width: 16px; height: 16px;"></ion-icon>
+                            </div>
+                            <div class="home-downArea-area2-translate-center-2-btn" onclick="papago()">번역</div>
+                        </div>
+                    </div>
+
+                    <div class="home-downArea-area2-translate-down">
+                        <textarea name="" id="translate-value" disabled></textarea>
+                    </div>
 
                 </div>
             </div>

@@ -44,7 +44,7 @@
                         <span class="nav_name">홈</span>
                     </a>
 
-                    <a href="#" class="nav__link">
+                    <a href="list.org" class="nav__link">
                         <ion-icon name="person-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">조직도</span>
                     </a>

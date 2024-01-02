@@ -358,12 +358,12 @@ function scrollToBottom(){
     // 서버로부터 데이터가 도착했을 때
     socket.onmessage = function (ev) {
         const receive = JSON.parse(ev.data)
-        console.log(receive)
         
         
         if(receive.isSide == 0){
             // 오늘 날짜
             let currentDate =  dateToStringYYYYMMDDhhmm();
+            console.log(receive)
 
             str = '';
             if (receive.chatRoomLevel == 0){
@@ -375,7 +375,7 @@ function scrollToBottom(){
                 str = '<div class="body-chatting-you-area">' +
                 '<div class="body-chatting-you-name">' + receive.empName + '</div>' +
                 '<div class="body-chatting-you">' + receive.chatMsgContent + '</div>' +
-                '<div class="body-chatting-you-time">' + formattedDate + '</div>' +
+                '<div class="body-chatting-you-time">' + currentDate + '</div>' +
                 '</div>'
             }
             

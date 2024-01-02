@@ -1,3 +1,23 @@
+// 채팅페이지로 이동
+function chattingList(){
+    location.href = "list.ch";
+}
+
+
+// 미확인 채팅 카운트
+function noReadChatCount(){
+    
+    $.ajax({
+        url: "noReadChatCount.ch",
+        success: function (res) {
+            document.querySelector(".profile-inform-chat-2").innerHTML = res;
+        },
+        error: function () {
+            console.log("실패");
+        }
+    });
+}
+
 
 // 캘린더 그리기
 document.addEventListener('DOMContentLoaded', function() {
@@ -78,32 +98,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
        
-
         noReadChatCount();
 		weatherView();
 		misseMunjiView();
+		updateTime(); // 현재시간
+		setInterval(updateTime, 1000); // 시간 카운트
+        noReadChatCount(); // 미확인 채팅 카운트
+		selectStatus() // 출퇴근상태확인
     })
-
-
-// 채팅페이지로 이동
-function chattingList(){
-    location.href = "list.ch";
-}
-
-
-// 미확인 채팅 카운트
-function noReadChatCount(){
-    
-    $.ajax({
-        url: "noReadChatCount.ch",
-        success: function (res) {
-            document.querySelector(".profile-inform-chat-2").innerHTML = res;
-        },
-        error: function () {
-            console.log("실패");
-        }
-    });
-}
 
 
 // 일정 조회
@@ -191,7 +193,6 @@ function listCalendar(timeData, callback){
 		}
 	})
 }
-
 // 날씨 보여주기
 function weatherView(){
 	let today = new Date();
@@ -412,6 +413,171 @@ const drawMisseMunji = function(data){
 			
 			document.querySelector('#home-downArea-area1-weather-misseMunji').innerHTML = misseStr;
 }
+
+
+// 번역버튼 클릭
+function papago(){
+    let inputText = document.querySelector('#translate-input').value;
+
+    // 공백이면 함수 종료
+    if(inputText.replace(/\s/g, '') == ""){
+        return;
+    }
+
+
+    const sourceLanguage = document.querySelector('.source-Language').textContent;
+
+    if(sourceLanguage == 'English'){
+        $.ajax({
+            url: "papagoEn.ho",
+            data:{
+                inputText: inputText
+            },
+            success: function (res) {
+                document.querySelector('#translate-value').value = res.message.result.translatedText;
+            },
+            error: function () {
+                console.log("실패");
+            }
+        });
+
+    } else {
+        $.ajax({
+            url: "papagoKo.ho",
+            data:{
+                inputText: inputText
+            },
+            success: function (res) {
+                document.querySelector('#translate-value').value = res.message.result.translatedText;
+            },
+            error: function () {
+                console.log("실패");
+            }
+        });
+    }
+
+}
+
+// 언어변경
+function changeLanguage(){
+    const sourceLanguage = document.querySelector('.source-Language');
+    const targetLanguage = document.querySelector('.target-Language');
+
+    if (sourceLanguage.textContent == '한국어') {
+        // 한국어에서 영어로 변경
+        sourceLanguage.textContent = 'English';
+        targetLanguage.textContent = '한국어';
+    } else {
+        // 영어에서 한국어로 변경
+        sourceLanguage.textContent = '한국어';
+        targetLanguage.textContent = 'English';
+    }
+}
+
+// 내용 지우기
+function deleteText(){
+    document.querySelector('#translate-input').value = "";
+    document.querySelector('#translate-value').value = "";
+
+
+}
+
+// 현재시간
+function updateTime() {
+	const currentTimeElement = document.querySelector('.current-time');
+	const currentTime = new Date();
+	const hours = currentTime.getHours().toString().padStart(2, '0');
+	const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+	const seconds = currentTime.getSeconds().toString().padStart(2, '0');
+
+	const formattedTime = `${hours}:${minutes}:${seconds}`;
+	currentTimeElement.textContent = formattedTime;
+}
+
+
+// 출근
+function statusWork(empNo){
+	$.ajax({
+		url: "statusWork.ho",
+		data:{
+			empNo: empNo
+		},
+		success: function (res) {
+			if (res == "success") {
+				updateButtonState(1)
+			} else {
+                console.log("업데이트 실패")
+            }
+		},
+		error: function () {
+			console.log("실패");
+		}
+	});
+}
+
+// 퇴근
+function statusLeave(empNo){
+	$.ajax({
+		url: "statusLeave.ho",
+		data:{
+			empNo: empNo
+		},
+		success: function (res) {
+			if (res == "success") {
+				updateButtonState(0)
+				console.log(0)
+			} else {
+                console.log("업데이트 실패")
+            }	
+		},
+		error: function () {
+			console.log("실패");
+		}
+	});
+}
+
+// 버튼 상태 업데이트
+function updateButtonState(Status) {
+	const workButton = document.querySelector('.status-work');
+	const leaveButton = document.querySelector('.status-leave');
+
+	// 출근 상태인 경우
+	if (Status == 1) {
+		workButton.setAttribute('disabled', true);
+		leaveButton.removeAttribute('disabled');
+		workButton.style.cursor = 'default';
+		leaveButton.style.cursor = 'pointer';
+	}
+	// 퇴근 상태인 경우
+	else if (Status == 0) {
+		leaveButton.setAttribute('disabled', true);
+		workButton.removeAttribute('disabled');
+		leaveButton.style.cursor = 'default'; 
+		workButton.style.cursor = 'pointer';
+	}
+
+}
+
+// 출퇴근상태 확인
+function selectStatus(){
+	$.ajax({
+		url: "selectStatus.ho",
+		success: function (res) {
+			if (res == 1) {
+				updateButtonState(1)
+			} else {
+                updateButtonState(0)
+            }	
+		},
+		error: function () {
+			console.log("실패");
+		}
+	});
+}
+
+
+
+>>>>>>> f47556fa9d1d6755e040696e5bf297f67e52b339
 
 
 
