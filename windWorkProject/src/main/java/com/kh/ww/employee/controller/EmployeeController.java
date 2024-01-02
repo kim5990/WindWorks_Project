@@ -3,11 +3,13 @@ package com.kh.ww.employee.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,9 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.ww.common.model.vo.PageInfo;
 import com.kh.ww.common.template.Pagenation;
-import com.kh.ww.community.model.vo.CommunityReply;
 import com.kh.ww.employee.model.service.EmployeeService;
 import com.kh.ww.employee.model.vo.Employee;
+import com.kh.ww.employee.model.vo.SendSMS;
 
 @Controller
 public class EmployeeController {
@@ -158,7 +160,7 @@ public class EmployeeController {
 		return "common/myPage";
 	}
 	
-	//아이디 비번찾기
+	//아이디 비번찾기 페이지 이동
 	@RequestMapping("/idPwdFindForm.em")
 	public String idPwdFindForm() {
 		return "common/empIDPWDFind";
@@ -214,6 +216,70 @@ public class EmployeeController {
 	@RequestMapping(value="changeAway.emp")
 	public String updateAway(Employee e) {
 		return employeeService.updateAway(e) > 0 ? "success" : "fail";
+	}
+	
+	// 아이디찾기 문자인증
+	@ResponseBody
+	@RequestMapping(value="sendSMS.em")
+	public String sendSMS(SendSMS sms) {
+		
+		int randomNumber = (int)((Math.random()* (9999 - 1000 + 1)) + 1000); // 난수 생성
+		employeeService.certifiedPhoneNumber(sms, randomNumber);
+		
+		return "ok";
+	}
+
+	// 문자인증 완료시 아이디 찾기
+	@ResponseBody
+	@RequestMapping(value="findId.em")
+	public String findId(SendSMS sms) {
+		System.out.println(sms);
+		int result = employeeService.checkConfirmNo(sms);
+		
+		if(result > 0) {
+			if(employeeService.selectfindId(sms) != null) {
+				return (employeeService.selectfindId(sms)).getEmpEmail();
+			}
+		}
+		
+//			Employee e1 = employeeService.selectfindId(sms);
+//			if(e1 != null) {
+//				String userEmail = e1.getEmpEmail();
+//				return userEmail;
+//			}
+			
+		return "fail";
+	}
+	
+	// 비밀번호 찾기 아이디 존재여부 확인
+	@ResponseBody
+	@RequestMapping(value="checkEmail.em")
+	public String checkEmail(String empEmail) {
+		return employeeService.checkEmail(empEmail) > 0 ? "success" : "fail";
+	}
+	
+	// 비밀번호 찾기 문자인증 완료시 새로운 비밀번호 입력
+	@ResponseBody
+	@RequestMapping(value="confirmNumberPwd.em")
+	public String confirmNumberPwd(SendSMS sms) {
+		return employeeService.checkConfirmNo(sms) > 0 ? "success" : "fail";
+	}
+	
+	// 새로운 비밀번호 변경
+	@ResponseBody
+	@RequestMapping(value="updateNewPwd.em")
+	public String updateNewPwd(Employee e) {
+		String encPwd = bcryptPasswordEncoder.encode(e.getEmpPwd());
+		System.out.println(encPwd);
+		e.setEmpPwd(encPwd);
+		
+		int result = employeeService.updateNewPwd(e);
+		
+		if (result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 	
 	

@@ -25,10 +25,7 @@
 <jsp:include page="../common/header.jsp" />
 
 	<c:if test="${!empty alertMsg}">
-		<script>
-			swal("", "${alertMsg}", "success");
-			/* alertify.alert('알림', "${alertMsg}"); */
-		</script>
+		
 		<c:remove var="alertMsg" scope="session" />
 	</c:if>
 	

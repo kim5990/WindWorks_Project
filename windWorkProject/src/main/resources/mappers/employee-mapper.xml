@@ -21,6 +21,15 @@
 		<result column="JOB_NAME" property="jobName"/>
 		<result column="DEPT_NAME" property="deptName"/>
 	</resultMap>
+	
+	<resultMap type="SendSMS" id="sendSMSResult">
+		<result column="SMS_NO" property="smsNo"/>
+		<result column="SMS_DATE" property="smsDate"/>
+		<result column="SMS_NAME" property="smsName"/>
+		<result column="SMS_PHONE" property="smsPhone"/>
+		<result column="SMS_CONFIRM_NO" property="smsConfirmNo"/>
+	</resultMap>
+	
 	<!-- 회원가입 쿼리문 -->
 	<insert id="insertEmployee">
 		INSERT INTO EMPLOYEE(
@@ -189,4 +198,61 @@
 		WHERE EMP_STATUS = 1
 			AND EMP_NO != #{empNo}
 	</select>
+	
+	<!-- 아이디찾기 문자인증 -->
+	<insert id="insertSendSMS">
+		INSERT INTO SENDSMS
+				(
+				SMS_NO,
+				SMS_DATE,
+				SMS_NAME,
+				SMS_PHONE,
+				SMS_CONFIRM_NO
+				)
+		VALUES
+				(
+				SEQ_SMNO.NEXTVAL,
+				SYSDATE,
+				#{smsName},
+				#{smsPhone},
+				#{randomNumber}
+				)
+	</insert>
+	
+	<!-- 문자인증 완료시 아이디 찾기 -->
+	<select id="selectfindId" resultMap="employeeResult">
+		SELECT EMP_NO,
+			   EMP_NAME,
+			   EMP_EMAIL,
+			   EMP_PHONE
+		  FROM EMPLOYEE
+		 WHERE EMP_STATUS = 1 <!-- 재직인사람만 보여줄지.. -->
+		 AND EMP_PHONE = #{smsPhone}
+		 AND EMP_NAME = #{smsName}
+	</select>
+	
+	<!-- 문자인증번호 확인 -->
+	<select id="checkConfirmNo" resultType="_int">
+		SELECT COUNT(*)
+		  FROM SENDSMS
+	 	 WHERE SMS_CONFIRM_NO = #{smsConfirmNo}
+	 	   AND SMS_PHONE = #{smsPhone}
+	</select>
+	
+	<!-- 비밀번호 찾기 아이디 존재여부 확인 -->
+	<select id="checkEmail" resultType="_int">
+		SELECT COUNT(*)
+		  FROM EMPLOYEE
+		 WHERE EMP_EMAIL = #{empEmail}
+	</select>
+	
+	<!-- 비밀번호 찾기 문자인증 완료시 새로운 비밀번호 입력 -->
+	<update id="updateNewPwd">
+		UPDATE EMPLOYEE
+		   SET EMP_PWD = #{empPwd}
+		 WHERE EMP_EMAIL = #{empEmail}
+	</update>
+	
+	
+	
 </mapper>

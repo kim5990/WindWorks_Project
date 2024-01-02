@@ -71,9 +71,9 @@ function drawCalendar(start){
 						eventData.endDate == "" ||
 						eventData.content == ""
 					) {
-						alert("입력하지 않은 값이 있습니다.");
+						swal("", "입력하지 않은 값이 있습니다.", "warning");
 					} else if ($("#modal-start-date").val() > $("#modal-end-date").val()) {
-						alert("종료일이 시작일보다 먼저입니다.");
+						swal("", "종료일이 시작일보다 먼저입니다.", "warning");
 					} else {
 						saveCalendarEvent(eventData, function(){
 							drawCalendar(info.dateStr)
@@ -161,9 +161,9 @@ function drawCalendar(start){
 						eventData.endDate == "" ||
 						eventData.content == ""
 					) {
-						alert("입력하지 않은 값이 있습니다.");
+						swal("", "입력하지 않은 값이 있습니다.", "warning");
 					} else if ($("#modal-start-date1").val() > $("#modal-end-date1").val()) {
-						alert("종료일이 시작일보다 먼저입니다.");
+						swal("", "종료일이 시작일보다 먼저입니다.", "warning");
 					} else {
 						// 일정 수정
 						updateCalendarEvent(eventData, function(){
