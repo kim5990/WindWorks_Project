@@ -19,6 +19,8 @@
       <!--js-->
       <script src="resources/studyManagement/js/lessonPlan.js"></script>
       <script src="resources/studyManagement/js/studentManagement.js"></script>
+      <!--alert-->
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
 
     <body onload="lessonOnload(), lessonPlanView(1, drowlessonPlanView)">

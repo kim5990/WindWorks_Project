@@ -390,31 +390,34 @@ public class mailController {
 		if(stringList != null) {
 			 efl = String.join(", ", stringList);
 		}
-		
-		for(int i = 0; i < referenceEmail.length; i++) {
-			if(i == 0) {
-				int sender = emailService.selectSender(referenceEmail[i]);
-				email.setEmailSenderNo(sender);
-				email.setEmpNo(empNo);
-				email.setEmailLevel(0);
-				email.setEmailSenderEmail(referenceEmail[i]);
-				email.setEmailFileList(efl);
-				result = emailService.sendEmail(email);
-				
-				email.setEmailSenderNo(empNo);
-				email.setEmpNo(sender);
-				email.setEmailLevel(1);
-				result = emailService.sendEmail(email);
-			}else {
-				int sender = emailService.selectSender(referenceEmail[i]);
-				email.setEmailSenderNo(empNo);
-				email.setEmpNo(sender);
-				email.setEmailLevel(2);
-				email.setEmailFileList(efl);
-				email.setEmailSenderEmail(referenceEmail[i]);
-				result = emailService.sendEmail(email);
-			}
-		}				
+		System.out.println(referenceEmail.length);
+		if(referenceEmail.length > 0) {
+			for(int i = 0; i < referenceEmail.length; i++) {
+				if(i == 0) {
+					int sender = emailService.selectSender(referenceEmail[i]);
+					email.setEmailSenderNo(sender);
+					email.setEmpNo(empNo);
+					email.setEmailLevel(0);
+					email.setEmailSenderEmail(referenceEmail[i]);
+					email.setEmailFileList(efl);
+					result = emailService.sendEmail(email);
+					
+					email.setEmailSenderNo(empNo);
+					email.setEmpNo(sender);
+					email.setEmailLevel(1);
+					result = emailService.sendEmail(email);
+				}else {
+					int sender = emailService.selectSender(referenceEmail[i]);
+					email.setEmailSenderNo(empNo);
+					email.setEmpNo(sender);
+					email.setEmailLevel(2);
+					email.setEmailFileList(efl);
+					email.setEmailSenderEmail(referenceEmail[i]);
+					result = emailService.sendEmail(email);
+				}
+			}	
+		}
+			
 			
 				MimeMessage message = sender.createMimeMessage();
 				MimeMessageHelper helper;

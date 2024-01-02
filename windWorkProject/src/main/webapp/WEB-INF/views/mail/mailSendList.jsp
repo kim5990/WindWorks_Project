@@ -135,7 +135,7 @@
                                     <th class="mail-table-th mail-table-read mail-table-ailgn">
                                         읽음 표시
                                     </th>
-                                    <th class="mail-table-th mail-table-ailgn">
+                                    <th class="mail-table-th mail-table-ailgn" style="width: 280px;">
                                         메일 주소
                                     </th>
                                     <th class="mail-table-th mail-table-ailgn">

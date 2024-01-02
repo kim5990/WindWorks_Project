@@ -26,6 +26,7 @@
  		<result column="CHAT_MSG_CONTENT" property="chatMsgContent" />
  		<result column="CHAT_MSG_DATE" property="chatMsgDate" />
  		<result column="READ_CHECK" property="readCheck" />
+ 		<result column="JOB_NAME" property="jobName" />
  	</resultMap>
  		
  	<resultMap type="Department" id="DepartmentResult">
@@ -51,7 +52,7 @@
  	<select id="selectDeptList" resultMap="DepartmentResult">
  		SELECT DEPT_CODE, DEPT_NAME
  		FROM DEPARTMENT
- 		ORDER BY DEPT_NAME
+ 		ORDER BY DEPT_CODE
  	</select>
  	
  	<!-- 전직원 리스트 조회 -->
@@ -108,11 +109,13 @@
 	<select id="selectMsgList" resultMap="ChattingMessageResult">
 		SELECT CHAT_MSG_NO, 
 				EMP_NO, 
-				EMP_NAME, 
+				EMP_NAME,
+				JOB_NAME,
 				CHAT_MSG_CONTENT, 
 				TO_CHAR(CHAT_MSG_DATE, 'YY.MM.DD HH24:MI') AS "CHAT_MSG_DATE"
 		FROM CHATTING_MESSAGE
 			JOIN EMPLOYEE USING (EMP_NO)
+			JOIN JOB USING (JOB_CODE)
 		WHERE CHAT_ROOM_NO = #{roomNo}
 		ORDER BY CHAT_MSG_NO
 	</select>

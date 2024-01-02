@@ -58,4 +58,16 @@ public interface EmployeeService {
 	// 새로운 비밀번호 변경
 	int updateNewPwd(Employee e);
 
+	//패스워드 수정
+	int updatePassword(Employee e);
+	
+	// 출근상태로 변경
+	int statusWork(int empNo);
+	
+	// 퇴근상태로 변경
+	int statusLeave(int empNo);
+	
+	// 출퇴근상태 확인
+	int selectStatus(int empNo);
+	
 }

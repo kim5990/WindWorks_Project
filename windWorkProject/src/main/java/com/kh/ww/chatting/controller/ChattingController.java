@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.ww.chatting.model.service.ChattingService;
 import com.kh.ww.chatting.model.vo.ChattingGroup;
 import com.kh.ww.chatting.model.vo.ChattingMessage;
@@ -22,6 +23,7 @@ import com.kh.ww.chatting.model.vo.ChattingRoom;
 import com.kh.ww.chatting.model.vo.ChattingRoomList;
 import com.kh.ww.employee.model.vo.Department;
 import com.kh.ww.employee.model.vo.Employee;
+import com.kh.ww.mail.model.service.EmailService;
 
 @Controller
 public class ChattingController {
@@ -29,6 +31,8 @@ public class ChattingController {
 	@Autowired
 	private ChattingService chattingService;
 	
+	@Autowired
+	private EmailService emailService;
 	
 	// 채팅 첫화면
 	@RequestMapping("list.ch")
@@ -58,7 +62,6 @@ public class ChattingController {
 	public JSONObject chatRoomList(int empNo) {		
 		// 최종 리스트
 		ArrayList<ChattingRoomList> crlList = new ArrayList();
-
 		// 1. 내 채팅방 리스트 조회
 		ArrayList<ChattingRoom> myChatRoomList = chattingService.myChatRoomList(empNo);
 		for (int i = 0; i < myChatRoomList.size(); i++) {
@@ -145,7 +148,6 @@ public class ChattingController {
 		
 		// 메세지 리스트 조회
 		ArrayList<ChattingMessage> chatMsgList = chattingService.selectMsgList(roomNo);
-		
 		// 메세지 읽음 처리
 		ChattingMsgRead cmr = new ChattingMsgRead();
 		cmr.setEmpNo(empNo);
@@ -215,11 +217,15 @@ public class ChattingController {
 	
 	// 안읽은 메세지 카운트 (총)
 	@ResponseBody
-	@RequestMapping("/noReadChatCount.ch")
-	public int selectnoReadChatCount(HttpSession session) {
+	@RequestMapping(value = "/noReadChatCount.ch",  produces = "appalication/json; charset = UTF-8")
+	public String selectnoReadChatCount(HttpSession session) {
 		Employee e = (Employee)session.getAttribute("loginUser");
 		int empNo = e.getEmpNo();
-		return chattingService.selectnoReadChatCount(empNo);
+		int readListCount = emailService.mailreadListCount(empNo);
+		JSONObject count = new JSONObject();
+		count.put("readChatCount", chattingService.selectnoReadChatCount(empNo));
+		count.put("readEmailCount", emailService.mailreadListCount(empNo));
+		return new Gson().toJson(count);
 	}
 
 	

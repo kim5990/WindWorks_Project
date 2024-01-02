@@ -107,6 +107,25 @@ public class EmployeeDao {
 		return sqlSession.update("employeeMapper.updateNewPwd", e);
 	}
 	
-	
+	//패스워드업그레이드
+	public int updatePassword(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.updatePassword", e);
+	}
 
+	//출근상태로 변경
+	public int statusWork(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.update("employeeMapper.statusWork", empNo);
+	}
+	
+	//퇴근상태로 변경
+	public int statusLeave(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.update("employeeMapper.statusLeave", empNo);
+	}
+	
+	// 출퇴근상태 확인
+	//미승인 사원수 가져오기
+	public int selectStatus(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("employeeMapper.selectStatus", empNo);
+	}
+	
 }

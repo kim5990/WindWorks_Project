@@ -73,8 +73,7 @@ public class EmployeeController {
 	//로그인
 	@RequestMapping("/login.em")
 	public ModelAndView loginMember(Employee e, ModelAndView mv, HttpSession session) {
-		Employee loginUser = employeeService.loginEmployee(e); //아이디로만 맴버 객체 가져오기
-
+		Employee loginUser = employeeService.loginEmployee(e); //아이디로만 맴버 객체 가져오기 
 		if(loginUser == null || !bcryptPasswordEncoder.matches(e.getEmpPwd(), loginUser.getEmpPwd())) { //로그인실패 => 에러문구를 requsetScope에 담고 에러페이지 포워딩
 			mv.addObject("error", "로그인 실패");
 			mv.setViewName("common/login");
@@ -108,7 +107,7 @@ public class EmployeeController {
 			ModelAndView mv) {
 
 		PageInfo pi = Pagenation.getPageInfo(employeeService.selectListCount(), currentPage, 3, 16);
-
+		
 		mv.addObject("pi",pi)
 		  .addObject("sorting", sorting)
 		  .addObject("condition", condition)
@@ -282,6 +281,44 @@ public class EmployeeController {
 		}
 	}
 	
+	// 비밀번호 변경
+	@ResponseBody
+	@RequestMapping(value="ajaxPasswordChange.emp")
+	public String ajaxPasswordChange(Employee e) {
+		Employee loginUser = employeeService.loginEmployee(e); //아이디로만 맴버 객체 가져오기
+		System.out.println(loginUser);
+		if(loginUser == null || !bcryptPasswordEncoder.matches(e.getEmpPwd(), loginUser.getEmpPwd())) { 
+			return "failPassword";
+		}else {
+			String encPwd = bcryptPasswordEncoder.encode(e.getNewPassword());
+			e.setNewPassword(encPwd);
+			System.out.println(encPwd);
+			return employeeService.updatePassword(e) > 0 ? "success" : "fail";
+		}
+		
+	}
+	
+	// 출근
+	@ResponseBody
+	@RequestMapping(value="statusWork.ho")
+	public String statusWork(int empNo) {
+		return employeeService.statusWork(empNo) > 0 ? "success" : "fail";
+	}
+	
+	// 퇴근
+	@ResponseBody
+	@RequestMapping(value="statusLeave.ho")
+	public String statusLeave(int empNo) {
+		return employeeService.statusLeave(empNo) > 0 ? "success" : "fail";
+	}
+	
+	// 출퇴근상태확인
+	@ResponseBody
+	@RequestMapping(value="selectStatus.ho")
+	public int selectStatus(HttpSession session) {
+		Employee e = (Employee)session.getAttribute("loginUser");
+		return employeeService.selectStatus(e.getEmpNo());
+	}
 	
 }
 

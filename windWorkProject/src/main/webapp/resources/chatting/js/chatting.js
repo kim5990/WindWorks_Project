@@ -291,8 +291,9 @@ function drawDetail(res){
                 '</div>'
         } else {
             if (targetList.chatRoomLevel == 1) {
+                console.log(list)
                 str2 += '<div class="body-chatting-you-area">' +
-                    '<div class="body-chatting-you-name">' + list.empName + '</div>' +
+                    '<div class="body-chatting-you-name">' + list.empName + " " + list.jobName + '</div>' +
                     '<div class="body-chatting-you">' + list.chatMsgContent + '</div>' +
                     '<div class="body-chatting-you-time">' + list.chatMsgDate + '</div>' +
                     '</div>'
@@ -358,12 +359,12 @@ function scrollToBottom(){
     // 서버로부터 데이터가 도착했을 때
     socket.onmessage = function (ev) {
         const receive = JSON.parse(ev.data)
-        console.log(receive)
         
         
         if(receive.isSide == 0){
             // 오늘 날짜
             let currentDate =  dateToStringYYYYMMDDhhmm();
+            console.log(receive)
 
             str = '';
             if (receive.chatRoomLevel == 0){
@@ -375,7 +376,7 @@ function scrollToBottom(){
                 str = '<div class="body-chatting-you-area">' +
                 '<div class="body-chatting-you-name">' + receive.empName + '</div>' +
                 '<div class="body-chatting-you">' + receive.chatMsgContent + '</div>' +
-                '<div class="body-chatting-you-time">' + formattedDate + '</div>' +
+                '<div class="body-chatting-you-time">' + currentDate + '</div>' +
                 '</div>'
             }
             
@@ -397,6 +398,9 @@ function scrollToBottom(){
 // 메세지 보내기
 function sendMsg(event) {
     if(event.keyCode === 13 || !event.keyCode) {
+        if(document.querySelector(".chattingList-area2-footer-div-input").value.trim() === ''){
+            return;
+        }
         const msgData = {
             message: document.querySelector(".chattingList-area2-footer-div-input").value,
             target: document.querySelector(".chattingList-area2-footer-div-input-target").value,

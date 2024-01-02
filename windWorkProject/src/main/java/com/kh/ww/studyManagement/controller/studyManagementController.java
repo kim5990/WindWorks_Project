@@ -531,7 +531,13 @@ public class studyManagementController {
 		jobj.put("classNo", student.getClassNo());
 		return new Gson().toJson(jobj);
 	}
-
+	
+	// 강의자료실 자료 이동
+	@ResponseBody
+	@RequestMapping(value="ajaxLectureMovement.lm")
+	public String ajaxLectureMovement(ClassAttachment c) {
+		return studyManagementService.ajaxLectureMovement(c) > 0 ? "success" : "fail";
+	}
 	
 	
 	public String getSaveFileInfo(MultipartFile upfile, HttpSession session, String path) {

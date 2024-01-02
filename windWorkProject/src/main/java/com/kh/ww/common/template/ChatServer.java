@@ -119,21 +119,7 @@ public class ChatServer extends TextWebSocketHandler {
 			if (result2 == targetList.size()) {
 				sendMessageToUser(cm, roomNo, cm.getEmpNo());
 			}
-			
-			
-			
-//			//다른사람들한테 보내기
-//			
-//			// 상대 세션 담을 배열 선언
-//			Map<Integer, WebSocketSession> userMap = roomUserSession.get(roomNo);
-//			targetList// 반복
-//			if(userMap.get() == null || !isOpen()) {
-//				//roomUserSession를 반복문을 돌려서
-//				//해당 사람이 존재하는 세션이 있는지 파악해서 있다면 그쪽으로 전송
-//				//전송할때 type(sideMessage)을 정해주기고보내기
-//			}
-			
-			
+	
 		}
 		
 	}

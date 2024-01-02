@@ -104,7 +104,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		String api_key = "NCSEZITHDN92CHU0";
 	    String api_secret = "SDIEAKCSXQYKQLNIPMMTXCLJWQRHAE6X";
 	    Message coolsms = new Message(api_key, api_secret);
-
+	    
 	    // 4 params(to, from, type, text) are mandatory. must be filled
 	    HashMap<String, String> params = new HashMap<String, String>();
 	    params.put("to", sms.getSmsPhone());    // 수신전화번호
@@ -126,9 +126,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 	        System.out.println(e.getMessage());
 	        System.out.println(e.getCode());
 	      }
-		
 	}
 
+	//비밀번호 변경
+	@Override
+	public int updatePassword(Employee e) {
+		return employeeDao.updatePassword(sqlSession, e);
+	}
+	
 	// 문자인증 완료시 아이디 찾기
 	@Override
 	public Employee selectfindId(SendSMS sms) {
@@ -153,5 +158,19 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.updateNewPwd(sqlSession, e);
 	}
 
+	@Override
+	public int statusWork(int empNo) {
+		return employeeDao.statusWork(sqlSession, empNo);
+	}
+
+	@Override
+	public int statusLeave(int empNo) {
+		return employeeDao.statusLeave(sqlSession, empNo);
+	}
+
+	@Override
+	public int selectStatus(int empNo) {
+		return employeeDao.selectStatus(sqlSession, empNo);
+	}
 
 }

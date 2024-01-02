@@ -45,7 +45,7 @@
                     </div>
                     <div class="profileStatus"></div>
                     <div class="profileCheckbox" onclick="showOverlay()">
-                        <ion-icon class="profileCheckbox-icon" name="chevron-down-circle-outline"></ion-icon>
+                        <ion-icon class="profileCheckbox-icon" name="chevron-down-circle-outline" style="width: 24px; height: 24px; "></ion-icon>
                         <div class="overlay-div">
                             <div class="overlay-div-selectBox">
                                 <div class="overlay-div-selectBox-cont" onclick="changeOnline()">온라인</div>
@@ -53,9 +53,6 @@
                                 <div class="overlay-div-selectBox-cont" onclick="changeOffline()">오프라인</div>
                             </div>
                         </div>
-                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                        </svg> -->
                     </div>    
                 </div>
 
@@ -65,7 +62,7 @@
                         <li class="org-item">
                             <div class="org-oneline org-title">
                                 <div class="org-toggle">&#43;</div>
-                                <div>본점</div>
+                                <div>본사</div>
                             </div>
                             <ul class="org-content" id="start-ul">
 
