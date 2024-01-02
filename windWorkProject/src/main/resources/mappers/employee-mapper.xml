@@ -191,6 +191,12 @@
 			AND EMP_NO != #{empNo}
 	</select>
 	
+	<update id="updatePassword">
+		UPDATE EMPLOYEE
+		SET EMP_PWD = #{newPassword}
+		WHERE EMP_NO = #{empNo}
+	</update>
+
 	<!-- 조직도차트 : dept 리스트 -->
 	<select id="selectDeptList" resultMap="employeeResult">
 		SELECT DEPT_CODE, DEPT_NAME

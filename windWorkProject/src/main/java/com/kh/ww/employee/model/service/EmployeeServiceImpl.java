@@ -90,6 +90,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int updateEmployee(Employee e) {
 		return employeeDao.updateEmployee(sqlSession, e);
 	}
+	//비밀번호 변경
+	@Override
+	public int updatePassword(Employee e) {
+		return employeeDao.updatePassword(sqlSession, e);
+	}
 
 	@Override
 	public int statusWork(int empNo) {

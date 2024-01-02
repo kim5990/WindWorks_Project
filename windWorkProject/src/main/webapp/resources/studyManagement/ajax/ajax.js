@@ -22,7 +22,6 @@ document.querySelector("#studyManagementWriter").onclick = function () {
         success: function (res) {
             console.log(res)
             drowupdateBtnLessonPlanView(res);
-            alert("수정에 성공하셨습니다.");
         },
         error: function () {
             console.log("lessonPlanView ajax 통신 실패")
@@ -116,7 +115,7 @@ function ajaxstudentaddManagementView(classNo, studentName, studentEmail, studen
             cpage: czpage
         },
         success: function (res) {
-            alert("추가 완료");
+            swal("", "추가 완료.", "success");
             drowstudentManagementView(res)
         },
         error: function () {
@@ -174,7 +173,7 @@ function deletedStudent(checkBoxtrueList, drowstudentManagementView) {
         },
         success: function (res) {
             drowstudentManagementView(res)
-            alert("삭제 완료");
+            swal("", "삭제 완료!!", "success");
         },
         error: function () {
             console.log("studentManagementView ajax 통신 실패")
@@ -191,7 +190,7 @@ function ajaxLikeAddSelect(classDataNo, empNo) {
             empNo: empNo
         },
         success: function (res) {
-            alert("즐겨찾기 완료");
+            swal("", "즐겨찾기 완료!!", "success");
             let str = ' <svg xmlns="http://www.w3.org/2000/svg"'
                 + ' onclick="ajaxLikeDeleteSelect(' + res.c.classDataNo + ", " + res.c.empNo + ')"'
                 + 'style="color: #fbf4a8;" width="16" height="16" fill="currentColor"'
@@ -217,7 +216,7 @@ function ajaxLikeDeleteSelect(classDataNo, empNo) {
             empNo: empNo
         },
         success: function (res) {
-            alert("즐겨찾기 삭제");
+            swal("", "즐겨찾기 취소!!", "success");
 
             let str = ' <svg xmlns="http://www.w3.org/2000/svg"'
                 + ' onclick="ajaxLikeAddSelect(' + res.c.classDataNo + ", " + res.c.empNo + ')"'
@@ -229,6 +228,28 @@ function ajaxLikeDeleteSelect(classDataNo, empNo) {
         },
         error: function () {
             console.log("ajaxLikeDeleteSelect ajax 통신 실패")
+        },
+    })
+}
+
+//강의자료실 이동
+function ajaxLectureMovement(classDataNo, categoryNo) {
+    $.ajax({
+        url: "ajaxLectureMovement.lm",
+        data: {
+            classDataNo: classDataNo,
+            categoryNo: categoryNo
+        },
+        success: function (res) {
+            if (res === "success") {
+                swal("", "변경완료", "success");
+            } else {
+                swal("", "변경실패", "error");
+            }
+
+        },
+        error: function () {
+            console.log("studentManagementView ajax 통신 실패")
         },
     })
 }

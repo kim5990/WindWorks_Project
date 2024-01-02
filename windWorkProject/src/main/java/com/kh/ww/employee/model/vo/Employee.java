@@ -41,5 +41,7 @@ public class Employee {
 	private String keyword;
 	
 	private int chatRoomNo;
+	
+	private String newPassword;
 
 }

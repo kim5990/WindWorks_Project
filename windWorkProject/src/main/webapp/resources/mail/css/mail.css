@@ -229,11 +229,14 @@
     height: 40px;
     border-top: 2px solid #ddd;
     border-bottom: 2px solid #ddd;
-    position: sticky;
+    position : sticky;
     top: 0;
     background-color: #f1f1f1;
+    z-index: 0;
 }
-
+.icon-zindex{
+    z-index: -1;
+}
 .mail-table-th {
     font-size: 14px;
     font-weight: 800;
@@ -257,6 +260,7 @@
 }
 
 .mail-right-tbody {
+    z-index: -2;
     height: 40px;
 }
 
