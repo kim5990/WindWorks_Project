@@ -20,7 +20,7 @@
     <!--js-->
     <script src="resources/mail/js/mailMailForm.js"></script>
 </head>
-<body onload="sendMailFormInit()">
+<body onload="sendMailFormInit(), emailOnload()">
     <jsp:include page="../common/header.jsp" />
 	<div class = "menu">
         <div class = "mailWriteForm">

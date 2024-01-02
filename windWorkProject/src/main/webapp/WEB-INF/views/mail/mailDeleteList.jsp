@@ -19,7 +19,7 @@
             <script src="resources/mail/js/ajax.js"></script>
         </head>
 
-        <body onload="deleteMailList() ">
+        <body onload="deleteMailList(), emailOnload()">
             <jsp:include page="../common/header.jsp" />
             <div class="menu">
                 <div class="mail-left-bar">
