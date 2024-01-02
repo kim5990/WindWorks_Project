@@ -53,6 +53,7 @@ public class weatherController {
 		url += "?serviceKey=" + SERVICE_KEY;
 		url += "&sidoName=" + URLEncoder.encode("서울", "UTF-8"); // 요청값에 한글이 있다면 인코딩 해줘야한다.
 		url += "&returnType=json";
+		url += "&ver=1.0";
 		
 		URL requestUrl = new URL(url); 
 		HttpURLConnection urlConnection = (HttpURLConnection)requestUrl.openConnection();

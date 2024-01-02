@@ -244,6 +244,11 @@ a {
 }
 .home-downArea-area1-weather-temperature{
     display: flex;
+    flex-direction: column;
+}
+.weather-C{
+    display: flex;
+    flex-direction: row;
 }
 
 
