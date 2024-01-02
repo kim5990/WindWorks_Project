@@ -216,7 +216,6 @@ public class EmployeeController {
 		return employeeService.updateAway(e) > 0 ? "success" : "fail";
 	}
 	
-<<<<<<< HEAD
 	// 비밀번호 변경
 	@ResponseBody
 	@RequestMapping(value="ajaxPasswordChange.emp")
@@ -234,8 +233,6 @@ public class EmployeeController {
 		
 	}
 	
-	
-=======
 	// 출근
 	@ResponseBody
 	@RequestMapping(value="statusWork.ho")
@@ -257,9 +254,6 @@ public class EmployeeController {
 		Employee e = (Employee)session.getAttribute("loginUser");
 		return employeeService.selectStatus(e.getEmpNo());
 	}
-	
-
->>>>>>> f47556fa9d1d6755e040696e5bf297f67e52b339
 	
 }
 

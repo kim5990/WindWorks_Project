@@ -41,10 +41,9 @@ public interface EmployeeService {
 	
 	//마이페이지에서 사원 정보 수정
 	int updateEmployee(Employee e);
-<<<<<<< HEAD
 
+	//패스워드 수정
 	int updatePassword(Employee e);
-=======
 	
 	// 출근상태로 변경
 	int statusWork(int empNo);
@@ -55,6 +54,4 @@ public interface EmployeeService {
 	// 출퇴근상태 확인
 	int selectStatus(int empNo);
 	
-	
->>>>>>> f47556fa9d1d6755e040696e5bf297f67e52b339
 }

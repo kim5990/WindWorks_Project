@@ -74,12 +74,11 @@ public class EmployeeDao {
 	public int updateEmployee(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.updateEmployee", e);
 	}
-<<<<<<< HEAD
-
+	//패스워드업그레이드
 	public int updatePassword(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.updatePassword", e);
 	}
-=======
+
 	
 	//출근상태로 변경
 	public int statusWork(SqlSessionTemplate sqlSession, int empNo) {
@@ -99,7 +98,4 @@ public class EmployeeDao {
 	
 	
 	
-	
-	
->>>>>>> f47556fa9d1d6755e040696e5bf297f67e52b339
 }
