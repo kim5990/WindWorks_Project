@@ -51,3 +51,23 @@ const calendarOnload = function () {
     document.querySelector("#nav-calendar-bar").classList.add('active');
     document.querySelector("#navbar").style.background = 'rgb(85, 175, 130)';
 }
+
+const emailOnload = function () {
+    document.querySelector("#nav-email-bar").classList.add('active');
+    document.querySelector("#navbar").style.background = 'rgb(85, 175, 130)';
+}
+
+const orgOnload = function () {
+    document.querySelector("#nav-org-bar").classList.add('active');
+    document.querySelector("#navbar").style.background = 'rgb(85, 175, 130)';
+}
+
+const chattingOnload = function () {
+    document.querySelector("#nav-chatting-bar").classList.add('active');
+    document.querySelector("#navbar").style.background = 'rgb(85, 175, 130)';
+}
+
+const reservationOnload = function () {
+    document.querySelector("#nav-reservationPage-bar").classList.add('active');
+    document.querySelector("#navbar").style.background = 'rgb(85, 175, 130)';
+}

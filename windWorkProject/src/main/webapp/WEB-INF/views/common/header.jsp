@@ -48,7 +48,7 @@
                                 <span class="nav_name">홈</span>
                             </a>
 
-                            <a href="list.org" class="nav__link">
+                            <a href="list.org" id="nav-org-bar" class="nav__link">
                                 <ion-icon name="person-outline" class="nav__icon"></ion-icon>
                                 <span class="nav_name">조직도</span>
                             </a>
@@ -58,12 +58,12 @@
                                 <span class="nav_name">캘린더</span>
                             </a>
 
-                            <a href="list.mail" class="nav__link">
+                            <a href="list.mail" id="nav-email-bar" class="nav__link">
                                 <ion-icon name="mail-outline" class="nav__icon"></ion-icon>
                                 <span class="nav_name">메일</span>
                             </a>
 
-                            <a href="list.ch" class="nav__link">
+                            <a href="list.ch" id="nav-chatting-bar" class="nav__link">
                                 <ion-icon name="chatbubbles-outline" class="nav__icon"></ion-icon>
                                 <span class="nav_name">채팅</span>
                             </a>

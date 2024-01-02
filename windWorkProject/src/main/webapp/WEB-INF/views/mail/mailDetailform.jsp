@@ -19,7 +19,7 @@
 			<script src="resources/mail/js/mailList.js"></script>
 		</head>
 
-		<body>
+		<body onload="emailOnload()">
 			<jsp:include page="../common/header.jsp" />
 			<div class="menu">
 				<div class="mail-left-bar">
