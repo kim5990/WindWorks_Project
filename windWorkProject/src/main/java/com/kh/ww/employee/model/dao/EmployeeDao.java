@@ -74,8 +74,32 @@ public class EmployeeDao {
 	public int updateEmployee(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.updateEmployee", e);
 	}
+<<<<<<< HEAD
 
 	public int updatePassword(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.updatePassword", e);
 	}
+=======
+	
+	//출근상태로 변경
+	public int statusWork(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.update("employeeMapper.statusWork", empNo);
+	}
+	
+	//퇴근상태로 변경
+	public int statusLeave(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.update("employeeMapper.statusLeave", empNo);
+	}
+	
+	// 출퇴근상태 확인
+	//미승인 사원수 가져오기
+	public int selectStatus(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("employeeMapper.selectStatus", empNo);
+	}
+	
+	
+	
+	
+	
+>>>>>>> f47556fa9d1d6755e040696e5bf297f67e52b339
 }

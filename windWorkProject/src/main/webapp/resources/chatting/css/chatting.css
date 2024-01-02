@@ -420,7 +420,7 @@
     height: 70px;
     display: flex;
     flex-direction: row;
-    background-color: beige;
+    /* background-color: beige; */
 }
 .screen_leftDown-left{
     height: 70px;
@@ -470,6 +470,7 @@
 .plus-profileImg-img{
     width: 100%;
     height: 100%;
+    border-radius: 50%;
 }
 .plus-profileImg-img-area{
     width: 30px;

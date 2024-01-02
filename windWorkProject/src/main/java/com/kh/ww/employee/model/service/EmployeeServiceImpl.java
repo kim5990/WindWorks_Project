@@ -96,6 +96,21 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.updatePassword(sqlSession, e);
 	}
 
+	@Override
+	public int statusWork(int empNo) {
+		return employeeDao.statusWork(sqlSession, empNo);
+	}
+
+	@Override
+	public int statusLeave(int empNo) {
+		return employeeDao.statusLeave(sqlSession, empNo);
+	}
+
+	@Override
+	public int selectStatus(int empNo) {
+		return employeeDao.selectStatus(sqlSession, empNo);
+	}
+
 
 
 

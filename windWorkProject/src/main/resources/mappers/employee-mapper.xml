@@ -62,7 +62,8 @@
 	        EMP_ONLINE_STATUS,
 	        PROFILE_FILE_PATH,
 	        JOB_NAME,
-	        DEPT_NAME
+	        DEPT_NAME,
+	        EMP_WORK_STATUS
 		FROM EMPLOYEE
 		JOIN DEPARTMENT USING (DEPT_CODE)
 		JOIN JOB USING (JOB_CODE)
@@ -195,4 +196,42 @@
 		SET EMP_PWD = #{newPassword}
 		WHERE EMP_NO = #{empNo}
 	</update>
+
+	<!-- 조직도차트 : dept 리스트 -->
+	<select id="selectDeptList" resultMap="employeeResult">
+		SELECT DEPT_CODE, DEPT_NAME
+		FROM DEPARTMENT
+		ORDER BY DEPT_CODE
+	</select>
+	
+	<!-- 조직도차트 : job 리스트 -->
+	<select id="selectJobList" resultMap="employeeResult">
+		SELECT EMP_NO, EMP_NAME, JOB_NAME
+		FROM EMPLOYEE
+		JOIN JOB USING(JOB_CODE)
+		WHERE EMP_STATUS = 1 
+			AND DEPT_CODE = #{deptCode}
+	</select>
+	
+	<!-- 출근상태로 변경 -->
+	<update id="statusWork">
+		UPDATE EMPLOYEE
+         SET EMP_WORK_STATUS = 1
+		WHERE EMP_NO = #{empNo}
+	</update>
+	
+	<!-- 퇴근상태로 변경 -->
+	<update id="statusLeave">
+		UPDATE EMPLOYEE
+         SET EMP_WORK_STATUS = 0
+		WHERE EMP_NO = #{empNo}
+	</update>
+	
+	<!-- 출퇴근상태 확인 -->
+	<select id="selectStatus" resultType="_int">
+		SELECT EMP_WORK_STATUS
+		FROM EMPLOYEE
+		WHERE EMP_NO = #{empNo}
+	</select>
+	
 </mapper>
