@@ -45,7 +45,7 @@
                     </div>
                     <div class="profileStatus"></div>
                     <div class="profileCheckbox" onclick="showOverlay()">
-                        <ion-icon class="profileCheckbox-icon" name="chevron-down-circle-outline"></ion-icon>
+                        <ion-icon class="profileCheckbox-icon" name="chevron-down-circle-outline" style="width: 24px; height: 24px; "></ion-icon>
                         <div class="overlay-div">
                             <div class="overlay-div-selectBox">
                                 <div class="overlay-div-selectBox-cont" onclick="changeOnline()">온라인</div>
@@ -65,7 +65,7 @@
                         <li class="org-item">
                             <div class="org-oneline org-title">
                                 <div class="org-toggle">&#43;</div>
-                                <div>본점</div>
+                                <div>본사</div>
                             </div>
                             <ul class="org-content" id="start-ul">
 

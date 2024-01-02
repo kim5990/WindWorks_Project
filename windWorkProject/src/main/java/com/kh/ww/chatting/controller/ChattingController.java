@@ -58,7 +58,6 @@ public class ChattingController {
 	public JSONObject chatRoomList(int empNo) {		
 		// 최종 리스트
 		ArrayList<ChattingRoomList> crlList = new ArrayList();
-
 		// 1. 내 채팅방 리스트 조회
 		ArrayList<ChattingRoom> myChatRoomList = chattingService.myChatRoomList(empNo);
 		for (int i = 0; i < myChatRoomList.size(); i++) {

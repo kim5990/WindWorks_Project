@@ -51,7 +51,7 @@
  	<select id="selectDeptList" resultMap="DepartmentResult">
  		SELECT DEPT_CODE, DEPT_NAME
  		FROM DEPARTMENT
- 		ORDER BY DEPT_NAME
+ 		ORDER BY DEPT_CODE
  	</select>
  	
  	<!-- 전직원 리스트 조회 -->

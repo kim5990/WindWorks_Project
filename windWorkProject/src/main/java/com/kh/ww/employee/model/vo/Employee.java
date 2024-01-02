@@ -35,7 +35,7 @@ public class Employee {
 	private String communityNo;
 	private String communityPoint;
 	private String deptName;
-
+	
 	private String condition;
 	private String sorting;
 	private String keyword;
