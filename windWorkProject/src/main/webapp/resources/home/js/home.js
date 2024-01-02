@@ -82,32 +82,32 @@ document.addEventListener('DOMContentLoaded', function() {
             } 
 				
         })
-        calendar.render();
+	calendar.render();
 
-        // if (!events){
-        //     // 이벤트 없을때
-        //     const noEventsMessage = '일정이 없습니다.';
-        //     const emptyEventDiv = document.createElement('div');
-        //     emptyEventDiv.classList.add('fc-list-empty-event');
-        //     emptyEventDiv.innerHTML = noEventsMessage;
-            
-        //     const noEventElement = document.querySelector('.fc-list-empty');
-        //     if (noEventElement) {
-        //         noEventElement.appendChild(emptyEventDiv);
-        //     }
-        // }
-       
-
-
+	// if (!events){
+	//     // 이벤트 없을때
+	//     const noEventsMessage = '일정이 없습니다.';
+	//     const emptyEventDiv = document.createElement('div');
+	//     emptyEventDiv.classList.add('fc-list-empty-event');
+	//     emptyEventDiv.innerHTML = noEventsMessage;
 		
-		updateTime(); // 현재시간
-		setInterval(updateTime, 1000); // 시간 카운트
-        noReadChatCount(); // 미확인 채팅 카운트
-		selectStatus() // 출퇴근상태확인
+	//     const noEventElement = document.querySelector('.fc-list-empty');
+	//     if (noEventElement) {
+	//         noEventElement.appendChild(emptyEventDiv);
+	//     }
+	// }
+	
+
+
+	
+	updateTime(); // 현재시간
+	setInterval(updateTime, 1000); // 시간 카운트
+	noReadChatCount(); // 미확인 채팅 카운트
+	selectStatus() // 출퇴근상태확인
 
 
 
-    })
+})
 
 
 // 일정 조회

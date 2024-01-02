@@ -144,7 +144,6 @@ public class ChattingController {
 		
 		// 메세지 리스트 조회
 		ArrayList<ChattingMessage> chatMsgList = chattingService.selectMsgList(roomNo);
-		
 		// 메세지 읽음 처리
 		ChattingMsgRead cmr = new ChattingMsgRead();
 		cmr.setEmpNo(empNo);

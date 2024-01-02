@@ -291,8 +291,9 @@ function drawDetail(res){
                 '</div>'
         } else {
             if (targetList.chatRoomLevel == 1) {
+                console.log(list)
                 str2 += '<div class="body-chatting-you-area">' +
-                    '<div class="body-chatting-you-name">' + list.empName + '</div>' +
+                    '<div class="body-chatting-you-name">' + list.empName + " " + list.jobName + '</div>' +
                     '<div class="body-chatting-you">' + list.chatMsgContent + '</div>' +
                     '<div class="body-chatting-you-time">' + list.chatMsgDate + '</div>' +
                     '</div>'
@@ -397,6 +398,9 @@ function scrollToBottom(){
 // 메세지 보내기
 function sendMsg(event) {
     if(event.keyCode === 13 || !event.keyCode) {
+        if(document.querySelector(".chattingList-area2-footer-div-input").value.trim() === ''){
+            return;
+        }
         const msgData = {
             message: document.querySelector(".chattingList-area2-footer-div-input").value,
             target: document.querySelector(".chattingList-area2-footer-div-input-target").value,
