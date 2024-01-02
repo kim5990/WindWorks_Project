@@ -199,7 +199,7 @@ function selectBoard(bno){
                                 '<div class="detail-title">' + board.communityBoardTitle + '</div>' +
                             '</div>' +
                             '<div class="communityList-area2-detail-title-title-profile">' +
-                                '<div class="profile-image"><img style="width: 30px;" src="' + board.profileFilePath + '"></div>' +
+                                '<div class="profile-image"><img style="width: 25px; height: 25px; border-radius: 50%;" src="' + board.profileFilePath + '"></div>' +
                                 '<div class="profile-name">' + board.empName + '</div>' +
                                 '<div class="profile-date">' + board.communityBoardCreateDate + '</div>' +
                             '</div>' +
