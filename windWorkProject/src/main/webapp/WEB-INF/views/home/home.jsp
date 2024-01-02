@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -74,14 +74,41 @@
                 </div>
             </div>
 
-            <!-- ----- 지도 영역 ----- -->
+            <!-- ----- 버스 영역 ----- -->
             <div class="home-upArea-area3">
                 <div class="home-upArea-area3-map">
-                    
+                    <div class="bus-search-bar">
+                        <div class="bus-search-bar-flex">
+                            <h5 class="bus-search-bar-title">버스 정류장(서울)</h5>
+                            <div class="bus-search-bar-title-sec" id="bus-search-bar-title-sec"></div>
+                        </div>
+
+                        <div class="bus-search">
+                            <input class="bus-search-input" id="bus-search-input" onkeyup="busSearchBtn(event)"
+                                type="text" placeholder="버스 정류장 검색">
+                            <button class="bus-search-btn" onclick="busSearchBtn(event)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-search-heart" viewBox="0 0 16 16">
+                                    <path
+                                        d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018Z" />
+                                    <path
+                                        d="M13 6.5a6.471 6.471 0 0 1-1.258 3.844c.04.03.078.062.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1.007 1.007 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5ZM6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="bus-search-output" class="bus-search-output">
+                        <div class="bus-output-item">
+                            <div class="bus-output-item-title">
+                                <h5 class="bus-output-item-title-text">검색기록이 없습니다.</h5>
+                            </div>
+                            <div class="bus-output-item-body">
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-
         </div>
             
 
@@ -127,10 +154,24 @@
             <!-- ----- gpt 영역 ----- -->
             <div class="home-downArea-area3">
                 <div class="home-downArea-area3-chatgpt">
+                    <div class="textCheckBox">
+                        <div class="textCheckBox-title">
+                            <h5>이메일 작성기</h5>
+                        </div>
 
+                        <textarea name="comment" onkeyup="chatGptTextCheck(event)" id="comment" class="comment"
+                            maxlength="1001" placeholder="어떤 내용에 대해 작성해드릴까요?"></textarea>
+                        <textarea class="comment2" id="comment2" readonly placeholder="결과"></textarea>
+                        <div class="text-check-btn-box">
+                            <span style="color:#aaa;" id="counter">(0 / 1000)</span>
+                            <div>
+                                <button class="text-check-btn" onclick="chatGptTextDelete()">지우기</button>
+                                <button class="text-check-btn" onclick="chatGptTextCheck(event)">검사하기</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
 
     </div>

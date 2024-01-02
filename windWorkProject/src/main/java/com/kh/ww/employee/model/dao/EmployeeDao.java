@@ -74,6 +74,11 @@ public class EmployeeDao {
 	public int updateEmployee(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.updateEmployee", e);
 	}
+	//패스워드업그레이드
+	public int updatePassword(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.updatePassword", e);
+	}
+
 	
 	//출근상태로 변경
 	public int statusWork(SqlSessionTemplate sqlSession, int empNo) {
@@ -90,8 +95,6 @@ public class EmployeeDao {
 	public int selectStatus(SqlSessionTemplate sqlSession, int empNo) {
 		return sqlSession.selectOne("employeeMapper.selectStatus", empNo);
 	}
-	
-	
 	
 	
 	

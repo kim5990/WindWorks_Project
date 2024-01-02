@@ -216,6 +216,23 @@ public class EmployeeController {
 		return employeeService.updateAway(e) > 0 ? "success" : "fail";
 	}
 	
+	// 비밀번호 변경
+	@ResponseBody
+	@RequestMapping(value="ajaxPasswordChange.emp")
+	public String ajaxPasswordChange(Employee e) {
+		Employee loginUser = employeeService.loginEmployee(e); //아이디로만 맴버 객체 가져오기
+		System.out.println(loginUser);
+		if(loginUser == null || !bcryptPasswordEncoder.matches(e.getEmpPwd(), loginUser.getEmpPwd())) { 
+			return "failPassword";
+		}else {
+			String encPwd = bcryptPasswordEncoder.encode(e.getNewPassword());
+			e.setNewPassword(encPwd);
+			System.out.println(encPwd);
+			return employeeService.updatePassword(e) > 0 ? "success" : "fail";
+		}
+		
+	}
+	
 	// 출근
 	@ResponseBody
 	@RequestMapping(value="statusWork.ho")
@@ -237,8 +254,6 @@ public class EmployeeController {
 		Employee e = (Employee)session.getAttribute("loginUser");
 		return employeeService.selectStatus(e.getEmpNo());
 	}
-	
-
 	
 }
 

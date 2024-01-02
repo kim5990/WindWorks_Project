@@ -498,12 +498,6 @@ function drowstudentManagementView(res) {
         + '</ul>';
 
     str += '<div class="student-popup">'
-        + '<div class="student-popup-optional">'
-        + '<a class="student-btn-tool">'
-        + '<span class="student-btn-tool-icon"><ion-icon name="funnel-outline"></ion-icon></span>'
-        + '<span>필터</span>'
-        + '</a>'
-        + '</div>'
         + '<div class="student-dataTables-length">'
         + '<label>'
         + boardLimitStr
@@ -610,16 +604,16 @@ function drowstudentManagementinutialView(res, minUnicodeNum, maxUnicodeNum) {
     if (pi.currentPage === 1) {
         pageStr += '<li class="page-item disabled"><a class="page-link"><</a></li>'
     } else {
-        pageStr += '<li class="page-item" onclick = "ajaxStudentSelectInutialManagement('+minUnicodeNum+', ' + maxUnicodeNum + ', ' + classNo +', ' + (pi.currentPage - 1) + ', drowstudentManagementView ,' + boardLimit +')"><a class="page-link"><</a></li>'
+        pageStr += '<li class="page-item" onclick = "ajaxStudentSelectInutialManagement(' + minUnicodeNum + ', ' + maxUnicodeNum + ', ' + classNo + ', ' + (pi.currentPage - 1) + ', drowstudentManagementView ,' + boardLimit + ')"><a class="page-link"><</a></li>'
     }
 
     for (i = pi.startPage; i <= pi.endPage; i++) {
-        pageStr += '<li class="page-item" onclick = "ajaxStudentSelectInutialManagement('+minUnicodeNum+', ' + maxUnicodeNum + ', ' + classNo +', ' + i + ', drowstudentManagementView ,' + boardLimit +')"><a class="page-link page-color">' + i + '</a></li>'
+        pageStr += '<li class="page-item" onclick = "ajaxStudentSelectInutialManagement(' + minUnicodeNum + ', ' + maxUnicodeNum + ', ' + classNo + ', ' + i + ', drowstudentManagementView ,' + boardLimit + ')"><a class="page-link page-color">' + i + '</a></li>'
     }
     if (pi.currentPage === pi.maxPage) {
         pageStr += '<li class="page-item disabled"><a class="page-link page-color" href="#">></a></li>'
     } else {
-        pageStr += '<li class="page-item" onclick = "ajaxStudentSelectInutialManagement('+minUnicodeNum+', ' + maxUnicodeNum + ', ' + classNo +', ' + (pi.currentPage + 1) + ', drowstudentManagementView ,' + boardLimit +')"><a class="page-link page-color">></a></li>'
+        pageStr += '<li class="page-item" onclick = "ajaxStudentSelectInutialManagement(' + minUnicodeNum + ', ' + maxUnicodeNum + ', ' + classNo + ', ' + (pi.currentPage + 1) + ', drowstudentManagementView ,' + boardLimit + ')"><a class="page-link page-color">></a></li>'
     }
     let str = "";
 
@@ -699,7 +693,7 @@ function detailStudentInfoAdd() {
     let studentPhone = document.querySelector("#speedInputStudentPhone").value;
 
     if (!classNo || !studentName || !studentEmail || !studentPhone) {
-        alert("빈칸을 전부 입력해주세요");
+        swal("", "빈칸을 전부 입력해주세요", "success");
     } else {
         location.href = "detailAddStudent.stm?classNo=" + classNo + "&studentName=" + studentName + "&studentEmail=" + studentEmail + "&studentPhone=" + studentPhone;
     }

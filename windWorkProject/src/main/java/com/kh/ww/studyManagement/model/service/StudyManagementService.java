@@ -105,6 +105,9 @@ public interface StudyManagementService {
 	int ajaxLikeAddSelect(ClassAttachment c);
 	//데이터 즐겨찾기 삭제
 	int ajaxLikeDeleteSelect(ClassAttachment c);
+	
+	//강의자료실 자료 이동
+	int ajaxLectureMovement(ClassAttachment c);
 
 	
 	
