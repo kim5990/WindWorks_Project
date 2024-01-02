@@ -18,7 +18,7 @@
 <script src="resources/notice/js/notice-detail-view-Ajax.js"></script>
 
 <meta charset="UTF-8">
-<title>공지사항 상세보기</title>
+<title>Notice Detail</title>
 </head>
 <body onload="selectReplyList('${n.noticeNo}'), noticeOnload()">  
 

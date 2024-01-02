@@ -12,7 +12,7 @@
 <script src="resources/notice/js/notice-enroll-form.js"></script>
 
 <meta charset="UTF-8">
-<title>공지사항 작성하기</title>
+<title>Enroll Notice</title>
 </head>
 <body onload="noticeOnload()">
 <jsp:include page="../common/header.jsp" />

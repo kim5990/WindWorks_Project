@@ -28,109 +28,93 @@ function noReadChatCount(){
 
 // 캘린더 그리기
 document.addEventListener('DOMContentLoaded', function() {
-   let calendarEl = document.getElementById('calendar');
-      let calendar = new FullCalendar.Calendar(calendarEl, {
-         googleCalendarApiKey: "AIzaSyDms3oLpDbnfLhL9z6TFgFnBoh5Jk5T2Fc",
-         height: 365, // 캘린더 높이 설정
-         initialView: 'listWeek', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
-         locale: 'ko', // 한국어 설정
-         //selectable: true, // 달력 일자 드래그 설정가능
-         events: function(timezone, callback){
-            // console.log("서버로부터 가져와서 실행함")
-            //여기서 서버로부터 데이터가져오기
-            listCalendar(timezone, function(res){
-                    // 일정이 없을 때
-					const noEventElement = document.querySelector('.fc-list-empty');
-					const emptyEventDiv = document.createElement('div');
-						emptyEventDiv.classList.add('fc-list-empty-event');
-					if (res.length === 0 && noEventElement.querySelector('.fc-list-empty-event') === null) {
-						emptyEventDiv.innerHTML = '일정이 없습니다.';
-						noEventElement.appendChild(emptyEventDiv);
+    let calendarEl = document.getElementById('calendar');
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+        googleCalendarApiKey: "AIzaSyDms3oLpDbnfLhL9z6TFgFnBoh5Jk5T2Fc",
+        height: 365, // 캘린더 높이 설정
+        initialView: 'listWeek', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+        locale: 'ko', // 한국어 설정
+        //selectable: true, // 달력 일자 드래그 설정가능
+        events: function(timezone, callback){
+        // console.log("서버로부터 가져와서 실행함")
+        //여기서 서버로부터 데이터가져오기
+        listCalendar(timezone, function(res){
+                // 일정이 없을 때
+                const noEventElement = document.querySelector('.fc-list-empty');
+                const emptyEventDiv = document.createElement('div');
+                    emptyEventDiv.classList.add('fc-list-empty-event');
+                if (res.length === 0 && noEventElement.querySelector('.fc-list-empty-event') === null) {
+                    emptyEventDiv.innerHTML = '일정이 없습니다.';
+                    noEventElement.appendChild(emptyEventDiv);
 
-						// 빈 이벤트 목록
-						callback(events);
-					} else {
-						callback(res);
-					}
+                    // 빈 이벤트 목록
+                    callback(events);
+                } else {
+                    callback(res);
+                }
             })
-         },
-            // 일정 클릭
-         eventClick: function(info) {
+        },
+        // 일정 클릭
+        eventClick: function(info) {
             info.jsEvent.stopPropagation();
             info.jsEvent.preventDefault();
-            },
-         headerToolbar: { // 헤더에 표시할 툴바
+        },
+        headerToolbar: { // 헤더에 표시할 툴바
             left: 'prev',
             center: 'title',
             right: 'next'
-         },
-         // 공휴일 데이터 추가
-         eventSources: [{ // 구글 캘린더 API 키를 발급받은 경우 공휴일 데이터 추가
+        },
+        // 공휴일 데이터 추가
+        eventSources: [{ // 구글 캘린더 API 키를 발급받은 경우 공휴일 데이터 추가
             googleCalendarId: "ko.south_korea#holiday@group.v.calendar.google.com",
             backgroundColor: "rgb(253, 112, 94)",
             borderColor: "rgb(253, 112, 94)",
             className: "ko-holiday",
             textColor: "white",
-         }],
-            titleFormat : function(date) { // title 설정 yyyy. mm. dd - mm. dd
-                const start = new Date(date.date.year, date.date.month, date.date.day); 
-                const end = new Date(date.date.year, date.date.month, date.date.day + 6);
-                return start.getFullYear() + '. ' + (start.getMonth() + 1) + '. ' + start.getDate() + ' ~ ' +
-                       (end.getMonth() + 1) + '. ' + end.getDate();
-            },
-            listDayFormat : function(date) {
-                const dayOfWeek = new Date(date.date.year, date.date.month, date.date.day).getDay();
-                const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+        }],
+        titleFormat : function(date) { // title 설정 yyyy. mm. dd - mm. dd
+            const start = new Date(date.date.year, date.date.month, date.date.day); 
+            const end = new Date(date.date.year, date.date.month, date.date.day + 6);
+            return start.getFullYear() + '. ' + (start.getMonth() + 1) + '. ' + start.getDate() + ' ~ ' +
+                    (end.getMonth() + 1) + '. ' + end.getDate();
+        },
+        listDayFormat : function(date) {
+            const dayOfWeek = new Date(date.date.year, date.date.month, date.date.day).getDay();
+            const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
 
-                return (date.date.month + 1) + ". " + (date.date.day) + ". " + weekdays[dayOfWeek];
-            },
-            listDaySideFormat: function() {
-                return "";
-            } 
-            
+            return (date.date.month + 1) + ". " + (date.date.day) + ". " + weekdays[dayOfWeek];
+        },
+        listDaySideFormat: function() {
+            return "";
+        } 
 
-        })
-        calendar.render();
-
-        // if (!events){
-        //     // 이벤트 없을때
-        //     const noEventsMessage = '일정이 없습니다.';
-        //     const emptyEventDiv = document.createElement('div');
-        //     emptyEventDiv.classList.add('fc-list-empty-event');
-        //     emptyEventDiv.innerHTML = noEventsMessage;
-            
-        //     const noEventElement = document.querySelector('.fc-list-empty');
-        //     if (noEventElement) {
-        //         noEventElement.appendChild(emptyEventDiv);
-        //     }
-        // }
-       
-        noReadChatCount();
-      weatherView();
-      misseMunjiView();
-      updateTime(); // 현재시간
-      setInterval(updateTime, 1000); // 시간 카운트
-        noReadChatCount(); // 미확인 채팅 카운트
-      selectStatus() // 출퇴근상태확인
+    })
+    calendar.render();
+    
+    noReadChatCount();
+    weatherView();
+    misseMunjiView();
+    updateTime(); // 현재시간
+    setInterval(updateTime, 1000); // 시간 카운트
+    noReadChatCount(); // 미확인 채팅 카운트
+    selectStatus() // 출퇴근상태확인
     })
 
 
 // 일정 조회
 function listCalendar(timeData, callback){
-   $.ajax({
-      url: "clist.ca",
-      data:{
-         startTime : timeData.start,
-         endTime : timeData.end,
-      },
-      success: function(calendar){
-         // console.log(calendar)
-         // console.log(calendar.list.startTime)
+    $.ajax({
+        url: "clist.ca",
+        data:{
+            startTime : timeData.start,
+            endTime : timeData.end,
+        },
+        success: function(calendar){
 
-         const data =[]
-         const list = calendar.list
+        const data =[]
+        const list = calendar.list
 
-         for (let i = 0; i < list.length; i++){
+        for (let i = 0; i < list.length; i++){
 
             // 주어진 날짜를 JavaScript Date 객체로 파싱합니다.
             const dateStart = new Date(list[i].startTime);
@@ -157,74 +141,74 @@ function listCalendar(timeData, callback){
             let textColor = "";
 
             if (list[i].calendarCategory === 0) { // 내 일정
-               backgroundColor = "rgb(119, 187, 243)";
-               borderColor = "rgb(119, 187, 243)";
-               textColor = "white";
+                backgroundColor = "rgb(119, 187, 243)";
+                borderColor = "rgb(119, 187, 243)";
+                textColor = "white";
             } else if (list[i].calendarCategory === 1) { // 팀 일정
-               backgroundColor = "rgb(194, 124, 221)";
-               borderColor = "rgb(194, 124, 221)";
-               textColor = "white";
+                backgroundColor = "rgb(194, 124, 221)";
+                borderColor = "rgb(194, 124, 221)";
+                textColor = "white";
             } else if (list[i].calendarCategory === 2) { // 전체 일정
-               backgroundColor = "rgb(255, 200, 82)";
-               borderColor = "rgb(255, 200, 82)";
-               textColor = "white";
+                backgroundColor = "rgb(255, 200, 82)";
+                borderColor = "rgb(255, 200, 82)";
+                textColor = "white";
             } else if (list[i].calendarCategory === 3) { // 자산 예약
-               backgroundColor = "rgb(85, 175, 130)";
-               borderColor = "rgb(85, 175, 130)";
-               textColor = "white";
+                backgroundColor = "rgb(85, 175, 130)";
+                borderColor = "rgb(85, 175, 130)";
+                textColor = "white";
             }
 
             data2 = {
-               "title"   : list[i].calendarName,
-               "start"   : dateStart,
-               "end"      : dateEnd,
-               "content" : list[i].calendarContent,
-                    "allDay"  : false,
-               "calNo"   : list[i].calendarListNo,
-               "calendarCategory" : list[i].calendarCategory,
-               "dateStart": formattedStartDate,
-               "dateEnd" : formattedEndDate,
-               "timeStart" : formattedStartTime,
-               "timeEnd" : formattedEndTime,
-               "backgroundColor" : backgroundColor,
-               "borderColor" : borderColor,
-               "textColor" : textColor
+                "title"   : list[i].calendarName,
+                "start"   : dateStart,
+                "end"      : dateEnd,
+                "content" : list[i].calendarContent,
+                "allDay"  : false,
+                "calNo"   : list[i].calendarListNo,
+                "calendarCategory" : list[i].calendarCategory,
+                "dateStart": formattedStartDate,
+                "dateEnd" : formattedEndDate,
+                "timeStart" : formattedStartTime,
+                "timeEnd" : formattedEndTime,
+                "backgroundColor" : backgroundColor,
+                "borderColor" : borderColor,
+                "textColor" : textColor
             }
             data.push(data2)
-         }
-      
-         callback(data);
-      },
-      error: function(){
-         console.log("clist.ca ajax 통신 실패")
-      }
+        }
+        callback(data);
+        },
+        error: function(){
+            console.log("clist.ca ajax 통신 실패")
+        }
    })
 }
+
 // 날씨 보여주기
 function weatherView(){
-   let today = new Date();
-   let year = today.getFullYear();
+    let today = new Date();
+    let year = today.getFullYear();
     let month = String(today.getMonth() + 1).padStart(2, '0');
     let day = String(today.getDate()).padStart(2, '0');
-   let hour = String(today.getHours());
-   let minute = String(today.getMinutes()).padStart(2, '0');
+    let hour = String(today.getHours());
+    let minute = String(today.getMinutes()).padStart(2, '0');
 
-   if(parseInt(minute) > 30) {
-      hour = parseInt(hour) + 1 ;
-      minute = '00';
-   } else {
-      minute = '00';
-   }
+    if(parseInt(minute) > 30) {
+        hour = parseInt(hour) + 1 ;
+        minute = '00';
+    } else {
+        minute = '00';
+    }
 
     let todayDate = year + month + day;
-   let todayTime = hour + minute;
-   $.ajax({
+    let todayTime = hour + minute;
+    $.ajax({
         url: "weatherView.we",
-      data: {
-         todayDate: todayDate,
-      },
+        data: {
+            todayDate: todayDate,
+        },
         success: function (data) {
-         drawWeather(data);
+            drawWeather(data);
         },
         error: function () {
             console.log("실패");
@@ -233,115 +217,112 @@ function weatherView(){
 }
 
 const drawWeather = function(data) {
-   let today = new Date();
-   let year = today.getFullYear();
+    let today = new Date();
+    let year = today.getFullYear();
     let month = String(today.getMonth() + 1).padStart(2, '0');
     let day = String(today.getDate()).padStart(2, '0');
-   let hour = String(today.getHours());
-   let minute = String(today.getMinutes()).padStart(2, '0');
-   let date = year + month + day;
-   if(parseInt(minute) > 30) {
-      hour = parseInt(hour) + 1 ;
-      minute = '00';
-   } else {
-      minute = '00';
-   }
+    let hour = String(today.getHours());
+    let minute = String(today.getMinutes()).padStart(2, '0');
+    let date = year + month + day;
+    if(parseInt(minute) > 30) {
+        hour = parseInt(hour) + 1 ;
+        minute = '00';
+    } else {
+        minute = '00';
+    }
 
-   const itemArr = data.response.body.items;
+    const itemArr = data.response.body.items;
 
-   let str = "";
-   let tmpstr = "";
-   let item = itemArr.item;
-   for(let j = 0; j < item.length; j++){
-      if(item[j].fcstDate == date && item[j].fcstTime == (hour + minute) && item[j].category == 'TMP'){
-         tmpstr += '<div style="font-size: 50px; font-weight: 800;">'+ item[j].fcstValue + '℃</div>'
-      }
+    let str = "";
+    let tmpstr = "";
+    let item = itemArr.item;
+    for(let j = 0; j < item.length; j++){
+        if(item[j].fcstDate == date && item[j].fcstTime == (hour + minute) && item[j].category == 'TMP'){
+            tmpstr += '<div style="font-size: 50px; font-weight: 800;">'+ item[j].fcstValue + '℃</div>'
+        }
 
-      if(item[j].fcstTime == (hour + minute) && item[j].category == 'SKY' && item[j].fcstValue == 1 && item[j].fcstDate == date){
-         str += '<div class="weather-C">'
-            + '<div style="display:flex; align-items: center;">'
-            + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="orange" class="bi bi-sun-fill" viewBox="0 0 16 16">'
-            + '<path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>'
-            + '</svg>'
-            + '</div>'
-            + tmpstr
-            + '</div>'
-            + '<div style="display: flex; justify-content: center;">맑음</div>';;
-      }else if(item[j].fcstTime == (hour + minute) && item[j].category == 'SKY' && item[j].fcstValue == 3 && item[j].fcstDate == date){
-         str += '<div class="weather-C">'
-            + '<div style="display:flex; align-items: center;">'
-            + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-clouds-fill" viewBox="0 0 16 16">'
-            + '<path d="M11.473 9a4.5 4.5 0 0 0-8.72-.99A3 3 0 0 0 3 14h8.5a2.5 2.5 0 1 0-.027-5"/>'
-            + '<path d="M14.544 9.772a3.506 3.506 0 0 0-2.225-1.676 5.502 5.502 0 0 0-6.337-4.002 4.002 4.002 0 0 1 7.392.91 2.5 2.5 0 0 1 1.17 4.769z"/>'
-            + '</svg>'
-            + '</div>'
-            + tmpstr
-            + '</div>'
-            + '<div style="display: flex; justify-content: center;">구름많음</div>';
-      } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'SKY' && item[j].fcstValue == 4 && item[j].fcstDate == date){
-         str += '<div class="weather-C">'
-            + '<div style="display:flex; align-items: center;">'
-            + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-cloud-fill" viewBox="0 0 16 16">'
-            + '<path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z"/>'
-            + '</svg>'
-            + '</div>'
-            + tmpstr
-            + '</div>'
-            + '<div style="display: flex; justify-content: center;">흐림</div>';
-      } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 1 && item[j].fcstDate == date){
-         str += '<div class="weather-C">'
-            + '<div style="display:flex; align-items: center;">'
-            + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-cloud-drizzle-fill" viewBox="0 0 16 16">'
-            + '<path d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m-3.5 1.5a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m.747-8.498a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973z"/>'
-            + '</svg>'
-            + '</div>'
-            + tmpstr
-            + '</div>'
-            + '<div style="display: flex; justify-content: center;">비</div>';
-      } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 2 && item[j].fcstDate == date){
-         str += '<div class="weather-C">'
-            + '<div style="display:flex; align-items: center;">'
-            + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="gey" class="bi bi-cloud-sleet-fill" viewBox="0 0 16 16">'
-            + '<path d="M2.375 13.5a.25.25 0 0 1 .25.25v.57l.501-.287a.25.25 0 0 1 .248.434l-.495.283.495.283a.25.25 0 1 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 1 1-.248-.434l.495-.283-.495-.283a.25.25 0 1 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm1.849-2.447a.5.5 0 0 1 .223.67l-.5 1a.5.5 0 0 1-.894-.447l.5-1a.5.5 0 0 1 .67-.223zM6.375 13.5a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 1 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 1 1-.248-.434l.495-.283-.495-.283a.25.25 0 1 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm1.849-2.447a.5.5 0 0 1 .223.67l-.5 1a.5.5 0 0 1-.894-.447l.5-1a.5.5 0 0 1 .67-.223zm2.151 2.447a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 1 1-.248.434l-.501-.286v.569a.25.25 0 0 1-.5 0v-.57l-.501.287a.25.25 0 1 1-.248-.434l.495-.283-.495-.283a.25.25 0 1 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm1.849-2.447a.5.5 0 0 1 .223.67l-.5 1a.5.5 0 1 1-.894-.447l.5-1a.5.5 0 0 1 .67-.223zm1.181-7.026a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 10H13a3 3 0 0 0 .405-5.973z"/>'
-            + '</svg>'
-            + '</div>'
-            + tmpstr
-            + '</div>'
-            + '<div style="display: flex; justify-content: center;">비/눈</div>';
-      } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 3 && item[j].fcstDate == date){
-         str += '<div class="weather-C">'
-            + '<div style="display:flex; align-items: center;">'
-            + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-cloud-snow-fill" viewBox="0 0 16 16">'
-            + '<path d="M2.625 11.5a.25.25 0 0 1 .25.25v.57l.501-.287a.25.25 0 0 1 .248.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm2.75 2a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm5.5 0a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 0 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm-2.75-2a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm5.5 0a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 0 1-.5 0v-.57l-.501.287a.25.25 0 1 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm-.22-7.223a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 10.25H13a3 3 0 0 0 .405-5.973"/>'
-            + '</svg>'
-            + '</div>'
-            + tmpstr
-            + '</div>'
-            + '<div style="display: flex; justify-content: center;">눈</div>';
-      } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 4 && item[j].fcstDate == date){
-         str += '<div class="weather-C">'
-            + '<div style="display:flex; align-items: center;">'
-            + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-cloud-drizzle-fill" viewBox="0 0 16 16">'
-            + '<path d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m-3.5 1.5a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m.747-8.498a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973z"/>'
-            + '</svg>'
-            + '</div>'
-            + tmpstr
-            + '</div>'
-            + '<div style="display: flex; justify-content: center;">소나기</div>';
-      }
-
-      
-   }
-   document.querySelector('.home-downArea-area1-weather-temperature').innerHTML = str;
-   
+        if(item[j].fcstTime == (hour + minute) && item[j].category == 'SKY' && item[j].fcstValue == 1 && item[j].fcstDate == date){
+            str += '<div class="weather-C">'
+                + '<div style="display:flex; align-items: center;">'
+                + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="orange" class="bi bi-sun-fill" viewBox="0 0 16 16">'
+                + '<path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>'
+                + '</svg>'
+                + '</div>'
+                + tmpstr
+                + '</div>'
+                + '<div style="display: flex; justify-content: center;">맑음</div>';
+        }else if(item[j].fcstTime == (hour + minute) && item[j].category == 'SKY' && item[j].fcstValue == 3 && item[j].fcstDate == date){
+            str += '<div class="weather-C">'
+                + '<div style="display:flex; align-items: center;">'
+                + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-clouds-fill" viewBox="0 0 16 16">'
+                + '<path d="M11.473 9a4.5 4.5 0 0 0-8.72-.99A3 3 0 0 0 3 14h8.5a2.5 2.5 0 1 0-.027-5"/>'
+                + '<path d="M14.544 9.772a3.506 3.506 0 0 0-2.225-1.676 5.502 5.502 0 0 0-6.337-4.002 4.002 4.002 0 0 1 7.392.91 2.5 2.5 0 0 1 1.17 4.769z"/>'
+                + '</svg>'
+                + '</div>'
+                + tmpstr
+                + '</div>'
+                + '<div style="display: flex; justify-content: center;">구름많음</div>';
+        } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'SKY' && item[j].fcstValue == 4 && item[j].fcstDate == date){
+            str += '<div class="weather-C">'
+                + '<div style="display:flex; align-items: center;">'
+                + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-cloud-fill" viewBox="0 0 16 16">'
+                + '<path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z"/>'
+                + '</svg>'
+                + '</div>'
+                + tmpstr
+                + '</div>'
+                + '<div style="display: flex; justify-content: center;">흐림</div>';
+        } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 1 && item[j].fcstDate == date){
+            str += '<div class="weather-C">'
+                + '<div style="display:flex; align-items: center;">'
+                + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-cloud-drizzle-fill" viewBox="0 0 16 16">'
+                + '<path d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m-3.5 1.5a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m.747-8.498a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973z"/>'
+                + '</svg>'
+                + '</div>'
+                + tmpstr
+                + '</div>'
+                + '<div style="display: flex; justify-content: center;">비</div>';
+        } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 2 && item[j].fcstDate == date){
+            str += '<div class="weather-C">'
+                + '<div style="display:flex; align-items: center;">'
+                + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="gey" class="bi bi-cloud-sleet-fill" viewBox="0 0 16 16">'
+                + '<path d="M2.375 13.5a.25.25 0 0 1 .25.25v.57l.501-.287a.25.25 0 0 1 .248.434l-.495.283.495.283a.25.25 0 1 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 1 1-.248-.434l.495-.283-.495-.283a.25.25 0 1 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm1.849-2.447a.5.5 0 0 1 .223.67l-.5 1a.5.5 0 0 1-.894-.447l.5-1a.5.5 0 0 1 .67-.223zM6.375 13.5a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 1 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 1 1-.248-.434l.495-.283-.495-.283a.25.25 0 1 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm1.849-2.447a.5.5 0 0 1 .223.67l-.5 1a.5.5 0 0 1-.894-.447l.5-1a.5.5 0 0 1 .67-.223zm2.151 2.447a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 1 1-.248.434l-.501-.286v.569a.25.25 0 0 1-.5 0v-.57l-.501.287a.25.25 0 1 1-.248-.434l.495-.283-.495-.283a.25.25 0 1 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm1.849-2.447a.5.5 0 0 1 .223.67l-.5 1a.5.5 0 1 1-.894-.447l.5-1a.5.5 0 0 1 .67-.223zm1.181-7.026a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 10H13a3 3 0 0 0 .405-5.973z"/>'
+                + '</svg>'
+                + '</div>'
+                + tmpstr
+                + '</div>'
+                + '<div style="display: flex; justify-content: center;">비/눈</div>';
+        } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 3 && item[j].fcstDate == date){
+            str += '<div class="weather-C">'
+                + '<div style="display:flex; align-items: center;">'
+                + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-cloud-snow-fill" viewBox="0 0 16 16">'
+                + '<path d="M2.625 11.5a.25.25 0 0 1 .25.25v.57l.501-.287a.25.25 0 0 1 .248.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm2.75 2a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm5.5 0a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 0 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm-2.75-2a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm5.5 0a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 0 1-.5 0v-.57l-.501.287a.25.25 0 1 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm-.22-7.223a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 10.25H13a3 3 0 0 0 .405-5.973"/>'
+                + '</svg>'
+                + '</div>'
+                + tmpstr
+                + '</div>'
+                + '<div style="display: flex; justify-content: center;">눈</div>';
+        } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 4 && item[j].fcstDate == date){
+            str += '<div class="weather-C">'
+                + '<div style="display:flex; align-items: center;">'
+                + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-cloud-drizzle-fill" viewBox="0 0 16 16">'
+                + '<path d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m-3.5 1.5a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m.747-8.498a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973z"/>'
+                + '</svg>'
+                + '</div>'
+                + tmpstr
+                + '</div>'
+                + '<div style="display: flex; justify-content: center;">소나기</div>';
+        }
+    }
+    document.querySelector('.home-downArea-area1-weather-temperature').innerHTML = str;
 }
 
 const misseMunjiView = function(){
-   $.ajax({
+    $.ajax({
         url: "misseMunji.mi",
         success: function (data) {
-         console.log(data);
-         drawMisseMunji(data);
+            console.log(data);
+            drawMisseMunji(data);
         },
         error: function () {
             console.log("실패");
@@ -488,95 +469,94 @@ function deleteText(){
 
 // 현재시간
 function updateTime() {
-   const currentTimeElement = document.querySelector('.current-time');
-   const currentTime = new Date();
-   const hours = currentTime.getHours().toString().padStart(2, '0');
-   const minutes = currentTime.getMinutes().toString().padStart(2, '0');
-   const seconds = currentTime.getSeconds().toString().padStart(2, '0');
+    const currentTimeElement = document.querySelector('.current-time');
+    const currentTime = new Date();
+    const hours = currentTime.getHours().toString().padStart(2, '0');
+    const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+    const seconds = currentTime.getSeconds().toString().padStart(2, '0');
 
-   const formattedTime = `${hours}:${minutes}:${seconds}`;
-   currentTimeElement.textContent = formattedTime;
+    const formattedTime = `${hours}:${minutes}:${seconds}`;
+    currentTimeElement.textContent = formattedTime;
 }
 
 
 // 출근
 function statusWork(empNo){
-   $.ajax({
-      url: "statusWork.ho",
-      data:{
-         empNo: empNo
-      },
-      success: function (res) {
-         if (res == "success") {
+    $.ajax({
+        url: "statusWork.ho",
+        data:{
+            empNo: empNo
+        },
+        success: function (res) {
+            if (res == "success") {
             updateButtonState(1)
-         } else {
+            } else {
                 console.log("업데이트 실패")
             }
-      },
-      error: function () {
-         console.log("실패");
-      }
-   });
+        },
+        error: function () {
+            console.log("실패");
+        }
+    });
 }
 
 // 퇴근
 function statusLeave(empNo){
-   $.ajax({
-      url: "statusLeave.ho",
-      data:{
-         empNo: empNo
-      },
-      success: function (res) {
-         if (res == "success") {
+    $.ajax({
+        url: "statusLeave.ho",
+        data:{
+            empNo: empNo
+        },
+        success: function (res) {
+            if (res == "success") {
             updateButtonState(0)
             console.log(0)
-         } else {
+            } else {
                 console.log("업데이트 실패")
             }   
-      },
-      error: function () {
-         console.log("실패");
-      }
-   });
+        },
+        error: function () {
+            console.log("실패");
+        }
+    });
 }
 
 // 버튼 상태 업데이트
 function updateButtonState(Status) {
-   const workButton = document.querySelector('.status-work');
-   const leaveButton = document.querySelector('.status-leave');
+    const workButton = document.querySelector('.status-work');
+    const leaveButton = document.querySelector('.status-leave');
 
-   // 출근 상태인 경우
-   if (Status == 1) {
-      workButton.setAttribute('disabled', true);
-      leaveButton.removeAttribute('disabled');
-      workButton.style.cursor = 'default';
-      leaveButton.style.cursor = 'pointer';
-   }
-   // 퇴근 상태인 경우
-   else if (Status == 0) {
-      leaveButton.setAttribute('disabled', true);
-      workButton.removeAttribute('disabled');
-      leaveButton.style.cursor = 'default'; 
-      workButton.style.cursor = 'pointer';
-   }
-
+    // 출근 상태인 경우
+    if (Status == 1) {
+        workButton.setAttribute('disabled', true);
+        leaveButton.removeAttribute('disabled');
+        workButton.style.cursor = 'default';
+        leaveButton.style.cursor = 'pointer';
+    }
+    // 퇴근 상태인 경우
+    else if (Status == 0) {
+        leaveButton.setAttribute('disabled', true);
+        workButton.removeAttribute('disabled');
+        leaveButton.style.cursor = 'default'; 
+        workButton.style.cursor = 'pointer';
+    }
 }
 
 // 출퇴근상태 확인
 function selectStatus(){
-   $.ajax({
-      url: "selectStatus.ho",
-      success: function (res) {
-         if (res == 1) {
+    $.ajax({
+        url: "selectStatus.ho",
+        success: function (res) {
+            if (res == 1) {
             updateButtonState(1)
-         } else {
+            } else {
                 updateButtonState(0)
             }   
-      },
-      error: function () {
-         console.log("실패");
-      }
-   });
+        },
+        error: function () {
+            console.log("실패");
+        }
+    });
 }
 
 function chatGptTextCheck(event) {

@@ -22,14 +22,6 @@
 		<result column="DEPT_NAME" property="deptName"/>
 	</resultMap>
 	
-	<resultMap type="SendSMS" id="sendSMSResult">
-		<result column="SMS_NO" property="smsNo"/>
-		<result column="SMS_DATE" property="smsDate"/>
-		<result column="SMS_NAME" property="smsName"/>
-		<result column="SMS_PHONE" property="smsPhone"/>
-		<result column="SMS_CONFIRM_NO" property="smsConfirmNo"/>
-	</resultMap>
-	
 	<!-- 회원가입 쿼리문 -->
 	<insert id="insertEmployee">
 		INSERT INTO EMPLOYEE(
@@ -200,7 +192,6 @@
 			AND EMP_NO != #{empNo}
 	</select>
 	
-<<<<<<< HEAD
 	<!-- 아이디찾기 문자인증 -->
 	<insert id="insertSendSMS">
 		INSERT INTO SENDSMS

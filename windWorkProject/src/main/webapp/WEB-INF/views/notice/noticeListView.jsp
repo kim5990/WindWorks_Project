@@ -14,17 +14,10 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <meta charset="UTF-8">
-<title>공지사항</title>
+<title>Notice</title>
 </head>
 <body onload="noticeOnload()">
 <jsp:include page="../common/header.jsp" />
-
-	<c:if test="${!empty alertMsg}">
-		<script>
-
-		</script>
-		<c:remove var="alertMsg" scope="session" />
-	</c:if>
 	
 	<div class="menu">
 		<div class="notice-area">
