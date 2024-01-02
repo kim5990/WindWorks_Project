@@ -40,6 +40,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div>
                         <div class="nav__list">
                             <a href="homeForm.em" id="nav-home-bar" class="nav__link">
@@ -88,11 +89,12 @@
                         </a>
 					
 					</c:if>
-
+					<c:if test="${ loginUser.deptName == '인사팀' }">
                         <a href="approval.em" id="nav-approval-bar" class="nav__link">
                             <ion-icon name="person-add-outline" class="nav__icon"></ion-icon>
                             <span class="nav_name">인사관리</span>
                         </a>
+                    </c:if>
                     </div>
                     <div class="nav__brand">
                         <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
@@ -169,7 +171,6 @@
                 </div>
             </div>
 
-            </div>
 
             <!-- IONICONS -->
             <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>

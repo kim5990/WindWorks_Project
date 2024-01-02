@@ -424,6 +424,18 @@ a {
     height: 100%;
     border: 1px solid rgb(190, 190, 190);
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.home-downArea-area1-weather-temperature{
+    display: flex;
+    flex-direction: column;
+}
+.weather-C{
+    display: flex;
+    flex-direction: row;
 }
 
 
@@ -548,6 +560,31 @@ a {
     border-radius: 20px;
 }
 
+.home-downArea-area1-weather-misseMunji{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 200px;
+    margin-top: 20px;
+}
+.munji1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid;
+    border-radius: 20px;
+    width: 90px;
+    font-size: 13px;
+}
+.munji2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid;
+    border-radius: 20px;
+    width: 90px;
+    font-size: 13px;
+}
 .textCheckBox {
     display: flex;
     flex-direction: column;
