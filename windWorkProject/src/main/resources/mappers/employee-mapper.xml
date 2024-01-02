@@ -189,4 +189,10 @@
 		WHERE EMP_STATUS = 1
 			AND EMP_NO != #{empNo}
 	</select>
+	
+	<update id="updatePassword">
+		UPDATE EMPLOYEE
+		SET EMP_PWD = #{newPassword}
+		WHERE EMP_NO = #{empNo}
+	</update>
 </mapper>

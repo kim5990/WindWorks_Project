@@ -74,4 +74,8 @@ public class EmployeeDao {
 	public int updateEmployee(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.updateEmployee", e);
 	}
+
+	public int updatePassword(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.updatePassword", e);
+	}
 }

@@ -19,6 +19,8 @@
             <link rel="stylesheet" href="resources/studyManagement/css/studentInsertForm.css">
             <!--js-->
             <script src="./resources/studyManagement/js/studentInsert.js"></script>
+            <!--alert-->
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         </head>
 
         <body onload="lessonOnload()">

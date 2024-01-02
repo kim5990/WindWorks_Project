@@ -13,6 +13,8 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <!--css-->
     <link rel="stylesheet" href="resources/studyManagement/css/lectureMaterials.css">
+    <!--alert-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   </head>
 
   <body onload="lessonOnload()">

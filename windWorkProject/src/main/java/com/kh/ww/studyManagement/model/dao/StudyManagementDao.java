@@ -225,4 +225,7 @@ public class StudyManagementDao {
 	public int ajaxLikeDeleteSelect(SqlSessionTemplate sqlSession, ClassAttachment c) {
 		return sqlSession.delete("classMapper.ajaxLikeDeleteSelect", c);
 	}
+	public int ajaxLectureMovement(SqlSessionTemplate sqlSession, ClassAttachment c) {
+		return sqlSession.update("classMapper.ajaxLectureMovement", c);
+	}
 }

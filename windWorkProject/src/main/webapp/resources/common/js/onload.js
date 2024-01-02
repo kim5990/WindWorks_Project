@@ -50,12 +50,6 @@ const lectureMaterialsDetailOnload = function () {
 
     $("#studyManagementMenus-id").val("lectureMaterials").prop("selected", true);
 
-    document.querySelector("#studyManagementMenus-header").innerHTML = "강의상세내용"
-    document.querySelector("#studyManagementWriter").value = "이전으로"
-    document.querySelector("#studyManagementWriter").onclick = function () {
-        history.back();
-    }
-
 }
 
 const calendarOnload = function () {

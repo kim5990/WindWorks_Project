@@ -125,6 +125,16 @@
     font-weight: 700;
 }
 
-.profiledisplay{
+.profiledisplay {
     display: none;
+}
+
+.mypage-password-change {
+    display: flex;
+    width: 350px;
+    justify-content: end;
+}
+
+.change-passwordlabel {
+    margin-right: 20px;
 }

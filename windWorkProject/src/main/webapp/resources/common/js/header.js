@@ -4,10 +4,11 @@ function stopEvent(ev) {
     ev.stopPropagation()
 }
 
-function logout(){
+function logout() {
     location.href = "logout.em";
+    swal("", "로그아웃 성공", "success");
 }
 
-function myPageForm(){
+function myPageForm() {
     location.href = "myPageForm.em";
 }

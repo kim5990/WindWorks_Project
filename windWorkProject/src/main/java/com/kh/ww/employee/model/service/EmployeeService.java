@@ -41,4 +41,6 @@ public interface EmployeeService {
 	
 	//마이페이지에서 사원 정보 수정
 	int updateEmployee(Employee e);
+
+	int updatePassword(Employee e);
 }
