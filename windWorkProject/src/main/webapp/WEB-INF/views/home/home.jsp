@@ -54,7 +54,7 @@
                         <div class="profile-inform-">
                             <div class="profile-inform-mail">
                                 <div>미확인 메일</div>
-                                <div class="profile-inform-mail-2">5</div>
+                                <div class="profile-inform-mail-2"></div>
                             </div>
                             <div class="profile-inform-chat" onclick="chattingList()">
                                 <div>미확인 채팅</div>
