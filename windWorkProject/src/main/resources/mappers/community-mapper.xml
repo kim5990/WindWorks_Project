@@ -23,7 +23,6 @@
  		<result column="COMMUNITY_BOARD_CREATE_DATE" property="communityBoardCreateDate" />
  		<result column="COMMUNITY_BOARD_STATUS" property="communityBoardStatus" />
  		<result column="COMMUNITY_BOARD_REPLY_COUNT" property="communityBoardReplyCount" />
- 		<result column="COMMUNITY_BOARD_LIKE_COUNT" property="communityBoardLikeCount" />
  		
  		<result column="EMP_NAME" property="empName" />
  		<result column="PROFILE_FILE_PATH" property="profileFilePath" />
@@ -106,7 +105,6 @@
 		    , PROFILE_FILE_PATH
 		    , JOB_NAME
 		    , COMMUNITY_BOARD_REPLY_COUNT
-		    , COMMUNITY_BOARD_LIKE_COUNT
 		FROM COMMUNITY_BOARD
 			JOIN EMPLOYEE USING (EMP_NO)
 			JOIN JOB USING (JOB_CODE)
@@ -126,7 +124,6 @@
 		    , PROFILE_FILE_PATH
 		    , JOB_NAME
 		    , COMMUNITY_BOARD_REPLY_COUNT
-		    , COMMUNITY_BOARD_LIKE_COUNT
 		FROM COMMUNITY_BOARD
 		    JOIN EMPLOYEE USING (EMP_NO)
 		    JOIN JOB USING (JOB_CODE)

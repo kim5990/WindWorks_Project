@@ -220,7 +220,7 @@ function selectBoard(bno){
                     '<div class="communityList-area2-detail-reply">' +
                         '<div class="reply-title-area">' +
                             '<div>댓글 (' + board.communityBoardReplyCount + ')</div>' +
-                            '<div>작성</div>' +
+                            '<div></div>' +
                         '</div>' +
                         '<hr>' +
                         '<table class="reply-table">' +//댓글 들어갈 곳

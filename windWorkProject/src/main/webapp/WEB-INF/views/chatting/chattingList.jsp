@@ -130,8 +130,8 @@
                 checkBoxEvent();
                 chatRoomList();
             })
-
             chattingOnload();
+            
             
         }
     </script>
