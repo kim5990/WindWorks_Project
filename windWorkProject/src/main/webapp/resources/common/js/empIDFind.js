@@ -58,15 +58,15 @@ function confirmNumber(event){
         success: function(result){
             console.log(result)
 
-            if (result === "success"){ // 인증번호 일치
+            if (result === "fail"){ // 인증번호 불일치
+
+                $(".confirmFail").css("display", "flex");
+            } else { // 인증번호 일치
                 $(".idFindForm-input-container").css("display", "none");
                 $(".findIdResultDispaly").css("display", "flex");
                 $("#goback").css("display", "none");
                 $("#goLoginBtn").css("display", "flex");
                 document.querySelector(".find-result-id").innerText = result;
-                
-            } else { // 인증번호 불일치
-                $(".confirmFail").css("display", "flex");
             }
 
         },
@@ -266,4 +266,7 @@ showFindId = () =>{
 showFindPwd =() =>{
     document.querySelector(".idFindForm-input-container").style.display = 'none'
     document.querySelector(".pwdFindForm-input-container").style.display = 'flex'
+    $(".findIdResultDispaly").css("display", "none");
+    $("#goback").css("display", "flex");
+    $("#goLoginBtn").css("display", "none");
 }
