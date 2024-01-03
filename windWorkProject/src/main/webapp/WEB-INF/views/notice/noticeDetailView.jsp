@@ -12,25 +12,20 @@
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- SweetAlert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- JS -->
 <script src="resources/notice/js/notice-detail-view.js"></script>
 <script src="resources/notice/js/notice-detail-view-Ajax.js"></script>
 
 <meta charset="UTF-8">
-<title>공지사항 상세보기</title>
+<title>Notice Detail</title>
 </head>
 <body onload="selectReplyList('${n.noticeNo}'), noticeOnload()">  
 
 <jsp:include page="../common/header.jsp" />
 
 	<c:if test="${!empty alertMsg}">
-		<script>
-			swal("", "${alertMsg}", "success");
-			/* alertify.alert('알림', "${alertMsg}"); */
-		</script>
+		
 		<c:remove var="alertMsg" scope="session" />
 	</c:if>
 	

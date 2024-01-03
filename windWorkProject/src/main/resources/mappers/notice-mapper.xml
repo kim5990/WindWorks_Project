@@ -98,7 +98,6 @@
 		WHERE NOTICE_NO = #{NOTICE_NO}
 	</select>
 	
-	
 	<!-- 공지사항 작성  쿼리문 -->
 	<insert id="insertNotice">
 		INSERT INTO

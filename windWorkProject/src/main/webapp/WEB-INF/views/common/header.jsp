@@ -5,7 +5,7 @@
 
         <head>
             <meta charset="UTF-8">
-            <title>header</title>
+            <title>Header</title>
             <!-- jQuery library -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -18,6 +18,9 @@
             <link rel="stylesheet" href="resources/common/css/header.css">
             <link rel="stylesheet" href="resources/common/css/mypage-menu.css">
             <script src="resources/common/js/onload.js"></script>
+            
+            <!-- SweetAlert -->
+			<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
         </head>
 
@@ -82,14 +85,14 @@
                             <ion-icon name="notifications-outline" class="nav__icon"></ion-icon>
                             <span class="nav_name">공지사항</span>
                         </a>
-					<c:if test = "${loginUser.deptName eq '강사팀'}">
-						 <a href="list.lp" id="nav-studyM-bar" class="nav__link">
+               <c:if test = "${loginUser.deptName eq '강사팀'}">
+                   <a href="list.lp" id="nav-studyM-bar" class="nav__link">
                             <ion-icon name="book-outline" class="nav__icon"></ion-icon>
                             <span class="nav_name">강의관리</span>
                         </a>
-					
-					</c:if>
-					<c:if test="${ loginUser.deptName == '인사팀' }">
+               
+               </c:if>
+               <c:if test="${ loginUser.deptName == '인사팀' }">
                         <a href="approval.em" id="nav-approval-bar" class="nav__link">
                             <ion-icon name="person-add-outline" class="nav__icon"></ion-icon>
                             <span class="nav_name">인사관리</span>

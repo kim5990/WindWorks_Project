@@ -14,7 +14,7 @@
 <script src="resources/notice/js/notice-update-form.js"></script>
 
 <meta charset="UTF-8">
-<title>공지사항 수정하기</title>
+<title>Update Notice</title>
 </head>
 <body onload="noticeOnload()">
 <jsp:include page="../common/header.jsp" />

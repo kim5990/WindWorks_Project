@@ -11,6 +11,9 @@ const reservationPageOnload = function () {
 const noticeOnload = function () {
     document.querySelector("#nav-notice-bar").classList.add('active');
     document.querySelector("#navbar").style.background = 'rgb(85, 175, 130)';
+
+    
+
 }
 
 const lessonOnload = function () {

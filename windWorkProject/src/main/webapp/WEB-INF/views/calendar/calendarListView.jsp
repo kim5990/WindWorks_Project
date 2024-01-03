@@ -25,7 +25,7 @@
 <script src="resources/calendar/js/calendar-list-view.js"></script>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Calendar</title>
 </head>
 
 <body onload="calendarOnload(), drawCalendar()">

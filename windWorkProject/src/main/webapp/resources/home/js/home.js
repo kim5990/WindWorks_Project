@@ -39,18 +39,18 @@ document.addEventListener('DOMContentLoaded', function () {
             // console.log("서버로부터 가져와서 실행함")
             //여기서 서버로부터 데이터가져오기
             listCalendar(timezone, function (res) {
-                if (res.length === 0) {
-                    const noEventsMessage = '일정이 없습니다.';
-                    const emptyEventDiv = document.createElement('div');
-                    emptyEventDiv.classList.add('fc-list-empty-event');
-                    emptyEventDiv.innerHTML = noEventsMessage;
+                // 일정이 없을 때
+                const noEventElement = document.querySelector('.fc-list-empty');
+                const emptyEventDiv = document.createElement('div');
+                emptyEventDiv.classList.add('fc-list-empty-event');
+                if (res.length === 0 && noEventElement.querySelector('.fc-list-empty-event') === null) {
+                    emptyEventDiv.innerHTML = '일정이 없습니다.';
+                    noEventElement.appendChild(emptyEventDiv);
 
-                    const noEventElement = document.querySelector('.fc-list-empty');
-                    if (noEventElement) {
-                        noEventElement.appendChild(emptyEventDiv);
-                    }
+                    // 빈 이벤트 목록
+                    callback(events);
                 } else {
-                    callback(res)
+                    callback(res);
                 }
             })
         },
@@ -91,19 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     })
     calendar.render();
-
-    // if (!events){
-    //     // 이벤트 없을때
-    //     const noEventsMessage = '일정이 없습니다.';
-    //     const emptyEventDiv = document.createElement('div');
-    //     emptyEventDiv.classList.add('fc-list-empty-event');
-    //     emptyEventDiv.innerHTML = noEventsMessage;
-
-    //     const noEventElement = document.querySelector('.fc-list-empty');
-    //     if (noEventElement) {
-    //         noEventElement.appendChild(emptyEventDiv);
-    //     }
-    // }
 
     noReadChatCount();
     weatherView();
@@ -945,4 +932,3 @@ function drowBusList(res) {
     document.getElementById('bus-output-item-title-text' + 1).innerHTML += '(' + bsiList.arsld + ')'
 
 }
-
