@@ -71,9 +71,9 @@ function drawCalendar(start){
 						eventData.endDate == "" ||
 						eventData.content == ""
 					) {
-						alert("입력하지 않은 값이 있습니다.");
+						swal("", "입력하지 않은 값이 있습니다.", "warning");
 					} else if ($("#modal-start-date").val() > $("#modal-end-date").val()) {
-						alert("종료일이 시작일보다 먼저입니다.");
+						swal("", "종료일이 시작일보다 먼저입니다.", "warning");
 					} else {
 						saveCalendarEvent(eventData, function(){
 							drawCalendar(info.dateStr)
@@ -161,9 +161,9 @@ function drawCalendar(start){
 						eventData.endDate == "" ||
 						eventData.content == ""
 					) {
-						alert("입력하지 않은 값이 있습니다.");
+						swal("", "입력하지 않은 값이 있습니다.", "warning");
 					} else if ($("#modal-start-date1").val() > $("#modal-end-date1").val()) {
-						alert("종료일이 시작일보다 먼저입니다.");
+						swal("", "종료일이 시작일보다 먼저입니다.", "warning");
 					} else {
 						// 일정 수정
 						updateCalendarEvent(eventData, function(){
@@ -225,6 +225,7 @@ function executeCloseButton2() {
     closeButton.click();
 }
 
+// 모달 취소버튼2
 function executeCloseButton() {
     let closeButton = document.getElementById("close-btn");
     closeButton.click();
@@ -303,6 +304,7 @@ function listCalendar(timeData, callback){
 				let borderColor = "";
 				let textColor = "";
 
+
 				if (list[i].calendarCategory === 0) { // 내 일정
 					backgroundColor = "rgb(119, 187, 243)";
 					borderColor = "rgb(119, 187, 243)";
@@ -320,6 +322,7 @@ function listCalendar(timeData, callback){
 					borderColor = "rgb(85, 175, 130)";
 					textColor = "white";
 				}
+				
 
 				data2 = {
 					"title"   : list[i].calendarName,
@@ -329,6 +332,7 @@ function listCalendar(timeData, callback){
 					"allDay"  : false,
 					"calNo"   : list[i].calendarListNo,
 					"calendarCategory" : list[i].calendarCategory,
+					"reservationNo" : list[i].reservationNo,
 					"dateStart": formattedStartDate,
 					"dateEnd" : formattedEndDate,
 					"timeStart" : formattedStartTime,
@@ -371,7 +375,8 @@ function updateCalendarEvent(eventData, callback){
 			calendarContent: eventData.content
 		},
 		success: function(result){
-			console.log(result)
+			swal("", "일정이 수정되었습니다.", "success");
+
 			callback();
 		},
 		error: function(){
@@ -394,16 +399,9 @@ function deleteCalendarEvent(eventData, callback){
 			calendarListNo: eventData.calendarListNo
 		},
 		success: function(result){
-			let confirmation = confirm("일정을 삭제하시겠습니까?");
-            if (confirmation) {
-				alert("삭제되었습니다.")
-				console.log(result)
-                callback(); 
-            } else if (confirmation === false){
-                console.log("사용자가 취소를 선택했습니다."); // 사용자가 취소를 선택한 경우
-            } else {
-				console.log("사용자가 취소를 선택했습니다.");
-			}
+			swal("", "일정이 삭제되었습니다.", "success");
+
+			callback(); 
 		},
 		error: function(){
 			console.log("cdelete.ca ajax 통신 실패")

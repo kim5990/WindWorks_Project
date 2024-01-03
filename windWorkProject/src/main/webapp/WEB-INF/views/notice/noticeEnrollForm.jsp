@@ -12,7 +12,7 @@
 <script src="resources/notice/js/notice-enroll-form.js"></script>
 
 <meta charset="UTF-8">
-<title>공지사항 작성하기</title>
+<title>Enroll Notice</title>
 </head>
 <body onload="noticeOnload()">
 <jsp:include page="../common/header.jsp" />
@@ -45,7 +45,6 @@
 											ondragleave="unhighlightDropArea()" ondrop="handleDrop(event)">
 			                        		
 			                        		<ion-icon class="create-document-icon" name="cloud-upload-outline"></ion-icon>
-                                            <span>이 곳에 파일을 드래그 하세요. 또는<span>
 			                        		<label id="create-fileSelected-label" for="upfile">파일 선택</label>
                                             <input type="file" name="upfile" id="upfile" class="create-fileSelected"  onchange="handleFileSelect(event)" title="파일선택" multiple="multiple" accept="undfined">
                                             </span>

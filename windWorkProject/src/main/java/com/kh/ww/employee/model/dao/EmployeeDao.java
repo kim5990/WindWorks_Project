@@ -1,6 +1,7 @@
 package com.kh.ww.employee.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.ww.common.model.vo.PageInfo;
 import com.kh.ww.employee.model.vo.Employee;
+import com.kh.ww.employee.model.vo.SendSMS;
 
 @Repository
 public class EmployeeDao {
@@ -74,12 +76,42 @@ public class EmployeeDao {
 	public int updateEmployee(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.updateEmployee", e);
 	}
+
+	// 아이디찾기 문자인증
+	public int insertSendSMS(SqlSessionTemplate sqlSession, SendSMS sms, int randomNumber) {
+		HashMap<String, Object> empInfo = new HashMap<String, Object>();
+		empInfo.put("smsPhone", sms.getSmsPhone());
+		empInfo.put("smsName", sms.getSmsName());
+		empInfo.put("randomNumber", randomNumber);
+	    
+		return sqlSession.insert("employeeMapper.insertSendSMS", empInfo);
+	}
+
+	// 문자인증 완료시 아이디 찾기
+	public Employee selectfindId(SqlSessionTemplate sqlSession, SendSMS sms) {
+		return sqlSession.selectOne("employeeMapper.selectfindId", sms);
+	}
+
+	// 문자인증번호 확인
+	public int checkConfirmNo(SqlSessionTemplate sqlSession, SendSMS sms) {
+		return sqlSession.selectOne("employeeMapper.checkConfirmNo", sms);
+	}
+
+	// 비밀번호 찾기 아이디 존재여부 확인
+	public int checkEmail(SqlSessionTemplate sqlSession, String empEmail) {
+		return sqlSession.selectOne("employeeMapper.checkEmail", empEmail);
+	}
+
+	// 새로운 비밀번호 변경
+	public int updateNewPwd(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.updateNewPwd", e);
+	}
+	
 	//패스워드업그레이드
 	public int updatePassword(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.updatePassword", e);
 	}
 
-	
 	//출근상태로 변경
 	public int statusWork(SqlSessionTemplate sqlSession, int empNo) {
 		return sqlSession.update("employeeMapper.statusWork", empNo);
@@ -95,7 +127,5 @@ public class EmployeeDao {
 	public int selectStatus(SqlSessionTemplate sqlSession, int empNo) {
 		return sqlSession.selectOne("employeeMapper.selectStatus", empNo);
 	}
-	
-	
 	
 }

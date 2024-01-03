@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.ww.common.model.vo.PageInfo;
 import com.kh.ww.employee.model.vo.Employee;
+import com.kh.ww.employee.model.vo.SendSMS;
 
 public interface EmployeeService {
 	//가입승인서비스(update)
@@ -41,6 +42,21 @@ public interface EmployeeService {
 	
 	//마이페이지에서 사원 정보 수정
 	int updateEmployee(Employee e);
+
+	// 아이디찾기 문자인증
+	void certifiedPhoneNumber(SendSMS sms, int randomNumber);
+
+	// 문자인증 완료시 아이디 찾기
+	Employee selectfindId(SendSMS sms);
+	
+	// 문자인증번호 확인
+	int checkConfirmNo(SendSMS sms);
+
+	// 비밀번호 찾기 아이디 존재여부 확인
+	int checkEmail(String empEmail);
+
+	// 새로운 비밀번호 변경
+	int updateNewPwd(Employee e);
 
 	//패스워드 수정
 	int updatePassword(Employee e);
