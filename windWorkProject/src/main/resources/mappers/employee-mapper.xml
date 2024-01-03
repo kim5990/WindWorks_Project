@@ -211,6 +211,7 @@
 		JOIN JOB USING(JOB_CODE)
 		WHERE EMP_STATUS = 1 
 			AND DEPT_CODE = #{deptCode}
+			ORDER BY EMP_NAME
 	</select>
 	
 	<!-- 출근상태로 변경 -->
