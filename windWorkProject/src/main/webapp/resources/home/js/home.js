@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // 일정이 없을 때
                 const noEventElement = document.querySelector('.fc-list-empty');
                 const emptyEventDiv = document.createElement('div');
-                    emptyEventDiv.classList.add('fc-list-empty-event');
+                emptyEventDiv.classList.add('fc-list-empty-event');
                 if (res.length === 0 && noEventElement.querySelector('.fc-list-empty-event') === null) {
                     emptyEventDiv.innerHTML = '일정이 없습니다.';
                     noEventElement.appendChild(emptyEventDiv);
