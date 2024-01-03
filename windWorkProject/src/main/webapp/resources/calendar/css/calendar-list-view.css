@@ -142,6 +142,10 @@
     border: 1px solid rgb(158, 158, 158);
 }
 
+.modal-input:focus{
+    outline: none;
+}
+
 .mycircle{
 	width : 10px;
 	height : 10px;
@@ -178,7 +182,7 @@
     resize: none;
 }
 
-.modal-input2 input:focus{
+.modal-input2:focus{
 	outline: none;
 }
 
