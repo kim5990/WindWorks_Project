@@ -1,18 +1,18 @@
 // 채팅페이지로 이동
-function chattingList(){
+function chattingList() {
     location.href = "list.ch";
 }
 
 //메일페이지로 이동
-function mailList(){
+function mailList() {
     console.log('들어옴')
     location.href = "list.mail";
 }
 
 
 // 미확인 채팅 카운트
-function noReadChatCount(){
-    
+function noReadChatCount() {
+
     $.ajax({
         url: "noReadChatCount.ch",
         success: function (res) {
@@ -27,18 +27,18 @@ function noReadChatCount(){
 
 
 // 캘린더 그리기
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     let calendarEl = document.getElementById('calendar');
-        let calendar = new FullCalendar.Calendar(calendarEl, {
+    let calendar = new FullCalendar.Calendar(calendarEl, {
         googleCalendarApiKey: "AIzaSyDms3oLpDbnfLhL9z6TFgFnBoh5Jk5T2Fc",
         height: 365, // 캘린더 높이 설정
         initialView: 'listWeek', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
         locale: 'ko', // 한국어 설정
         //selectable: true, // 달력 일자 드래그 설정가능
-        events: function(timezone, callback){
-        // console.log("서버로부터 가져와서 실행함")
-        //여기서 서버로부터 데이터가져오기
-        listCalendar(timezone, function(res){
+        events: function (timezone, callback) {
+            // console.log("서버로부터 가져와서 실행함")
+            //여기서 서버로부터 데이터가져오기
+            listCalendar(timezone, function (res) {
                 // 일정이 없을 때
                 const noEventElement = document.querySelector('.fc-list-empty');
                 const emptyEventDiv = document.createElement('div');
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         },
         // 일정 클릭
-        eventClick: function(info) {
+        eventClick: function (info) {
             info.jsEvent.stopPropagation();
             info.jsEvent.preventDefault();
         },
@@ -72,25 +72,26 @@ document.addEventListener('DOMContentLoaded', function() {
             className: "ko-holiday",
             textColor: "white",
         }],
-        titleFormat : function(date) { // title 설정 yyyy. mm. dd - mm. dd
-            const start = new Date(date.date.year, date.date.month, date.date.day); 
+        titleFormat: function (date) { // title 설정 yyyy. mm. dd - mm. dd
+            const start = new Date(date.date.year, date.date.month, date.date.day);
             const end = new Date(date.date.year, date.date.month, date.date.day + 6);
             return start.getFullYear() + '. ' + (start.getMonth() + 1) + '. ' + start.getDate() + ' ~ ' +
-                    (end.getMonth() + 1) + '. ' + end.getDate();
+                (end.getMonth() + 1) + '. ' + end.getDate();
         },
-        listDayFormat : function(date) {
+        listDayFormat: function (date) {
             const dayOfWeek = new Date(date.date.year, date.date.month, date.date.day).getDay();
             const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
 
             return (date.date.month + 1) + ". " + (date.date.day) + ". " + weekdays[dayOfWeek];
         },
-        listDaySideFormat: function() {
+        listDaySideFormat: function () {
             return "";
-        } 
+        }
+
 
     })
     calendar.render();
-    
+
     noReadChatCount();
     weatherView();
     misseMunjiView();
@@ -98,94 +99,96 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(updateTime, 1000); // 시간 카운트
     noReadChatCount(); // 미확인 채팅 카운트
     selectStatus() // 출퇴근상태확인
-    })
+})
 
 
 // 일정 조회
-function listCalendar(timeData, callback){
+function listCalendar(timeData, callback) {
     $.ajax({
         url: "clist.ca",
-        data:{
-            startTime : timeData.start,
-            endTime : timeData.end,
+        data: {
+            startTime: timeData.start,
+            endTime: timeData.end,
         },
-        success: function(calendar){
+        success: function (calendar) {
+            // console.log(calendar)
+            // console.log(calendar.list.startTime)
 
-        const data =[]
-        const list = calendar.list
+            const data = []
+            const list = calendar.list
 
-        for (let i = 0; i < list.length; i++){
+            for (let i = 0; i < list.length; i++) {
 
-            // 주어진 날짜를 JavaScript Date 객체로 파싱합니다.
-            const dateStart = new Date(list[i].startTime);
-            dateStart.toLocaleString("en-US", {timeZone: "Asia/Seoul"});
-            const dateEnd = new Date(list[i].endTime);
+                // 주어진 날짜를 JavaScript Date 객체로 파싱합니다.
+                const dateStart = new Date(list[i].startTime);
+                dateStart.toLocaleString("en-US", { timeZone: "Asia/Seoul" });
+                const dateEnd = new Date(list[i].endTime);
 
-            // Tue Dec 26 2023 18:00:00 GMT+0900 (한국 표준시) {}
-            // 원하는 형식으로 날짜를 변환합니다. (YYYY-MM-DD 형식으로)
-            const formattedStartDate = dateStart.toISOString().slice(0, 10);
-            const formattedEndDate = dateEnd.toISOString().slice(0, 10);
+                // Tue Dec 26 2023 18:00:00 GMT+0900 (한국 표준시) {}
+                // 원하는 형식으로 날짜를 변환합니다. (YYYY-MM-DD 형식으로)
+                const formattedStartDate = dateStart.toISOString().slice(0, 10);
+                const formattedEndDate = dateEnd.toISOString().slice(0, 10);
 
-            // 시간 변환
-            const startHours = ('0' + dateStart.getHours()).slice(-2); // 시간을 가져옵니다.
-            const startMinutes = ('0' + dateStart.getMinutes()).slice(-2); // 분을 가져옵니다.
-            const formattedStartTime = startHours + ":" + startMinutes; // 시간과 분을 조합합니다.
+                // 시간 변환
+                const startHours = ('0' + dateStart.getHours()).slice(-2); // 시간을 가져옵니다.
+                const startMinutes = ('0' + dateStart.getMinutes()).slice(-2); // 분을 가져옵니다.
+                const formattedStartTime = startHours + ":" + startMinutes; // 시간과 분을 조합합니다.
 
-            const endHours = ('0' + dateEnd.getHours()).slice(-2); // 종료 시간의 시간을 가져옵니다.
-            const endMinutes = ('0' + dateEnd.getMinutes()).slice(-2); // 종료 시간의 분을 가져옵니다.
-            const formattedEndTime = endHours + ":" + endMinutes; // 시간과 분을 조합하여 문자열을 만듭니다.
+                const endHours = ('0' + dateEnd.getHours()).slice(-2); // 종료 시간의 시간을 가져옵니다.
+                const endMinutes = ('0' + dateEnd.getMinutes()).slice(-2); // 종료 시간의 분을 가져옵니다.
+                const formattedEndTime = endHours + ":" + endMinutes; // 시간과 분을 조합하여 문자열을 만듭니다.
 
-            // 기본값 설정
-            let backgroundColor = ""; 
-            let borderColor = "";
-            let textColor = "";
+                // 기본값 설정
+                let backgroundColor = "";
+                let borderColor = "";
+                let textColor = "";
 
-            if (list[i].calendarCategory === 0) { // 내 일정
-                backgroundColor = "rgb(119, 187, 243)";
-                borderColor = "rgb(119, 187, 243)";
-                textColor = "white";
-            } else if (list[i].calendarCategory === 1) { // 팀 일정
-                backgroundColor = "rgb(194, 124, 221)";
-                borderColor = "rgb(194, 124, 221)";
-                textColor = "white";
-            } else if (list[i].calendarCategory === 2) { // 전체 일정
-                backgroundColor = "rgb(255, 200, 82)";
-                borderColor = "rgb(255, 200, 82)";
-                textColor = "white";
-            } else if (list[i].calendarCategory === 3) { // 자산 예약
-                backgroundColor = "rgb(85, 175, 130)";
-                borderColor = "rgb(85, 175, 130)";
-                textColor = "white";
+                if (list[i].calendarCategory === 0) { // 내 일정
+                    backgroundColor = "rgb(119, 187, 243)";
+                    borderColor = "rgb(119, 187, 243)";
+                    textColor = "white";
+                } else if (list[i].calendarCategory === 1) { // 팀 일정
+                    backgroundColor = "rgb(194, 124, 221)";
+                    borderColor = "rgb(194, 124, 221)";
+                    textColor = "white";
+                } else if (list[i].calendarCategory === 2) { // 전체 일정
+                    backgroundColor = "rgb(255, 200, 82)";
+                    borderColor = "rgb(255, 200, 82)";
+                    textColor = "white";
+                } else if (list[i].calendarCategory === 3) { // 자산 예약
+                    backgroundColor = "rgb(85, 175, 130)";
+                    borderColor = "rgb(85, 175, 130)";
+                    textColor = "white";
+                }
+
+                data2 = {
+                    "title": list[i].calendarName,
+                    "start": dateStart,
+                    "end": dateEnd,
+                    "content": list[i].calendarContent,
+                    "allDay": false,
+                    "calNo": list[i].calendarListNo,
+                    "calendarCategory": list[i].calendarCategory,
+                    "dateStart": formattedStartDate,
+                    "dateEnd": formattedEndDate,
+                    "timeStart": formattedStartTime,
+                    "timeEnd": formattedEndTime,
+                    "backgroundColor": backgroundColor,
+                    "borderColor": borderColor,
+                    "textColor": textColor
+                }
+                data.push(data2)
             }
 
-            data2 = {
-                "title"   : list[i].calendarName,
-                "start"   : dateStart,
-                "end"      : dateEnd,
-                "content" : list[i].calendarContent,
-                "allDay"  : false,
-                "calNo"   : list[i].calendarListNo,
-                "calendarCategory" : list[i].calendarCategory,
-                "dateStart": formattedStartDate,
-                "dateEnd" : formattedEndDate,
-                "timeStart" : formattedStartTime,
-                "timeEnd" : formattedEndTime,
-                "backgroundColor" : backgroundColor,
-                "borderColor" : borderColor,
-                "textColor" : textColor
-            }
-            data.push(data2)
-        }
-        callback(data);
+            callback(data);
         },
-        error: function(){
+        error: function () {
             console.log("clist.ca ajax 통신 실패")
         }
-   })
+    })
 }
-
 // 날씨 보여주기
-function weatherView(){
+function weatherView() {
     let today = new Date();
     let year = today.getFullYear();
     let month = String(today.getMonth() + 1).padStart(2, '0');
@@ -193,8 +196,8 @@ function weatherView(){
     let hour = String(today.getHours());
     let minute = String(today.getMinutes()).padStart(2, '0');
 
-    if(parseInt(minute) > 30) {
-        hour = parseInt(hour) + 1 ;
+    if (parseInt(minute) > 30) {
+        hour = parseInt(hour) + 1;
         minute = '00';
     } else {
         minute = '00';
@@ -216,7 +219,7 @@ function weatherView(){
     });
 }
 
-const drawWeather = function(data) {
+const drawWeather = function (data) {
     let today = new Date();
     let year = today.getFullYear();
     let month = String(today.getMonth() + 1).padStart(2, '0');
@@ -224,8 +227,8 @@ const drawWeather = function(data) {
     let hour = String(today.getHours());
     let minute = String(today.getMinutes()).padStart(2, '0');
     let date = year + month + day;
-    if(parseInt(minute) > 30) {
-        hour = parseInt(hour) + 1 ;
+    if (parseInt(minute) > 30) {
+        hour = parseInt(hour) + 1;
         minute = '00';
     } else {
         minute = '00';
@@ -236,12 +239,12 @@ const drawWeather = function(data) {
     let str = "";
     let tmpstr = "";
     let item = itemArr.item;
-    for(let j = 0; j < item.length; j++){
-        if(item[j].fcstDate == date && item[j].fcstTime == (hour + minute) && item[j].category == 'TMP'){
-            tmpstr += '<div style="font-size: 50px; font-weight: 800;">'+ item[j].fcstValue + '℃</div>'
+    for (let j = 0; j < item.length; j++) {
+        if (item[j].fcstDate == date && item[j].fcstTime == (hour + minute) && item[j].category == 'TMP') {
+            tmpstr += '<div style="font-size: 50px; font-weight: 800;">' + item[j].fcstValue + '℃</div>'
         }
 
-        if(item[j].fcstTime == (hour + minute) && item[j].category == 'SKY' && item[j].fcstValue == 1 && item[j].fcstDate == date){
+        if (item[j].fcstTime == (hour + minute) && item[j].category == 'SKY' && item[j].fcstValue == 1 && item[j].fcstDate == date) {
             str += '<div class="weather-C">'
                 + '<div style="display:flex; align-items: center;">'
                 + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="orange" class="bi bi-sun-fill" viewBox="0 0 16 16">'
@@ -250,8 +253,8 @@ const drawWeather = function(data) {
                 + '</div>'
                 + tmpstr
                 + '</div>'
-                + '<div style="display: flex; justify-content: center;">맑음</div>';
-        }else if(item[j].fcstTime == (hour + minute) && item[j].category == 'SKY' && item[j].fcstValue == 3 && item[j].fcstDate == date){
+                + '<div style="display: flex; justify-content: center;">맑음</div>';;
+        } else if (item[j].fcstTime == (hour + minute) && item[j].category == 'SKY' && item[j].fcstValue == 3 && item[j].fcstDate == date) {
             str += '<div class="weather-C">'
                 + '<div style="display:flex; align-items: center;">'
                 + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-clouds-fill" viewBox="0 0 16 16">'
@@ -262,7 +265,7 @@ const drawWeather = function(data) {
                 + tmpstr
                 + '</div>'
                 + '<div style="display: flex; justify-content: center;">구름많음</div>';
-        } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'SKY' && item[j].fcstValue == 4 && item[j].fcstDate == date){
+        } else if (item[j].fcstTime == (hour + minute) && item[j].category == 'SKY' && item[j].fcstValue == 4 && item[j].fcstDate == date) {
             str += '<div class="weather-C">'
                 + '<div style="display:flex; align-items: center;">'
                 + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-cloud-fill" viewBox="0 0 16 16">'
@@ -272,7 +275,7 @@ const drawWeather = function(data) {
                 + tmpstr
                 + '</div>'
                 + '<div style="display: flex; justify-content: center;">흐림</div>';
-        } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 1 && item[j].fcstDate == date){
+        } else if (item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 1 && item[j].fcstDate == date) {
             str += '<div class="weather-C">'
                 + '<div style="display:flex; align-items: center;">'
                 + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-cloud-drizzle-fill" viewBox="0 0 16 16">'
@@ -282,7 +285,7 @@ const drawWeather = function(data) {
                 + tmpstr
                 + '</div>'
                 + '<div style="display: flex; justify-content: center;">비</div>';
-        } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 2 && item[j].fcstDate == date){
+        } else if (item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 2 && item[j].fcstDate == date) {
             str += '<div class="weather-C">'
                 + '<div style="display:flex; align-items: center;">'
                 + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="gey" class="bi bi-cloud-sleet-fill" viewBox="0 0 16 16">'
@@ -292,7 +295,7 @@ const drawWeather = function(data) {
                 + tmpstr
                 + '</div>'
                 + '<div style="display: flex; justify-content: center;">비/눈</div>';
-        } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 3 && item[j].fcstDate == date){
+        } else if (item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 3 && item[j].fcstDate == date) {
             str += '<div class="weather-C">'
                 + '<div style="display:flex; align-items: center;">'
                 + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-cloud-snow-fill" viewBox="0 0 16 16">'
@@ -302,7 +305,7 @@ const drawWeather = function(data) {
                 + tmpstr
                 + '</div>'
                 + '<div style="display: flex; justify-content: center;">눈</div>';
-        } else if(item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 4 && item[j].fcstDate == date){
+        } else if (item[j].fcstTime == (hour + minute) && item[j].category == 'PTY' && item[j].fcstValue == 4 && item[j].fcstDate == date) {
             str += '<div class="weather-C">'
                 + '<div style="display:flex; align-items: center;">'
                 + '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="grey" class="bi bi-cloud-drizzle-fill" viewBox="0 0 16 16">'
@@ -313,11 +316,14 @@ const drawWeather = function(data) {
                 + '</div>'
                 + '<div style="display: flex; justify-content: center;">소나기</div>';
         }
+
+
     }
     document.querySelector('.home-downArea-area1-weather-temperature').innerHTML = str;
+
 }
 
-const misseMunjiView = function(){
+const misseMunjiView = function () {
     $.ajax({
         url: "misseMunji.mi",
         success: function (data) {
@@ -330,92 +336,92 @@ const misseMunjiView = function(){
     });
 }
 
-const drawMisseMunji = function(data){
-   const itemArr = data.response.body.items;
-         
-         let str = "";
-         let misseStr = "";
-         for (let i in itemArr){
-            let item = itemArr[i];
-            if(item.stationName == '중구'){
-               console.log(item.pm10Value);
-               console.log(item.pm25Value);
-               if(item.pm10Value >= 0 && item.pm10Value <= 30){
-                  str += '<div class="munji1" style="background-color: #ebf7ff; border: 1px solid #d8e9f5;">'
-                     + '<div>미세먼지</div>'
-                     + '<div style="font-weight: bold; color: #34a0ff;">좋음</div>'
-                     + '</div>';
-               } else if(item.pm10Value >= 31 && item.pm10Value <= 80){
-                  console.log("보통")
-                  str += '<div class="munji1" style="background-color: #ebfae8; border: 1px solid #d6efd0;">'
-                     + '<div>미세먼지</div>'
-                     + '<div style="font-weight: bold; color: #00c73c;">보통</div>'
-                     + '</div>';
-               } else if(item.pm10Value >= 81 && item.pm10Value <= 150){
-                  console.log("나쁨")
-                  str += '<div class="munji1" style="background-color: #fdfbef; border: 1px solid #f6f2dd;">'
-                     + '<div>미세먼지</div>'
-                     + '<div style="font-weight: bold; color: #00c73c;">나쁨</div>'
-                     + '</div>';
-               } else if(item.pm10Value >= 151){
-                  console.log("매우나쁨")
-                  str += '<div class="munji1" style="background-color: #ebf7ff; border: 1px solid #d8e9f5;">'
-                     + '<div>미세먼지</div>'
-                     + '<div style="font-weight: bold; color: #34a0ff;">매우나쁨</div>'
-                     + '</div>';
-               }
-               
-               if(item.pm25Value >= 0 && item.pm25Value <= 15){
-                  
-                  console.log("좋음")
-                  misseStr += '<div class="munji2" style="background-color: #ebf7ff; border: 1px solid #d8e9f5;">'
-                         + '<div>초미세먼지</div>'
-                         + '<div style="font-weight: bold; color: #34a0ff;">좋음</div>'
-                         + '</div>'
-               } else if(item.pm25Value >= 16 && item.pm25Value <= 35){
-                  console.log("보통")
-                  misseStr += '<div class="munji2" style="background-color: #ebfae8; border: 1px solid #d6efd0;">'
-                         + '<div>초미세먼지</div>'
-                         + '<div style="font-weight: bold; color: #00c73c;">보통</div>'
-                         + '</div>' 
-               } else if(item.pm25Value >= 36 && item.pm25Value <= 75){
-                  console.log("나쁨")
-                  misseStr += '<div class="munji2" style="background-color: #fdfbef; border: 1px solid #f6f2dd;">'
-                         + '<div>초미세먼지</div>'
-                         + '<div style="font-weight: bold; color: #00c73c;">나쁨</div>'
-                         + '</div>'
-               } else if(item.pm25Value >= 76){
-                  console.log("매우나쁨")
-                  misseStr += '<div class="munji2" style="background-color: #ebf7ff; border: 1px solid #d8e9f5;">'
-                         + '<div>초미세먼지</div>'
-                         + '<div style="font-weight: bold; color: #34a0ff;">좋음</div>'
-                         + '</div>'
-               }
+const drawMisseMunji = function (data) {
+    const itemArr = data.response.body.items;
+
+    let str = "";
+    let misseStr = "";
+    for (let i in itemArr) {
+        let item = itemArr[i];
+        if (item.stationName == '중구') {
+            console.log(item.pm10Value);
+            console.log(item.pm25Value);
+            if (item.pm10Value >= 0 && item.pm10Value <= 30) {
+                str += '<div class="munji1" style="background-color: #ebf7ff; border: 1px solid #d8e9f5;">'
+                    + '<div>미세먼지</div>'
+                    + '<div style="font-weight: bold; color: #34a0ff;">좋음</div>'
+                    + '</div>';
+            } else if (item.pm10Value >= 31 && item.pm10Value <= 80) {
+                console.log("보통")
+                str += '<div class="munji1" style="background-color: #ebfae8; border: 1px solid #d6efd0;">'
+                    + '<div>미세먼지</div>'
+                    + '<div style="font-weight: bold; color: #00c73c;">보통</div>'
+                    + '</div>';
+            } else if (item.pm10Value >= 81 && item.pm10Value <= 150) {
+                console.log("나쁨")
+                str += '<div class="munji1" style="background-color: #fdfbef; border: 1px solid #f6f2dd;">'
+                    + '<div>미세먼지</div>'
+                    + '<div style="font-weight: bold; color: #00c73c;">나쁨</div>'
+                    + '</div>';
+            } else if (item.pm10Value >= 151) {
+                console.log("매우나쁨")
+                str += '<div class="munji1" style="background-color: #ebf7ff; border: 1px solid #d8e9f5;">'
+                    + '<div>미세먼지</div>'
+                    + '<div style="font-weight: bold; color: #34a0ff;">매우나쁨</div>'
+                    + '</div>';
             }
-         }
-         const misse1 = document.querySelector('.home-downArea-area1-weather-misseMunji');
-         misse1.innerHTML = str;
-         misse1.innerHTML += misseStr;
-         console.log(misse1);
+
+            if (item.pm25Value >= 0 && item.pm25Value <= 15) {
+
+                console.log("좋음")
+                misseStr += '<div class="munji2" style="background-color: #ebf7ff; border: 1px solid #d8e9f5;">'
+                    + '<div>초미세먼지</div>'
+                    + '<div style="font-weight: bold; color: #34a0ff;">좋음</div>'
+                    + '</div>'
+            } else if (item.pm25Value >= 16 && item.pm25Value <= 35) {
+                console.log("보통")
+                misseStr += '<div class="munji2" style="background-color: #ebfae8; border: 1px solid #d6efd0;">'
+                    + '<div>초미세먼지</div>'
+                    + '<div style="font-weight: bold; color: #00c73c;">보통</div>'
+                    + '</div>'
+            } else if (item.pm25Value >= 36 && item.pm25Value <= 75) {
+                console.log("나쁨")
+                misseStr += '<div class="munji2" style="background-color: #fdfbef; border: 1px solid #f6f2dd;">'
+                    + '<div>초미세먼지</div>'
+                    + '<div style="font-weight: bold; color: #00c73c;">나쁨</div>'
+                    + '</div>'
+            } else if (item.pm25Value >= 76) {
+                console.log("매우나쁨")
+                misseStr += '<div class="munji2" style="background-color: #ebf7ff; border: 1px solid #d8e9f5;">'
+                    + '<div>초미세먼지</div>'
+                    + '<div style="font-weight: bold; color: #34a0ff;">좋음</div>'
+                    + '</div>'
+            }
+        }
+    }
+    const misse1 = document.querySelector('.home-downArea-area1-weather-misseMunji');
+    misse1.innerHTML = str;
+    misse1.innerHTML += misseStr;
+    console.log(misse1);
 }
 
 
 // 번역버튼 클릭
-function papago(){
+function papago() {
     let inputText = document.querySelector('#translate-input').value;
 
     // 공백이면 함수 종료
-    if(inputText.replace(/\s/g, '') == ""){
+    if (inputText.replace(/\s/g, '') == "") {
         return;
     }
 
 
     const sourceLanguage = document.querySelector('.source-Language').textContent;
 
-    if(sourceLanguage == 'English'){
+    if (sourceLanguage == 'English') {
         $.ajax({
             url: "papagoEn.ho",
-            data:{
+            data: {
                 inputText: inputText
             },
             success: function (res) {
@@ -429,7 +435,7 @@ function papago(){
     } else {
         $.ajax({
             url: "papagoKo.ho",
-            data:{
+            data: {
                 inputText: inputText
             },
             success: function (res) {
@@ -444,7 +450,7 @@ function papago(){
 }
 
 // 언어변경
-function changeLanguage(){
+function changeLanguage() {
     const sourceLanguage = document.querySelector('.source-Language');
     const targetLanguage = document.querySelector('.target-Language');
 
@@ -460,7 +466,7 @@ function changeLanguage(){
 }
 
 // 내용 지우기
-function deleteText(){
+function deleteText() {
     document.querySelector('#translate-input').value = "";
     document.querySelector('#translate-value').value = "";
 
@@ -481,15 +487,15 @@ function updateTime() {
 
 
 // 출근
-function statusWork(empNo){
+function statusWork(empNo) {
     $.ajax({
         url: "statusWork.ho",
-        data:{
+        data: {
             empNo: empNo
         },
         success: function (res) {
             if (res == "success") {
-            updateButtonState(1)
+                updateButtonState(1)
             } else {
                 console.log("업데이트 실패")
             }
@@ -501,19 +507,19 @@ function statusWork(empNo){
 }
 
 // 퇴근
-function statusLeave(empNo){
+function statusLeave(empNo) {
     $.ajax({
         url: "statusLeave.ho",
-        data:{
+        data: {
             empNo: empNo
         },
         success: function (res) {
             if (res == "success") {
-            updateButtonState(0)
-            console.log(0)
+                updateButtonState(0)
+                console.log(0)
             } else {
                 console.log("업데이트 실패")
-            }   
+            }
         },
         error: function () {
             console.log("실패");
@@ -537,21 +543,22 @@ function updateButtonState(Status) {
     else if (Status == 0) {
         leaveButton.setAttribute('disabled', true);
         workButton.removeAttribute('disabled');
-        leaveButton.style.cursor = 'default'; 
+        leaveButton.style.cursor = 'default';
         workButton.style.cursor = 'pointer';
     }
+
 }
 
 // 출퇴근상태 확인
-function selectStatus(){
+function selectStatus() {
     $.ajax({
         url: "selectStatus.ho",
         success: function (res) {
             if (res == 1) {
-            updateButtonState(1)
+                updateButtonState(1)
             } else {
                 updateButtonState(0)
-            }   
+            }
         },
         error: function () {
             console.log("실패");
@@ -575,7 +582,7 @@ function chatGptTextCheck(event) {
 }
 
 function chatGPT() {
-    const api_key = "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"  // <- API KEY 입력
+    const api_key = "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"  // <- API KEY 입력
     const keywords = document.getElementById('comment').value;
     console.log(keywords)
     $('#loading').show();
@@ -778,8 +785,7 @@ function drawBusStationList(res) {
     }
 }
 
-//15초마다 재 검색
-//setInterval(intervalBusSearchBtn, 15000);
+
 let seconds = 15;
 //15초 카운트 다운
 function showCountdown() {
@@ -791,9 +797,10 @@ function showCountdown() {
         seconds = 15;
     }
 }
+    //15초마다 재 검색
+    setInterval(intervalBusSearchBtn, 15000);
 
-//setInterval(showCountdown, 1000);
-
+    setInterval(showCountdown, 1000);
 
 function intervalBusSearchBtn() {
     console.log("enter");
