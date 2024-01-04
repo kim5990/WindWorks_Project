@@ -110,6 +110,7 @@ public class ChatServer extends TextWebSocketHandler {
 			// 타켓들 돌면서 DB 읽음체크 추가하기
 			int result2 = 0;
 			for (Employee emp : targetList) {
+				System.out.println(emp); 
 				ChattingMsgRead cmr = new ChattingMsgRead();
 				cmr.setEmpNo(emp.getEmpNo());
 				cmr.setChatRoomNo(roomNo);

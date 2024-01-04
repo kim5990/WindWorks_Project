@@ -6,9 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Home</title>
+        <!--alert-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body onload="mainOnload()" >
-
+	<c:if test="${ !empty alertMsg }">
+                <script>
+					swal("", "${alertMsg}", "success");
+                </script>
+                <c:remove var="alertMsg" scope="session" />
+    </c:if>
 	<c:choose>
 		<c:when test="${!empty loginUser}">
 			<jsp:include page="common/header.jsp" />
@@ -16,6 +23,7 @@
 		</c:when>
 		<c:otherwise>
 			<jsp:include page="common/login.jsp" />
+			
 		</c:otherwise>
 	</c:choose>
 
