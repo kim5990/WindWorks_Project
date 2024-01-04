@@ -65,8 +65,8 @@ public class EmployeeController {
 			session.setAttribute("alertMsg", "성공적으로 회원가입이 완료되었습니다.");
 			return "redirect:/";
 		} else {
-			model.addAttribute("errorMsg", "회원가입 실패");
-			return "common/errorPage";
+			session.setAttribute("alertMsg", "회원가입 실패");
+			return "memberInsertForm";
 		}
 	}
 	
@@ -75,11 +75,12 @@ public class EmployeeController {
 	public ModelAndView loginMember(Employee e, ModelAndView mv, HttpSession session) {
 		Employee loginUser = employeeService.loginEmployee(e); //아이디로만 맴버 객체 가져오기 
 		if(loginUser == null || !bcryptPasswordEncoder.matches(e.getEmpPwd(), loginUser.getEmpPwd())) { //로그인실패 => 에러문구를 requsetScope에 담고 에러페이지 포워딩
-			mv.addObject("error", "로그인 실패");
-			mv.setViewName("common/login");
+			session.setAttribute("alertMsg", "로그인 실패");
+			mv.setViewName("redirect:/");
 		}else {
 			// 온라인 상태로 바꿔주기
 			int result = employeeService.updateOnline(loginUser);
+			session.setAttribute("alertMsg", "로그인 성공");
 			session.setAttribute("loginUser", loginUser);
 			mv.setViewName("redirect:/");
 		}
