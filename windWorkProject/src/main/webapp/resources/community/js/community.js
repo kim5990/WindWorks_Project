@@ -324,49 +324,67 @@ function selectReplyList(bno){
 function insertReply(bno){
     let loginUserEmpNo = currentUser.empNo;
     let content = document.querySelector("#reply-content").value;
-    if (window.confirm("등록하시겠습니까?")){
-        $.ajax({
-            url: "replyIn.com",
-            data: {
-                bno: bno,
-                eno: loginUserEmpNo,
-                reCont: content,
-            },
-            success: function (res) {
-                if(res == "success"){
-                    selectBoard(bno)
-                    document.querySelector("#reply-content").value = "";
-                } else {
-                    console.log("insert실패")
+
+    swal({
+		text : "등록하시겠습니까?",
+		buttons: ["취소" , "확인"]
+	})
+	.then(function(result){
+        
+        if(result){
+        	$.ajax({
+                url: "replyIn.com",
+                data: {
+                    bno: bno,
+                    eno: loginUserEmpNo,
+                    reCont: content,
+                },
+                success: function (res) {
+                    if(res == "success"){
+                        selectBoard(bno)
+                        document.querySelector("#reply-content").value = "";
+                    } else {
+                        console.log("insert실패")
+                    }
+                },
+                error: function () {
+                    console.log("실패");
                 }
-            },
-            error: function () {
-                console.log("실패");
-            }
-        });
-    }
+            });
+        }
+        
+	})
 }
 
 // 댓글 삭제
 function deleteReply(rno, bno){
-    if (window.confirm("삭제하시겠습니까?")){
-        $.ajax({
-            url: "replyDel.com",
-            data: {
-                rno: rno
-            },
-            success: function (res) {
-                if(res == "success"){
-                    selectBoard(bno)
-                } else {
-                    console.log("insert실패")
+
+    swal({
+		text : "삭제하시겠습니까",
+		buttons: ["취소" , "확인"]
+	})
+	.then(function(result){
+        if(result){
+        	$.ajax({
+                url: "replyDel.com",
+                data: {
+                    rno: rno
+                },
+                success: function (res) {
+                    if(res == "success"){
+                        selectBoard(bno)
+                    } else {
+                        console.log("insert실패")
+                    }
+                },
+                error: function () {
+                    console.log("실패");
                 }
-            },
-            error: function () {
-                console.log("실패");
-            }
-        });
-    }
+            });
+        }
+        
+	})
+
 }
 
 
@@ -423,53 +441,70 @@ function comListAll(){
 
 // 커뮤 가입
 function comIn(comNo, empNo){
-    
-    if (window.confirm("가입하시겠습니까?")){
-        $.ajax({
-            url: "comIn.com",
-            data:{
-                comNo: comNo,
-                empNo: empNo
-            },
-            success: function(res){
-                if(res == "success"){
-                    //alert("가입 완료")
-                        myCommunityList();
-                        comListAll();
-                } else {
-                    console.log("insert실패")
+
+    swal({
+		text : "가입하시겠습니까?",
+		buttons: ["취소" , "확인"]
+	})
+	.then(function(result){
+        
+        if(result){
+        	$.ajax({
+                url: "comIn.com",
+                data:{
+                    comNo: comNo,
+                    empNo: empNo
+                },
+                success: function(res){
+                    if(res == "success"){
+                            myCommunityList();
+                            comListAll();
+                    } else {
+                        console.log("insert실패")
+                    }
+                },
+                error : function(){
+                    console.log("실패")
                 }
-            },
-            error : function(){
-                console.log("실패")
-            }
-        })
-    }
+            })
+        }
+        
+	})
+    
 }
 
 // 커뮤 탈퇴
 function comOut(comNo, empNo){
-    if(window.confirm("탈퇴하시겠습니까?")){
-        $.ajax({
-            url: "comOut.com",
-            data:{
-                comNo: comNo,
-                empNo: empNo
-            },
-            success: function(res){
-                if(res == "success"){
-                    //alert("탈퇴 완료")
-                    myCommunityList();
-                    comListAll();
-                } else {
-                    console.log("delete 실패")
+    swal({
+		text : "탈퇴하시겠습니까?",
+		buttons: ["취소" , "확인"]
+	})
+	.then(function(result){
+		console.log(result);
+        
+        if(result){
+        	$.ajax({
+                url: "comOut.com",
+                data:{
+                    comNo: comNo,
+                    empNo: empNo
+                },
+                success: function(res){
+                    if(res == "success"){
+                        myCommunityList();
+                        comListAll();
+                    } else {
+                        console.log("delete 실패")
+                    }
+                },
+                error: function() {
+                    console.log("실패")
                 }
-            },
-            error: function() {
-                console.log("실패")
-            }
-        })
-    }
+            })
+        }
+        
+	})
+
 }
 
 
@@ -590,9 +625,18 @@ function formatBytes(bytes, decimals = 2) {
 
 // 게시글 삭제
 function boardDelete(bno){
-    if(window.confirm("삭제하시겠습니까?")){
-        location.href = "deleteBo.com?bno=" + bno;
-    }
+    swal({
+		text : "삭제하시겠습니까?",
+		buttons: ["취소" , "확인"]
+	})
+	.then(function(result){
+        
+        if(result){
+            location.href = "deleteBo.com?bno=" + bno;
+        }
+        
+	})
+
 
 }
 
