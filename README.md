@@ -13,7 +13,7 @@
 ## 프로젝트 개요
 
 ![로고](./front/public/mainlogo.png)
-<img width="461" alt="logoImage" src="https://github.com/Sangwonsdsd/WindWorks_Project/assets/91966029/7415d9bb-dfdc-47ec-a1a6-bae374ae9376"/>
+<img width="100" alt="logoImage" src="https://github.com/Sangwonsdsd/WindWorks_Project/assets/91966029/7415d9bb-dfdc-47ec-a1a6-bae374ae9376"/>
 ### 프로젝트 개요
 - 개발 기간: 2023-11-20 ~ 2023-01-02
 - 서비스 링크: [https://www.naver.com](https://www.naver.com)
@@ -21,7 +21,7 @@
   - [백엔드 README](./BACK.md)
   - [프론트엔드 README](./FRONT.md)
 
-## 기술 스택///////
+## 기술 스택
 `Front-End` 
 
 <img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white"/>
