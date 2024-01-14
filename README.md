@@ -2,17 +2,26 @@
 ![1 메인화면(전체)](https://github.com/Sangwonsdsd/WindWorks_Project/assets/91966029/51ec4fc1-85aa-4898-9764-7deaad617d73)
 > 필수적인 기능, 언제 어디서든, 쉽고 효율적으로 사용 할 수 있는 그룹웨어 서비스
 
+## Contents
+  1. 프로젝트 개요 
+  2. 기술 스택
+  3. 사용 라이브러리 및 API
+  4. 실행 방법
+  5. 주요기능
+  6. 문서
+
 ## 프로젝트 개요
 
 ![로고](./front/public/mainlogo.png)
-
+<img width="461" alt="logoImage" src="https://github.com/Sangwonsdsd/WindWorks_Project/assets/91966029/7415d9bb-dfdc-47ec-a1a6-bae374ae9376"/>
+### 프로젝트 개요
 - 개발 기간: 2023-11-20 ~ 2023-01-02
 - 서비스 링크: [https://www.naver.com](https://www.naver.com)
 - 본 프로젝트의 구조를 더 자세히 알고 싶다면?
   - [백엔드 README](./BACK.md)
   - [프론트엔드 README](./FRONT.md)
 
-## 기술 스택
+## 기술 스택///////
 `Front-End` 
 
 <img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white"/>
