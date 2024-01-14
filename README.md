@@ -1,4 +1,5 @@
-# WIND WORKS
+# WIND WORKS![mainLogo](https://github.com/Sangwonsdsd/WindWorks_Project/assets/91966029/3a98be36-1b95-4b1c-a1c4-bb6066c8ce39)
+
 > 필수적인 기능, 언제 어디서든, 쉽고 효율적으로 사용 할 수 있는 그룹웨어 서비스
 
 ## 프로젝트 개요
