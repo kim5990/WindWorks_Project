@@ -23,14 +23,12 @@
 
 <img src="https://img.shields.io/badge/html5-E34F26?style=flat-square&logo=Typescript&logoColor=white"/>
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=flat-square&logo=ReactQuery&logoColor=white"/>
-<img src="https://img.shields.io/badge/css3-#1572B6?style=flat-square&logo=Recoil&logoColor=white"/>
-<img src="https://img.shields.io/badge/jquery-#0769AD?style=flat-square&logo=styled-components&logoColor=white"/>
+<img src="https://img.shields.io/badge/css3-1572B6?style=flat-square&logo=Recoil&logoColor=white"/>
+<img src="https://img.shields.io/badge/jquery-0769AD?style=flat-square&logo=styled-components&logoColor=white"/>
 
 `Back-end`
 
 <img src="https://img.shields.io/badge/spring-6DB33F?style=flat-square&logo=Nestjs&logoColor=white">
-<img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white"/>
-<img src="https://img.shields.io/badge/mysql-4479A1?style=flat-square&logo=mysql&logoColor=white">
 
 `Communication`
 <img src="https://img.shields.io/badge/notion-000000?style=flat-square&logo=notion&logoColor=white">
