@@ -69,7 +69,7 @@ $ yarn dev
 ## 주요 기능
 
 ### ✏ 소중한 사람과 **공용 일기장**을 만들어 서로의 일상을 공유할 수 있어요.  
-  <img src="" height="300">
+  <img src="https://github.com/Sangwonsdsd/WindWorks_Project/assets/91966029/4040ee20-59c0-4af6-91ec-95a7f30035ed" height="300">
   <img src="" height="300">
   <img src="" height="300">
   <img src="" height="300">
