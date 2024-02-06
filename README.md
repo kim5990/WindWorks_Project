@@ -6,10 +6,10 @@
 
 | 이름 | 포지션 | Contact |
 | --- | --- | --- |
-| 김효주 | 조장,일정관리 | github.com/kim5990 |
-| 권두원 | 형상관리 | github.com/KwonDooWon |
-| 박준 | DB관리 | github.com/junybuny |
-| 최상원 | 이슈관리 | github.com/Sangwonsdsd |
+| 김효주 | 조장,일정관리 | [@kim5990](https://github.com/kim5990) |
+| 권두원 | 형상관리 | [@KwonDooWon](https://github.com/KwonDooWon) |
+| 박준 | DB관리 | [@junybuny](https://github.com/junybuny) |
+| 최상원 | 이슈관리 | [@Sangwonsdsd](https://github.com/Sangwonsdsd) |
 
 
 ## 소개 및 사용법
