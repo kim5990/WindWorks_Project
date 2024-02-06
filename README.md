@@ -10,3 +10,15 @@
 | 권두원 | 형상관리 | github.com/KwonDooWon |
 | 박준 | DB관리 | github.com/junybuny |
 | 최상원 | 이슈관리 | github.com/Sangwonsdsd |
+
+## 주요기능
+![ww주요기능](https://github.com/kim5990/WindWorks_Project/assets/152765272/eac35872-84cc-4831-87a9-dd5d0dab443a)
+
+
+## 개발환경
+![ww환경](https://github.com/kim5990/WindWorks_Project/assets/152765272/16662108-50d0-47e1-9d6e-9ae8a8881494)
+
+
+## ERD
+![wwERD](https://github.com/kim5990/WindWorks_Project/assets/152765272/8d93dc65-e9a8-4807-8f55-ec9e20fb9c5c)
+
