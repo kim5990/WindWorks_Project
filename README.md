@@ -6,7 +6,7 @@
 
 | 이름 | 포지션 | Contact |
 | --- | --- | --- |
-| 권두원김효주 | 조장,일정관리 | github.com/kim5990 |
+| 김효주 | 조장,일정관리 | github.com/kim5990 |
 | 권두원 | 형상관리 | github.com/KwonDooWon |
 | 박준 | DB관리 | github.com/junybuny |
 | 최상원 | 이슈관리 | github.com/Sangwonsdsd |
