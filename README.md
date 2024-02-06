@@ -22,3 +22,7 @@
 ## ERD
 ![wwERD](https://github.com/kim5990/WindWorks_Project/assets/152765272/8d93dc65-e9a8-4807-8f55-ec9e20fb9c5c)
 
+
+## 소개 및 사용법
+[WW_Project.pdf](https://github.com/kim5990/WindWorks_Project/blob/main/WW_Project.pdf)
+
