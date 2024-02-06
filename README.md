@@ -7,6 +7,6 @@
 | 이름 | 포지션 | Contact |
 | --- | --- | --- |
 | 권두원 | 형상관리 | github.com/KwonDooWon |
-| 김효주 | 일정관리 | github.com/HJ5990 |
+| 김효주 | 일정관리 | github.com/kim5990 |
 | 박준 | DB관리 | github.com/junybuny |
 | 최상원 | 이슈관리 | github.com/Sangwonsdsd |
