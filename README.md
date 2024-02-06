@@ -11,6 +11,10 @@
 | 박준 | DB관리 | github.com/junybuny |
 | 최상원 | 이슈관리 | github.com/Sangwonsdsd |
 
+## 소개 및 사용법
+[WW_Project.pdf](https://github.com/kim5990/WindWorks_Project/blob/main/WW_Project.pdf)
+
+
 ## 주요기능
 ![ww주요기능](https://github.com/kim5990/WindWorks_Project/assets/152765272/eac35872-84cc-4831-87a9-dd5d0dab443a)
 
@@ -23,6 +27,4 @@
 ![wwERD](https://github.com/kim5990/WindWorks_Project/assets/152765272/8d93dc65-e9a8-4807-8f55-ec9e20fb9c5c)
 
 
-## 소개 및 사용법
-[WW_Project.pdf](https://github.com/kim5990/WindWorks_Project/blob/main/WW_Project.pdf)
 
